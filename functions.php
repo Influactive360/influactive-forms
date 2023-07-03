@@ -116,7 +116,6 @@ function influactive_form_shortcode_handler($atts): string
     return "Form Output for ID {$form_id}";
 }
 
-// Ajouter le métabox pour afficher le shortcode
 add_action('add_meta_boxes', 'influactive_form_add_meta_boxes');
 function influactive_form_add_meta_boxes(): void
 {
