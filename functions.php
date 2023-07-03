@@ -35,7 +35,7 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_form
 
 function influactive_forms_add_settings_link($links)
 {
-    $settings_link = '<a href="admin.php?page=influactive-form-settings">' . __('Settings') . '</a>';
+    $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Settings') . '</a>';
     $links[] = $settings_link;
     return $links;
 }
