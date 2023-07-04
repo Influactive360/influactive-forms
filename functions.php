@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name: Forms everywhere by Influactive
- * Description: Un plugin pour créer des formulaires personnalisés
+ * Description: A plugin to create custom forms and display them anywhere on your website.
  * Version: 1.0
  * Author: Influactive
  * Author URI: https://influactive.com
  * Text Domain: influactive-forms
  * Domain Path: /languages
  * License: GPL2
- * License URI: https://www. gnu.org/licenses/gpl-2.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  **/
 
 if (!defined('ABSPATH')) {
@@ -141,5 +141,86 @@ function influactive_form_posts_custom_column($column, $post_id): void
 {
     if ($column === 'shortcode') {
         echo '[influactive_form id="' . $post_id . '"]';
+    }
+}
+
+// Ajouter le métabox pour les champs de texte
+add_action('add_meta_boxes', 'influactive_form_add_meta_boxes_2');
+function influactive_form_add_meta_boxes_2(): void
+{
+    add_meta_box('influactive_form_fields', 'Form Fields', 'influactive_form_fields_metabox', 'influactive-forms');
+}
+
+function influactive_form_fields_metabox($post): void
+{
+    $fields = get_post_meta($post->ID, '_influactive_form_fields', true);
+
+    echo '<div id="influactive_form_fields_container">';
+
+    if (is_array($fields)) {
+        foreach ($fields as $field) {
+            echo '<p><label>Type <select name="influactive_form_fields_type[]">';
+            echo '<option value="text" ' . (isset($field['type']) && $field['type'] === 'text' ? 'selected' : '') . '>Text</option>';
+            echo '<option value="email" ' . (isset($field['type']) && $field['type'] === 'email' ? 'selected' : '') . '>Email</option>';
+            echo '<option value="number" ' . (isset($field['type']) && $field['type'] === 'number' ? 'selected' : '') . '>Number</option>';
+            echo '<option value="textarea" ' . (isset($field['type']) && $field['type'] === 'textarea' ? 'selected' : '') . '>Textarea</option>';
+            echo '<option value="select" ' . (isset($field['type']) && $field['type'] === 'select' ? 'selected' : '') . '>Select</option>';
+            echo '<option value="checkbox" ' . (isset($field['type']) && $field['type'] === 'checkbox' ? 'selected' : '') . '>Checkbox</option>';
+            echo '</select></label>';
+            echo '<label>Label <input type="text" name="influactive_form_fields_label[]" value="' . esc_attr($field['label']) . '"></label> ';
+            echo '<label>Name <input type="text" name="influactive_form_fields_name[]" value="' . esc_attr($field['name']) . '"></label> ';
+            if (isset($field['type']) && $field['type'] === 'select') {
+                echo '<div class="options_container">';
+                if (is_array($field['options'])) {
+                    foreach ($field['options'] as $option) {
+                        echo '<p><label>Option <input type="text" name="influactive_form_fields_option[]" value="' . esc_attr($option) . '"></label> <a href="#" class="remove_option">Remove option</a></p>';
+                    }
+                }
+                echo '</div>';
+                echo '<a href="#" class="add_option">Add option</a>';
+            }
+            echo '<a href="#" class="remove_field">Remove</a></p>';
+        }
+    }
+
+    echo '</div>';
+
+    echo '<p><a href="#" id="add_field">Add Field</a></p>';
+}
+
+add_action('admin_enqueue_scripts', 'influactive_form_admin_scripts');
+function influactive_form_admin_scripts($hook): void
+{
+    if ('post.php' !== $hook && 'post-new.php' !== $hook) {
+        return;
+    }
+
+    wp_enqueue_script('influactive-form-admin', plugin_dir_url(__FILE__) . 'admin.js', array('jquery'), '1.0', true);
+}
+
+
+// Enregistrement des champs
+add_action('save_post', 'influactive_form_save_post');
+function influactive_form_save_post($post_id): void
+{
+    if (get_post_type($post_id) === 'influactive-forms') {
+        $fields_label = $_POST['influactive_form_fields_label'] ?? [];
+        $fields_name = $_POST['influactive_form_fields_name'] ?? [];
+        $fields_type = $_POST['influactive_form_fields_type'] ?? [];
+        $fields_options = $_POST['influactive_form_fields_option'] ?? [];
+        $fields = [];
+
+
+        for ($i = 0, $iMax = count($fields_label); $i < $iMax; $i++) {
+            $fields[] = [
+                'type' => sanitize_text_field($fields_type[$i]),
+                'label' => sanitize_text_field($fields_label[$i]),
+                'name' => sanitize_text_field($fields_name[$i]),
+                'options' => isset($fields_options[$i]) ? array_map('sanitize_text_field', explode(',', $fields_options[$i])) : [],
+            ];
+        }
+
+
+        update_post_meta($post_id, '_influactive_form_fields', $fields);
     }
 }
