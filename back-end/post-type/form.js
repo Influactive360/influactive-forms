@@ -204,11 +204,18 @@ function createOptionElement() {
 }
 
 function recalculateFieldIndexes() {
-  let container = document.getElementById("influactive_form_fields_container");
-  Array.from(container.getElementsByClassName("influactive_form_field")).forEach(function(formField, index) {
-    formField.querySelector(".field_type").name = "influactive_form_fields_type[" + index + "]";
-    formField.querySelector(".influactive_form_fields_label").name = "influactive_form_fields_label[" + index + "]";
-    formField.querySelector(".influactive_form_fields_name").name = "influactive_form_fields_name[" + index + "]";
-    formField.querySelector(".influactive_form_fields_order").name = "influactive_form_fields_order[" + index + "]";
+  const container = document.getElementById("influactive_form_fields_container");
+  const formFields = Array.from(container.getElementsByClassName("influactive_form_field"));
+
+  formFields.forEach((formField, index) => {
+    const fieldType = formField.querySelector(".field_type");
+    const formLabel = formField.querySelector(".influactive_form_fields_label");
+    const formName = formField.querySelector(".influactive_form_fields_name");
+    const formOrder = formField.querySelector(".influactive_form_fields_order");
+
+    fieldType.name = `influactive_form_fields_type[${index}]`;
+    formLabel.name = `influactive_form_fields_label[${index}]`;
+    formName.name = `influactive_form_fields_name[${index}]`;
+    formOrder.name = `influactive_form_fields_order[${index}]`;
   });
 }
