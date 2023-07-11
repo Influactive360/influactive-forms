@@ -1,0 +1,25 @@
+#influactive_form_layout_container {
+  padding: 15px;
+  background-color: #f7f7f7;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+#influactive_form_layout_container > p {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+#influactive_form_layout_container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#influactive_form_layout_container textarea, #influactive_form_layout_container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
