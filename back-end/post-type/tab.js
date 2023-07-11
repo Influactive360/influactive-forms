@@ -1,13 +1,28 @@
-jQuery(document).ready(function($) {
-  $('.tabs .tab-links a').on('click', function(e) {
-    const currentAttrValue = jQuery(this).attr('href');
+document.addEventListener('DOMContentLoaded', function() {
+  const tabsContainer = document.querySelector('.tabs');
 
-    // Show/Hide Tabs
-    $('.tabs ' + currentAttrValue).show().siblings().hide();
+  tabsContainer.addEventListener('click', function(e) {
+    const target = e.target;
 
-    // Change/remove current tab to active
-    $(this).parent('li').addClass('active').siblings().removeClass('active');
+    if (target.matches('.tab-links a')) {
+      e.preventDefault();
 
-    e.preventDefault();
+      const currentAttrValue = target.getAttribute('href');
+
+      // Hide all tabs
+      const allTabs = document.querySelectorAll('.tabs .tab');
+      allTabs.forEach(tab => tab.style.display = 'none');
+
+      // Show the current tab
+      const currentTab = document.querySelector(currentAttrValue);
+      currentTab.style.display = 'block';
+
+      // Remove active class from all tab links
+      const allTabLinks = document.querySelectorAll('.tabs .tab-links a');
+      allTabLinks.forEach(link => link.parentElement.classList.remove('active'));
+
+      // Add active class to the current tab link
+      target.parentElement.classList.add('active');
+    }
   });
 });
