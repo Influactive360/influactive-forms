@@ -2,20 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   const container = document.getElementById("influactive_form_fields_container");
-  let state = Array.from(document.querySelectorAll('.influactive_form_field')).map(field => field.dataset.key);
-
-  new Sortable(container, {
-    handle: '.influactive_form_field',
-    animation: 150,
-    onEnd: function(evt) {
-      const itemKey = evt.item.dataset.key;
-      const oldIndex = evt.oldIndex;
-      const newIndex = evt.newIndex;
-
-      state.splice(oldIndex, 1);  // remove itemKey from old position
-      state.splice(newIndex, 0, itemKey);  // insert itemKey at new position
-    },
-  });
 
   new Sortable(container, {
     handle: '.influactive_form_field', // This class should be on the elements you want to be draggable
@@ -83,7 +69,26 @@ function swapFieldHandler(e) {
 
     // Detach the events from the original field and attach them to the cloned field
     attachEventsToField(formFieldClone);
+
+    // Update the name attributes of the option fields in case the field has options
+    if (formFieldClone.querySelector(".field_type").value === "select") {
+      let order = formFieldClone.querySelector(".influactive_form_fields_order").value;
+      let options = formFieldClone.querySelectorAll(".influactive_form_fields_option");
+      options.forEach(option => {
+        option.name = `influactive_form_fields_option[${order}][]`;
+      });
+    }
   }
+  updateFieldOrder();
+}
+
+function updateFieldOrder() {
+  const container = document.getElementById("influactive_form_fields_container");
+  Array.from(container.getElementsByClassName("influactive_form_field")).forEach((formField, index) => {
+    formField.querySelector(".influactive_form_fields_order").value = index;
+  });
+
+  recalculateFieldIndexes();
 }
 
 function attachEventsToField(formField) {
@@ -119,6 +124,8 @@ function addFieldHandler(e) {
   if (addOptionBtn) {
     addOptionBtn.addEventListener("click", addOptionHandler);
   }
+
+  recalculateFieldIndexes();
 }
 
 function fieldTypeChangeHandler(fieldElement) {
@@ -149,8 +156,8 @@ function addOptionHandler(e) {
 
   optionsContainer.appendChild(optionElement);
 
-  let influactive_form_fields_name = optionElement.closest(".influactive_form_field").querySelector("input[name*='influactive_form_fields_name']").value;
-  optionElement.querySelector("input[name*='influactive_form_fields_option']").name = "influactive_form_fields_option[" + influactive_form_fields_name + "][]";
+  let influactive_form_fields_order = optionElement.closest(".influactive_form_field").querySelector("input[name*='influactive_form_fields_order']").value;
+  optionElement.querySelector("input[name*='influactive_form_fields_option']").name = "influactive_form_fields_option[" + influactive_form_fields_order + "][]";
 }
 
 function removeFieldHandler(e) {
@@ -162,6 +169,7 @@ function removeFieldHandler(e) {
 function removeOptionHandler(e) {
   e.preventDefault();
   e.target.closest(".option-field").remove();
+  recalculateFieldIndexes();
 }
 
 function createFieldElement() {
@@ -177,9 +185,11 @@ function createFieldElement() {
     "</select></label> " +
     "<label>Label <input type='text' name='influactive_form_fields_label[]'></label> " +
     "<label>Name <input type='text' name='influactive_form_fields_name[]'></label> " +
-    "<a href='#' class='remove_field'>Remove</a> " +
-    "</p>" +
-    "<div class='options_container'></div>";
+    "<div class='options_container'></div>" +
+    "<input type='hidden' name='influactive_form_fields_order[]' class='influactive_form_fields_order'>" +
+    "<a href='#' class='remove_field'>Remove the field</a> " +
+    "</p>";
+
   return fieldElement;
 }
 
@@ -199,6 +209,6 @@ function recalculateFieldIndexes() {
     formField.querySelector(".field_type").name = "influactive_form_fields_type[" + index + "]";
     formField.querySelector(".influactive_form_fields_label").name = "influactive_form_fields_label[" + index + "]";
     formField.querySelector(".influactive_form_fields_name").name = "influactive_form_fields_name[" + index + "]";
-    formField.querySelector(".influactive_form_fields_option").name = "influactive_form_fields_option[" + formField.querySelector(".influactive_form_fields_name").name + "][]";
+    formField.querySelector(".influactive_form_fields_order").name = "influactive_form_fields_order[" + index + "]";
   });
 }

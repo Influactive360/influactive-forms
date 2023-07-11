@@ -4,10 +4,44 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-add_action('add_meta_boxes', 'influactive_form_add_meta_boxes');
-function influactive_form_add_meta_boxes(): void
+// Add metabox for influactive forms
+add_action('add_meta_boxes', 'influactive_form_add_metaboxes');
+function influactive_form_add_metaboxes(): void
 {
-    add_meta_box('influactive_form_shortcode', 'Shortcode', 'influactive_form_shortcode_metabox', 'influactive-forms');
+    add_meta_box('influactive_form_metabox', 'Influactive Form', 'influactive_form_metabox', 'influactive-forms');
+}
+
+function influactive_form_metabox($post): void
+{
+    ?>
+    <div class="tabs">
+        <ul class="tab-links">
+            <li class="active"><a href="#shortcode">Shortcode</a></li>
+            <li><a href="#fields">Form Fields</a></li>
+            <li><a href="#style">Form Style</a></li>
+            <li><a href="#email">Email Style</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="shortcode" class="tab active">
+                <!-- Shortcode content -->
+                <h2>Shortcode</h2>
+                <?php influactive_form_shortcode_metabox($post); ?>
+            </div>
+            <div id="fields" class="tab">
+                <!-- Form fields content -->
+                <h2>Form Fields</h2>
+                <?php influactive_form_fields_listing($post); ?>
+            </div>
+            <div id="style" class="tab">
+                <!-- Form style content -->
+            </div>
+            <div id="email" class="tab">
+                <!-- Email style content -->
+            </div>
+        </div>
+    </div>
+    <?php
 }
 
 
@@ -16,18 +50,9 @@ function influactive_form_shortcode_metabox($post): void
     echo '[influactive_form id="' . $post->ID . '"]';
 }
 
-// Ajouter le métabox pour les champs de texte
-add_action('add_meta_boxes', 'influactive_form_add_form');
-function influactive_form_add_form(): void
-{
-    add_meta_box('influactive_form_fields', 'Form Fields', 'influactive_form_fields_listing', 'influactive-forms');
-}
-
 function influactive_form_fields_listing($post): void
 {
     $fields = get_post_meta($post->ID, '_influactive_form_fields', true);
-
-    var_dump($fields);
 
     echo '<div id="influactive_form_fields_container">';
 
@@ -47,13 +72,14 @@ function influactive_form_fields_listing($post): void
                 echo '<div class="options_container">';
                 if (is_array($field['options'])) {
                     foreach ($field['options'] as $option) {
-                        echo '<p class="option-field"><label>Option <input type="text" name="influactive_form_fields_option[' . esc_attr($field['name']) . '][]" value="' . esc_attr($option) . '"></label> <a href="#" class="remove_option">Remove option</a></p>';
+                        echo '<p class="option-field"><label>Option <input type="text" name="influactive_form_fields_option[' . esc_attr($key) . '][]" value="' . esc_attr($option) . '"></label> <a href="#" class="remove_option">Remove option</a></p>';
                     }
                 }
                 echo '</div>';
                 echo '<p><a href="#" class="add_option">Add option</a></p>';
             }
-            echo '<a href="#" class="remove_field">Remove</a></p>';
+            echo '<input type="hidden" name="influactive_form_fields_order[' . $key . ']" value="' . $key . '">';
+            echo '<a href="#" class="remove_field">Remove the field</a></p>';
             echo '</div>';
         }
     }
@@ -72,22 +98,27 @@ function influactive_form_save_post($post_id): void
         $fields_name = $_POST['influactive_form_fields_name'] ?? [];
         $fields_type = $_POST['influactive_form_fields_type'] ?? [];
         $fields_options = $_POST['influactive_form_fields_option'] ?? [];
+        $field_order = $_POST['influactive_form_fields_order'] ?? [];
         $fields = [];
 
         for ($i = 0, $iMax = count($fields_label); $i < $iMax; $i++) {
             $options = [];
-            if (isset($fields_options[$fields_name[$i]])) {
-                $options = is_array($fields_options[$fields_name[$i]])
-                    ? array_map('sanitize_text_field', $fields_options[$fields_name[$i]])
-                    : [sanitize_text_field($fields_options[$fields_name[$i]])];
+            if (isset($fields_options[$field_order[$i]])) {
+                $options = is_array($fields_options[$field_order[$i]])
+                    ? array_map('sanitize_text_field', $fields_options[$field_order[$i]])
+                    : [sanitize_text_field($fields_options[$field_order[$i]])];
             }
 
             $fields[] = [
                 'type' => sanitize_text_field($fields_type[$i]),
                 'label' => sanitize_text_field($fields_label[$i]),
                 'name' => sanitize_text_field($fields_name[$i]),
-                'options' => $options
+                'order' => (int)$field_order[$i],
             ];
+
+            if ($fields[$i]['type'] === 'select' && empty($fields[$i]['options'])) {
+                $fields[$i]['options'] = $options;
+            }
         }
 
         update_post_meta($post_id, '_influactive_form_fields', $fields);
