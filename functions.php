@@ -35,6 +35,10 @@ function influactive_form_edit($hook): void
         return;
     }
 
-    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/admin.js', array('influactive-form-sortable'), '1.0', true);
-    wp_enqueue_script('influactive-form-sortable', 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js', array(), '1.0', true);
+    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/form.js', array('influactive-form-sortable'), '1.0', true);
+    wp_enqueue_script('influactive-form-sortable', 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js', array(), '1.0', true);
+    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/form.css', array(), '1.0');
+
+    wp_enqueue_script('influactive-tabs', plugin_dir_url(__FILE__) . 'back-end/post-type/tab.js', array('jquery'), '1.0', true);
+    wp_enqueue_style('influactive-tabs', plugin_dir_url(__FILE__) . 'back-end/post-type/tab.css', array(), '1.0');
 }
