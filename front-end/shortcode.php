@@ -118,18 +118,32 @@ function influactive_send_email(): void
     $sitename = get_bloginfo('name');
 
     foreach ($fields as $field) {
-        if ($field['type'] === 'select') {
-            $label_value = explode(':', sanitize_text_field($_POST[$field['name']]));
+        // Convert textarea newlines to HTML breaks
+        if ($field['type'] === 'textarea') {
+            $_POST[$field['name']] = nl2br($_POST[$field['name']]);
+            $allowed_html = array(
+                'br' => array()
+            );
+            $content = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $content);
+            $subject = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $subject);
+            $to = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $to);
+            $from = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $from);
+        } else if ($field['type'] === 'select') {
             $content = replace_field_placeholder($content, $field['name'], explode(':', $_POST[$field['name']]));
             $subject = replace_field_placeholder($subject, $field['name'], explode(':', $_POST[$field['name']]));
             $to = replace_field_placeholder($to, $field['name'], explode(':', $_POST[$field['name']]));
             $from = replace_field_placeholder($from, $field['name'], explode(':', $_POST[$field['name']]));
+        } else if ($field['type'] === 'email') {
+            $content = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $content);
+            $subject = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $subject);
+            $to = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $to);
+            $from = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $from);
+        } else {
+            $content = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $content);
+            $subject = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $subject);
+            $to = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $to);
+            $from = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $from);
         }
-
-        $content = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $content);
-        $subject = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $subject);
-        $to = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $to);
-        $from = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $from);
     }
 
     $from = sanitize_email($from);
