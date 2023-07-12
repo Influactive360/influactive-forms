@@ -20,6 +20,7 @@ function influactive_form_metabox($post): void
             <li class="active"><a href="#fields">Form Fields</a></li>
             <li><a href="#style">Form Style</a></li>
             <li><a href="#email">Email Layout</a></li>
+            <li><a href="#preview">Form preview</a></li>
         </ul>
 
         <div class="tab-content">
@@ -38,6 +39,10 @@ function influactive_form_metabox($post): void
                 <h2>Email Layout</h2>
                 <?php influactive_form_email_layout($post); ?>
             </div>
+            <div id="preview" class="tab">
+                <!-- Form preview content -->
+                <h2>Form preview</h2>
+                <?php do_shortcode('[influactive_form id="' . $post->ID . '"]'); ?>
         </div>
     </div>
     <?php

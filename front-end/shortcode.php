@@ -29,6 +29,8 @@ function influactive_form_shortcode_handler($atts): void
 
         $fields = get_post_meta($form_id, '_influactive_form_fields', true);
 
+		echo '<div class="influactive-form-wrapper">';
+
         echo '<form id="influactive-form-' . $form_id . '" class="influactive-form">';
 
         wp_nonce_field('influactive_send_email', 'nonce');
@@ -68,7 +70,7 @@ function influactive_form_shortcode_handler($atts): void
 
         echo '<div class="influactive-form-message"></div>';
         echo '</form>';
-
+		echo '</div>';
     }
 }
 

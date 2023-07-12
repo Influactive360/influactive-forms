@@ -29,7 +29,7 @@ $submit = $email_style['submit'];
 
 ob_start();
 ?>
-form.influactive-form {
+.influactive-form-wrapper {
     padding: <?= $form['padding'] ?>;
     background-color: <?= $form['background_color'] ?>;
     border-width: <?= $form['border_width'] ?>;
@@ -37,7 +37,7 @@ form.influactive-form {
     border-color: <?= $form['border_color'] ?>;
 }
 
-form.influactive-form label {
+.influactive-form-wrapper label {
     font-weight: <?= $label['font_weight'] ?>;
     font-family: <?= $label['font_family'] ?>;
     font-size: <?= $label['font_size'] ?>;
@@ -45,11 +45,11 @@ form.influactive-form label {
     line-height: <?= $label['line_height'] ?>;
 }
 
-form.influactive-form input[type="text"],
-form.influactive-form input[type="email"],
-form.influactive-form input[type="number"],
-form.influactive-form textarea,
-form.influactive-form select {
+.influactive-form-wrapper input[type="text"],
+.influactive-form-wrapper input[type="email"],
+.influactive-form-wrapper input[type="number"],
+.influactive-form-wrapper textarea,
+.influactive-form-wrapper select {
     padding: <?= $input['padding'] ?>;
     border-width: <?= $input['border_width'] ?>;
     border-style: <?= $input['border_style'] ?>;
@@ -63,7 +63,7 @@ form.influactive-form select {
     line-height: <?= $input['line_height'] ?>;
 }
 
-form.influactive-form input[type="checkbox"] {
+.influactive-form-wrapper input[type="checkbox"] {
     color: <?= $input['font_color'] ?>;
     font-size: <?= $input['font_size'] ?>;
     font-weight: <?= $input['font_weight'] ?>;
@@ -71,7 +71,7 @@ form.influactive-form input[type="checkbox"] {
     line-height: <?= $input['line_height'] ?>;
 }
 
-form.influactive-form input[type="submit"] {
+.influactive-form-wrapper input[type="submit"] {
     padding: <?= $submit['padding'] ?>;
     color: <?= $submit['font_color'] ?>;
     background-color: <?= $submit['background_color'] ?>;
@@ -85,7 +85,7 @@ form.influactive-form input[type="submit"] {
     line-height: <?= $submit['line_height'] ?>;
 }
 
-form.influactive-form input[type="submit"]:hover {
+.influactive-form-wrapper input[type="submit"]:hover {
     background-color: <?= $submit['background_hover_color'] ?>;
     color: <?= $submit['font_hover_color'] ?>;
 }
