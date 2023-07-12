@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const response = JSON.parse(xhr.responseText);
         if (response.data && response.data.sent) {
           // Display the success message in the div
-          messageDiv.textContent = 'Email envoyé avec succès';
+          messageDiv.textContent = response.data.message;
           form.reset();
           // attendre 2 secondes et cacher le message
           setTimeout(function() {
@@ -26,8 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }, 2000);
         } else {
           // Display the error message in the div
-          messageDiv.textContent = 'Une erreur s\'est produite lors de l\'envoi de l\'email';
-          console.log(response, xhr)
+          messageDiv.textContent = response.data.message;
         }
       } else {
         // Display the AJAX error message in the div

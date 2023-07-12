@@ -17,13 +17,13 @@ function influactive_form_metabox($post): void
     <?php influactive_form_shortcode($post); ?>
     <div class="tabs">
         <ul class="tab-links">
-            <li class="active"><a href="#fields">Form Fields</a></li>
+            <li><a href="#fields">Form Fields</a></li>
             <li><a href="#style">Form Style</a></li>
-            <li><a href="#email">Email Layout</a></li>
+            <li class="active"><a href="#email">Email Layout</a></li>
         </ul>
 
         <div class="tab-content">
-            <div id="fields" class="tab active">
+            <div id="fields" class="tab">
                 <!-- Form fields content -->
                 <h2>Form Fields</h2>
                 <?php influactive_form_fields_listing($post); ?>
@@ -33,7 +33,7 @@ function influactive_form_metabox($post): void
                 <h2>Form Style</h2>
                 <?php influactive_form_email_style($post); ?>
             </div>
-            <div id="email" class="tab">
+            <div id="email" class="tab active">
                 <!-- Email style content -->
                 <h2>Email Layout</h2>
                 <?php influactive_form_email_layout($post); ?>
@@ -57,26 +57,35 @@ function influactive_form_fields_listing($post): void
     if (is_array($fields)) {
         foreach ($fields as $key => $field) {
             echo '<div class="influactive_form_field">';
-            echo '<p><label>Type <select name="influactive_form_fields_type[]" class="field_type">';
+            echo '<p><label>Type <select name="influactive_form_fields[' . (int)$key . '][type]" class="field_type">';
             echo '<option value="text" ' . (isset($field['type']) && $field['type'] === 'text' ? 'selected' : '') . '>Text</option>';
             echo '<option value="email" ' . (isset($field['type']) && $field['type'] === 'email' ? 'selected' : '') . '>Email</option>';
             echo '<option value="number" ' . (isset($field['type']) && $field['type'] === 'number' ? 'selected' : '') . '>Number</option>';
             echo '<option value="textarea" ' . (isset($field['type']) && $field['type'] === 'textarea' ? 'selected' : '') . '>Textarea</option>';
             echo '<option value="select" ' . (isset($field['type']) && $field['type'] === 'select' ? 'selected' : '') . '>Select</option>';
             echo '</select></label>';
-            echo '<label>Label <input type="text" name="influactive_form_fields_label[' . $key . ']" value="' . esc_attr($field['label']) . '"></label> ';
-            echo '<label>Name <input type="text" name="influactive_form_fields_name[' . $key . ']" value="' . strtolower(esc_attr($field['name'])) . '"></label> ';
+            echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label"></label> ';
+            echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name"></label> ';
             if (isset($field['type']) && $field['type'] === 'select') {
                 echo '<div class="options_container">';
                 if (is_array($field['options'])) {
-                    foreach ($field['options'] as $option) {
-                        echo '<p class="option-field"><label>Option <input type="text" name="influactive_form_fields_option[' . esc_attr($key) . '][]" value="' . esc_attr($option) . '"></label> <a href="#" class="remove_option">Remove option</a></p>';
+                    foreach ($field['options'] as $option_index => $option) {
+                        echo '<p class="option-field" data-index="' . $option_index . '">';
+                        echo '<label>Option Label';
+                        echo '<input type="text" class="option-label" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][label]" value="' . esc_attr($option['label']) . '">';
+                        echo '</label>';
+                        echo '<label>Option Value';
+                        echo '<input type="text" class="option-value" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][value]" value="' . esc_attr($option['value']) . '">';
+                        echo '</label>';
+                        echo '<a href="#" class="remove_option">Remove option</a>';
+                        echo '</p>';
                     }
                 }
                 echo '</div>';
                 echo '<p><a href="#" class="add_option">Add option</a></p>';
             }
-            echo '<input type="hidden" name="influactive_form_fields_order[' . $key . ']" value="' . $key . '">';
+
+            echo '<input type="hidden" name="influactive_form_fields[' . (int)$key . '][order]" value="' . (int)$key . '" class="influactive_form_fields_order">';
             echo '<a href="#" class="remove_field">Remove the field</a></p>';
             echo '</div>';
         }
@@ -180,18 +189,25 @@ function influactive_form_email_layout($post): void
     <?php
 
     // List all influactive_form_fields_name like "{field_name}"
-    $fields = get_post_meta($post->ID, '_influactive_form_fields', true);
-    $fields_name = [];
-    if (is_array($fields)) {
-        foreach ($fields as $field) {
-            $fields_name[] = '{' . $field['name'] . '}';
-        }
-    }
+    $fields = get_post_meta($post->ID, '_influactive_form_fields', true) ?? [];
     ?>
     <p><strong>Fields available in the email</strong></p>
     <ul>
-        <?php foreach ($fields_name as $field_name): ?>
-            <li><code><?= strtolower($field_name) ?></code></li>
+        <?php foreach ($fields as $field): ?>
+            <?php if ($field['type'] === 'select'): ?>
+                <li>
+                    <code>
+                        {<?= strtolower($field['name']) ?>:label}
+                    </code>
+                </li>
+                <li>
+                    <code>
+                        {<?= strtolower($field['name']) ?>:value}
+                    </code>
+                </li>
+            <?php else: ?>
+                <li><code>{<?= strtolower($field['name']) ?>}</code></li>
+            <?php endif; ?>
         <?php endforeach; ?>
     </ul>
     <?php
@@ -202,30 +218,37 @@ add_action('save_post', 'influactive_form_save_post');
 function influactive_form_save_post($post_id): void
 {
     if (get_post_type($post_id) === 'influactive-forms') {
-        $fields_label = $_POST['influactive_form_fields_label'] ?? [];
-        $fields_name = $_POST['influactive_form_fields_name'] ?? [];
-        $fields_type = $_POST['influactive_form_fields_type'] ?? [];
-        $fields_options = $_POST['influactive_form_fields_option'] ?? [];
-        $field_order = $_POST['influactive_form_fields_order'] ?? [];
-        $fields = [];
+        $fields = $_POST['influactive_form_fields'] ?? [];
+        $fields_type = $_POST['influactive_form_fields']['type'] ?? [];
+        $fields_label = $_POST['influactive_form_fields']['label'] ?? [];
+        $fields_name = $_POST['influactive_form_fields']['name'] ?? [];
+        $fields_options = $_POST['influactive_form_fields']['options'] ?? [];
+        $field_order = $_POST['influactive_form_fields']['order'] ?? [];
 
         for ($i = 0, $iMax = count($fields_name); $i < $iMax; $i++) {
-            $options = [];
+            $options = [
+                'label' => '',
+                'value' => '',
+            ];
             if (isset($fields_options[$field_order[$i]])) {
-                $options = is_array($fields_options[$field_order[$i]])
-                    ? array_map('sanitize_text_field', $fields_options[$field_order[$i]])
-                    : [sanitize_text_field($fields_options[$field_order[$i]])];
+                foreach ($fields_options[$field_order[$i]] as $key => $option) {
+                    $options[$key] = is_array($option)
+                        ? array_map('sanitize_text_field', $option)
+                        : sanitize_text_field($option);
+                }
             }
 
-            $fields[] = [
+
+            $fields[$i] = [
                 'type' => sanitize_text_field($fields_type[$i]),
                 'label' => sanitize_text_field($fields_label[$i]),
                 'name' => strtolower(sanitize_text_field($fields_name[$i])),
                 'order' => (int)$field_order[$i],
             ];
 
-            if ($fields[$i]['type'] === 'select' && empty($fields[$i]['options'])) {
-                $fields[$i]['options'] = $options;
+            if ($fields[$i]['type'] === 'select' && isset($fields_options[$field_order[$i]])) {
+                $fields[$i]['options']['label'] = $options['label'];
+                $fields[$i]['options']['value'] = $options['value'];
             }
         }
 
