@@ -67,7 +67,8 @@ function influactive_form_shortcode_handler($atts): void
     }
 }
 
-function enqueue_dynamic_style(): void
+add_action('wp_enqueue_scripts', 'enqueue_form_dynamic_style');
+function enqueue_form_dynamic_style(): void
 {
     if (is_admin()) {
         return;
@@ -76,14 +77,12 @@ function enqueue_dynamic_style(): void
     $post_id = $GLOBALS['influactive_form_id'] ?? '';
 
     // Enqueue du fichier dynamic-style.php
-    wp_enqueue_style('influactive-form-dynamic-style', plugin_dir_url(__FILE__) . 'front-end/dynamic-style.php?post_id=' . $post_id);
+    wp_enqueue_style('influactive-form-dynamic-style', plugin_dir_url(__FILE__) . '/dynamic-style.php?post_id=' . $post_id);
 }
 
-add_action('wp_enqueue_scripts', 'enqueue_dynamic_style');
 
 add_action('wp_ajax_send_email', 'influactive_send_email');
 add_action('wp_ajax_nopriv_send_email', 'influactive_send_email');
-
 function influactive_send_email(): void
 {
     // Check if our nonce is set and verify it.
