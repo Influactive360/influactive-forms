@@ -44,3 +44,16 @@ function influactive_form_edit($hook): void
 
     wp_enqueue_style('influactive-form-layout', plugin_dir_url(__FILE__) . 'back-end/post-type/layout.css', array(), '1.0');
 }
+
+add_action('wp_enqueue_scripts', 'influactive_form_shortcode_enqueue');
+function influactive_form_shortcode_enqueue(): void
+{
+    if (is_admin()) {
+        return;
+    }
+
+    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'front-end/form.min.js', array('jquery'), '1.0', true);
+    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'front-end/form.min.css', array(), '1.0');
+
+    wp_localize_script('influactive-form', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+}
