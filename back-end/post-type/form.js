@@ -79,6 +79,59 @@ function fieldTypeChangeHandler(fieldElement) {
       options_container.parentNode.insertBefore(addOptionElement, options_container.nextSibling);
 
       addOptionElement.addEventListener("click", addOptionHandler);
+    } else {
+      const addOptionElement = fieldElement.querySelector(".add_option");
+      if (addOptionElement) {
+        addOptionElement.remove();
+      }
+    }
+
+    const labelElement = fieldElement.querySelector(".influactive_form_fields_label");
+    const nameElement = fieldElement.querySelector(".influactive_form_fields_name");
+
+    if (fieldValue !== "gdpr") {
+      console.log('fieldValue !== "gdpr"');
+      // Check if the existing elements are of type "gpdr" and remove them if they are
+      if (labelElement && labelElement.dataset.type === "gdpr") {
+        console.log(labelElement);
+        labelElement.parentElement.remove();
+      }
+
+      if (nameElement && nameElement.value === "gdpr") {
+        console.log('nameElement && nameElement.value === "gdpr"');
+        nameElement.parentElement.remove();
+      }
+
+      // After potentially removing the "gpdr" elements, check again if the elements exist
+      const labelElementExists = fieldElement.querySelector(".influactive_form_fields_label");
+      const nameElementExists = fieldElement.querySelector(".influactive_form_fields_name");
+
+      // If they don't exist, create and append them
+      if (!labelElementExists && !nameElementExists) {
+        console.log('!labelElementExists && !nameElementExists');
+        const LabelElement = document.createElement('label')
+        LabelElement.innerHTML = "Label <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label'>";
+        const NameElement = document.createElement('label')
+        NameElement.innerHTML = "Name <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name'>";
+
+        // Append these elements to fieldElement or any other container element
+        fieldElement.appendChild(LabelElement);
+        fieldElement.appendChild(NameElement);
+      }
+    }
+
+    if (fieldValue === "gdpr") {
+
+      fieldElement.querySelector(".influactive_form_fields_label")?.parentElement.remove();
+      fieldElement.querySelector(".influactive_form_fields_name")?.parentElement.remove();
+      const gdprTextElement = document.createElement('label')
+      gdprTextElement.innerHTML = "Text <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' data-type='gdpr'>";
+      const gdprNameElement = document.createElement('label')
+      gdprNameElement.innerHTML = "<input type='hidden' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' value='gdpr'>";
+
+      // Append these elements to fieldElement or any other container element
+      fieldElement.appendChild(gdprTextElement);
+      fieldElement.appendChild(gdprNameElement);
     }
   }
 }
@@ -122,7 +175,6 @@ function removeOptionHandler(e) {
 function createFieldElement() {
   let fieldElement = document.createElement('div');
   let id = 0;
-  // compter le nombre de .influactive_form_field, il y a dans la page
   if (document.getElementsByClassName("influactive_form_field").length > 0) {
     id = document.getElementsByClassName("influactive_form_field").length;
   }
@@ -134,9 +186,10 @@ function createFieldElement() {
     "<option value='number'>Number</option>" +
     "<option value='textarea'>Textarea</option>" +
     "<option value='select'>Select</option>" +
+    "<option value='gdpr'>GDPR</option>" +
     "</select></label> " +
-    "<label>Label <input type='text' name='influactive_form_fields[" + id + "][label]'></label> " +
-    "<label>Name <input type='text' name='influactive_form_fields[" + id + "][name]'></label> " +
+    "<label>Label <input type='text' name='influactive_form_fields[" + id + "][label]' class='influactive_form_fields_label'></label> " +
+    "<label>Name <input type='text' name='influactive_form_fields[" + id + "][name]' class='influactive_form_fields_name'></label> " +
     "<div class='options_container'></div>" +
     "<input type='hidden' name='influactive_form_fields[" + id + "][order]' class='influactive_form_fields_order' value='" + id + "'>" +
     "<a href='#' class='remove_field'>Remove the field</a> " +

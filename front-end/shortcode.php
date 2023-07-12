@@ -56,6 +56,10 @@ function influactive_form_shortcode_handler($atts): void
                     }
                     echo '</select></label>';
                     break;
+                case 'gdpr':
+                    $pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" target="_self" title="Privacy Policy">Check our Privacy Policy<a>' : '';
+                    echo '<label><input type="checkbox" name="' . esc_attr($field['name']) . '"> ' . $field['label'] . ' ' . $pp . '</label>';
+                    break;
             }
         }
 

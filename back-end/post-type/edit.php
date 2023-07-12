@@ -17,13 +17,13 @@ function influactive_form_metabox($post): void
     <?php influactive_form_shortcode($post); ?>
     <div class="tabs">
         <ul class="tab-links">
-            <li><a href="#fields">Form Fields</a></li>
+            <li class="active"><a href="#fields">Form Fields</a></li>
             <li><a href="#style">Form Style</a></li>
-            <li class="active"><a href="#email">Email Layout</a></li>
+            <li><a href="#email">Email Layout</a></li>
         </ul>
 
         <div class="tab-content">
-            <div id="fields" class="tab">
+            <div id="fields" class="tab active">
                 <!-- Form fields content -->
                 <h2>Form Fields</h2>
                 <?php influactive_form_fields_listing($post); ?>
@@ -33,7 +33,7 @@ function influactive_form_metabox($post): void
                 <h2>Form Style</h2>
                 <?php influactive_form_email_style($post); ?>
             </div>
-            <div id="email" class="tab active">
+            <div id="email" class="tab">
                 <!-- Email style content -->
                 <h2>Email Layout</h2>
                 <?php influactive_form_email_layout($post); ?>
@@ -63,9 +63,15 @@ function influactive_form_fields_listing($post): void
             echo '<option value="number" ' . (isset($field['type']) && $field['type'] === 'number' ? 'selected' : '') . '>Number</option>';
             echo '<option value="textarea" ' . (isset($field['type']) && $field['type'] === 'textarea' ? 'selected' : '') . '>Textarea</option>';
             echo '<option value="select" ' . (isset($field['type']) && $field['type'] === 'select' ? 'selected' : '') . '>Select</option>';
+            echo '<option value="gdpr" ' . (isset($field['type']) && $field['type'] === 'gdpr' ? 'selected' : '') . '>GDPR</option>';
             echo '</select></label>';
-            echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label"></label> ';
-            echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name"></label> ';
+            if (isset($field['type']) && $field['type'] !== 'gdpr') {
+                echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label"></label> ';
+                echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name"></label> ';
+            } else {
+                echo '<label>Text <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label"></label> ';
+                echo '<label><input type="hidden" name="influactive_form_fields[' . (int)$key . '][name]" value="gdpr" class="influactive_form_fields_name"></label>';
+            }
             if (isset($field['type']) && $field['type'] === 'select') {
                 echo '<div class="options_container">';
                 if (is_array($field['options'])) {
