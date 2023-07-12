@@ -20,6 +20,8 @@ function influactive_form_shortcode_handler($atts): void
         return;
     }
 
+    $GLOBALS['influactive_form_id'] = $form_id;
+
     // Showing the form if it exists
     $form = get_post($form_id);
 
@@ -64,6 +66,20 @@ function influactive_form_shortcode_handler($atts): void
 
     }
 }
+
+function enqueue_dynamic_style(): void
+{
+    if (is_admin()) {
+        return;
+    }
+
+    $post_id = $GLOBALS['influactive_form_id'] ?? '';
+
+    // Enqueue du fichier dynamic-style.php
+    wp_enqueue_style('influactive-form-dynamic-style', plugin_dir_url(__FILE__) . 'front-end/dynamic-style.php?post_id=' . $post_id);
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_dynamic_style');
 
 add_action('wp_ajax_send_email', 'influactive_send_email');
 add_action('wp_ajax_nopriv_send_email', 'influactive_send_email');

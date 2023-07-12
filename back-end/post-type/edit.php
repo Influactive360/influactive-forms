@@ -102,14 +102,14 @@ function influactive_form_email_style($post): void
         <p>
             <label>
                 Padding
-                <input type="text" name="influactive_form_email_style[text_color]"
-                       value="<?= esc_attr($email_style['text_color'] ?? '20px') ?>">
+                <input type="text" name="influactive_form_email_style[padding]"
+                       value="<?= esc_attr($email_style['padding'] ?? '20px') ?>">
             </label>
         </p>
         <p>
             <label>Border width
-                <input type="number" name="influactive_form_email_style[border_width]"
-                       value="<?= esc_attr($email_style['border_width'] ?? '1') ?>">px
+                <input type="text" name="influactive_form_email_style[border_width]"
+                       value="<?= esc_attr($email_style['border_width'] ?? '1px') ?>">
             </label>
             <label>Border style
                 <select name="influactive_form_email_style[border_style]">
@@ -179,7 +179,7 @@ function influactive_form_email_layout($post): void
     </div>
     <?php
 
-// List all influactive_form_fields_name like "{field_name}"
+    // List all influactive_form_fields_name like "{field_name}"
     $fields = get_post_meta($post->ID, '_influactive_form_fields', true);
     $fields_name = [];
     if (is_array($fields)) {
