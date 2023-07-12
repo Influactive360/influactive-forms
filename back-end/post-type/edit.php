@@ -17,13 +17,13 @@ function influactive_form_metabox($post): void
     <?php influactive_form_shortcode($post); ?>
     <div class="tabs">
         <ul class="tab-links">
-            <li><a href="#fields">Form Fields</a></li>
+            <li class="active"><a href="#fields">Form Fields</a></li>
             <li><a href="#style">Form Style</a></li>
-            <li class="active"><a href="#email">Email Layout</a></li>
+            <li><a href="#email">Email Layout</a></li>
         </ul>
 
         <div class="tab-content">
-            <div id="fields" class="tab">
+            <div id="fields" class="tab active">
                 <!-- Form fields content -->
                 <h2>Form Fields</h2>
                 <?php influactive_form_fields_listing($post); ?>
@@ -33,7 +33,7 @@ function influactive_form_metabox($post): void
                 <h2>Form Style</h2>
                 <?php influactive_form_email_style($post); ?>
             </div>
-            <div id="email" class="tab active">
+            <div id="email" class="tab">
                 <!-- Email style content -->
                 <h2>Email Layout</h2>
                 <?php influactive_form_email_layout($post); ?>
@@ -95,27 +95,38 @@ function influactive_form_email_style($post): void
         <label>
             Background color
             <input type="color" name="influactive_form_email_style[background_color]"
-                   value="<?php echo esc_attr($email_style['background_color'] ?? ''); ?>">
+                   value="<?php echo esc_attr($email_style['background_color'] ?? '#f6f6f6'); ?>">
         </label>
     </p>
     <p>
         <label>
-            Text color
-            <input type="color" name="influactive_form_email_style[text_color]"
-                   value="<?php echo esc_attr($email_style['text_color'] ?? ''); ?>">
+            Padding
+            <input type="text" name="influactive_form_email_style[text_color]"
+                   value="<?php echo esc_attr($email_style['text_color'] ?? '20px'); ?>">
         </label>
     </p>
     <p>
-        <label>Link color
+        <label>Border width
+            <input type="number" name="influactive_form_email_style[link_color]"
+                   value="<?php echo esc_attr($email_style['link_color'] ?? '1'); ?>">px
+        </label>
+        <label>Border style
+            <select name="influactive_form_email_style[link_color]">
+                <option value="solid" selected>Solid</option>
+                <option value="dashed">Dashed</option>
+                <option value="dotted">Dotted</option>
+                <option value="double">Double</option>
+                <option value="groove">Groove</option>
+                <option value="ridge">Ridge</option>
+                <option value="inset">Inset</option>
+                <option value="outset">Outset</option>
+                <option value="none">None</option>
+                <option value="hidden">Hidden</option>
+            </select>
+        </label>
+        <label>Border color
             <input type="color" name="influactive_form_email_style[link_color]"
-                   value="<?php echo esc_attr($email_style['link_color'] ?? ''); ?>">
-        </label>
-    </p>
-    <p>
-        <label>
-            Link hover color
-            <input type="color" name="influactive_form_email_style[link_hover_color]"
-                   value="<?php echo esc_attr($email_style['link_hover_color'] ?? ''); ?>">
+                   value="<?php echo esc_attr($email_style['link_color'] ?? '#ccc'); ?>">
         </label>
     </p>
     <?php
@@ -128,16 +139,29 @@ function influactive_form_email_layout($post): void
     <div id="influactive_form_layout_container">
         <p>
             <label>
+                Email sender
+                <input type="text" name="influactive_form_email_layout[sender]"
+                       value="<?= esc_attr($email_layout['sender'] ?? get_bloginfo('admin_email')) ?>">
+            </label>
+        </p>
+        <p>
+            <label>
+                Email recipient
+                <input type="text" name="influactive_form_email_layout[recipient]"
+                       value="<?= esc_attr($email_layout['recipient'] ?? get_bloginfo('admin_email')) ?>">
+            </label>
+        <p>
+            <label>
                 Subject of the email
                 <input type="text" name="influactive_form_email_layout[subject]"
-                       value="<?= esc_attr($email_layout['subject'] ?? ''); ?>">
+                       value="<?= esc_attr($email_layout['subject'] ?? '') ?>">
             </label>
         </p>
         <p>
             <label>
                 Content of the email
                 <textarea name="influactive_form_email_layout[content]" cols="30"
-                          rows="15"><?= esc_attr($email_layout['content'] ?? ''); ?></textarea>
+                          rows="15"><?= esc_attr($email_layout['content'] ?? '') ?></textarea>
 
             </label>
         </p>
