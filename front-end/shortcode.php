@@ -59,7 +59,7 @@ function influactive_form_shortcode_handler($atts): void
             }
         }
 
-        echo '<input type="submit" value="Submit">';
+        echo '<input type="submit">';
 
 
         echo '<div class="influactive-form-message"></div>';
