@@ -5,7 +5,6 @@ form.influactive-form {
 form.influactive-form label {
   display: block;
   margin-bottom: 10px;
-  font-weight: bold;
 }
 
 form.influactive-form input[type="text"],
@@ -14,23 +13,17 @@ form.influactive-form input[type="number"],
 form.influactive-form textarea,
 form.influactive-form select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+}
+
+form.influactive-form input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  margin-right: 10px;
 }
 
 form.influactive-form input[type="submit"] {
-  padding: 10px 20px;
-  border: none;
-  color: #fff;
-  background: #007bff;
-  border-radius: 3px;
   cursor: pointer;
   transition: background .3s ease;
-}
-
-form.influactive-form input[type="submit"]:hover {
-  background: #0056b3;
 }
 
 form.influactive-form .influactive-form-message {

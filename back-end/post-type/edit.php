@@ -105,53 +105,301 @@ function influactive_form_fields_listing($post): void
 function influactive_form_email_style($post): void
 {
     $email_style = get_post_meta($post->ID, '_influactive_form_email_style', true);
+	$email_style['form']['border_style'] ?? $email_style['form']['border_style'] = 'solid';
+	$email_style['label']['font_weight'] ?? $email_style['label']['font_weight'] = 'normal';
+    $email_style['input']['font_weight'] ?? $email_style['input']['font_weight'] = 'normal';
+	$email_style['input']['border_style'] ?? $email_style['input']['border_style'] = 'solid';
+    $email_style['submit']['font_weight'] ?? $email_style['submit']['font_weight'] = 'normal';
+    $email_style['submit']['border_style'] ?? $email_style['submit']['border_style'] = 'solid';
     ?>
     <div id="influactive_form_style_container">
         <p>
             <label>
-                Background color
-                <input type="color" name="influactive_form_email_style[background_color]"
-                       value="<?= $email_style['background_color'] ?? '#f6f6f6' ?>">
+                Form Background color
+                <input type="color" name="influactive_form_email_style[form][background_color]"
+                       value="<?= $email_style['form']['background_color'] ?? '#f6f6f6' ?>">
+            </label>
+            <label>
+                Form Padding
+                <input type="text" name="influactive_form_email_style[form][padding]"
+                       value="<?= esc_attr($email_style['form']['padding'] ?? '20px') ?>">
+            </label>
+            <label>
+                Form Border width
+                <input type="text" name="influactive_form_email_style[form][border_width]"
+                       value="<?= esc_attr($email_style['form']['border_width'] ?? '1px') ?>">
+            </label>
+            <label>
+                Form Border style
+                <select name="influactive_form_email_style[form][border_style]">
+                    <option value="solid" <?= $email_style['form']['border_style'] === "solid" ? "selected" : "" ?>>Solid
+                    </option>
+                    <option value="dashed" <?= $email_style['form']['border_style'] === "dashed" ? "selected" : "" ?>>Dashed
+                    </option>
+                    <option value="dotted" <?= $email_style['form']['border_style'] === "dotted" ? "selected" : "" ?>>Dotted
+                    </option>
+                    <option value="double" <?= $email_style['form']['border_style'] === "double" ? "selected" : "" ?>>Double
+                    </option>
+                    <option value="groove" <?= $email_style['form']['border_style'] === "groove" ? "selected" : "" ?>>Groove
+                    </option>
+                    <option value="ridge" <?= $email_style['form']['border_style'] === "ridge" ? "selected" : "" ?>>Ridge
+                    </option>
+                    <option value="inset" <?= $email_style['form']['border_style'] === "inset" ? "selected" : "" ?>>Inset
+                    </option>
+                    <option value="outset" <?= $email_style['form']['border_style'] === "outset" ? "selected" : "" ?>>Outset
+                    </option>
+                    <option value="none" <?= $email_style['form']['border_style'] === "none" ? "selected" : "" ?>>None</option>
+                    <option value="hidden" <?= $email_style['form']['border_style'] === "hidden" ? "selected" : "" ?>>Hidden
+                    </option>
+                </select>
+            </label>
+            <label>
+                Form Border color
+                <input type="color" name="influactive_form_email_style[form][border_color]"
+                       value="<?= esc_attr($email_style['form']['border_color'] ?? '#cccccc') ?>">
             </label>
         </p>
         <p>
             <label>
-                Padding
-                <input type="text" name="influactive_form_email_style[padding]"
-                       value="<?= esc_attr($email_style['padding'] ?? '20px') ?>">
+                Label Font family
+                <input type="text" name="influactive_form_email_style[label][font_family]"
+                       value="<?= esc_attr($email_style['label']['font_family'] ?? 'Arial, Helvetica, sans-serif') ?>">
             </label>
-        </p>
-        <p>
-            <label>Border width
-                <input type="text" name="influactive_form_email_style[border_width]"
-                       value="<?= esc_attr($email_style['border_width'] ?? '1px') ?>">
+            <label>
+                Label font size
+                <input type="text" name="influactive_form_email_style[label][font_size]"
+                       value="<?= esc_attr($email_style['label']['font_size'] ?? '14px') ?>">
             </label>
-            <label>Border style
-                <select name="influactive_form_email_style[border_style]">
-                    <option value="solid" <?= $email_style['border_style'] === "solid" ? "selected" : "" ?>>Solid
+            <label>
+                Label font color
+                <input type="color" name="influactive_form_email_style[label][font_color]"
+                       value="<?= esc_attr($email_style['label']['font_color'] ?? '#333333') ?>">
+            </label>
+            <label>
+                Label font weight
+                <select name="influactive_form_email_style[label][font_weight]">
+                    <option value="normal" <?= $email_style['label']['font_weight'] === "normal" ? "selected" : "" ?>>
+                        Normal
                     </option>
-                    <option value="dashed" <?= $email_style['border_style'] === "dashed" ? "selected" : "" ?>>Dashed
+                    <option value="bold" <?= $email_style['label']['font_weight'] === "bold" ? "selected" : "" ?>>
+                        Bold
                     </option>
-                    <option value="dotted" <?= $email_style['border_style'] === "dotted" ? "selected" : "" ?>>Dotted
+                    <option value="bolder" <?= $email_style['label']['font_weight'] === "bolder" ? "selected" : "" ?>>
+                        Bolder
                     </option>
-                    <option value="double" <?= $email_style['border_style'] === "double" ? "selected" : "" ?>>Double
+                    <option value="medium" <?= $email_style['label']['font_weight'] === "medium" ? "selected" : "" ?>>
+                        Medium
                     </option>
-                    <option value="groove" <?= $email_style['border_style'] === "groove" ? "selected" : "" ?>>Groove
-                    </option>
-                    <option value="ridge" <?= $email_style['border_style'] === "ridge" ? "selected" : "" ?>>Ridge
-                    </option>
-                    <option value="inset" <?= $email_style['border_style'] === "inset" ? "selected" : "" ?>>Inset
-                    </option>
-                    <option value="outset" <?= $email_style['border_style'] === "outset" ? "selected" : "" ?>>Outset
-                    </option>
-                    <option value="none" <?= $email_style['border_style'] === "none" ? "selected" : "" ?>>None</option>
-                    <option value="hidden" <?= $email_style['border_style'] === "hidden" ? "selected" : "" ?>>Hidden
+                    <option value="lighter" <?= $email_style['label']['font_weight'] === "lighter" ? "selected" : "" ?>>
+                        Lighter
                     </option>
                 </select>
             </label>
-            <label>Border color
-                <input type="color" name="influactive_form_email_style[border_color]"
-                       value="<?= esc_attr($email_style['border_color'] ?? '#ccc') ?>">
+            <label>
+                Label line height
+                <input type="text" name="influactive_form_email_style[label][line_height]"
+                       value="<?= esc_attr($email_style['label']['line_height'] ?? '1.5') ?>">
+            </label>
+        </p>
+        <p>
+            <label>
+                Input font family
+                <input type="text" name="influactive_form_email_style[input][font_family]"
+                       value="<?= esc_attr($email_style['input']['font_family'] ?? 'Arial, Helvetica, sans-serif') ?>">
+            </label>
+            <label>
+                Input font size
+                <input type="text" name="influactive_form_email_style[input][font_size]"
+                       value="<?= esc_attr($email_style['input']['font_size'] ?? '14px') ?>">
+            </label>
+            <label>
+                Input font color
+                <input type="color" name="influactive_form_email_style[input][font_color]"
+                       value="<?= esc_attr($email_style['input']['font_color'] ?? '#333333') ?>">
+            </label>
+            <label>
+                Input font weight
+                <select name="influactive_form_email_style[input][font_weight]">
+                    <option value="normal" <?= $email_style['input']['font_weight'] === "normal" ? "selected" : "" ?>>
+                        Normal
+                    </option>
+                    <option value="bold" <?= $email_style['input']['font_weight'] === "bold" ? "selected" : "" ?>>
+                        Bold
+                    </option>
+                    <option value="bolder" <?= $email_style['input']['font_weight'] === "bolder" ? "selected" : "" ?>>
+                        Bolder
+                    </option>
+                    <option value="medium" <?= $email_style['input']['font_weight'] === "medium" ? "selected" : "" ?>>
+                        Medium
+                    </option>
+                    <option value="lighter" <?= $email_style['input']['font_weight'] === "lighter" ? "selected" : "" ?>>
+                        Lighter
+                    </option>
+                </select>
+            </label>
+            <label>
+                Input line height
+                <input type="text" name="influactive_form_email_style[input][line_height]"
+                       value="<?= esc_attr($email_style['input']['line_height'] ?? '1.5') ?>">
+            </label>
+            <label>
+                Input background color
+                <input type="color" name="influactive_form_email_style[input][background_color]"
+                       value="<?= esc_attr($email_style['input']['background_color'] ?? '#ffffff') ?>">
+            </label>
+            <label>
+                Input border width
+                <input type="text" name="influactive_form_email_style[input][border_width]"
+                       value="<?= esc_attr($email_style['input']['border_width'] ?? '1px') ?>">
+            </label>
+            <label>
+                Input border style
+                <select name="influactive_form_email_style[input][border_style]">
+                    <option value="solid" <?= $email_style['input']['border_style'] === "solid" ? "selected" : "" ?>>
+                        Solid
+                    </option>
+                    <option value="dashed" <?= $email_style['input']['border_style'] === "dashed" ? "selected" : "" ?>>
+                        Dashed
+                    </option>
+                    <option value="dotted" <?= $email_style['input']['border_style'] === "dotted" ? "selected" : "" ?>>
+                        Dotted
+                    </option>
+                    <option value="double" <?= $email_style['input']['border_style'] === "double" ? "selected" : "" ?>>
+                        Double
+                    </option>
+                    <option value="groove" <?= $email_style['input']['border_style'] === "groove" ? "selected" : "" ?>>
+                        Groove
+                    </option>
+                    <option value="ridge" <?= $email_style['input']['border_style'] === "ridge" ? "selected" : "" ?>>
+                        Ridge
+                    </option>
+                    <option value="inset" <?= $email_style['input']['border_style'] === "inset" ? "selected" : "" ?>>
+                        Inset
+                    </option>
+                    <option value="outset" <?= $email_style['input']['border_style'] === "outset" ? "selected" : "" ?>>
+                        Outset
+                    </option>
+                    <option value="hidden" <?= $email_style['input']['border_style'] === "hidden" ? "selected" : "" ?>>
+                        Hidden
+                    </option>
+                </select>
+            </label>
+            <label>
+                Input border color
+                <input type="color" name="influactive_form_email_style[input][border_color]"
+                       value="<?= esc_attr($email_style['input']['border_color'] ?? '#cccccc') ?>">
+            </label>
+            <label>
+                Input border radius
+                <input type="text" name="influactive_form_email_style[input][border_radius]"
+                       value="<?= esc_attr($email_style['input']['border_radius'] ?? '0') ?>">
+            </label>
+            <label>
+                Input padding
+                <input type="text" name="influactive_form_email_style[input][padding]"
+                       value="<?= esc_attr($email_style['input']['padding'] ?? '10px') ?>">
+            </label>
+        </p>
+        <p>
+            <label>
+                Submit font family
+                <input type="text" name="influactive_form_email_style[submit][font_family]"
+                       value="<?= esc_attr($email_style['submit']['font_family'] ?? 'Arial, Helvetica, sans-serif') ?>">
+            </label>
+            <label>
+                Submit font size
+                <input type="text" name="influactive_form_email_style[submit][font_size]"
+                       value="<?= esc_attr($email_style['submit']['font_size'] ?? '14px') ?>">
+            </label>
+            <label>
+                Submit font color
+                <input type="color" name="influactive_form_email_style[submit][font_color]"
+                       value="<?= esc_attr($email_style['submit']['font_color'] ?? '#ffffff') ?>">
+            </label>
+            <label>
+                Submit font hover color
+                <input type="color" name="influactive_form_email_style[submit][font_hover_color]"
+                       value="<?= esc_attr($email_style['submit']['font_hover_color'] ?? '#ffffff') ?>">
+            </label>
+            <label>
+                Submit font weight
+                <select name="influactive_form_email_style[submit][font_weight]">
+                    <option value="normal" <?= $email_style['submit']['font_weight'] === "normal" ? "selected" : "" ?>>Normal
+                    </option>
+                    <option value="bold" <?= $email_style['submit']['font_weight'] === "bold" ? "selected" : "" ?>>Bold</option>
+                    <option value="bolder" <?= $email_style['submit']['font_weight'] === "bolder" ? "selected" : "" ?>>Bolder
+                    </option>
+                    <option value="lighter" <?= $email_style['submit']['font_weight'] === "lighter" ? "selected" : "" ?>>
+                        Lighter
+                    </option>
+                </select>
+            </label>
+            <label>
+                Submit line height
+                <input type="text" name="influactive_form_email_style[submit][line_height]"
+                       value="<?= esc_attr($email_style['submit']['line_height'] ?? '1.5') ?>">
+            </label>
+            <label>
+                Submit background color
+                <input type="color" name="influactive_form_email_style[submit][background_color]"
+                       value="<?= esc_attr($email_style['submit']['background_color'] ?? '#333333') ?>">
+            </label>
+            <label>
+                Submit background hover color
+                <input type="color" name="influactive_form_email_style[submit][background_hover_color]"
+                       value="<?= esc_attr($email_style['submit']['background_hover_color'] ?? '#333333') ?>">
+            </label>
+            <label>
+                Submit border color
+                <input type="color" name="influactive_form_email_style[submit][border_color]"
+                       value="<?= esc_attr($email_style['submit']['border_color'] ?? '#333333') ?>">
+            </label>
+            <label>
+                Submit border style
+                <select name="influactive_form_email_style[submit][border_style]">
+                    <option value="solid" <?= $email_style['submit']['border_style'] === "solid" ? "selected" : "" ?>>
+                        Solid
+                    </option>
+                    <option value="dashed" <?= $email_style['submit']['border_style'] === "dashed" ? "selected" : "" ?>>
+                        Dashed
+                    </option>
+                    <option value="dotted" <?= $email_style['submit']['border_style'] === "dotted" ? "selected" : "" ?>>
+                        Dotted
+                    </option>
+                    <option value="double" <?= $email_style['submit']['border_style'] === "double" ? "selected" : "" ?>>
+                        Double
+                    </option>
+                    <option value="groove" <?= $email_style['submit']['border_style'] === "groove" ? "selected" : "" ?>>
+                        Groove
+                    </option>
+                    <option value="ridge" <?= $email_style['submit']['border_style'] === "ridge" ? "selected" : "" ?>>
+                        Ridge
+                    </option>
+                    <option value="inset" <?= $email_style['submit']['border_style'] === "inset" ? "selected" : "" ?>>
+                        Inset
+                    </option>
+                    <option value="outset" <?= $email_style['submit']['border_style'] === "outset" ? "selected" : "" ?>>
+                        Outset
+                    </option>
+                    <option value="hidden" <?= $email_style['submit']['border_style'] === "hidden" ? "selected" : "" ?>>
+                        Hidden
+                    </option>
+                </select>
+            </label>
+            <label>
+                Submit border width
+                <input type="text" name="influactive_form_email_style[submit][border_width]"
+                       value="<?= esc_attr($email_style['submit']['border_width'] ?? '1px') ?>">
+            </label>
+            <label>
+                Submit border radius
+                <input type="text" name="influactive_form_email_style[submit][border_radius]"
+                       value="<?= esc_attr($email_style['submit']['border_radius'] ?? '0') ?>">
+            </label>
+            <label>
+                Submit padding
+                <input type="text" name="influactive_form_email_style[submit][padding]"
+                       value="<?= esc_attr($email_style['submit']['padding'] ?? '10px 20px') ?>">
             </label>
         </p>
     </div>
