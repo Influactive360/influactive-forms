@@ -23,7 +23,7 @@ include(plugin_dir_path(__FILE__) . 'front-end/shortcode.php');
 
 function influactive_forms_add_settings_link($links)
 {
-    $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Settings') . '</a>';
+    $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Settings', 'influactive-forms') . '</a>';
     $links[] = $settings_link;
 
     return $links;
