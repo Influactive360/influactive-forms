@@ -1,5 +1,6 @@
 /* global Sortable */
 /* global influactiveFormsTranslations */
+/* global tinymce */
 
 document.addEventListener('DOMContentLoaded', function() {
   const container = document.getElementById("influactive_form_fields_container");
@@ -74,6 +75,86 @@ function fieldTypeChangeHandler(fieldElement) {
   return function(event) {
     let fieldValue = event.target.value;
 
+    // Remove existing elements
+    const oldLabelElement = fieldElement.querySelector(".influactive_form_fields_label");
+    const oldNameElement = fieldElement.querySelector(".influactive_form_fields_name");
+    const oldTextAreaElement = fieldElement.querySelector(".wysiwyg-editor"); // Added this line
+
+    // Dans votre fonction fieldTypeChangeHandler
+    if (oldLabelElement && oldNameElement) {
+      // Avant de supprimer l'ancien élément de textarea, vérifiez s'il existe une instance de tinymce pour cet élément
+      if (oldTextAreaElement && tinymce.get(oldTextAreaElement.id)) {
+        tinymce.get(oldTextAreaElement.id).remove();
+      }
+
+      oldLabelElement.parentElement.remove();
+      oldNameElement.parentElement.remove();
+
+      if (oldTextAreaElement) {
+        oldTextAreaElement.remove();
+      }
+    }
+
+    if (fieldValue === "gdpr") {
+      const gdprTextElement = document.createElement('label')
+      gdprTextElement.innerHTML = "Text <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' data-type='gdpr'>";
+      const gdprNameElement = document.createElement('label')
+      gdprNameElement.innerHTML = "<input type='hidden' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' value='gdpr'>";
+
+      // Append these elements to fieldElement or any other container element
+      fieldElement.appendChild(gdprTextElement);
+      fieldElement.appendChild(gdprNameElement);
+    }
+
+    if (fieldValue === "free_text") {
+      // Create a new textarea element
+      const textareaElement = document.createElement('textarea');
+      textareaElement.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][label]';
+      textareaElement.className = 'influactive_form_fields_label wysiwyg-editor'; // class 'wysiwyg-editor' is for TinyMCE selector
+      textareaElement.rows = 10;
+
+      // Append textarea to the field element
+      fieldElement.appendChild(textareaElement);
+
+      // Initialize TinyMCE
+      setTimeout(function() {
+        tinymce.init({
+          selector: '.wysiwyg-editor',  // we use a class selector to select the new textarea
+          height: 215,
+          menubar: false,
+          plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount',
+          ],
+          toolbar: 'bold italic underline link unlink undo redo formatselect ' +
+            'backcolor alignleft aligncenter ' +
+            'alignright alignjustify bullist numlist outdent indent ' +
+            'removeformat',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        });
+      }, 0);
+
+      const NameElement = document.createElement('label')
+      NameElement.innerHTML = "<input type='hidden' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' value='free_text'>";
+      fieldElement.appendChild(NameElement);
+    }
+
+    let labelElement = fieldElement.querySelector(".influactive_form_fields_label");
+    let nameElement = fieldElement.querySelector(".influactive_form_fields_name");
+
+    // If they don't exist, create and append them
+    if (!labelElement && !nameElement) {
+      const LabelElement = document.createElement('label')
+      LabelElement.innerHTML = "Label <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label'>";
+      const NameElement = document.createElement('label')
+      NameElement.innerHTML = "Name <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name'>";
+
+      // Append these elements to fieldElement or any other container element
+      fieldElement.appendChild(LabelElement);
+      fieldElement.appendChild(NameElement);
+    }
+
     if (fieldValue === "select") {
       const addOptionElement = document.createElement('p')
       addOptionElement.innerHTML = "<a href='#' class='add_option'>Add option</a>";
@@ -94,49 +175,6 @@ function fieldTypeChangeHandler(fieldElement) {
       if (optionsContainer) {
         optionsContainer.remove();
       }
-    }
-
-    const labelElement = fieldElement.querySelector(".influactive_form_fields_label");
-    const nameElement = fieldElement.querySelector(".influactive_form_fields_name");
-
-    if (fieldValue !== "gdpr") {
-      // Check if the existing elements are of type "gpdr" and remove them if they are
-      if (labelElement && labelElement.dataset.type === "gdpr") {
-        labelElement.parentElement.remove();
-      }
-
-      if (nameElement && nameElement.value === "gdpr") {
-        nameElement.parentElement.remove();
-      }
-
-      // After potentially removing the "gpdr" elements, check again if the elements exist
-      const labelElementExists = fieldElement.querySelector(".influactive_form_fields_label");
-      const nameElementExists = fieldElement.querySelector(".influactive_form_fields_name");
-
-      // If they don't exist, create and append them
-      if (!labelElementExists && !nameElementExists) {
-        const LabelElement = document.createElement('label')
-        LabelElement.innerHTML = "Label <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label'>";
-        const NameElement = document.createElement('label')
-        NameElement.innerHTML = "Name <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name'>";
-
-        // Append these elements to fieldElement or any other container element
-        fieldElement.appendChild(LabelElement);
-        fieldElement.appendChild(NameElement);
-      }
-    }
-
-    if (fieldValue === "gdpr") {
-      fieldElement.querySelector(".influactive_form_fields_label")?.parentElement.remove();
-      fieldElement.querySelector(".influactive_form_fields_name")?.parentElement.remove();
-      const gdprTextElement = document.createElement('label')
-      gdprTextElement.innerHTML = "Text <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' data-type='gdpr'>";
-      const gdprNameElement = document.createElement('label')
-      gdprNameElement.innerHTML = "<input type='hidden' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' value='gdpr'>";
-
-      // Append these elements to fieldElement or any other container element
-      fieldElement.appendChild(gdprTextElement);
-      fieldElement.appendChild(gdprNameElement);
     }
   }
 }
@@ -192,6 +230,7 @@ function createFieldElement() {
     `<option value="textarea">${influactiveFormsTranslations.Textarea}</option>` +
     `<option value="select">${influactiveFormsTranslations.Select}</option>` +
     `<option value="gdpr">${influactiveFormsTranslations.GDPR}</option>` +
+    `<option value="free_text">${influactiveFormsTranslations.Freetext}</option>` +
     `</select></label> ` +
     `<label>${influactiveFormsTranslations.labelLabelText} <input type="text" name="influactive_form_fields[${id}][label]" class="influactive_form_fields_label"></label> ` +
     `<label>${influactiveFormsTranslations.nameLabelText} <input type="text" name="influactive_form_fields[${id}][name]" class="influactive_form_fields_name"></label> ` +
@@ -228,9 +267,11 @@ function recalculateFieldIndexes() {
     const fieldName = fieldField.querySelector(".influactive_form_fields_name");
     const fieldOrder = fieldField.querySelector(".influactive_form_fields_order");
 
-    fieldType.name = `influactive_form_fields[${index}][type]` ?? "";
-    fieldLabel.name = `influactive_form_fields[${index}][label]` ?? "";
-    fieldName.name = `influactive_form_fields[${index}][name]` ?? ""
-    fieldOrder.name = `influactive_form_fields[${index}][order]` ?? "";
+    if (fieldType && fieldLabel && fieldName && fieldOrder) {
+      fieldType.name = `influactive_form_fields[${index}][type]` ?? "";
+      fieldLabel.name = `influactive_form_fields[${index}][label]` ?? "";
+      fieldName.name = `influactive_form_fields[${index}][name]` ?? ""
+      fieldOrder.name = `influactive_form_fields[${index}][order]` ?? "";
+    }
   });
 }

@@ -59,14 +59,16 @@ function influactive_form_shortcode_handler($atts): void
                     echo '</select></label>';
                     break;
                 case 'gdpr':
-                    $pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" target="_self" title="Privacy Policy">' . __('Check our Privacy Policy', 'influactive-forms') . '<a>' : '';
+                    $pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" target="_self" title="Privacy Policy">' . __('Check our Privacy Policy', 'influactive-forms') . '</a>' : '';
                     echo '<label><input type="checkbox" name="' . esc_attr($field['name']) . '"> ' . $field['label'] . ' ' . $pp . '</label>';
+                    break;
+                case 'free_text':
+                    echo '<div class="free-text">' . $field['label'] . '</div>';
                     break;
             }
         }
 
         echo '<input type="submit">';
-
 
         echo '<div class="influactive-form-message"></div>';
         echo '</form>';

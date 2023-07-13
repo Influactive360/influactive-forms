@@ -2,7 +2,7 @@ form.influactive-form {
   width: 100%;
 }
 
-.influactive-form-wrapper label {
+.influactive-form-wrapper label, .free-text {
   display: block;
   margin-bottom: 10px;
 }
@@ -17,8 +17,9 @@ form.influactive-form {
 
 .influactive-form-wrapper input[type="checkbox"] {
   display: inline-block;
-  width: auto;
   margin-right: 10px;
+  width: 16px;
+  height: 16px;
 }
 
 .influactive-form-wrapper input[type="submit"] {

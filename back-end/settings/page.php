@@ -20,3 +20,5 @@ function influactive_form_settings_page(): void
 }
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
+
+// TODO: Add captcha settings

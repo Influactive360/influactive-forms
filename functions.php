@@ -21,6 +21,7 @@ include(plugin_dir_path(__FILE__) . 'back-end/post-type/edit.php');
 include(plugin_dir_path(__FILE__) . 'back-end/settings/page.php');
 include(plugin_dir_path(__FILE__) . 'front-end/shortcode.php');
 
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
 function influactive_forms_add_settings_link($links)
 {
     $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Settings', 'influactive-forms') . '</a>';
@@ -29,8 +30,6 @@ function influactive_forms_add_settings_link($links)
     return $links;
 }
 
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
-
 add_action('admin_enqueue_scripts', 'influactive_form_edit');
 function influactive_form_edit($hook): void
 {
@@ -38,7 +37,7 @@ function influactive_form_edit($hook): void
         return;
     }
 
-    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/form.js', array('influactive-form-sortable'), '1.0', true);
+    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/form.js', array('influactive-form-sortable', 'wp-tinymce'), '1.0', true);
     wp_localize_script('influactive-form', 'influactiveFormsTranslations', array(
         'addOptionText' => __('Add option', 'influactive-forms'),
         'removeOptionText' => __('Remove option', 'influactive-forms'),
@@ -59,6 +58,7 @@ function influactive_form_edit($hook): void
         'Email' => __('Email', 'influactive-forms'),
         'GDPR' => __('GDPR', 'influactive-forms'),
         'Number' => __('Number', 'influactive-forms'),
+        'Freetext' => __('Free text', 'influactive-forms'),
     ));
     wp_enqueue_script('influactive-form-sortable', 'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js', array(), '1.0', true);
     wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/form.css', array(), '1.0');
@@ -91,9 +91,8 @@ function influactive_form_shortcode_enqueue(): void
     wp_localize_script('influactive-form', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
 }
 
+add_action('plugins_loaded', 'load_influactive_forms_textdomain');
 function load_influactive_forms_textdomain(): void
 {
     load_plugin_textdomain('influactive-forms', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
-
-add_action('plugins_loaded', 'load_influactive_forms_textdomain');
