@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-07-13T08:35:46+00:00\n"
-"PO-Revision-Date: 2023-07-13 14:54+0000\n"
+"PO-Revision-Date: 2023-07-13 15:04+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: influactive-forms\n"
 "Language: fr_FR\n"
@@ -37,7 +37,7 @@ msgstr "Ajouter nouveau"
 msgid "Add New Form"
 msgstr "Ajouter un nouveau formulaire"
 
-#: back-end/post-type/edit.php:108 functions.php:42
+#: back-end/post-type/edit.php:108 functions.php:43
 msgid "Add option"
 msgstr "Ajouter une option"
 
@@ -59,7 +59,7 @@ msgstr "Très gras"
 msgid "Check our Privacy Policy"
 msgstr "Consultez notre politique de confidentialité"
 
-#: back-end/post-type/edit.php:460
+#: back-end/post-type/edit.php:487
 msgid "Content of the email"
 msgstr "Contenu de l'e-mail"
 
@@ -94,11 +94,11 @@ msgstr "E-mail"
 msgid "Email Layout"
 msgstr "Disposition des e-mails"
 
-#: back-end/post-type/edit.php:447
+#: back-end/post-type/edit.php:474
 msgid "Email recipient"
 msgstr "Destinataire du courriel"
 
-#: back-end/post-type/edit.php:440
+#: back-end/post-type/edit.php:467
 msgid "Email sender"
 msgstr "Expéditeur de l'e-mail"
 
@@ -110,7 +110,7 @@ msgstr "L'image sélectionnée"
 msgid "Field added!"
 msgstr "Champ ajouté !"
 
-#: back-end/post-type/edit.php:472
+#: back-end/post-type/edit.php:499
 msgid "Fields available in the email"
 msgstr "Champs disponibles dans l'e-mail"
 
@@ -181,6 +181,26 @@ msgstr "Navigation dans la liste des formulaires"
 #: back-end/post-type/edit.php:72 functions.php:61
 msgid "Free text"
 msgstr "Texte libre"
+
+#: back-end/post-type/edit.php:446
+msgid "Free text color"
+msgstr "Couleur du texte libre"
+
+#: back-end/post-type/edit.php:431
+msgid "Free text font family"
+msgstr "Famille de polices de texte libre"
+
+#: back-end/post-type/edit.php:436
+msgid "Free text font size"
+msgstr "Taille de police du texte libre"
+
+#: back-end/post-type/edit.php:441
+msgid "Free text font weight"
+msgstr "Épaisseur de la police du texte libre"
+
+#: back-end/post-type/edit.php:451
+msgid "Free text line height"
+msgstr "Hauteur de ligne de texte libre"
 
 #: back-end/post-type/edit.php:71 functions.php:59
 msgid "GDPR"
@@ -261,7 +281,7 @@ msgstr "Insérer dans le formulaire"
 msgid "Inset"
 msgstr "Encart"
 
-#: functions.php:46
+#: functions.php:47
 msgid "Label"
 msgstr "Étiqueter"
 
@@ -294,7 +314,7 @@ msgstr "Plus léger"
 msgid "Medium"
 msgstr "Moyen"
 
-#: functions.php:47
+#: functions.php:48
 msgid "Name"
 msgstr "Nom"
 
@@ -339,10 +359,6 @@ msgstr "Option supprimée !"
 msgid "Option Value"
 msgstr "Valeur d'option"
 
-#: functions.php:48
-msgid "options_container"
-msgstr "options_container"
-
 #: back-end/post-type/edit.php:169 back-end/post-type/edit.php:300
 #: back-end/post-type/edit.php:406
 msgid "Outset"
@@ -366,11 +382,11 @@ msgstr "Formulaire"
 msgid "Remove featured image"
 msgstr "Supprimer l'image sélectionnée"
 
-#: back-end/post-type/edit.php:103 functions.php:43
+#: back-end/post-type/edit.php:103 functions.php:44
 msgid "Remove option"
 msgstr "Supprimer l'option"
 
-#: back-end/post-type/edit.php:115 functions.php:44
+#: back-end/post-type/edit.php:115 functions.php:45
 msgid "Remove the field"
 msgstr "Supprimer le champ"
 
@@ -391,7 +407,7 @@ msgstr "Sélectionner"
 msgid "Set featured image"
 msgstr "Définir l'image sélectionnée"
 
-#: back-end/settings/page.php:12 back-end/settings/page.php:18 functions.php:27
+#: back-end/settings/page.php:12 back-end/settings/page.php:18 functions.php:26
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -400,7 +416,7 @@ msgstr "Paramètres"
 msgid "Solid"
 msgstr "Solide"
 
-#: back-end/post-type/edit.php:453
+#: back-end/post-type/edit.php:480
 msgid "Subject of the email"
 msgstr "Objet du mail"
 
@@ -464,7 +480,7 @@ msgstr "Texte"
 msgid "Textarea"
 msgstr "Zone de texte"
 
-#: back-end/post-type/edit.php:65 functions.php:45
+#: back-end/post-type/edit.php:65 functions.php:46
 msgid "Type"
 msgstr "Type"
 

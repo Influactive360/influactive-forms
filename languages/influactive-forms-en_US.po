@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-07-13T08:35:46+00:00\n"
-"PO-Revision-Date: 2023-07-13 14:54+0000\n"
+"PO-Revision-Date: 2023-07-13 15:03+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: influactive-forms\n"
 "Language: en_US\n"
@@ -36,7 +36,7 @@ msgstr "Add New"
 msgid "Add New Form"
 msgstr "Add New Form"
 
-#: back-end/post-type/edit.php:108 functions.php:42
+#: back-end/post-type/edit.php:108 functions.php:43
 msgid "Add option"
 msgstr "Add option"
 
@@ -58,7 +58,7 @@ msgstr "Bolder"
 msgid "Check our Privacy Policy"
 msgstr "Check our Privacy Policy"
 
-#: back-end/post-type/edit.php:460
+#: back-end/post-type/edit.php:487
 msgid "Content of the email"
 msgstr "Content of the email"
 
@@ -93,11 +93,11 @@ msgstr "Email"
 msgid "Email Layout"
 msgstr "Email Layout"
 
-#: back-end/post-type/edit.php:447
+#: back-end/post-type/edit.php:474
 msgid "Email recipient"
 msgstr "Email recipient"
 
-#: back-end/post-type/edit.php:440
+#: back-end/post-type/edit.php:467
 msgid "Email sender"
 msgstr "Email sender"
 
@@ -109,7 +109,7 @@ msgstr "Featured Image"
 msgid "Field added!"
 msgstr "Field added!"
 
-#: back-end/post-type/edit.php:472
+#: back-end/post-type/edit.php:499
 msgid "Fields available in the email"
 msgstr "Fields available in the email"
 
@@ -180,6 +180,26 @@ msgstr "Forms list navigation"
 #: back-end/post-type/edit.php:72 functions.php:61
 msgid "Free text"
 msgstr "Free text"
+
+#: back-end/post-type/edit.php:446
+msgid "Free text color"
+msgstr "Free text color"
+
+#: back-end/post-type/edit.php:431
+msgid "Free text font family"
+msgstr "Free text font family"
+
+#: back-end/post-type/edit.php:436
+msgid "Free text font size"
+msgstr "Free text font size"
+
+#: back-end/post-type/edit.php:441
+msgid "Free text font weight"
+msgstr "Free text font weight"
+
+#: back-end/post-type/edit.php:451
+msgid "Free text line height"
+msgstr "Free text line height"
 
 #: back-end/post-type/edit.php:71 functions.php:59
 msgid "GDPR"
@@ -260,7 +280,7 @@ msgstr "Insert into Form"
 msgid "Inset"
 msgstr "Inset"
 
-#: functions.php:46
+#: functions.php:47
 msgid "Label"
 msgstr "Label"
 
@@ -293,7 +313,7 @@ msgstr "Lighter"
 msgid "Medium"
 msgstr "Medium"
 
-#: functions.php:47
+#: functions.php:48
 msgid "Name"
 msgstr "Name"
 
@@ -338,10 +358,6 @@ msgstr "Option removed!"
 msgid "Option Value"
 msgstr "Option Value"
 
-#: functions.php:48
-msgid "options_container"
-msgstr "options_container"
-
 #: back-end/post-type/edit.php:169 back-end/post-type/edit.php:300
 #: back-end/post-type/edit.php:406
 msgid "Outset"
@@ -365,11 +381,11 @@ msgstr "Form"
 msgid "Remove featured image"
 msgstr "Remove featured image"
 
-#: back-end/post-type/edit.php:103 functions.php:43
+#: back-end/post-type/edit.php:103 functions.php:44
 msgid "Remove option"
 msgstr "Remove option"
 
-#: back-end/post-type/edit.php:115 functions.php:44
+#: back-end/post-type/edit.php:115 functions.php:45
 msgid "Remove the field"
 msgstr "Remove the field"
 
@@ -390,7 +406,7 @@ msgstr "Select"
 msgid "Set featured image"
 msgstr "Set featured image"
 
-#: back-end/settings/page.php:12 back-end/settings/page.php:18 functions.php:27
+#: back-end/settings/page.php:12 back-end/settings/page.php:18 functions.php:26
 msgid "Settings"
 msgstr "Settings"
 
@@ -399,7 +415,7 @@ msgstr "Settings"
 msgid "Solid"
 msgstr "Solid"
 
-#: back-end/post-type/edit.php:453
+#: back-end/post-type/edit.php:480
 msgid "Subject of the email"
 msgstr "Subject of the email"
 
@@ -463,7 +479,7 @@ msgstr "Text"
 msgid "Textarea"
 msgstr "Textarea"
 
-#: back-end/post-type/edit.php:65 functions.php:45
+#: back-end/post-type/edit.php:65 functions.php:46
 msgid "Type"
 msgstr "Type"
 
