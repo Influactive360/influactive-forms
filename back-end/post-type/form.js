@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   new Sortable(container, {
     handle: '.influactive_form_field', // This class should be on the elements you want to be draggable
     animation: 150,
-    onSort: function() {
+    onSort: () => {
       updateFieldOrder();
     },
     onEnd: () => {
