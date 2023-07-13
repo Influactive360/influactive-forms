@@ -29,6 +29,8 @@ function influactive_forms_add_settings_link($links)
     return $links;
 }
 
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
+
 add_action('admin_enqueue_scripts', 'influactive_form_edit');
 function influactive_form_edit($hook): void
 {
