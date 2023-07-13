@@ -25,11 +25,11 @@ function influactive_form_shortcode_handler($atts): void
 
 
     if ($form) {
-	    update_post_meta(get_the_ID(), 'influactive_form_id', $form_id);
+        update_post_meta(get_the_ID(), 'influactive_form_id', $form_id);
 
         $fields = get_post_meta($form_id, '_influactive_form_fields', true);
 
-		echo '<div class="influactive-form-wrapper">';
+        echo '<div class="influactive-form-wrapper">';
 
         echo '<form id="influactive-form-' . $form_id . '" class="influactive-form">';
 
@@ -59,7 +59,7 @@ function influactive_form_shortcode_handler($atts): void
                     echo '</select></label>';
                     break;
                 case 'gdpr':
-                    $pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" target="_self" title="Privacy Policy">Check our Privacy Policy<a>' : '';
+                    $pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" target="_self" title="Privacy Policy">' . __('Check our Privacy Policy', 'influactive-forms') . '<a>' : '';
                     echo '<label><input type="checkbox" name="' . esc_attr($field['name']) . '"> ' . $field['label'] . ' ' . $pp . '</label>';
                     break;
             }
@@ -70,7 +70,7 @@ function influactive_form_shortcode_handler($atts): void
 
         echo '<div class="influactive-form-message"></div>';
         echo '</form>';
-		echo '</div>';
+        echo '</div>';
     }
 }
 
@@ -81,10 +81,10 @@ function enqueue_form_dynamic_style(): void
         return;
     }
 
-	$form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true);
-	if (!$form_id) {
-		return;
-	}
+    $form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true);
+    if (!$form_id) {
+        return;
+    }
 
     // Enqueue du fichier dynamic-style.php
     wp_enqueue_style('influactive-form-dynamic-style', plugin_dir_url(__FILE__) . '/dynamic-style.php?post_id=' . $form_id, [], '1.0.0');
