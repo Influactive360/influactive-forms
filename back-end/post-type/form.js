@@ -1,4 +1,5 @@
 /* global Sortable */
+/* global influactiveFormsTranslations */
 
 document.addEventListener('DOMContentLoaded', function() {
   const container = document.getElementById("influactive_form_fields_container");
@@ -184,20 +185,20 @@ function createFieldElement() {
   }
   fieldElement.className = "influactive_form_field";
   fieldElement.innerHTML =
-    "<p><label>Type <select class='field_type' name='influactive_form_fields[" + id + "][type]'>" +
-    "<option value='text'>Text</option>" +
-    "<option value='email'>Email</option>" +
-    "<option value='number'>Number</option>" +
-    "<option value='textarea'>Textarea</option>" +
-    "<option value='select'>Select</option>" +
-    "<option value='gdpr'>GDPR</option>" +
-    "</select></label> " +
-    "<label>Label <input type='text' name='influactive_form_fields[" + id + "][label]' class='influactive_form_fields_label'></label> " +
-    "<label>Name <input type='text' name='influactive_form_fields[" + id + "][name]' class='influactive_form_fields_name'></label> " +
-    "<div class='options_container'></div>" +
-    "<input type='hidden' name='influactive_form_fields[" + id + "][order]' class='influactive_form_fields_order' value='" + id + "'>" +
-    "<a href='#' class='remove_field'>Remove the field</a> " +
-    "</p>";
+    `<p><label>${influactiveFormsTranslations.typeLabelText} <select class="field_type" name="influactive_form_fields[${id}][type]">` +
+    `<option value="text">${influactiveFormsTranslations.Text}</option>` +
+    `<option value="email">${influactiveFormsTranslations.Email}</option>` +
+    `<option value="number">${influactiveFormsTranslations.Number}</option>` +
+    `<option value="textarea">${influactiveFormsTranslations.Textarea}</option>` +
+    `<option value="select">${influactiveFormsTranslations.Select}</option>` +
+    `<option value="gdpr">${influactiveFormsTranslations.GDPR}</option>` +
+    `</select></label> ` +
+    `<label>${influactiveFormsTranslations.labelLabelText} <input type="text" name="influactive_form_fields[${id}][label]" class="influactive_form_fields_label"></label> ` +
+    `<label>${influactiveFormsTranslations.nameLabelText} <input type="text" name="influactive_form_fields[${id}][name]" class="influactive_form_fields_name"></label> ` +
+    `<div class="${influactiveFormsTranslations.optionsContainerClass}"></div>` +
+    `<input type="hidden" name="influactive_form_fields[${id}][order]" class="influactive_form_fields_order" value="${id}">` +
+    `<a href="#" class="remove_field">${influactiveFormsTranslations.removeFieldText}</a> ` +
+    `</p>`;
 
   return fieldElement;
 }
@@ -206,14 +207,13 @@ function createFieldElement() {
 function createOptionElement() {
   let optionElement = document.createElement('p');
   optionElement.className = "option-field";
-  // use appendChild for optionElement to
-  optionElement.innerHTML = "<label>Option Label " +
-    "<input type='text' class='option-label' name='influactive_form_fields[][options][][label]'>" +
-    "</label> " +
-    "<label>Option Value " +
-    "<input type='text' class='option-value' name='influactive_form_fields[][options][][value]'>" +
-    "</label> " +
-    "<a href='#' class='remove_option'>Remove option</a>";
+  optionElement.innerHTML = `<label>${influactiveFormsTranslations.optionLabelLabelText} ` +
+    `<input type="text" class="option-label" name="influactive_form_fields[][options][][label]">` +
+    `</label> ` +
+    `<label>${influactiveFormsTranslations.optionValueLabelText} ` +
+    `<input type="text" class="option-value" name="influactive_form_fields[][options][][value]">` +
+    `</label> ` +
+    `<a href="#" class="remove_option">${influactiveFormsTranslations.removeOptionText}</a>`;
 
   return optionElement;
 }
