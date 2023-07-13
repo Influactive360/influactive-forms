@@ -1,0 +1,461 @@
+# Copyright (C) 2023 Influactive
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: Forms everywhere by Influactive 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/influactive-"
+"forms\n"
+"Last-Translator: \n"
+"Language-Team: Français\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-07-13T08:35:46+00:00\n"
+"PO-Revision-Date: 2023-07-13 08:54+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: influactive-forms\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Loco-Version: 2.6.4; wp-6.2.2"
+
+#. Description of the plugin
+msgid ""
+"A plugin to create custom forms and display them anywhere on your website."
+msgstr ""
+"Un plugin pour créer des formulaires personnalisés et les afficher n'importe "
+"où sur votre site Web."
+
+#: back-end/post-type/edit.php:107
+msgid "Add Field"
+msgstr "Ajouter le champ"
+
+#: back-end/post-type/definitions.php:22
+msgid "Add New"
+msgstr "Ajouter nouveau"
+
+#: back-end/post-type/definitions.php:21
+msgid "Add New Form"
+msgstr "Ajouter un nouveau formulaire"
+
+#: back-end/post-type/edit.php:96
+msgid "Add option"
+msgstr "Ajouter une option"
+
+#: back-end/post-type/definitions.php:20
+msgid "All Forms"
+msgstr "Toutes les formes"
+
+#: back-end/post-type/edit.php:190 back-end/post-type/edit.php:232
+#: back-end/post-type/edit.php:336
+msgid "Bold"
+msgstr "Gras"
+
+#: back-end/post-type/edit.php:193 back-end/post-type/edit.php:235
+#: back-end/post-type/edit.php:339
+msgid "Bolder"
+msgstr "Très gras"
+
+#: front-end/shortcode.php:62
+msgid "Check our Privacy Policy"
+msgstr "Consultez notre politique de confidentialité"
+
+#: back-end/post-type/edit.php:445
+msgid "Content of the email"
+msgstr "Contenu de l'e-mail"
+
+#: back-end/post-type/definitions.php:43
+msgid "Custom post type for forms"
+msgstr "Type de publication personnalisé pour les formulaires"
+
+#: back-end/post-type/edit.php:142 back-end/post-type/edit.php:267
+#: back-end/post-type/edit.php:373
+msgid "Dashed"
+msgstr "Pointillé"
+
+#: back-end/post-type/edit.php:144 back-end/post-type/edit.php:270
+#: back-end/post-type/edit.php:376
+msgid "Dotted"
+msgstr "Pointé"
+
+#: back-end/post-type/edit.php:146 back-end/post-type/edit.php:273
+#: back-end/post-type/edit.php:379
+msgid "Double"
+msgstr "Double"
+
+#: back-end/post-type/definitions.php:24
+msgid "Edit Form"
+msgstr "Modifier le formulaire"
+
+#: back-end/post-type/edit.php:67
+msgid "Email"
+msgstr "E-mail"
+
+#: back-end/post-type/edit.php:22 back-end/post-type/edit.php:39
+msgid "Email Layout"
+msgstr "Disposition des e-mails"
+
+#: back-end/post-type/edit.php:432
+msgid "Email recipient"
+msgstr "Destinataire du courriel"
+
+#: back-end/post-type/edit.php:425
+msgid "Email sender"
+msgstr "Expéditeur de l'e-mail"
+
+#: back-end/post-type/definitions.php:31
+msgid "Featured Image"
+msgstr "L'image sélectionnée"
+
+#: back-end/post-type/edit.php:457
+msgid "Fields available in the email"
+msgstr "Champs disponibles dans l'e-mail"
+
+#: back-end/post-type/definitions.php:39
+msgid "Filter Forms list"
+msgstr "Filtrer la liste des formulaires"
+
+#: back-end/post-type/definitions.php:16 back-end/post-type/definitions.php:42
+msgid "Form"
+msgstr "Formulaire"
+
+#: back-end/post-type/definitions.php:17
+msgid "Form Archives"
+msgstr "Archives des formulaires"
+
+#: back-end/post-type/definitions.php:18
+msgid "Form Attributes"
+msgstr "Attributs du formulaire"
+
+#: back-end/post-type/edit.php:123
+msgid "Form Background color"
+msgstr "Couleur de fond du formulaire"
+
+#: back-end/post-type/edit.php:162
+msgid "Form Border color"
+msgstr "Couleur de la bordure du formulaire"
+
+#: back-end/post-type/edit.php:138
+msgid "Form Border style"
+msgstr "Style de bordure de formulaire"
+
+#: back-end/post-type/edit.php:133
+msgid "Form Border width"
+msgstr "Largeur de la bordure du formulaire"
+
+#: back-end/post-type/edit.php:20 back-end/post-type/edit.php:29
+msgid "Form Fields"
+msgstr "Champs de formulaire"
+
+#: back-end/post-type/edit.php:128
+msgid "Form Padding"
+msgstr "Rembourrage de formulaire"
+
+#: back-end/post-type/edit.php:23 back-end/post-type/edit.php:44
+msgid "Form preview"
+msgstr "Aperçu du formulaire"
+
+#: back-end/post-type/edit.php:21 back-end/post-type/edit.php:34
+msgid "Form Style"
+msgstr "Style de formulaire"
+
+#: back-end/post-type/definitions.php:15
+msgid "Forms"
+msgstr "Formulaires"
+
+#. Plugin Name of the plugin
+msgid "Forms everywhere by Influactive"
+msgstr "Des formulaires partout par Influactive"
+
+#: back-end/post-type/definitions.php:37
+msgid "Forms list"
+msgstr "Liste des formulaires"
+
+#: back-end/post-type/definitions.php:38
+msgid "Forms list navigation"
+msgstr "Navigation dans la liste des formulaires"
+
+#: back-end/post-type/edit.php:71
+msgid "GDPR"
+msgstr "RGPD"
+
+#: back-end/post-type/edit.php:148 back-end/post-type/edit.php:276
+#: back-end/post-type/edit.php:382
+msgid "Groove"
+msgstr "Rainure"
+
+#: back-end/post-type/edit.php:157 back-end/post-type/edit.php:288
+#: back-end/post-type/edit.php:394
+msgid "Hidden"
+msgstr "Caché"
+
+#. Author URI of the plugin
+msgid "https://influactive.com"
+msgstr "https://influactive.com"
+
+#. Author of the plugin
+msgid "Influactive"
+msgstr "Influactive"
+
+#: back-end/post-type/edit.php:11
+msgid "Influactive Form"
+msgstr "Formulaire Influactive"
+
+#: back-end/post-type/edit.php:251
+msgid "Input background color"
+msgstr "Couleur d'arrière-plan d'entrée"
+
+#: back-end/post-type/edit.php:293
+msgid "Input border color"
+msgstr "Couleur de la bordure d'entrée"
+
+#: back-end/post-type/edit.php:298
+msgid "Input border radius"
+msgstr "Rayon de bordure d'entrée"
+
+#: back-end/post-type/edit.php:261
+msgid "Input border style"
+msgstr "Style de bordure d'entrée"
+
+#: back-end/post-type/edit.php:256
+msgid "Input border width"
+msgstr "Largeur de la bordure d'entrée"
+
+#: back-end/post-type/edit.php:221
+msgid "Input font color"
+msgstr "Couleur de la police d'entrée"
+
+#: back-end/post-type/edit.php:211
+msgid "Input font family"
+msgstr "Famille de polices d'entrée"
+
+#: back-end/post-type/edit.php:216
+msgid "Input font size"
+msgstr "Taille de la police d'entrée"
+
+#: back-end/post-type/edit.php:226
+msgid "Input font weight"
+msgstr "Épaisseur de la police d'entrée"
+
+#: back-end/post-type/edit.php:246
+msgid "Input line height"
+msgstr "Hauteur de la ligne d'entrée"
+
+#: back-end/post-type/edit.php:303
+msgid "Input padding"
+msgstr "Rembourrage d'entrée"
+
+#: back-end/post-type/definitions.php:35
+msgid "Insert into Form"
+msgstr "Insérer dans le formulaire"
+
+#: back-end/post-type/edit.php:152 back-end/post-type/edit.php:282
+#: back-end/post-type/edit.php:388
+msgid "Inset"
+msgstr "Encart"
+
+#: back-end/post-type/edit.php:179
+msgid "Label font color"
+msgstr "Couleur de la police de l'étiquette"
+
+#: back-end/post-type/edit.php:169
+msgid "Label Font family"
+msgstr "Famille de polices d'étiquettes"
+
+#: back-end/post-type/edit.php:174
+msgid "Label font size"
+msgstr "Taille de la police de l'étiquette"
+
+#: back-end/post-type/edit.php:184
+msgid "Label font weight"
+msgstr "Épaisseur de la police de l'étiquette"
+
+#: back-end/post-type/edit.php:204
+msgid "Label line height"
+msgstr "Hauteur de la ligne d'étiquette"
+
+#: back-end/post-type/edit.php:199 back-end/post-type/edit.php:241
+#: back-end/post-type/edit.php:342
+msgid "Lighter"
+msgstr "Plus léger"
+
+#: back-end/post-type/edit.php:196 back-end/post-type/edit.php:238
+msgid "Medium"
+msgstr "Moyen"
+
+#: back-end/post-type/definitions.php:23
+msgid "New Form"
+msgstr "Nouveau formulaire"
+
+#: back-end/post-type/edit.php:156
+msgid "None"
+msgstr "Aucun"
+
+#: back-end/post-type/edit.php:187 back-end/post-type/edit.php:229
+#: back-end/post-type/edit.php:333
+msgid "Normal"
+msgstr "Normal"
+
+#: back-end/post-type/definitions.php:29
+msgid "Not found"
+msgstr "Pas trouvé"
+
+#: back-end/post-type/definitions.php:30
+msgid "Not found in Trash"
+msgstr "Introuvable dans la corbeille"
+
+#: back-end/post-type/edit.php:68
+msgid "Number"
+msgstr "Nombre"
+
+#: back-end/post-type/edit.php:85
+msgid "Option Label"
+msgstr "Étiquette d'option"
+
+#: back-end/post-type/edit.php:88
+msgid "Option Value"
+msgstr "Valeur d'option"
+
+#: back-end/post-type/edit.php:154 back-end/post-type/edit.php:285
+#: back-end/post-type/edit.php:391
+msgid "Outset"
+msgstr "Début"
+
+#: back-end/post-type/definitions.php:19
+msgid "Parent Form:"
+msgstr "Formulaire parents :"
+
+#: back-end/post-type/definitions.php:13
+msgctxt "Post Type General Name"
+msgid "Forms"
+msgstr "Formulaires"
+
+#: back-end/post-type/definitions.php:14
+msgctxt "Post Type Singular Name"
+msgid "Form"
+msgstr "Formulaire"
+
+#: back-end/post-type/definitions.php:33
+msgid "Remove featured image"
+msgstr "Supprimer l'image sélectionnée"
+
+#: back-end/post-type/edit.php:91
+msgid "Remove option"
+msgstr "Supprimer l'option"
+
+#: back-end/post-type/edit.php:100
+msgid "Remove the field"
+msgstr "Supprimer le champ"
+
+#: back-end/post-type/edit.php:150 back-end/post-type/edit.php:279
+#: back-end/post-type/edit.php:385
+msgid "Ridge"
+msgstr "Crête"
+
+#: back-end/post-type/definitions.php:28
+msgid "Search Form"
+msgstr "Formulaire de recherche"
+
+#: back-end/post-type/edit.php:70
+msgid "Select"
+msgstr "Sélectionner"
+
+#: back-end/post-type/definitions.php:32
+msgid "Set featured image"
+msgstr "Définir l'image sélectionnée"
+
+#: back-end/settings/page.php:12 back-end/settings/page.php:18
+msgid "Settings"
+msgstr "Paramètres"
+
+#: back-end/post-type/edit.php:140 back-end/post-type/edit.php:264
+#: back-end/post-type/edit.php:370
+msgid "Solid"
+msgstr "Solide"
+
+#: back-end/post-type/edit.php:438
+msgid "Subject of the email"
+msgstr "Objet du mail"
+
+#: back-end/post-type/edit.php:352
+msgid "Submit background color"
+msgstr "Soumettre la couleur d'arrière-plan"
+
+#: back-end/post-type/edit.php:357
+msgid "Submit background hover color"
+msgstr "Soumettre la couleur de survol de l'arrière-plan"
+
+#: back-end/post-type/edit.php:362
+msgid "Submit border color"
+msgstr "Envoyer la couleur de la bordure"
+
+#: back-end/post-type/edit.php:404
+msgid "Submit border radius"
+msgstr "Soumettre le rayon de la bordure"
+
+#: back-end/post-type/edit.php:367
+msgid "Submit border style"
+msgstr "Soumettre le style de bordure"
+
+#: back-end/post-type/edit.php:399
+msgid "Submit border width"
+msgstr "Envoyer la largeur de la bordure"
+
+#: back-end/post-type/edit.php:320
+msgid "Submit font color"
+msgstr "Soumettre la couleur de la police"
+
+#: back-end/post-type/edit.php:310
+msgid "Submit font family"
+msgstr "Soumettre la famille de polices"
+
+#: back-end/post-type/edit.php:325
+msgid "Submit font hover color"
+msgstr "Soumettre la couleur de survol de la police"
+
+#: back-end/post-type/edit.php:315
+msgid "Submit font size"
+msgstr "Soumettre la taille de la police"
+
+#: back-end/post-type/edit.php:330
+msgid "Submit font weight"
+msgstr "Envoyer le poids de la police"
+
+#: back-end/post-type/edit.php:347
+msgid "Submit line height"
+msgstr "Soumettre la hauteur de la ligne"
+
+#: back-end/post-type/edit.php:409
+msgid "Submit padding"
+msgstr "Soumettre le rembourrage"
+
+#: back-end/post-type/edit.php:66
+msgid "Text"
+msgstr "Texte"
+
+#: back-end/post-type/edit.php:69
+msgid "Textarea"
+msgstr "Zone de texte"
+
+#: back-end/post-type/edit.php:65
+msgid "Type"
+msgstr "Type"
+
+#: back-end/post-type/definitions.php:25
+msgid "Update Form"
+msgstr "Mettre à jour le formulaire"
+
+#: back-end/post-type/definitions.php:36
+msgid "Uploaded to this Form"
+msgstr "Téléchargé sur ce formulaire"
+
+#: back-end/post-type/definitions.php:34
+msgid "Use as featured image"
+msgstr "Utiliser comme image vedette"
+
+#: back-end/post-type/definitions.php:26
+msgid "View Form"
+msgstr "Afficher le formulaire"
+
+#: back-end/post-type/definitions.php:27
+msgid "View Forms"
+msgstr "Afficher les formulaires"
