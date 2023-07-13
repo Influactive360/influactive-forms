@@ -426,6 +426,33 @@ function influactive_form_email_style($post): void
                        value="<?= esc_attr($email_style['submit']['padding'] ?? '10px 20px') ?>">
             </label>
         </p>
+        <p>
+            <label>
+                <?= __('Free text font family', 'influactive-forms') ?>
+                <input type="text" name="influactive_form_email_style[free_text][font_family]"
+                       value="<?= esc_attr($email_style['free_text']['font_family'] ?? 'Arial, Helvetica, sans-serif') ?>">
+            </label>
+            <label>
+                <?= __('Free text font size', 'influactive-forms') ?>
+                <input type="text" name="influactive_form_email_style[free_text][font_size]"
+                       value="<?= esc_attr($email_style['free_text']['font_size'] ?? '16px') ?>">
+            </label>
+            <label>
+                <?= __('Free text font weight', 'influactive-forms') ?>
+                <input type="text" name="influactive_form_email_style[free_text][font_weight]"
+                       value="<?= esc_attr($email_style['free_text']['font_weight'] ?? 'normal') ?>">
+            </label>
+            <label>
+                <?= __('Free text color', 'influactive-forms') ?>
+                <input type="color" name="influactive_form_email_style[free_text][color]"
+                       value="<?= esc_attr($email_style['free_text']['color'] ?? '#333333') ?>">
+            </label>
+            <label>
+                <?= __('Free text line height', 'influactive-forms') ?>
+                <input type="text" name="influactive_form_email_style[free_text][line_height]"
+                       value="<?= esc_attr($email_style['free_text']['line_height'] ?? '1.5') ?>">
+            </label>
+        </p>
     </div>
     <?php
 }
