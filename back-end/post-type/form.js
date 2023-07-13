@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   Array.from(container.getElementsByClassName("influactive_form_field")).forEach(function(formField) {
     const fieldType = formField.querySelector(".field_type");
+    fieldType.addEventListener("change", fieldTypeChangeHandler(formField)); // Added this line
 
     if (fieldType.value === "select") {
       const addOptionElement = formField.querySelector(".add_option");
@@ -75,14 +76,22 @@ function fieldTypeChangeHandler(fieldElement) {
     if (fieldValue === "select") {
       const addOptionElement = document.createElement('p')
       addOptionElement.innerHTML = "<a href='#' class='add_option'>Add option</a>";
-      const options_container = fieldElement.querySelector(".options_container");
-      options_container.parentNode.insertBefore(addOptionElement, options_container.nextSibling);
+      fieldElement.appendChild(addOptionElement);
+      // Créer une div .options_container avant le .add_option
+      const optionsContainer = document.createElement('div')
+      optionsContainer.classList.add("options_container");
+      fieldElement.appendChild(optionsContainer);
 
       addOptionElement.addEventListener("click", addOptionHandler);
     } else {
       const addOptionElement = fieldElement.querySelector(".add_option");
+      // array all .option-field elements
+      const optionsContainer = fieldElement.querySelector(".options_container");
       if (addOptionElement) {
         addOptionElement.remove();
+      }
+      if (optionsContainer) {
+        optionsContainer.remove();
       }
     }
 
@@ -90,15 +99,12 @@ function fieldTypeChangeHandler(fieldElement) {
     const nameElement = fieldElement.querySelector(".influactive_form_fields_name");
 
     if (fieldValue !== "gdpr") {
-      console.log('fieldValue !== "gdpr"');
       // Check if the existing elements are of type "gpdr" and remove them if they are
       if (labelElement && labelElement.dataset.type === "gdpr") {
-        console.log(labelElement);
         labelElement.parentElement.remove();
       }
 
       if (nameElement && nameElement.value === "gdpr") {
-        console.log('nameElement && nameElement.value === "gdpr"');
         nameElement.parentElement.remove();
       }
 
@@ -108,7 +114,6 @@ function fieldTypeChangeHandler(fieldElement) {
 
       // If they don't exist, create and append them
       if (!labelElementExists && !nameElementExists) {
-        console.log('!labelElementExists && !nameElementExists');
         const LabelElement = document.createElement('label')
         LabelElement.innerHTML = "Label <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label'>";
         const NameElement = document.createElement('label')
@@ -121,7 +126,6 @@ function fieldTypeChangeHandler(fieldElement) {
     }
 
     if (fieldValue === "gdpr") {
-
       fieldElement.querySelector(".influactive_form_fields_label")?.parentElement.remove();
       fieldElement.querySelector(".influactive_form_fields_name")?.parentElement.remove();
       const gdprTextElement = document.createElement('label')
