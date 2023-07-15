@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
           // Display the success message in the div
           messageDiv.textContent = response.data.message;
           form.reset();
-          // attendre 2 secondes et cacher le message
           setTimeout(function() {
             messageDiv.textContent = '';
           }, 2000);

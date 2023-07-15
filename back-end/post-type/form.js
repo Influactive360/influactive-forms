@@ -6,10 +6,19 @@ document.addEventListener('DOMContentLoaded', function () {
     new Sortable(container, {
         handle: '.influactive_form_field', // This class should be on the elements you want to be draggable
         animation: 150,
-        onSort: () => {
+        onStart: () => {
             updateFieldOrder();
         },
         onEnd: () => {
+            updateFieldOrder();
+        },
+        onChoose: () => {
+            updateFieldOrder();
+        },
+        onMove: () => {
+            updateFieldOrder();
+        },
+        onClone: () => {
             updateFieldOrder();
         },
     });
@@ -58,15 +67,14 @@ function addFieldHandler (e) {
 }
 
 function fieldTypeChangeHandler (fieldElement) {
+    recalculateFieldIndexes();
     return function (event) {
         let fieldValue = event.target.value;
         // Remove existing elements
         const oldLabelElement = fieldElement.querySelector(".influactive_form_fields_label");
         const oldNameElement = fieldElement.querySelector(".influactive_form_fields_name");
         const oldTextAreaElement = fieldElement.querySelector(".wysiwyg-editor"); // Added this line
-        // Dans votre fonction fieldTypeChangeHandler
         if (oldLabelElement && oldNameElement) {
-            // Avant de supprimer l'ancien élément de textarea, vérifiez s'il existe une instance de tinymce pour cet élément
             if (oldTextAreaElement && tinymce.get(oldTextAreaElement.id)) {
                 tinymce.get(oldTextAreaElement.id).remove();
             }
@@ -86,7 +94,6 @@ function fieldTypeChangeHandler (fieldElement) {
             fieldElement.appendChild(gdprNameElement);
         }
         if (fieldValue === "free_text") {
-            // Create a new textarea element
             const textareaElement = document.createElement('textarea');
             textareaElement.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][label]';
             textareaElement.className = 'influactive_form_fields_label wysiwyg-editor'; // class 'wysiwyg-editor' is for TinyMCE selector
@@ -131,14 +138,12 @@ function fieldTypeChangeHandler (fieldElement) {
             const addOptionElement = document.createElement('p')
             addOptionElement.innerHTML = "<a href='#' class='add_option'>Add option</a>";
             fieldElement.appendChild(addOptionElement);
-            // Créer une div .options_container avant le .add_option
             const optionsContainer = document.createElement('div')
             optionsContainer.classList.add("options_container");
             fieldElement.appendChild(optionsContainer);
             addOptionElement.addEventListener("click", addOptionHandler);
         } else {
             const addOptionElement = fieldElement.querySelector(".add_option");
-            // array all .option-field elements
             const optionsContainer = fieldElement.querySelector(".options_container");
             if (addOptionElement) {
                 addOptionElement.remove();
@@ -154,7 +159,6 @@ function addOptionHandler (e) {
     e.preventDefault();
     const optionsContainer = e.target.parentElement.previousElementSibling;
     const optionElement = createOptionElement();
-    // Here, add event listener to the "Remove option" link
     const removeOptionElement = optionElement.querySelector('.remove_option');
     if (removeOptionElement) {
         removeOptionElement.addEventListener("click", removeOptionHandler);
@@ -230,11 +234,22 @@ function recalculateFieldIndexes () {
         const fieldLabel = fieldField.querySelector(".influactive_form_fields_label");
         const fieldName = fieldField.querySelector(".influactive_form_fields_name");
         const fieldOrder = fieldField.querySelector(".influactive_form_fields_order");
+        const options = Array.from(fieldField.getElementsByClassName("option-field"));
         if (fieldType && fieldLabel && fieldName && fieldOrder) {
             fieldType.name = `influactive_form_fields[${index}][type]` ?? "";
             fieldLabel.name = `influactive_form_fields[${index}][label]` ?? "";
             fieldName.name = `influactive_form_fields[${index}][name]` ?? ""
             fieldOrder.name = `influactive_form_fields[${index}][order]` ?? "";
+            if (options.length > 0) {
+                options.forEach((option, optionIndex) => {
+                    const optionLabel = option.querySelector(".option-label");
+                    const optionValue = option.querySelector(".option-value");
+                    if (optionLabel && optionValue) {
+                        optionLabel.name = `influactive_form_fields[${index}][options][${optionIndex}][label]` ?? "";
+                        optionValue.name = `influactive_form_fields[${index}][options][${optionIndex}][value]` ?? "";
+                    }
+                });
+            }
         }
     });
 }
