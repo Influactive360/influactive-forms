@@ -37,7 +37,8 @@ function influactive_form_edit( $hook ): void {
 
 	wp_enqueue_script( 'influactive-form', plugin_dir_url( __FILE__ ) . 'back-end/post-type/form.js', array(
 		'influactive-form-sortable',
-		'wp-tinymce'
+		'wp-tinymce',
+		'influactive-tabs'
 	), '1.0', true );
 	wp_localize_script( 'influactive-form', 'influactiveFormsTranslations', array(
 		'addOptionText'        => __( 'Add option', 'influactive-forms' ),
