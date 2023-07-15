@@ -4,22 +4,22 @@
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById("influactive_form_fields_container");
     new Sortable(container, {
-        handle: '.influactive_form_field', // This class should be on the elements you want to be draggable
-        animation: 150,
-        onStart: () => {
-            updateFieldOrder();
-        },
-        onEnd: () => {
-            updateFieldOrder();
-        },
+        animation: 150, // This class should be on the elements you want to be draggable
+        handle: '.influactive_form_field',
         onChoose: () => {
-            updateFieldOrder();
-        },
-        onMove: () => {
-            updateFieldOrder();
+            recalculateFieldIndexes();
         },
         onClone: () => {
-            updateFieldOrder();
+            recalculateFieldIndexes();
+        },
+        onEnd: () => {
+            recalculateFieldIndexes();
+        },
+        onMove: () => {
+            recalculateFieldIndexes();
+        },
+        onStart: () => {
+            recalculateFieldIndexes();
         },
     });
     document.getElementById("add_field").addEventListener("click", addFieldHandler);
@@ -43,14 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-function updateFieldOrder () {
-    const container = document.getElementById("influactive_form_fields_container");
-    Array.from(container.getElementsByClassName("influactive_form_field")).forEach((formField, index) => {
-        formField.querySelector(".influactive_form_fields_order").value = index;
-    });
-    recalculateFieldIndexes();
-}
 
 function addFieldHandler (e) {
     e.preventDefault();
