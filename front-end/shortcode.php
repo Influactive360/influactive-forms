@@ -6,8 +6,10 @@ if (!defined('ABSPATH')) {
 
 // Ajouter un shortcode pour chaque post
 add_shortcode('influactive_form', 'influactive_form_shortcode_handler');
-function influactive_form_shortcode_handler($atts): void
+function influactive_form_shortcode_handler($atts): bool|string
 {
+    ob_start(); // Start output buffering
+
     $atts = shortcode_atts(
         array('id' => '0'),
         $atts,
@@ -17,7 +19,7 @@ function influactive_form_shortcode_handler($atts): void
     $form_id = (int)$atts['id'];
 
     if (!$form_id) {
-        return;
+        return false;
     }
 
     // Showing the form if it exists
@@ -36,6 +38,15 @@ function influactive_form_shortcode_handler($atts): void
         wp_nonce_field('influactive_send_email', 'nonce');
 
         echo '<input type="hidden" name="form_id" value="' . $form_id . '">';
+
+        $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
+        $public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
+        $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+
+        if (!empty($public_site_key) && !empty($secret_site_key)) {
+            echo '<input type="hidden" id="recaptchaResponse-' . $form_id . '" name="recaptcha_response">';
+            echo '<input type="hidden" id="recaptchaSiteKey-' . $form_id . '" name="recaptcha_site_key" value="' . $public_site_key . '">';
+        }
 
         foreach ($fields as $field) {
             switch ($field['type']) {
@@ -64,6 +75,7 @@ function influactive_form_shortcode_handler($atts): void
                     break;
                 case 'free_text':
                     echo '<div class="free-text">' . $field['label'] . '</div>';
+                    echo '<input type="hidden" name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['label']) . '">'; // Hidden field to get the label
                     break;
             }
         }
@@ -74,6 +86,8 @@ function influactive_form_shortcode_handler($atts): void
         echo '</form>';
         echo '</div>';
     }
+
+    return ob_get_clean(); // End output buffering and return buffered output
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_form_dynamic_style');
@@ -96,17 +110,20 @@ function enqueue_form_dynamic_style(): void
 add_action('wp_ajax_send_email', 'influactive_send_email');
 add_action('wp_ajax_nopriv_send_email', 'influactive_send_email');
 
+/**
+ * @throws JsonException
+ */
 function influactive_send_email(): void
 {
     // Check if our nonce is set and verify it.
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'influactive_send_email')) {
-        wp_send_json_error(['message' => 'Nonce verification failed']);
+        wp_send_json_error(['message' => __('Nonce verification failed', 'influactive-forms')]);
         return;
     }
 
     // Check form fields
     if (!isset($_POST['form_id'])) {
-        wp_send_json_error(['message' => 'Form ID is required']);
+        wp_send_json_error(['message' => __('Form ID is required', 'influactive-forms')]);
         return;
     }
 
@@ -115,7 +132,7 @@ function influactive_send_email(): void
 
     foreach ($fields as $field) {
         if (empty($_POST[$field['name']])) {
-            wp_send_json_error(['message' => 'All fields are required']);
+            wp_send_json_error(['message' => __('All fields are required', 'influactive-forms')]);
             return;
         }
     }
@@ -160,14 +177,32 @@ function influactive_send_email(): void
     $from = sanitize_email($from);
     $to = sanitize_email($to);
 
+    $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
+    $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+
+    if (!empty($secret_site_key)) {
+        $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
+        $recaptcha_response = $_POST['recaptcha_response'];
+
+        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $secret_site_key . '&response=' . $recaptcha_response);
+        $recaptcha = json_decode($recaptcha, false, 512, JSON_THROW_ON_ERROR);
+
+        // Prendre une décision basée sur le score de reCAPTCHA.
+        if ($recaptcha->score < 0.5) {
+            // Not likely to be a human
+            wp_send_json_error(['message' => __('Bot detected', 'influactive-forms')]);
+            return;
+        }
+    }
+
     // Email details
     $headers = ['Content-Type: text/html; charset=UTF-8', 'From: ' . $sitename . ' <' . $from . '>', 'Reply-To: ' . $from];
 
     // Send email
     if (wp_mail($to, $subject, $content, $headers)) {
-        wp_send_json_success(['message' => 'Email sent successfully', 'sent' => true, 'to' => $to, 'subject' => $subject, 'content' => $content, 'headers' => $headers]);
+        wp_send_json_success(['message' => __('Email sent successfully', 'influactive-forms'), 'sent' => true, 'to' => $to, 'subject' => $subject, 'content' => $content, 'headers' => $headers]);
     } else {
-        wp_send_json_error(['message' => 'Failed to send email', 'to' => $to, 'subject' => $subject, 'content' => $content, 'headers' => $headers]);
+        wp_send_json_error(['message' => __('Failed to send email', 'influactive-forms'), 'to' => $to, 'subject' => $subject, 'content' => $content, 'headers' => $headers]);
     }
 
     wp_die();
@@ -195,4 +230,24 @@ function replace_field_placeholder(string $string, string $field_name, array $la
     }
 
     return $string;
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_google_captcha_script');
+function enqueue_google_captcha_script(): void
+{
+    $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
+    $public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
+    $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+
+    if (is_admin()) {
+        return;
+    }
+
+    if (wp_script_is('google-captcha')) {
+        return;
+    }
+
+    if (!empty($public_site_key) && !empty($secret_site_key)) {
+        wp_enqueue_script('google-captcha', "https://www.google.com/recaptcha/api.js?render=$public_site_key", [], null, true);
+    }
 }
