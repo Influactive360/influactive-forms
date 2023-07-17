@@ -20,6 +20,7 @@
 .influactive_form_field label {
   display: block;
   margin-bottom: 5px;
+  cursor: grab;
 }
 
 .influactive_form_field input[type="text"],
