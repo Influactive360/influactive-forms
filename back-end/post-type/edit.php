@@ -455,39 +455,7 @@ function influactive_form_email_style($post): void
 
 function influactive_form_email_layout($post): void
 {
-    $email_layout = get_post_meta($post->ID, '_influactive_form_email_layout', true);
-    ?>
-    <div id="influactive_form_layout_container">
-        <p>
-            <label>
-                <?= __('Email sender', 'influactive-forms') ?>
-                <input type="text" name="influactive_form_email_layout[sender]"
-                       value="<?= esc_attr($email_layout['sender'] ?? get_bloginfo('admin_email')) ?>">
-            </label>
-        </p>
-        <p>
-            <label>
-                <?= __('Email recipient', 'influactive-forms') ?>
-                <input type="text" name="influactive_form_email_layout[recipient]"
-                       value="<?= esc_attr($email_layout['recipient'] ?? get_bloginfo('admin_email')) ?>">
-            </label>
-        <p>
-            <label>
-                 <?= __('Subject of the email', 'influactive-forms') ?>
-                <input type="text" name="influactive_form_email_layout[subject]"
-                       value="<?= esc_attr($email_layout['subject'] ?? '') ?>">
-            </label>
-        </p>
-        <p>
-            <label>
-                <?= __('Content of the email', 'influactive-forms') ?>
-                <textarea name="influactive_form_email_layout[content]" cols="30"
-                          rows="15"><?= esc_attr($email_layout['content'] ?? '') ?></textarea>
-
-            </label>
-        </p>
-    </div>
-    <?php
+    $email_layout = get_post_meta($post->ID, '_influactive_form_email_layout', true) ?? [];
 
     // List all influactive_form_fields_name like "{field_name}"
     $fields = get_post_meta($post->ID, '_influactive_form_fields', true) ?? [];
@@ -511,6 +479,56 @@ function influactive_form_email_layout($post): void
             <?php endif; ?>
         <?php endforeach; ?>
     </ul>
+    <?php
+        if (count($email_layout) === 0) {
+            $email_layout = [
+                0 => [
+                    'sender' => get_bloginfo('admin_email'),
+                    'recipient' => get_bloginfo('admin_email'),
+                    'subject' => __('New subject', 'influactive-forms'),
+                    'message' => __('New message', 'influactive-forms'),
+                ]
+            ];
+        }
+    ?>
+    <div id="layout_container">
+        <?php foreach ($email_layout as $key => $layout): ?>
+            <div id="influactive_form_layout_container_<?= $key ?>" class="influactive_form_layout_container" data-layout="<?= $key ?>">
+                <p>
+                    <label>
+                        <?= __('Email sender', 'influactive-forms') ?>
+                        <input type="text" name="influactive_form_email_layout[<?=$key?>][sender]"
+                               value="<?= esc_attr($layout['sender'] ?? get_bloginfo('admin_email')) ?>">
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <?= __('Email recipient', 'influactive-forms') ?>
+                        <input type="text" name="influactive_form_email_layout[<?=$key?>][recipient]"
+                               value="<?= esc_attr($layout['recipient'] ?? get_bloginfo('admin_email')) ?>">
+                    </label>
+                <p>
+                    <label>
+                         <?= __('Subject of the email', 'influactive-forms') ?>
+                        <input type="text" name="influactive_form_email_layout[<?=$key?>][subject]"
+                               value="<?= esc_attr($layout['subject'] ?? __('New subject', 'influactive-forms')) ?>">
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <?= __('Content of the email', 'influactive-forms') ?>
+                        <textarea name="influactive_form_email_layout[<?=$key?>][content]" cols="30"
+                                  rows="15"><?= esc_attr($layout['content'] ?? __('New message', 'influactive-forms')) ?></textarea>
+                    </label>
+                </p>
+                <?php if ($key !== 0) : ?>
+                    <button class="delete_layout" type="button"><?= __('Delete layout', 'influactive-forms') ?></button>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <input type="hidden" id="layoutCount" name="layoutCount" value="<?= count($email_layout) ?>">
+    <button id="add_new_layout"><?= __('Add new layout', 'influactive-forms') ?></button>
     <?php
 }
 
@@ -556,18 +574,19 @@ function influactive_form_save_post($post_id): void
         update_post_meta($post_id, '_influactive_form_fields', $fields);
 
         $email_style = $_POST['influactive_form_email_style'] ?? [];
+        update_post_meta($post_id, '_influactive_form_email_style', $email_style);
+
         $email_layout = $_POST['influactive_form_email_layout'] ?? [];
 
-        // Sanitize email layout content
-        if (isset($email_layout['content'])) {
-            $email_layout['content'] = wp_kses_post($email_layout['content']);
-        }
-        // Sanitize email layout subject
-        if (isset($email_layout['subject'])) {
-            $email_layout['subject'] = sanitize_text_field($email_layout['subject']);
+        foreach ($email_layout as $key => $layout) {
+            if (isset($layout['content'])) {
+                $email_layout[$key]['content'] = wp_kses_post($layout['content']);
+            }
+            if (isset($layout['subject'])) {
+                $email_layout[$key]['subject'] = sanitize_text_field($layout['subject']);
+            }
         }
 
-        update_post_meta($post_id, '_influactive_form_email_style', $email_style);
         update_post_meta($post_id, '_influactive_form_email_layout', $email_layout);
     }
 }

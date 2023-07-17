@@ -49,7 +49,7 @@ function influactive_form_shortcode_handler($atts): bool|string
         }
 
         foreach ($fields as $field) {
-            if ($field['required'] === '1') {
+            if (isset($field['required']) && $field['required'] === '1') {
                 $required = 'required';
             } else {
                 $required = '';
@@ -147,48 +147,13 @@ function influactive_send_email(): void
 
     // Get email layout
     $email_layout = get_post_meta($_POST['form_id'], '_influactive_form_email_layout', true);
-    $content = str_replace("\n", '<br>', $email_layout['content'] ?? '');
-    $subject = $email_layout['subject'] ?? '';
-    $to = $email_layout['recipient'] ?? get_bloginfo('admin_email');
-    $from = $email_layout['sender'] ?? get_bloginfo('admin_email');
     $sitename = get_bloginfo('name');
-
-    foreach ($fields as $field) {
-        // Convert textarea newlines to HTML breaks
-        if ($field['type'] === 'textarea') {
-            $_POST[$field['name']] = nl2br($_POST[$field['name']]);
-            $allowed_html = array(
-                'br' => array()
-            );
-            $content = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $content);
-            $subject = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $subject);
-            $to = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $to);
-            $from = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $from);
-        } else if ($field['type'] === 'select') {
-            $content = replace_field_placeholder($content, $field['name'], explode(':', $_POST[$field['name']]));
-            $subject = replace_field_placeholder($subject, $field['name'], explode(':', $_POST[$field['name']]));
-            $to = replace_field_placeholder($to, $field['name'], explode(':', $_POST[$field['name']]));
-            $from = replace_field_placeholder($from, $field['name'], explode(':', $_POST[$field['name']]));
-        } else if ($field['type'] === 'email') {
-            $content = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $content);
-            $subject = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $subject);
-            $to = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $to);
-            $from = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $from);
-        } else {
-            $content = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $content);
-            $subject = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $subject);
-            $to = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $to);
-            $from = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $from);
-        }
-    }
-
-    $from = sanitize_email($from);
-    $to = sanitize_email($to);
 
     $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
     $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+    $public_site_key = $_POST['recaptcha_site_key'] ?? '';
 
-    if (!empty($secret_site_key)) {
+    if (!empty($secret_site_key) && !empty($public_site_key)) {
         $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
         $recaptcha_response = $_POST['recaptcha_response'];
 
@@ -203,14 +168,62 @@ function influactive_send_email(): void
         }
     }
 
-    // Email details
-    $headers = ['Content-Type: text/html; charset=UTF-8', 'From: ' . $sitename . ' <' . $from . '>', 'Reply-To: ' . $from];
+    $layouts = $email_layout ?? [];
+    $error = 0;
+    foreach ($layouts as $layout) {
+        $content = str_replace("\n", '<br>', $layout['content'] ?? '');
+        $subject = $layout['subject'] ?? '';
+        $to = $layout['recipient'] ?? get_bloginfo('admin_email');
+        $from = $layout['sender'] ?? get_bloginfo('admin_email');
 
-    // Send email
-    if (wp_mail($to, $subject, $content, $headers)) {
-        wp_send_json_success(['message' => __('Email sent successfully', 'influactive-forms'), 'sent' => true, 'to' => $to, 'subject' => $subject, 'content' => $content, 'headers' => $headers]);
+        foreach ($fields as $field) {
+            // Convert textarea newlines to HTML breaks
+            if ($field['type'] === 'textarea') {
+                $_POST[$field['name']] = nl2br($_POST[$field['name']]);
+                $allowed_html = array(
+                    'br' => array()
+                );
+                $content = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $content);
+                $subject = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $subject);
+                $to = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $to);
+                $from = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $from);
+            } else if ($field['type'] === 'select') {
+                $content = replace_field_placeholder($content, $field['name'], explode(':', $_POST[$field['name']]));
+                $subject = replace_field_placeholder($subject, $field['name'], explode(':', $_POST[$field['name']]));
+                $to = replace_field_placeholder($to, $field['name'], explode(':', $_POST[$field['name']]));
+                $from = replace_field_placeholder($from, $field['name'], explode(':', $_POST[$field['name']]));
+            } else if ($field['type'] === 'email') {
+                $content = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $content);
+                $subject = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $subject);
+                $to = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $to);
+                $from = str_replace('{' . $field['name'] . '}', sanitize_email($_POST[$field['name']]), $from);
+            } else {
+                $content = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $content);
+                $subject = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $subject);
+                $to = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $to);
+                $from = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $from);
+            }
+        }
+
+        $from = sanitize_email($from);
+        $to = sanitize_email($to);
+
+        // Email details
+        $headers = ['Content-Type: text/html; charset=UTF-8', 'From: ' . $sitename . ' <' . $from . '>', 'Reply-To: ' . $from];
+
+        if (!wp_mail($to, $subject, $content, $headers)) {
+            $error++;
+        }
+    }
+
+    if ($error === 0) {
+        wp_send_json_success([
+            'message' => __('Email sent successfully', 'influactive-forms'),
+        ]);
     } else {
-        wp_send_json_error(['message' => __('Failed to send email', 'influactive-forms'), 'to' => $to, 'subject' => $subject, 'content' => $content, 'headers' => $headers]);
+        wp_send_json_error([
+            'message' => __('Failed to send email', 'influactive-forms'),
+        ]);
     }
 
     wp_die();

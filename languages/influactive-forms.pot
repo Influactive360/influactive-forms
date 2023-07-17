@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-17T10:02:51+00:00\n"
+"POT-Creation-Date: 2023-07-17T13:41:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: influactive-forms\n"
@@ -166,63 +166,63 @@ msgstr ""
 
 #: back-end/post-type/edit.php:60
 #: back-end/post-type/edit.php:69
-#: functions.php:54
-#: functions.php:58
+#: functions.php:55
+#: functions.php:59
 msgid "Text"
 msgstr ""
 
 #: back-end/post-type/edit.php:61
-#: functions.php:61
+#: functions.php:62
 msgid "Email"
 msgstr ""
 
 #: back-end/post-type/edit.php:62
-#: functions.php:63
+#: functions.php:64
 msgid "Number"
 msgstr ""
 
 #: back-end/post-type/edit.php:63
-#: functions.php:59
+#: functions.php:60
 msgid "Textarea"
 msgstr ""
 
 #: back-end/post-type/edit.php:64
-#: functions.php:60
+#: functions.php:61
 msgid "Select"
 msgstr ""
 
 #: back-end/post-type/edit.php:65
-#: functions.php:62
+#: functions.php:63
 msgid "GDPR"
 msgstr ""
 
 #: back-end/post-type/edit.php:66
-#: functions.php:64
+#: functions.php:65
 msgid "Free text"
 msgstr ""
 
 #: back-end/post-type/edit.php:91
-#: functions.php:52
+#: functions.php:53
 msgid "Option Label"
 msgstr ""
 
 #: back-end/post-type/edit.php:94
-#: functions.php:53
+#: functions.php:54
 msgid "Option Value"
 msgstr ""
 
 #: back-end/post-type/edit.php:97
-#: functions.php:47
+#: functions.php:48
 msgid "Remove option"
 msgstr ""
 
 #: back-end/post-type/edit.php:102
-#: functions.php:46
+#: functions.php:47
 msgid "Add option"
 msgstr ""
 
 #: back-end/post-type/edit.php:111
-#: functions.php:48
+#: functions.php:49
 msgid "Remove the field"
 msgstr ""
 
@@ -474,23 +474,42 @@ msgid "Free text line height"
 msgstr ""
 
 #: back-end/post-type/edit.php:463
+msgid "Fields available in the email"
+msgstr ""
+
+#: back-end/post-type/edit.php:488
+#: back-end/post-type/edit.php:514
+msgid "New subject"
+msgstr ""
+
+#: back-end/post-type/edit.php:489
+#: back-end/post-type/edit.php:521
+msgid "New message"
+msgstr ""
+
+#: back-end/post-type/edit.php:499
 msgid "Email sender"
 msgstr ""
 
-#: back-end/post-type/edit.php:470
+#: back-end/post-type/edit.php:506
 msgid "Email recipient"
 msgstr ""
 
-#: back-end/post-type/edit.php:476
+#: back-end/post-type/edit.php:512
 msgid "Subject of the email"
 msgstr ""
 
-#: back-end/post-type/edit.php:483
+#: back-end/post-type/edit.php:519
 msgid "Content of the email"
 msgstr ""
 
-#: back-end/post-type/edit.php:495
-msgid "Fields available in the email"
+#: back-end/post-type/edit.php:525
+#: functions.php:76
+msgid "Delete layout"
+msgstr ""
+
+#: back-end/post-type/edit.php:531
+msgid "Add new layout"
 msgstr ""
 
 #: back-end/settings/captchas.php:12
@@ -534,38 +553,38 @@ msgstr ""
 msgid "The field %s is required"
 msgstr ""
 
-#: front-end/shortcode.php:201
+#: front-end/shortcode.php:166
 msgid "Bot detected"
 msgstr ""
 
-#: front-end/shortcode.php:211
+#: front-end/shortcode.php:221
 msgid "Email sent successfully"
 msgstr ""
 
-#: front-end/shortcode.php:213
+#: front-end/shortcode.php:225
 msgid "Failed to send email"
 msgstr ""
 
-#: functions.php:49
+#: functions.php:50
 msgid "Type"
 msgstr ""
 
-#: functions.php:50
+#: functions.php:51
 msgid "Label"
 msgstr ""
 
-#: functions.php:51
+#: functions.php:52
 msgid "Name"
 msgstr ""
 
-#: functions.php:55
+#: functions.php:56
 msgid "Field added!"
 msgstr ""
 
-#: functions.php:56
+#: functions.php:57
 msgid "Option added!"
 msgstr ""
 
-#: functions.php:57
+#: functions.php:58
 msgid "Option removed!"
 msgstr ""

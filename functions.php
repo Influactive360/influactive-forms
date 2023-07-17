@@ -40,7 +40,8 @@ function influactive_form_edit($hook): void
     wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/form.js', array(
         'influactive-form-sortable',
         'wp-tinymce',
-        'influactive-tabs'
+        'influactive-tabs',
+        'influactive-form-layout'
     ), '1.0', true);
     wp_localize_script('influactive-form', 'influactiveFormsTranslations', array(
         'addOptionText' => __('Add option', 'influactive-forms'),
@@ -70,6 +71,11 @@ function influactive_form_edit($hook): void
     wp_enqueue_style('influactive-tabs', plugin_dir_url(__FILE__) . 'back-end/post-type/tab.css', array(), '1.0');
 
     wp_enqueue_style('influactive-form-layout', plugin_dir_url(__FILE__) . 'back-end/post-type/layout.css', array(), '1.0');
+    wp_enqueue_script('influactive-form-layout', plugin_dir_url(__FILE__) . 'back-end/post-type/layout.js', array(), '1.0', true);
+    wp_localize_script('influactive-form-layout', 'influactiveFormsTranslations', array(
+        'delete_layout' => __('Delete layout', 'influactive-forms'),
+    ));
+
     wp_enqueue_style('influactive-form-style', plugin_dir_url(__FILE__) . 'back-end/post-type/style.css', array(), '1.0');
 
     wp_enqueue_style('influactive-form-preview', plugin_dir_url(__FILE__) . 'front-end/form.min.css', array(), '1.0');
