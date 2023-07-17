@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-07-13T08:35:46+00:00\n"
-"PO-Revision-Date: 2023-07-13 15:03+0000\n"
+"PO-Revision-Date: 2023-07-17 09:04+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: influactive-forms\n"
 "Language: en_US\n"
@@ -36,9 +36,13 @@ msgstr "Add New"
 msgid "Add New Form"
 msgstr "Add New Form"
 
-#: back-end/post-type/edit.php:108 functions.php:43
+#: back-end/post-type/edit.php:108 functions.php:46
 msgid "Add option"
 msgstr "Add option"
+
+#: front-end/shortcode.php:135
+msgid "All fields are required"
+msgstr "All fields are required"
 
 #: back-end/post-type/definitions.php:20
 msgid "All Forms"
@@ -54,7 +58,11 @@ msgstr "Bold"
 msgid "Bolder"
 msgstr "Bolder"
 
-#: front-end/shortcode.php:62
+#: front-end/shortcode.php:193
+msgid "Bot detected"
+msgstr "Bot detected"
+
+#: front-end/shortcode.php:73
 msgid "Check our Privacy Policy"
 msgstr "Check our Privacy Policy"
 
@@ -85,7 +93,7 @@ msgstr "Double"
 msgid "Edit Form"
 msgstr "Edit Form"
 
-#: back-end/post-type/edit.php:67 functions.php:58
+#: back-end/post-type/edit.php:67 functions.php:61
 msgid "Email"
 msgstr "Email"
 
@@ -101,11 +109,29 @@ msgstr "Email recipient"
 msgid "Email sender"
 msgstr "Email sender"
 
+#: front-end/shortcode.php:203
+msgid "Email sent successfully"
+msgstr "Email sent successfully"
+
+#: back-end/settings/page.php:62
+msgid ""
+"Enter the Google Captcha site key. Here the link to generate a key <a "
+"href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\" "
+"title=\"reCAPTCHA\">reCAPTCHA</a>"
+msgstr ""
+"Enter the Google Captcha site key. Here the link to generate a key <a "
+"href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\" "
+"title=\"reCAPTCHA\">reCAPTCHA</a>"
+
+#: front-end/shortcode.php:205
+msgid "Failed to send email"
+msgstr "Failed to send email"
+
 #: back-end/post-type/definitions.php:31
 msgid "Featured Image"
 msgstr "Featured Image"
 
-#: functions.php:52
+#: functions.php:55
 msgid "Field added!"
 msgstr "Field added!"
 
@@ -149,6 +175,10 @@ msgstr "Form Border width"
 msgid "Form Fields"
 msgstr "Form Fields"
 
+#: front-end/shortcode.php:126
+msgid "Form ID is required"
+msgstr "Form ID is required"
+
 #: back-end/post-type/edit.php:143
 msgid "Form Padding"
 msgstr "Form Padding"
@@ -177,7 +207,7 @@ msgstr "Forms list"
 msgid "Forms list navigation"
 msgstr "Forms list navigation"
 
-#: back-end/post-type/edit.php:72 functions.php:61
+#: back-end/post-type/edit.php:72 functions.php:64
 msgid "Free text"
 msgstr "Free text"
 
@@ -201,9 +231,13 @@ msgstr "Free text font weight"
 msgid "Free text line height"
 msgstr "Free text line height"
 
-#: back-end/post-type/edit.php:71 functions.php:59
+#: back-end/post-type/edit.php:71 functions.php:62
 msgid "GDPR"
 msgstr "GDPR"
+
+#: back-end/settings/page.php:38
+msgid "Google Captcha"
+msgstr "Google Captcha"
 
 #: back-end/post-type/edit.php:163 back-end/post-type/edit.php:291
 #: back-end/post-type/edit.php:397
@@ -265,7 +299,7 @@ msgstr "Input font weight"
 
 #: back-end/post-type/edit.php:261
 msgid "Input line height"
-msgstr "v"
+msgstr "Input line height"
 
 #: back-end/post-type/edit.php:318
 msgid "Input padding"
@@ -280,7 +314,7 @@ msgstr "Insert into Form"
 msgid "Inset"
 msgstr "Inset"
 
-#: functions.php:47
+#: functions.php:50
 msgid "Label"
 msgstr "Label"
 
@@ -313,13 +347,17 @@ msgstr "Lighter"
 msgid "Medium"
 msgstr "Medium"
 
-#: functions.php:48
+#: functions.php:51
 msgid "Name"
 msgstr "Name"
 
 #: back-end/post-type/definitions.php:23
 msgid "New Form"
 msgstr "New Form"
+
+#: front-end/shortcode.php:120
+msgid "Nonce verification failed"
+msgstr "Nonce verification failed"
 
 #: back-end/post-type/edit.php:171
 msgid "None"
@@ -338,23 +376,23 @@ msgstr "Not found"
 msgid "Not found in Trash"
 msgstr "Not found in Trash"
 
-#: back-end/post-type/edit.php:68 functions.php:60
+#: back-end/post-type/edit.php:68 functions.php:63
 msgid "Number"
 msgstr "Number"
 
-#: functions.php:53
+#: functions.php:56
 msgid "Option added!"
 msgstr "Option added!"
 
-#: back-end/post-type/edit.php:97 functions.php:49
+#: back-end/post-type/edit.php:97 functions.php:52
 msgid "Option Label"
 msgstr "Option Label"
 
-#: functions.php:54
+#: functions.php:57
 msgid "Option removed!"
 msgstr "Option removed!"
 
-#: back-end/post-type/edit.php:100 functions.php:50
+#: back-end/post-type/edit.php:100 functions.php:53
 msgid "Option Value"
 msgstr "Option Value"
 
@@ -365,7 +403,7 @@ msgstr "Outset"
 
 #: back-end/post-type/definitions.php:19
 msgid "Parent Form:"
-msgstr "v"
+msgstr "Parent Form:"
 
 #: back-end/post-type/definitions.php:13
 msgctxt "Post Type General Name"
@@ -377,15 +415,19 @@ msgctxt "Post Type Singular Name"
 msgid "Form"
 msgstr "Form"
 
+#: back-end/settings/page.php:45
+msgid "Public Site key"
+msgstr "Public Site key"
+
 #: back-end/post-type/definitions.php:33
 msgid "Remove featured image"
 msgstr "Remove featured image"
 
-#: back-end/post-type/edit.php:103 functions.php:44
+#: back-end/post-type/edit.php:103 functions.php:47
 msgid "Remove option"
 msgstr "Remove option"
 
-#: back-end/post-type/edit.php:115 functions.php:45
+#: back-end/post-type/edit.php:115 functions.php:48
 msgid "Remove the field"
 msgstr "Remove the field"
 
@@ -398,7 +440,11 @@ msgstr "Ridge"
 msgid "Search Form"
 msgstr "Search Form"
 
-#: back-end/post-type/edit.php:70 functions.php:57
+#: back-end/settings/page.php:53
+msgid "Secret Site key"
+msgstr "Secret Site key"
+
+#: back-end/post-type/edit.php:70 functions.php:60
 msgid "Select"
 msgstr "Select"
 
@@ -406,7 +452,7 @@ msgstr "Select"
 msgid "Set featured image"
 msgstr "Set featured image"
 
-#: back-end/settings/page.php:12 back-end/settings/page.php:18 functions.php:26
+#: back-end/settings/page.php:12 back-end/settings/page.php:20 functions.php:27
 msgid "Settings"
 msgstr "Settings"
 
@@ -471,15 +517,15 @@ msgstr "Submit line height"
 msgid "Submit padding"
 msgstr "Submit padding"
 
-#: back-end/post-type/edit.php:66 functions.php:51 functions.php:55
+#: back-end/post-type/edit.php:66 functions.php:54 functions.php:58
 msgid "Text"
 msgstr "Text"
 
-#: back-end/post-type/edit.php:69 functions.php:56
+#: back-end/post-type/edit.php:69 functions.php:59
 msgid "Textarea"
 msgstr "Textarea"
 
-#: back-end/post-type/edit.php:65 functions.php:46
+#: back-end/post-type/edit.php:65 functions.php:49
 msgid "Type"
 msgstr "Type"
 
