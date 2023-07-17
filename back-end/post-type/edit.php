@@ -82,7 +82,7 @@ function influactive_form_fields_listing($post): void
                     'media_buttons' => false,
                     'teeny' => true,
                     'tinymce' => array(
-                        'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo,formatselect,backcolor,alignleft,alignecenter,alignright,alignjustify,bullist,numlist,outdent,indent,removeformat',
+                        'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo,formatselect,backcolor,alignleft,aligncenter,alignright,alignjustify,bullist,numlist,outdent,indent,removeformat',
                     ),
                     'editor_class' => 'influactive_form_fields_label wysiwyg-editor'
                 ));
