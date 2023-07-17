@@ -49,29 +49,35 @@ function influactive_form_shortcode_handler($atts): bool|string
         }
 
         foreach ($fields as $field) {
+            if ($field['required'] === '1') {
+                $required = 'required';
+            } else {
+                $required = '';
+            }
+
             switch ($field['type']) {
                 case 'text':
-                    echo '<label>' . $field['label'] . ': <input type="text" name="' . esc_attr($field['name']) . '"></label>';
+                    echo '<label>' . $field['label'] . ': <input type="text" ' . $required . ' name="' . esc_attr($field['name']) . '"></label>';
                     break;
                 case 'email':
-                    echo '<label>' . $field['label'] . ': <input type="email" name="' . esc_attr($field['name']) . '" autocomplete="email"></label>';
+                    echo '<label>' . $field['label'] . ': <input type="email" ' . $required . ' name="' . esc_attr($field['name']) . '" autocomplete="email"></label>';
                     break;
                 case 'number':
-                    echo '<label>' . $field['label'] . ': <input type="number" name="' . esc_attr($field['name']) . '"></label>';
+                    echo '<label>' . $field['label'] . ': <input type="number" ' . $required . ' name="' . esc_attr($field['name']) . '"></label>';
                     break;
                 case 'textarea':
-                    echo '<label>' . $field['label'] . ': <textarea name="' . esc_attr($field['name']) . '" rows="10"></textarea></label>';
+                    echo '<label>' . $field['label'] . ': <textarea ' . $required . ' name="' . esc_attr($field['name']) . '" rows="10"></textarea></label>';
                     break;
                 case 'select':
-                    echo '<label>' . $field['label'] . ': <select name="' . esc_attr($field['name']) . '">';
+                    echo '<label>' . $field['label'] . ': <select ' . $required . ' name="' . esc_attr($field['name']) . '">';
                     foreach ($field['options'] as $option) {
                         echo '<option value="' . esc_attr($option['value']) . ':' . esc_attr($option['label']) . '">' . esc_attr($option['label']) . '</option>';
                     }
                     echo '</select></label>';
                     break;
                 case 'gdpr':
-                    $pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" target="_self" title="Privacy Policy">' . __('Check our Privacy Policy', 'influactive-forms') . '</a>' : '';
-                    echo '<label><input type="checkbox" name="' . esc_attr($field['name']) . '"> ' . $field['label'] . ' ' . $pp . '</label>';
+                    $pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" target="_blank" title="Privacy Policy">' . __('Check our Privacy Policy', 'influactive-forms') . '</a>' : '';
+                    echo '<label><input type="checkbox" name="' . esc_attr($field['name']) . '" required> ' . $field['label'] . ' ' . $pp . '</label>';
                     break;
                 case 'free_text':
                     echo '<div class="free-text">' . $field['label'] . '</div>';
@@ -131,8 +137,10 @@ function influactive_send_email(): void
     $fields = get_post_meta($_POST['form_id'], '_influactive_form_fields', true);
 
     foreach ($fields as $field) {
-        if (empty($_POST[$field['name']])) {
-            wp_send_json_error(['message' => __('All fields are required', 'influactive-forms')]);
+        if (empty($_POST[$field['name']]) && $field['required'] === '1') {
+            $name = $field['name'];
+            $message = sprintf(__('The field %s is required', 'influactive-forms'), $name);
+            wp_send_json_error(['message' => $message]);
             return;
         }
     }

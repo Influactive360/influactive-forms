@@ -6,12 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
   new Sortable(container, {
     animation: 150, // This class should be on the elements you want to be draggable
     handle: '.influactive_form_field',
-    onChoose: () => {
-      recalculateFieldIndexes();
-    },
-    onClone: () => {
-      recalculateFieldIndexes();
-    },
     onEnd: () => {
       recalculateFieldIndexes();
     },
@@ -65,6 +59,7 @@ function fieldTypeChangeHandler(fieldElement) {
     // Remove existing elements
     const oldLabelElement = fieldElement.querySelector(".influactive_form_fields_label");
     const oldNameElement = fieldElement.querySelector(".influactive_form_fields_name");
+    const oldRequiredElement = fieldElement.querySelector(".influactive_form_fields_required");
     const oldTextAreaElement = fieldElement.querySelector(".wysiwyg-editor"); // Added this line
     if (oldLabelElement && oldNameElement) {
       if (oldTextAreaElement && tinymce.get(oldTextAreaElement.id)) {
@@ -72,13 +67,16 @@ function fieldTypeChangeHandler(fieldElement) {
       }
       oldLabelElement.parentElement.remove();
       oldNameElement.parentElement.remove();
+      if (oldRequiredElement) {
+        oldRequiredElement.parentElement.remove();
+      }
       if (oldTextAreaElement) {
         oldTextAreaElement.remove();
       }
     }
     if (fieldValue === "gdpr") {
       const gdprTextElement = document.createElement('label')
-      gdprTextElement.innerHTML = "Text <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' data-type='gdpr'>";
+      gdprTextElement.innerHTML = influactiveFormsTranslations.Text + " <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' data-type='gdpr' required>";
       const gdprNameElement = document.createElement('label')
       gdprNameElement.innerHTML = "<input type='hidden' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' value='gdpr'>";
       // Append these elements to fieldElement or any other container element
@@ -120,12 +118,15 @@ function fieldTypeChangeHandler(fieldElement) {
     // If they don't exist, create and append them
     if (!labelElement && !nameElement) {
       const LabelElement = document.createElement('label')
-      LabelElement.innerHTML = "Label <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label'>";
+      LabelElement.innerHTML = "Label <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' required>";
       const NameElement = document.createElement('label')
-      NameElement.innerHTML = "Name <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name'>";
+      NameElement.innerHTML = "Name <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' required>";
+      const RequiredElement = document.createElement('label')
+      RequiredElement.innerHTML = "Required <input type='checkbox' value='1' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][required]' class='influactive_form_fields_required' required>";
       // Append these elements to fieldElement or any other container element
       fieldElement.appendChild(LabelElement);
       fieldElement.appendChild(NameElement);
+      fieldElement.appendChild(RequiredElement);
     }
     if (fieldValue === "select") {
       const addOptionElement = document.createElement('p')
@@ -188,7 +189,7 @@ function createFieldElement() {
   }
   fieldElement.className = "influactive_form_field";
   fieldElement.innerHTML =
-    `<p><label>${influactiveFormsTranslations.typeLabelText} <select class="field_type" name="influactive_form_fields[${id}][type]">` +
+    `<p><label>Type <select required class="field_type" name="influactive_form_fields[${id}][type]">` +
     `<option value="text">${influactiveFormsTranslations.Text}</option>` +
     `<option value="email">${influactiveFormsTranslations.Email}</option>` +
     `<option value="number">${influactiveFormsTranslations.Number}</option>` +
@@ -197,9 +198,10 @@ function createFieldElement() {
     `<option value="gdpr">${influactiveFormsTranslations.GDPR}</option>` +
     `<option value="free_text">${influactiveFormsTranslations.Freetext}</option>` +
     `</select></label> ` +
-    `<label>${influactiveFormsTranslations.labelLabelText} <input type="text" name="influactive_form_fields[${id}][label]" class="influactive_form_fields_label"></label> ` +
-    `<label>${influactiveFormsTranslations.nameLabelText} <input type="text" name="influactive_form_fields[${id}][name]" class="influactive_form_fields_name"></label> ` +
+    `<label>Label <input type="text" name="influactive_form_fields[${id}][label]" class="influactive_form_fields_label" required></label> ` +
+    `<label>Name <input type="text" name="influactive_form_fields[${id}][name]" class="influactive_form_fields_name" required></label> ` +
     `<div class="options_container"></div>` +
+    `<label>Required <input type="checkbox" name="influactive_form_fields[${id}][required]" value="1" class="influactive_form_fields_required"></label>` +
     `<input type="hidden" name="influactive_form_fields[${id}][order]" class="influactive_form_fields_order" value="${id}">` +
     `<a href="#" class="remove_field">${influactiveFormsTranslations.removeFieldText}</a> ` +
     `</p>`;
@@ -227,12 +229,17 @@ function recalculateFieldIndexes() {
     const fieldLabel = fieldField.querySelector(".influactive_form_fields_label");
     const fieldName = fieldField.querySelector(".influactive_form_fields_name");
     const fieldOrder = fieldField.querySelector(".influactive_form_fields_order");
+    const fieldRequired = fieldField.querySelector(".influactive_form_fields_required");
     const options = Array.from(fieldField.getElementsByClassName("option-field"));
     if (fieldType && fieldLabel && fieldName && fieldOrder) {
       fieldType.name = `influactive_form_fields[${index}][type]` ?? "";
       fieldLabel.name = `influactive_form_fields[${index}][label]` ?? "";
       fieldName.name = `influactive_form_fields[${index}][name]` ?? ""
       fieldOrder.name = `influactive_form_fields[${index}][order]` ?? "";
+      // check if field is required
+      if (fieldRequired && fieldRequired.value === '1') {
+        fieldRequired.name = `influactive_form_fields[${index}][required]` ?? "";
+      }
       if (options.length > 0) {
         options.forEach((option, optionIndex) => {
           const optionLabel = option.querySelector(".option-label");

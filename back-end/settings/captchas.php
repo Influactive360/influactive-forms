@@ -9,7 +9,7 @@ add_action('admin_menu', 'influactive_form_menu');
 function influactive_form_menu(): void
 {
     // Ajout de la sous-page
-    add_submenu_page('edit.php?post_type=influactive-forms', __('Settings', 'influactive-forms'), __('Settings', 'influactive-forms'), 'manage_options', 'influactive-form-settings', 'influactive_form_settings_page');
+    add_submenu_page('edit.php?post_type=influactive-forms', __('Captchas', 'influactive-forms'), __('Captchas', 'influactive-forms'), 'manage_options', 'influactive-form-settings', 'influactive_form_settings_page');
 }
 
 function influactive_form_settings_page(): void

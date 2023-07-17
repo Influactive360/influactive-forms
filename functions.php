@@ -18,13 +18,13 @@ if (!defined('ABSPATH')) {
 include(plugin_dir_path(__FILE__) . 'back-end/post-type/definitions.php');
 include(plugin_dir_path(__FILE__) . 'back-end/post-type/listing.php');
 include(plugin_dir_path(__FILE__) . 'back-end/post-type/edit.php');
-include(plugin_dir_path(__FILE__) . 'back-end/settings/page.php');
+include(plugin_dir_path(__FILE__) . 'back-end/settings/captchas.php');
 include(plugin_dir_path(__FILE__) . 'front-end/shortcode.php');
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
 function influactive_forms_add_settings_link($links)
 {
-    $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Settings', 'influactive-forms') . '</a>';
+    $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Captchas', 'influactive-forms') . '</a>';
     $links[] = $settings_link;
 
     return $links;

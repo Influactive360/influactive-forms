@@ -20,7 +20,6 @@ function influactive_form_metabox($post): void
             <li class="active"><a href="#fields"><?= __('Form Fields', 'influactive-forms') ?></a></li>
             <li><a href="#style"><?= __('Form Style', 'influactive-forms') ?></a></li>
             <li><a href="#email"><?= __('Email Layout', 'influactive-forms') ?></a></li>
-            <li><a href="#preview"><?= __('Form preview', 'influactive-forms') ?></a></li>
         </ul>
 
         <div class="tab-content">
@@ -39,11 +38,6 @@ function influactive_form_metabox($post): void
                 <h2><?= __('Email Layout', 'influactive-forms') ?></h2>
                 <?php influactive_form_email_layout($post); ?>
             </div>
-            <div id="preview" class="tab">
-                <!-- Form preview content -->
-                <h2><?= __('Form preview', 'influactive-forms') ?></h2>
-                <?php do_shortcode('[influactive_form id="' . $post->ID . '"]'); ?>
-        </div>
     </div>
     <?php
 }
@@ -62,7 +56,7 @@ function influactive_form_fields_listing($post): void
     if (is_array($fields)) {
         foreach ($fields as $key => $field) {
             echo '<div class="influactive_form_field">';
-            echo '<p><label>' . __('Type', 'influactive-forms') . ' <select name="influactive_form_fields[' . (int)$key . '][type]" class="field_type">';
+            echo '<p><label>Type <select name="influactive_form_fields[' . (int)$key . '][type]" class="field_type">';
             echo '<option value="text" ' . (isset($field['type']) && $field['type'] === 'text' ? 'selected' : '') . '>' . __('Text', 'influactive-forms') . '</option>';
             echo '<option value="email" ' . (isset($field['type']) && $field['type'] === 'email' ? 'selected' : '') . '>' . __('Email', 'influactive-forms') . '</option>';
             echo '<option value="number" ' . (isset($field['type']) && $field['type'] === 'number' ? 'selected' : '') . '>' . __('Number', 'influactive-forms') . '</option>';
@@ -72,7 +66,7 @@ function influactive_form_fields_listing($post): void
             echo '<option value="free_text" ' . (isset($field['type']) && $field['type'] === 'free_text' ? 'selected' : '') . '>' . __('Free text', 'influactive-forms') . '</option>';
             echo '</select></label>';
             if (isset($field['type']) && $field['type'] === 'gdpr') {
-                echo '<label>Text <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label"></label> ';
+                echo '<label>' . __('Text', 'influactive-forms') . ' <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label" required></label> ';
                 echo '<label><input type="hidden" name="influactive_form_fields[' . (int)$key . '][name]" value="gdpr" class="influactive_form_fields_name"></label>';
             } else if (isset($field['type']) && $field['type'] === 'free_text') {
                 // Wysiwyg field
@@ -88,17 +82,17 @@ function influactive_form_fields_listing($post): void
                 ));
                 echo '<label><input type="hidden" name="influactive_form_fields[' . (int)$key . '][name]" value="free_text" class="influactive_form_fields_name"></label>';
             } else if (isset($field['type']) && $field['type'] === 'select') {
-                echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label"></label> ';
-                echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name"></label> ';
+                echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label" required></label> ';
+                echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name" required></label> ';
                 echo '<div class="options_container">';
                 if (is_array($field['options'])) {
                     foreach ($field['options'] as $option_index => $option) {
                         echo '<p class="option-field" data-index="' . $option_index . '">';
                         echo '<label>' . __('Option Label', 'influactive-forms');
-                        echo '<input type="text" class="option-label" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][label]" value="' . esc_attr($option['label']) . '">';
+                        echo '<input type="text" class="option-label" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][label]" value="' . esc_attr($option['label']) . '" required>';
                         echo '</label>';
                         echo '<label>' . __('Option Value', 'influactive-forms');
-                        echo '<input type="text" class="option-value" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][value]" value="' . esc_attr($option['value']) . '">';
+                        echo '<input type="text" class="option-value" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][value]" value="' . esc_attr($option['value']) . '" required>';
                         echo '</label>';
                         echo '<a href="#" class="remove_option">' . __('Remove option', 'influactive-forms') . '</a>';
                         echo '</p>';
@@ -106,9 +100,11 @@ function influactive_form_fields_listing($post): void
                 }
                 echo '</div>';
                 echo '<p><a href="#" class="add_option">' . __('Add option', 'influactive-forms') . '</a></p>';
+                echo '<label>Required <input type="checkbox" name="influactive_form_fields[' . (int)$key . '][required]" value="1" ' . (isset($field['required']) && $field['required'] === '1' ? 'checked' : '') . ' class="influactive_form_fields_required"></label>';
             } else if (isset($field['type'])) {
-                echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label"></label> ';
-                echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name"></label> ';
+                echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label" required></label> ';
+                echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name" required></label> ';
+                echo '<label>Required <input type="checkbox" name="influactive_form_fields[' . (int)$key . '][required]" value="1" ' . (isset($field['required']) && $field['required'] === '1' ? 'checked' : '') . ' class="influactive_form_fields_required"></label>';
             }
 
             echo '<input type="hidden" name="influactive_form_fields[' . (int)$key . '][order]" value="' . (int)$key . '" class="influactive_form_fields_order">';
