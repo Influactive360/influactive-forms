@@ -521,7 +521,7 @@ function influactive_form_email_layout($post): void
                                   rows="15"><?= esc_attr($layout['content'] ?? __('New message', 'influactive-forms')) ?></textarea>
                     </label>
                 </p>
-                <?php if ($key !== 0) : ?>
+                <?php if ($key > 0) : ?>
                     <button class="delete_layout" type="button"><?= __('Delete layout', 'influactive-forms') ?></button>
                 <?php endif; ?>
             </div>
