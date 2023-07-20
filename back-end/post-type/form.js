@@ -53,8 +53,8 @@ function addFieldHandler(e) {
 }
 
 function fieldTypeChangeHandler(fieldElement) {
-  recalculateFieldIndexes();
   return function(event) {
+    recalculateFieldIndexes();
     let fieldValue = event.target.value;
     // Remove existing elements
     const oldLabelElement = fieldElement.querySelector(".influactive_form_fields_label");
