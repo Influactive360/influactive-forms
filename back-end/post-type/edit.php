@@ -517,13 +517,22 @@ function influactive_form_email_layout($post): void
                                value="<?= esc_attr($layout['subject'] ?? __('New subject', 'influactive-forms')) ?>">
                     </label>
                 </p>
-                <p>
+                <div>
                     <label>
                         <?= __('Content of the email', 'influactive-forms') ?>
-                        <textarea name="influactive_form_email_layout[<?=$key?>][content]" cols="30"
-                                  rows="15"><?= esc_attr($layout['content'] ?? __('New message', 'influactive-forms')) ?></textarea>
+                        <?php
+                        // Les valeurs par défaut
+                        $content = $layout['content'] ?? __('New message', 'influactive-forms');
+                        $editor_id = 'influactive_form_email_editor_' . $key;
+                        $settings = array(
+                            'textarea_name' => "influactive_form_email_layout[$key][content]",
+                            'editor_height' => 425,
+                        );
+
+                        wp_editor($content, $editor_id, $settings);
+                        ?>
                     </label>
-                </p>
+                </div>
                 <?php if ($key > 0) : ?>
                     <button class="delete_layout" type="button"><?= __('Delete layout', 'influactive-forms') ?></button>
                 <?php endif; ?>

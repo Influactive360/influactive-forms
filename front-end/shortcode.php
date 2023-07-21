@@ -184,7 +184,7 @@ function influactive_send_email(): void
     $layouts = $email_layout ?? [];
     $error = 0;
     foreach ($layouts as $layout) {
-        $content = str_replace("\n", '<br>', $layout['content'] ?? '');
+        $content = $layout['content'] ?? '';
         $subject = $layout['subject'] ?? '';
         $to = $layout['recipient'] ?? get_bloginfo('admin_email');
         $from = $layout['sender'] ?? get_bloginfo('admin_email');
