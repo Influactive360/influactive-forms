@@ -4,8 +4,14 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+function register_influactive_form_shortcode(): void
+{
+    add_shortcode('influactive_form', 'influactive_form_shortcode_handler');
+}
+
+add_action('init', 'register_influactive_form_shortcode', 1);
+
 // Ajouter un shortcode pour chaque post
-add_shortcode('influactive_form', 'influactive_form_shortcode_handler');
 function influactive_form_shortcode_handler($atts): bool|string
 {
     ob_start(); // Start output buffering
@@ -46,6 +52,10 @@ function influactive_form_shortcode_handler($atts): bool|string
         if (!empty($public_site_key) && !empty($secret_site_key)) {
             echo '<input type="hidden" id="recaptchaResponse-' . $form_id . '" name="recaptcha_response">';
             echo '<input type="hidden" id="recaptchaSiteKey-' . $form_id . '" name="recaptcha_site_key" value="' . $public_site_key . '">';
+        }
+
+        if (is_plugin_active('influactive-forms/functions.php') && get_option('modal_form_select')) {
+            echo '<input type="hidden" name="brochure" value="' . get_option('modal_form_file_select') . '">';
         }
 
         foreach ($fields as $field) {
@@ -163,7 +173,10 @@ function influactive_send_email(): void
         // Prendre une décision basée sur le score de reCAPTCHA.
         if ($recaptcha->score < 0.5) {
             // Not likely to be a human
-            wp_send_json_error(['message' => __('Bot detected', 'influactive-forms')]);
+            wp_send_json_error([
+                'message' => __('Bot detected', 'influactive-forms'),
+                'score' => $recaptcha->score,
+            ]);
             return;
         }
     }
@@ -203,6 +216,16 @@ function influactive_send_email(): void
                 $to = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $to);
                 $from = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $from);
             }
+        }
+
+        if (isset($_POST['brochure']) && is_plugin_active('influactive-forms/functions.php') && get_option('modal_form_select')) {
+            $relative_url = wp_get_attachment_url($_POST['brochure']);
+            $file_url = home_url($relative_url);
+            $download_link = sprintf(
+                __("<a href='%s' target='_blank' title='Download our brochure'>Download our brochure</a>", 'influactive-forms'),
+                $file_url
+            );
+            $content = str_replace('{brochure}', $download_link, $content);
         }
 
         $from = sanitize_email($from);
@@ -264,7 +287,7 @@ function enqueue_google_captcha_script(): void
         return;
     }
 
-    if (wp_script_is('google-captcha')) {
+    if (wp_script_is('google-captcha') || wp_script_is('google-recaptcha')) {
         return;
     }
 

@@ -478,6 +478,9 @@ function influactive_form_email_layout($post): void
                 <li><code>{<?= strtolower($field['name']) ?>}</code></li>
             <?php endif; ?>
         <?php endforeach; ?>
+        <?php if (is_plugin_active('influactive-forms/functions.php')) : ?>
+            <li><code>{brochure}</code></li>
+        <?php endif; ?>
     </ul>
     <?php
         if (count($email_layout) === 0) {
