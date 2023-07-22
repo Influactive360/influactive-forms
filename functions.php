@@ -22,7 +22,7 @@ include(plugin_dir_path(__FILE__) . 'back-end/settings/captchas.php');
 include(plugin_dir_path(__FILE__) . 'front-end/shortcode.php');
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
-function influactive_forms_add_settings_link($links)
+function influactive_forms_add_settings_link($links): array
 {
     $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Captchas', 'influactive-forms') . '</a>';
     $links[] = $settings_link;
