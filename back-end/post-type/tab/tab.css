@@ -6,15 +6,13 @@
 .tab-links:after {
   display: block;
   clear: both;
-  content: '';
+  content: "";
 }
-
 .tab-links li {
   margin: 0 5px;
   float: left;
   list-style: none;
 }
-
 .tab-links a {
   padding: 9px 15px;
   display: inline-block;
@@ -25,13 +23,16 @@
   color: #4c4c4c;
   transition: all linear 0.15s;
 }
-
 .tab-links a:hover {
   background: #a7cce5;
   text-decoration: none;
 }
 
-li.active a, li.active a:hover {
+li.active a {
+  background: #fff;
+  color: #4c4c4c;
+}
+li.active a:hover {
   background: #fff;
   color: #4c4c4c;
 }
@@ -52,3 +53,5 @@ li.active a, li.active a:hover {
   padding: 0;
   margin-bottom: 20px;
 }
+
+/*# sourceMappingURL=tab.css.map */

@@ -1,0 +1,53 @@
+form.influactive-form {
+  width: 100%;
+}
+
+.influactive-form-wrapper {
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  input[type="email"] {
+    width: 100%;
+  }
+
+  input[type="number"] {
+    width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  input[type="checkbox"] {
+    display: inline-block;
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+  }
+
+  input[type="submit"] {
+    cursor: pointer;
+    transition: background .3s ease;
+  }
+
+  .influactive-form-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.free-text {
+  display: block;
+  margin-bottom: 10px;
+}

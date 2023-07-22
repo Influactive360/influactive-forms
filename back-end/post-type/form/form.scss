@@ -1,0 +1,87 @@
+$red: red;
+$blanc: #fff;
+$bleu_clair: #007bff;
+$bleu_fonce: #0056b3;
+$gris: #f7f7f7;
+$background-color_2: #DEDEDE;
+
+#influactive_form_fields_container {
+  padding: 15px;
+  background-color: $gris;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.influactive_form_field {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+
+  &:nth-child(even) {
+    background-color: $background-color_2;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    cursor: grab;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .options_container {
+    margin-top: 10px;
+  }
+
+  .option-field {
+    margin-bottom: 10px;
+  }
+
+  a.remove_field {
+    color: $red;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+
+  a.remove_option {
+    color: $red;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+}
+
+#add_field {
+  padding: 10px 15px;
+  background-color: $bleu_clair;
+  color: $blanc;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+
+  &:hover {
+    background-color: $bleu_fonce;
+  }
+}
+
+.add_option {
+  color: $bleu_clair;
+  text-decoration: none;
+  margin-left: 10px;
+
+  &:hover {
+    color: $bleu_fonce;
+  }
+}

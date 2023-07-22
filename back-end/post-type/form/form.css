@@ -11,35 +11,37 @@
   margin-bottom: 15px;
   border-radius: 5px;
 }
-
-/* background color grey sur les even de .influactive_form_field */
 .influactive_form_field:nth-child(even) {
   background-color: #DEDEDE;
 }
-
 .influactive_form_field label {
   display: block;
   margin-bottom: 5px;
   cursor: grab;
 }
-
-.influactive_form_field input[type="text"],
+.influactive_form_field input[type=text] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 .influactive_form_field select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 .influactive_form_field .options_container {
   margin-top: 10px;
 }
-
 .influactive_form_field .option-field {
   margin-bottom: 10px;
 }
-
-.influactive_form_field a.remove_field,
+.influactive_form_field a.remove_field {
+  color: red;
+  text-decoration: none;
+  margin-left: 10px;
+}
 .influactive_form_field a.remove_option {
   color: red;
   text-decoration: none;
@@ -54,7 +56,6 @@
   border-radius: 5px;
   display: inline-block;
 }
-
 #add_field:hover {
   background-color: #0056b3;
 }
@@ -64,7 +65,8 @@
   text-decoration: none;
   margin-left: 10px;
 }
-
 .add_option:hover {
   color: #0056b3;
 }
+
+/*# sourceMappingURL=form.css.map */
