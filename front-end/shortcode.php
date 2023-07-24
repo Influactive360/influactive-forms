@@ -193,14 +193,38 @@ function influactive_send_email(): void
         $subject = $layout['subject'] ?? '';
         $to = $layout['recipient'] ?? get_bloginfo('admin_email');
         $from = $layout['sender'] ?? get_bloginfo('admin_email');
+        $allowed_html = array(
+            'br' => array(),
+            'p' => array(),
+            'a' => array(
+                'href' => array(),
+                'title' => array(),
+                'target' => array(),
+            ),
+            'h1' => array(),
+            'h2' => array(),
+            'h3' => array(),
+            'h4' => array(),
+            'h5' => array(),
+            'h6' => array(),
+            'strong' => array(),
+            'em' => array(),
+            'ul' => array(),
+            'ol' => array(),
+            'li' => array(),
+            'blockquote' => array(),
+            'pre' => array(),
+            'code' => array(),
+            'img' => array(
+                'src' => array(),
+                'alt' => array(),
+            ),
+        );
 
         foreach ($fields as $field) {
             // Convert textarea newlines to HTML breaks
             if ($field['type'] === 'textarea') {
                 $_POST[$field['name']] = nl2br($_POST[$field['name']]);
-                $allowed_html = array(
-                    'br' => array()
-                );
                 $content = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $content);
                 $subject = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $subject);
                 $to = str_replace('{' . $field['name'] . '}', wp_kses($_POST[$field['name']], $allowed_html), $to);
@@ -222,6 +246,7 @@ function influactive_send_email(): void
                 $from = str_replace('{' . $field['name'] . '}', sanitize_text_field($_POST[$field['name']]), $from);
             }
         }
+
 
         if (isset($_POST['brochure']) && is_plugin_active('influactive-forms/functions.php') && get_option('modal_form_select')) {
             $relative_url = wp_get_attachment_url($_POST['brochure']);
