@@ -284,7 +284,7 @@ function influactive_send_email(): void
         ]);
     }
 
-    wp_die();
+    exit;
 }
 
 /**
