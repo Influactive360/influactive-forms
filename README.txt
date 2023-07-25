@@ -10,6 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Here is a short description of the plugin.
 
 == Description ==
+A plugin to create custom forms and display them anywhere on your website.
 
 == Installation ==
 
