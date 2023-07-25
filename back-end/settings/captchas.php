@@ -25,7 +25,7 @@ add_action('admin_menu', 'influactive_form_menu');
 /**
  * Renders the submenu page for the Influactive Forms plugin settings.
  *
- * This function retrieves the "influactive-forms-capcha-fields" option using the `get_option()` function.
+ * This function retrieves the "influactive-forms-captcha-fields" option using the `get_option()` function.
  * It then outputs the HTML markup for the submenu page, including a heading, a form with settings fields,
  * and a submitted button.
  * The HTML markup is echoed directly to the browser.
@@ -41,8 +41,8 @@ function influactive_form_settings_page(): void
     <div class="influactive-form-settings">
         <h1><?= __("Settings", "influactive-forms") ?></h1>
         <form action="options.php" method="post">
-            <?php settings_fields('influactive-forms-capcha-fields'); ?>
-            <?php do_settings_sections('influactive-forms-capcha-fields'); ?>
+            <?php settings_fields('influactive-forms-captcha-fields'); ?>
+            <?php do_settings_sections('influactive-forms-captcha-fields'); ?>
             <?php submit_button(); ?>
         </form>
     </div>
@@ -53,7 +53,7 @@ function influactive_form_settings_page(): void
  * Initializes the settings for the Influactive Forms plugin.
  *
  * This function is called by the WordPress hook `admin_init`.
- * It registers the `influactive-forms-capcha-fields` setting,
+ * It registers the `influactive-forms-captcha-fields` setting,
  * adds the settings section and fields for the Google Captcha,
  * and specifies the callback functions for rendering the settings section and fields.
  *
@@ -61,29 +61,29 @@ function influactive_form_settings_page(): void
  */
 function influactive_forms_settings_init(): void
 {
-    register_setting('influactive-forms-capcha-fields', 'influactive-forms-capcha-fields');
+    register_setting('influactive-forms-captcha-fields', 'influactive-forms-captcha-fields');
 
     add_settings_section(
-            'influactive-forms-capcha-fields-section',
+            'influactive-forms-captcha-fields-section',
             __('Google Captcha', 'influactive-forms'),
             'influactive_forms_settings_section_callback',
-            'influactive-forms-capcha-fields'
+            'influactive-forms-captcha-fields'
     );
 
     add_settings_field(
-            'influactive-forms-capcha-fields-google-captcha-site-key-public',
+            'influactive-forms-captcha-fields-google-captcha-site-key-public',
             __('Public Site key', 'influactive-forms'),
             'influactive_forms_settings_field_callback_public',
-            'influactive-forms-capcha-fields',
-            'influactive-forms-capcha-fields-section'
+            'influactive-forms-captcha-fields',
+            'influactive-forms-captcha-fields-section'
     );
 
     add_settings_field(
-            'influactive-forms-capcha-fields-google-captcha-site-key-secret',
+            'influactive-forms-captcha-fields-google-captcha-site-key-secret',
             __('Secret Site key', 'influactive-forms'),
             'influactive_forms_settings_field_callback_secret',
-            'influactive-forms-capcha-fields',
-            'influactive-forms-capcha-fields-section'
+            'influactive-forms-captcha-fields',
+            'influactive-forms-captcha-fields-section'
     );
 }
 
@@ -107,7 +107,7 @@ function influactive_forms_settings_section_callback(): void
  * Callback function for the "influactive-forms" public settings field.
  *
  * This function outputs an input field for the Google Captcha public site key.
- * The value of the input field is retrieved from the "influactive-forms-capcha-fields" option.
+ * The value of the input field is retrieved from the "influactive-forms-captcha-fields" option.
  * If the option doesn't exist, an empty array is used by default.
  * The public site key is retrieved from the "google-captcha" sub-array.
  * If the sub-array doesn't exist or the public site key is not set, an empty string is used by default.
@@ -117,10 +117,10 @@ function influactive_forms_settings_section_callback(): void
  */
 function influactive_forms_settings_field_callback_public(): void
 {
-    $options = get_option('influactive-forms-capcha-fields') ?? [];
+    $options = get_option('influactive-forms-captcha-fields') ?? [];
     $public_site_key = $options['google-captcha']['public-site-key'] ?? '';
 
-    echo '<input type="text" id="influactive-forms-capcha-fields-google-captcha-site-key-public" name="influactive-forms-capcha-fields[google-captcha][public-site-key]" value="' . $public_site_key . '">';
+    echo '<input type="text" id="influactive-forms-captcha-fields-google-captcha-site-key-public" name="influactive-forms-captcha-fields[google-captcha][public-site-key]" value="' . $public_site_key . '">';
 }
 
 /**
@@ -128,7 +128,7 @@ function influactive_forms_settings_field_callback_public(): void
  *
  * This function outputs the input field for the Google Captcha secret site key settings.
  * The input field type is determined based on whether a secret site key is present in the options.
- * The secret site key is retrieved from the options using the 'influactive-forms-capcha-fields' key.
+ * The secret site key is retrieved from the options using the 'influactive-forms-captcha-fields' key.
  * If the secret site key is found, the input field type is set to 'password', otherwise it is set to 'text'.
  * The input field is echoed directly to the browser.
  *
@@ -136,11 +136,11 @@ function influactive_forms_settings_field_callback_public(): void
  */
 function influactive_forms_settings_field_callback_secret(): void
 {
-    $options = get_option('influactive-forms-capcha-fields') ?? [];
+    $options = get_option('influactive-forms-captcha-fields') ?? [];
     $secret_site_key = $options['google-captcha']['secret-site-key'] ?? '';
     $type = $secret_site_key !== '' ? 'password' : 'text';
 
-    echo '<input type="' . $type . '" id="influactive-forms-capcha-fields-google-captcha-site-key-secret" name="influactive-forms-capcha-fields[google-captcha][secret-site-key]" value="' . $secret_site_key . '">';
+    echo '<input type="' . $type . '" id="influactive-forms-captcha-fields-google-captcha-site-key-secret" name="influactive-forms-captcha-fields[google-captcha][secret-site-key]" value="' . $secret_site_key . '">';
 }
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');

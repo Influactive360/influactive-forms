@@ -57,7 +57,7 @@ function influactive_form_shortcode_handler(array $atts): bool|string
 
         echo '<input type="hidden" name="form_id" value="' . $form_id . '">';
 
-        $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
+        $options_captcha = get_option('influactive-forms-captcha-fields') ?? [];
         $public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
         $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
@@ -181,7 +181,7 @@ function influactive_send_email(): void
     $email_layout = get_post_meta($form_id, '_influactive_form_email_layout', true) ?? [];
     $sitename = get_bloginfo('name');
 
-    $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
+    $options_captcha = get_option('influactive-forms-captcha-fields') ?? [];
     $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
     $public_site_key = $_POST['recaptcha_site_key'] ?? '';
 

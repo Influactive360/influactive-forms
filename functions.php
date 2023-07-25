@@ -119,7 +119,7 @@ function influactive_form_shortcode_enqueue(): void
         return;
     }
 
-    $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
+    $options_captcha = get_option('influactive-forms-captcha-fields') ?? [];
     $public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? null;
     $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? null;
 
