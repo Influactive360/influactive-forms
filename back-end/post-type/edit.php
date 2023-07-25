@@ -1,17 +1,27 @@
 <?php
 
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+    throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
 // Add metabox for influactive forms
 add_action('add_meta_boxes', 'influactive_form_add_metaboxes');
+/**
+ * Add the Influactive Form metabox to the post-editor screen.
+ *
+ * @return void
+ */
 function influactive_form_add_metaboxes(): void
 {
     add_meta_box('influactive_form_metabox', __('Influactive Form', 'influactive-forms'), 'influactive_form_metabox', 'influactive-forms');
 }
 
-function influactive_form_metabox($post): void
+/**
+ * Display the metabox for Influactive Form settings.
+ *
+ * @param WP_Post $post The current post object.
+ * @return void
+ */function influactive_form_metabox(WP_Post $post): void
 {
     ?>
     <?php influactive_form_shortcode($post); ?>
@@ -42,12 +52,23 @@ function influactive_form_metabox($post): void
     <?php
 }
 
-function influactive_form_shortcode($post): void
+/**
+ * Generate the shortcode for displaying the Influactive Form.
+ *
+ * @param WP_Post $post The current post object.
+ * @return void
+ */function influactive_form_shortcode(WP_Post $post): void
 {
     echo '<code>[influactive_form id="' . $post->ID . '"]</code>';
 }
 
-function influactive_form_fields_listing($post): void
+/**
+ * Display the form fields listing for the Influactive form metabox.
+ *
+ * @param WP_Post $post The current post object.
+ * @return void
+ */
+function influactive_form_fields_listing(WP_Post $post): void
 {
     $fields = get_post_meta($post->ID, '_influactive_form_fields', true);
 
@@ -453,7 +474,13 @@ function influactive_form_email_style($post): void
     <?php
 }
 
-function influactive_form_email_layout($post): void
+/**
+ * Display the email layout settings for Influactive Form.
+ *
+ * @param WP_Post $post The current post object.
+ * @return void
+ */
+function influactive_form_email_layout(WP_Post $post): void
 {
     $email_layout = get_post_meta($post->ID, '_influactive_form_email_layout', true) ?? [];
 
@@ -546,7 +573,13 @@ function influactive_form_email_layout($post): void
 
 // Enregistrement des champs
 add_action('save_post', 'influactive_form_save_post');
-function influactive_form_save_post($post_id): void
+/**
+ * Save the Influactive Form settings when a post is saved.
+ *
+ * @param int $post_id The ID of the post being saved.
+ * @return void
+ */
+function influactive_form_save_post(int $post_id): void
 {
     if (get_post_type($post_id) === 'influactive-forms') {
         $fields = $_POST['influactive_form_fields'] ?? [];
