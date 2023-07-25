@@ -2,11 +2,11 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Forms everywhere by Influactive 1.0\n"
+"Project-Id-Version: Forms everywhere by Influactive 1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/influactive-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
+"MIME-Version: 1.1\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-07-25T13:22:45+00:00\n"
