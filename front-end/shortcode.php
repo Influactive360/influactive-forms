@@ -17,7 +17,6 @@ function register_influactive_form_shortcode(): void
 
 add_action('init', 'register_influactive_form_shortcode', 1);
 
-// Ajouter un shortcode pour chaque post
 /**
  * Sends an email containing the form data.
  *
@@ -128,7 +127,7 @@ function enqueue_form_dynamic_style(): void
         return;
     }
 
-    $form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true);
+    $form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true) ?? 0;
     if (!$form_id) {
         return;
     }
@@ -140,34 +139,35 @@ function enqueue_form_dynamic_style(): void
 add_action('wp_enqueue_scripts', 'enqueue_form_dynamic_style');
 
 /**
- * Sends an email based on the influactive form data.
+ * Sends an email based on the submitted form data.
  *
  * @return void
- * @throws JsonException
- * @throws GuzzleException
- *
  */
 function influactive_send_email(): void
 {
+    $_POST = array_map('sanitize_text_field', $_POST);
+
     // Check if our nonce is set and verify it.
-    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'influactive_send_email')) {
+    if (empty($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'influactive_send_email')) {
         wp_send_json_error(['message' => __('Nonce verification failed', 'influactive-forms')]);
 
         return;
     }
 
     // Check form fields
-    if (!isset($_POST['form_id'])) {
+    if (empty($_POST['form_id'])) {
         wp_send_json_error(['message' => __('Form ID is required', 'influactive-forms')]);
 
         return;
     }
 
+    $form_id = (int)$_POST['form_id'];
+
     // Get form fields
-    $fields = get_post_meta($_POST['form_id'], '_influactive_form_fields', true);
+    $fields = get_post_meta($form_id, '_influactive_form_fields', true) ?? [];
 
     foreach ($fields as $field) {
-        if (empty($_POST[$field['name']]) && $field['required'] === '1') {
+        if (isset($_POST[$field['name']]) && empty($_POST[$field['name']]) && $field['required'] === '1') {
             $name = $field['name'];
             /* translators: %s is a placeholder for the field name */
             $message = sprintf(__('The field %s is required', 'influactive-forms'), $name);
@@ -178,7 +178,7 @@ function influactive_send_email(): void
     }
 
     // Get email layout
-    $email_layout = get_post_meta($_POST['form_id'], '_influactive_form_email_layout', true);
+    $email_layout = get_post_meta($form_id, '_influactive_form_email_layout', true) ?? [];
     $sitename = get_bloginfo('name');
 
     $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
@@ -191,21 +191,36 @@ function influactive_send_email(): void
         $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
         $recaptcha_response = $_POST['recaptcha_response'];
 
-        $response = $client->get($recaptcha_url, [
-            'query' => [
-                'secret' => $secret_site_key,
-                'response' => $recaptcha_response
-            ]
-        ]);
-
-        $recaptcha = json_decode($response->getBody()->getContents(), false, 512, JSON_THROW_ON_ERROR);
-
-        // Prendre une décision basée sur le score de reCAPTCHA.
-        if ($recaptcha->score < 0.5) {
-            // Not likely to be a human
+        try {
+            $response = $client->get($recaptcha_url, [
+                'query' => [
+                    'secret' => $secret_site_key,
+                    'response' => $recaptcha_response
+                ]
+            ]);
+        } catch (GuzzleException $e) {
             wp_send_json_error([
-                'message' => __('Bot detected', 'influactive-forms'),
-                'score' => $recaptcha->score,
+                'message' => __('Failed to verify reCAPTCHA', 'influactive-forms'),
+            ]);
+
+            return;
+        }
+
+        try {
+            $recaptcha = json_decode($response->getBody()->getContents(), false, 512, JSON_THROW_ON_ERROR);
+
+            if ($recaptcha->score < 0.5) {
+                // Not likely to be a human
+                wp_send_json_error([
+                    'message' => __('Bot detected', 'influactive-forms'),
+                    'score' => $recaptcha->score,
+                ]);
+
+                return;
+            }
+        } catch (JsonException) {
+            wp_send_json_error([
+                'message' => __('Failed to verify reCAPTCHA', 'influactive-forms'),
             ]);
 
             return;
@@ -288,7 +303,6 @@ function influactive_send_email(): void
         $from = sanitize_email($from);
         $to = sanitize_email($to);
 
-        // Email details
         $headers = [
             'Content-Type: text/html; charset=UTF-8',
             'From: ' . $sitename . ' <' . $from . '>',
