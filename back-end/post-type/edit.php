@@ -141,7 +141,7 @@ function influactive_form_fields_listing(WP_Post $post): void
 }
 
 /**
-* Display the email layout for the Influactive form metabox.
+* Display the email styles for the Influactive form.
  *
  * @param WP_Post $post The current post object.
  * @return void
