@@ -1,3 +1,10 @@
+.add_option, .influactive_form_field a.remove_field, .influactive_form_field a.remove_option {
+  text-decoration: none;
+}
+.add_option:hover, .influactive_form_field a.remove_field:hover, .influactive_form_field a.remove_option:hover {
+  color: #0056b3;
+}
+
 #influactive_form_fields_container {
   padding: 15px;
   background-color: #f7f7f7;
@@ -6,7 +13,7 @@
 }
 
 .influactive_form_field {
-  border: 1px solid #e0e0e0;
+  border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -19,32 +26,17 @@
   margin-bottom: 5px;
   cursor: grab;
 }
-.influactive_form_field input[type=text] {
+.influactive_form_field input[type=text], .influactive_form_field select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-.influactive_form_field select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.influactive_form_field .options_container {
-  margin-top: 10px;
-}
-.influactive_form_field .option-field {
+.influactive_form_field .options_container, .influactive_form_field .option-field {
   margin-bottom: 10px;
 }
-.influactive_form_field a.remove_field {
+.influactive_form_field a.remove_field, .influactive_form_field a.remove_option {
   color: red;
-  text-decoration: none;
-  margin-left: 10px;
-}
-.influactive_form_field a.remove_option {
-  color: red;
-  text-decoration: none;
   margin-left: 10px;
 }
 
@@ -62,11 +54,7 @@
 
 .add_option {
   color: #007bff;
-  text-decoration: none;
   margin-left: 10px;
-}
-.add_option:hover {
-  color: #0056b3;
 }
 
 /*# sourceMappingURL=form.css.map */

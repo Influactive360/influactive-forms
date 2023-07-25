@@ -1,25 +1,37 @@
 $red: red;
-$blanc: #fff;
-$bleu_clair: #007bff;
-$bleu_fonce: #0056b3;
-$gris: #f7f7f7;
-$background-color_2: #DEDEDE;
+$white: #fff;
+$lightBlue: #007bff;
+$darkBlue: #0056b3;
+$grey: #f7f7f7;
+$bgColor2: #DEDEDE;
+$borderStyle: 1px solid #ccc;
+$inputPadding: 10px;
+$inputRadius: 5px;
+$influactiveMarginBottom: 15px;
+
+%interactableElem { // mixin for elements having common characteristics
+  text-decoration: none;
+
+  &:hover {
+    color: $darkBlue;
+  }
+}
 
 #influactive_form_fields_container {
   padding: 15px;
-  background-color: $gris;
-  margin-bottom: 20px;
+  background-color: $grey;
+  margin-bottom: $influactiveMarginBottom + 5;
   border-radius: 5px;
 }
 
 .influactive_form_field {
-  border: 1px solid #e0e0e0;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
+  border: $borderStyle;
+  padding: $inputPadding;
+  margin-bottom: $influactiveMarginBottom;
+  border-radius: $inputRadius;
 
   &:nth-child(even) {
-    background-color: $background-color_2;
+    background-color: $bgColor2;
   }
 
   label {
@@ -28,60 +40,39 @@ $background-color_2: #DEDEDE;
     cursor: grab;
   }
 
-  input[type="text"] {
+  input[type="text"], select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: $inputPadding;
+    border: $borderStyle;
+    border-radius: $inputRadius;
   }
 
-  select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  .options_container {
-    margin-top: 10px;
-  }
-
-  .option-field {
+  .options_container, .option-field {
     margin-bottom: 10px;
   }
 
-  a.remove_field {
+  a.remove_field, a.remove_option {
     color: $red;
-    text-decoration: none;
     margin-left: 10px;
-  }
-
-  a.remove_option {
-    color: $red;
-    text-decoration: none;
-    margin-left: 10px;
+    @extend %interactableElem;
   }
 }
 
 #add_field {
   padding: 10px 15px;
-  background-color: $bleu_clair;
-  color: $blanc;
+  background-color: $lightBlue;
+  color: $white;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: $inputRadius;
   display: inline-block;
 
   &:hover {
-    background-color: $bleu_fonce;
+    background-color: $darkBlue;
   }
 }
 
 .add_option {
-  color: $bleu_clair;
-  text-decoration: none;
+  color: $lightBlue;
   margin-left: 10px;
-
-  &:hover {
-    color: $bleu_fonce;
-  }
+  @extend %interactableElem;
 }
