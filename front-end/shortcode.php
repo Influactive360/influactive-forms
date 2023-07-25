@@ -352,29 +352,3 @@ function replace_field_placeholder(string $string, string $field_name, array $la
 
     return $string;
 }
-
-/**
- * Enqueues the Google reCAPTCHA script.
- *
- * @return void
- */
-function enqueue_google_captcha_script(): void
-{
-    $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
-    $public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
-    $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
-
-    if (is_admin()) {
-        return;
-    }
-
-    if (wp_script_is('google-captcha') || wp_script_is('google-recaptcha')) {
-        return;
-    }
-
-    if (!empty($public_site_key) && !empty($secret_site_key)) {
-        wp_enqueue_script('google-captcha', "https://www.google.com/recaptcha/api.js?render=$public_site_key", [], null, true);
-    }
-}
-
-add_action('wp_enqueue_scripts', 'enqueue_google_captcha_script');

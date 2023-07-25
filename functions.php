@@ -115,10 +115,25 @@ function influactive_form_shortcode_enqueue(): void
         return;
     }
 
-    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'front-end/form.min.js', array('google-captcha'), '1.0', true);
-    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'front-end/form.min.css', array(), '1.0');
+    if (wp_script_is('google-captcha') || wp_script_is('google-recaptcha')) {
+        return;
+    }
 
-    wp_localize_script('influactive-form', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+    $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
+    $public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? null;
+    $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? null;
+
+    if (!empty($public_site_key) && !empty($secret_site_key)) {
+        wp_enqueue_script('google-captcha', "https://www.google.com/recaptcha/api.js?render=$public_site_key", [], null, true);
+        $script_handle = ['google-captcha'];
+    } else {
+        $script_handle = [];
+    }
+
+    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'front-end/form.min.js', $script_handle, '1.0', true);
+    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'front-end/form.min.css', [], '1.0');
+
+    wp_localize_script('influactive-form', 'ajax_object', ['ajaxurl' => admin_url('admin-ajax.php')]);
 }
 
 add_action('wp_enqueue_scripts', 'influactive_form_shortcode_enqueue');
