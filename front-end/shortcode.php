@@ -1,9 +1,15 @@
 <?php
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+    throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
+/**
+ * Registers the 'influactive_form' shortcode.
+ */
 function register_influactive_form_shortcode(): void
 {
     add_shortcode('influactive_form', 'influactive_form_shortcode_handler');
@@ -12,7 +18,14 @@ function register_influactive_form_shortcode(): void
 add_action('init', 'register_influactive_form_shortcode', 1);
 
 // Ajouter un shortcode pour chaque post
-function influactive_form_shortcode_handler($atts): bool|string
+/**
+ * Sends an email containing the form data.
+ *
+ * @param array $atts An array of attributes passed to the shortcode handler.
+ * @return bool|string Returns false if the form ID is not provided or the form does not exist. Returns the form HTML content otherwise.
+ *
+ */
+function influactive_form_shortcode_handler(array $atts): bool|string
 {
     ob_start(); // Start output buffering
 
@@ -35,7 +48,7 @@ function influactive_form_shortcode_handler($atts): bool|string
     if ($form) {
         update_post_meta(get_the_ID(), 'influactive_form_id', $form_id);
 
-        $fields = get_post_meta($form_id, '_influactive_form_fields', true);
+        $fields = get_post_meta($form_id, '_influactive_form_fields', true) ?? [];
 
         echo '<div class="influactive-form-wrapper">';
 
@@ -107,6 +120,9 @@ function influactive_form_shortcode_handler($atts): bool|string
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_form_dynamic_style');
+/**
+ * Enqueues the dynamic style file for a specific form.
+ */
 function enqueue_form_dynamic_style(): void
 {
     if (is_admin()) {
@@ -127,7 +143,12 @@ add_action('wp_ajax_send_email', 'influactive_send_email');
 add_action('wp_ajax_nopriv_send_email', 'influactive_send_email');
 
 /**
+ * Sends an email based on the influactive form data.
+ *
+ * @return void
  * @throws JsonException
+ * @throws GuzzleException
+ *
  */
 function influactive_send_email(): void
 {
@@ -168,11 +189,19 @@ function influactive_send_email(): void
     $public_site_key = $_POST['recaptcha_site_key'] ?? '';
 
     if (!empty($secret_site_key) && !empty($public_site_key)) {
+        $client = new Client();
+
         $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
         $recaptcha_response = $_POST['recaptcha_response'];
 
-        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $secret_site_key . '&response=' . $recaptcha_response);
-        $recaptcha = json_decode($recaptcha, false, 512, JSON_THROW_ON_ERROR);
+        $response = $client->get($recaptcha_url, [
+            'query' => [
+                'secret' => $secret_site_key,
+                'response' => $recaptcha_response
+            ]
+        ]);
+
+        $recaptcha = json_decode($response->getBody()->getContents(), false, 512, JSON_THROW_ON_ERROR);
 
         // Prendre une décision basée sur le score de reCAPTCHA.
         if ($recaptcha->score < 0.5) {
@@ -288,13 +317,12 @@ function influactive_send_email(): void
 }
 
 /**
- * Replace placeholders in email details based on selected value or label
+ * Replaces field placeholders in a string with the corresponding label and value.
  *
- * @param string $string The string where placeholders will be replaced
- * @param string $field_name The name of the field to replace
- * @param array $label_value An array containing the label and value
- *
- * @return string The string with replaced placeholders
+ * @param string $string The string to replace placeholders in.
+ * @param string $field_name The name of the field.
+ * @param array $label_value An array containing the label and value of the field.
+ * @return string The string with replaced placeholders.
  */
 function replace_field_placeholder(string $string, string $field_name, array $label_value): string
 {
@@ -312,6 +340,11 @@ function replace_field_placeholder(string $string, string $field_name, array $la
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_google_captcha_script');
+/**
+ * Enqueues the Google reCAPTCHA script.
+ *
+ * @return void
+ */
 function enqueue_google_captcha_script(): void
 {
     $options_captcha = get_option('influactive-forms-capcha-fields') ?? [];
