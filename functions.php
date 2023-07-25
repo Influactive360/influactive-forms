@@ -105,3 +105,22 @@ function load_influactive_forms_textdomain(): void
 {
     load_plugin_textdomain('influactive-forms', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
+
+/**
+ * Requires the WordPress core file from the given possible paths.
+ *
+ * @param array $possiblePaths An array of possible paths where the WordPress core file may exist.
+ *
+ * @return void
+ */
+function requireWordPressCore(array $possiblePaths): void
+{
+    $basePath = $_SERVER['DOCUMENT_ROOT'] ?? '';
+    foreach ($possiblePaths as $possiblePath) {
+        $fullPath = $basePath . DIRECTORY_SEPARATOR . ltrim($possiblePath, '/');
+        if (file_exists($fullPath)) {
+            require_once($fullPath);
+            break;
+        }
+    }
+}
