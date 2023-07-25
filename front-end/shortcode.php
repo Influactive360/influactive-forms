@@ -194,7 +194,7 @@ function influactive_send_email(): void
 		try {
 			$response = curl_exec($ch);
 			if (curl_errno($ch)) {
-				throw new \RuntimeException(curl_error($ch));
+				throw new RuntimeException(curl_error($ch));
 			}
 		} catch (Exception $e) {
 			wp_send_json_error([
