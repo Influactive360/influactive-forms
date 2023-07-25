@@ -103,7 +103,7 @@ function influactive_form_shortcode_handler(array $atts): bool|string
                     break;
                 case 'free_text':
                     echo '<div class="free-text">' . $field['label'] . '</div>';
-                    echo '<input type="hidden" name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['label']) . '">'; // Hidden field to get the label
+                    echo '<input type="hidden" name="' . esc_attr($field['name']) . '" value="' . esc_attr($field['label']) . '">';
                     break;
             }
         }

@@ -100,7 +100,6 @@ function influactive_form_fields_listing(WP_Post $post): void
                     'textarea_name' => 'influactive_form_fields[' . (int)$key . '][label]',
                     'textarea_rows' => 10,
                     'media_buttons' => false,
-                    'teeny' => true,
                     'tinymce' => array(
                         'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo,formatselect,backcolor,alignleft,aligncenter,alignright,alignjustify,bullist,numlist,outdent,indent,removeformat',
                     ),
@@ -598,37 +597,22 @@ function influactive_form_save_post(int $post_id): void
         $fields_name = $_POST['influactive_form_fields']['name'] ?? [];
         $fields_options = $_POST['influactive_form_fields']['options'] ?? [];
         $field_order = $_POST['influactive_form_fields']['order'] ?? [];
+        $email_style = $_POST['influactive_form_email_style'] ?? [];
 
-        for ($i = 0, $iMax = count($fields_name); $i < $iMax; $i++) {
-            $options = [
-                'label' => '',
-                'value' => '',
-            ];
-            if (isset($fields_options[$field_order[$i]])) {
-                foreach ($fields_options[$field_order[$i]] as $key => $option) {
-                    $options[$key] = is_array($option)
-                        ? array_map('sanitize_text_field', $option)
-                        : sanitize_text_field($option);
-                }
-            }
+        foreach ($fields_name as $i => $field_name) {
+            $options = sanitizeOptions($fields_options[$field_order[$i]] ?? []);
 
-
-            $fields[$i] = [
-                'type' => sanitize_text_field($fields_type[$i]),
-                'label' => sanitize_text_field($fields_label[$i]),
-                'name' => strtolower(sanitize_text_field($fields_name[$i])),
-                'order' => (int)$field_order[$i],
-            ];
-
-            if ($fields[$i]['type'] === 'select' && isset($fields_options[$field_order[$i]])) {
-                $fields[$i]['options']['label'] = $options['label'];
-                $fields[$i]['options']['value'] = $options['value'];
-            }
+            $fields[$i] = createField(
+                $fields_type[$i],
+                $field_name,
+                $field_order[$i],
+                sanitizeLabel($fields_label[$i], $fields[$i]['type']),
+                $options
+            );
         }
 
         update_post_meta($post_id, '_influactive_form_fields', $fields);
 
-        $email_style = $_POST['influactive_form_email_style'] ?? [];
         update_post_meta($post_id, '_influactive_form_email_style', $email_style);
 
         $email_layout = $_POST['influactive_form_email_layout'] ?? [];
@@ -646,3 +630,58 @@ function influactive_form_save_post(int $post_id): void
     }
 }
 add_action('save_post', 'influactive_form_save_post');
+
+/**
+ * Sanitize options array.
+ *
+ * @param array $field_options The array containing the options to sanitize.
+ * @return array The sanitized options array.
+ */
+function sanitizeOptions(array $field_options): array
+{
+    return array_map(static function ($option) {
+        return is_array($option)
+            ? array_map('sanitize_text_field', $option)
+            : sanitize_text_field($option);
+    }, $field_options);
+}
+
+/**
+ * Create a field for a form.
+ *
+ * @param string $type The type of field.
+ * @param string $name The name of the field.
+ * @param int $order The order of the field.
+ * @param string $label The label for the field.
+ * @param array $options The options for a select field (optional).
+ * @return array The created field.
+ */
+function createField(string $type, string $name, int $order, string $label, array $options): array
+{
+    $field = [
+        'type' => sanitize_text_field($type),
+        'name' => strtolower(sanitize_text_field($name)),
+        'order' => $order,
+        'label' => $label,
+    ];
+
+    if ($type === 'select') {
+        $field['options'] = $options;
+    }
+
+    return $field;
+}
+
+/**
+ * Sanitize a label based on its type.
+ *
+ * @param string $label The label to sanitize.
+ * @param string $type The type of the label.
+ * @return string The sanitized label.
+ */
+function sanitizeLabel(string $label, string $type): string
+{
+    return $type === 'free_text'
+        ? wp_kses_post($label)
+        : sanitize_text_field($label);
+}
