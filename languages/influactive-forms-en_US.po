@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-07-13T08:35:46+00:00\n"
-"PO-Revision-Date: 2023-07-25 09:53+0000\n"
+"PO-Revision-Date: 2023-07-25 13:01+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: influactive-forms\n"
 "Language: en_US\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Loco-Version: 2.6.4; wp-6.2.2"
 
 #. translators: %s is a placeholder for the file URL
-#: front-end/shortcode.php:282
+#: front-end/shortcode.php:297
 msgid ""
 "<a href='%s' target='_blank' title='Download our brochure'>Download our "
 "brochure</a>"
@@ -49,7 +49,7 @@ msgstr "Add New Form"
 msgid "Add new layout"
 msgstr "Add new layout"
 
-#: back-end/post-type/edit.php:124 functions.php:61
+#: back-end/post-type/edit.php:124 functions.php:65
 msgid "Add option"
 msgstr "Add option"
 
@@ -67,15 +67,15 @@ msgstr "Bold"
 msgid "Bolder"
 msgstr "Bolder"
 
-#: front-end/shortcode.php:207
+#: front-end/shortcode.php:215
 msgid "Bot detected"
 msgstr "Bot detected"
 
-#: back-end/settings/captchas.php:20 functions.php:33
+#: back-end/settings/captchas.php:20 functions.php:37
 msgid "Captchas"
 msgstr "Captchas"
 
-#: front-end/shortcode.php:102
+#: front-end/shortcode.php:101
 msgid "Check our Privacy Policy"
 msgstr "Check our Privacy Policy"
 
@@ -92,7 +92,7 @@ msgstr "Custom post type for forms"
 msgid "Dashed"
 msgstr "Dashed"
 
-#: back-end/post-type/edit.php:572 functions.php:90
+#: back-end/post-type/edit.php:572 functions.php:94
 msgid "Delete layout"
 msgstr "Delete layout"
 
@@ -110,7 +110,7 @@ msgstr "Double"
 msgid "Edit Form"
 msgstr "Edit Form"
 
-#: back-end/post-type/edit.php:83 functions.php:76
+#: back-end/post-type/edit.php:83 functions.php:80
 msgid "Email"
 msgstr "Email"
 
@@ -126,7 +126,7 @@ msgstr "Email recipient"
 msgid "Email sender"
 msgstr "Email sender"
 
-#: front-end/shortcode.php:305
+#: front-end/shortcode.php:319
 msgid "Email sent successfully"
 msgstr "Email sent successfully"
 
@@ -144,15 +144,19 @@ msgstr ""
 "href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\" "
 "title=\"reCAPTCHA\">reCAPTCHA</a>"
 
-#: front-end/shortcode.php:309
+#: front-end/shortcode.php:323
 msgid "Failed to send email"
 msgstr "Failed to send email"
+
+#: front-end/shortcode.php:203 front-end/shortcode.php:223
+msgid "Failed to verify reCAPTCHA"
+msgstr "Failed to verify reCAPTCHA"
 
 #: back-end/post-type/definitions.php:34
 msgid "Featured Image"
 msgstr "Featured Image"
 
-#: functions.php:70
+#: functions.php:74
 msgid "Field added!"
 msgstr "Field added!"
 
@@ -196,7 +200,7 @@ msgstr "Form Border width"
 msgid "Form Fields"
 msgstr "Form Fields"
 
-#: front-end/shortcode.php:161
+#: front-end/shortcode.php:159
 msgid "Form ID is required"
 msgstr "Form ID is required"
 
@@ -224,7 +228,7 @@ msgstr "Forms list"
 msgid "Forms list navigation"
 msgstr "Forms list navigation"
 
-#: back-end/post-type/edit.php:88 functions.php:79
+#: back-end/post-type/edit.php:88 functions.php:83
 msgid "Free text"
 msgstr "Free text"
 
@@ -248,7 +252,7 @@ msgstr "Free text font weight"
 msgid "Free text line height"
 msgstr "Free text line height"
 
-#: back-end/post-type/edit.php:87 functions.php:77
+#: back-end/post-type/edit.php:87 functions.php:81
 msgid "GDPR"
 msgstr "GDPR"
 
@@ -323,7 +327,6 @@ msgid "Input padding"
 msgstr "Input padding"
 
 #: back-end/post-type/definitions.php:38
-#, fuzzy
 #| msgid "Insert into Form"
 msgid "Inserts into Form"
 msgstr "Insert into Form"
@@ -333,7 +336,7 @@ msgstr "Insert into Form"
 msgid "Inset"
 msgstr "Inset"
 
-#: functions.php:65
+#: functions.php:69
 msgid "Label"
 msgstr "Label"
 
@@ -366,7 +369,7 @@ msgstr "Lighter"
 msgid "Medium"
 msgstr "Medium"
 
-#: functions.php:66
+#: functions.php:70
 msgid "Name"
 msgstr "Name"
 
@@ -382,7 +385,7 @@ msgstr "New message"
 msgid "New subject"
 msgstr "New subject"
 
-#: front-end/shortcode.php:154
+#: front-end/shortcode.php:152
 msgid "Nonce verification failed"
 msgstr "Nonce verification failed"
 
@@ -403,23 +406,23 @@ msgstr "Not found"
 msgid "Not found in Trash"
 msgstr "Not found in Trash"
 
-#: back-end/post-type/edit.php:84 functions.php:78
+#: back-end/post-type/edit.php:84 functions.php:82
 msgid "Number"
 msgstr "Number"
 
-#: functions.php:71
+#: functions.php:75
 msgid "Option added!"
 msgstr "Option added!"
 
-#: back-end/post-type/edit.php:113 functions.php:67
+#: back-end/post-type/edit.php:113 functions.php:71
 msgid "Option Label"
 msgstr "Option Label"
 
-#: functions.php:72
+#: functions.php:76
 msgid "Option removed!"
 msgstr "Option removed!"
 
-#: back-end/post-type/edit.php:116 functions.php:68
+#: back-end/post-type/edit.php:116 functions.php:72
 msgid "Option Value"
 msgstr "Option Value"
 
@@ -450,11 +453,11 @@ msgstr "Public Site key"
 msgid "Remove featured image"
 msgstr "Remove featured image"
 
-#: back-end/post-type/edit.php:119 functions.php:62
+#: back-end/post-type/edit.php:119 functions.php:66
 msgid "Remove option"
 msgstr "Remove option"
 
-#: back-end/post-type/edit.php:133 functions.php:63
+#: back-end/post-type/edit.php:133 functions.php:67
 msgid "Remove the field"
 msgstr "Remove the field"
 
@@ -471,7 +474,7 @@ msgstr "Search Form"
 msgid "Secret Site key"
 msgstr "Secret Site key"
 
-#: back-end/post-type/edit.php:86 functions.php:75
+#: back-end/post-type/edit.php:86 functions.php:79
 msgid "Select"
 msgstr "Select"
 
@@ -545,11 +548,11 @@ msgid "Submit padding"
 msgstr "Submit padding"
 
 #: back-end/post-type/edit.php:82 back-end/post-type/edit.php:91
-#: functions.php:69 functions.php:73
+#: functions.php:73 functions.php:77
 msgid "Text"
 msgstr "Text"
 
-#: back-end/post-type/edit.php:85 functions.php:74
+#: back-end/post-type/edit.php:85 functions.php:78
 msgid "Textarea"
 msgstr "Textarea"
 
@@ -558,7 +561,7 @@ msgstr "Textarea"
 msgid "The field %s is required"
 msgstr "The field %s is required"
 
-#: functions.php:64
+#: functions.php:68
 msgid "Type"
 msgstr "Type"
 
