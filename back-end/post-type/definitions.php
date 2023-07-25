@@ -37,7 +37,7 @@ function influactive_form_custom_post_type(): void
         'set_featured_image' => __('Set featured image', 'influactive-forms'),
         'remove_featured_image' => __('Remove featured image', 'influactive-forms'),
         'use_featured_image' => __('Use as featured image', 'influactive-forms'),
-        'insert_into_item' => __('Insert into Form', 'influactive-forms'),
+        'insert_into_item' => __('Inserts into Form', 'influactive-forms'),
         'uploaded_to_this_item' => __('Uploaded to this Form', 'influactive-forms'),
         'items_list' => __('Forms list', 'influactive-forms'),
         'items_list_navigation' => __('Forms list navigation', 'influactive-forms'),
