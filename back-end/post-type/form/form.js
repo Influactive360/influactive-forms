@@ -3,55 +3,73 @@
 /* global tinymce */
 document.addEventListener('DOMContentLoaded', function() {
 	const container = document.getElementById("influactive_form_fields_container");
-	new Sortable(container, {
-		animation: 150, // This class should be on the elements you want to be draggable
-		handle: '.influactive_form_field',
-		onEnd: () => {
-			recalculateFieldIndexes();
-		},
-		onMove: () => {
-			recalculateFieldIndexes();
-		},
-		onStart: () => {
-			recalculateFieldIndexes();
-		},
-	});
-	document.getElementById("add_field").addEventListener("click", addFieldHandler);
-	Array.from(container.getElementsByClassName("influactive_form_field")).forEach(function(formField) {
-		const fieldType = formField.querySelector(".field_type");
-		fieldType.addEventListener("change", fieldTypeChangeHandler(formField)); // Added this line
-		if (fieldType.value === "select") {
-			const addOptionElement = formField.querySelector(".add_option");
-			const removeOptionElement = formField.querySelector(".remove_option");
-			if (addOptionElement) {
-				addOptionElement.addEventListener("click", addOptionHandler);
+	if (!container) {
+
+		new Sortable(container, {
+			animation: 150, // This class should be on the elements you want to be draggable
+			handle: '.influactive_form_field',
+			onEnd: () => {
+				recalculateFieldIndexes();
+			},
+			onMove: () => {
+				recalculateFieldIndexes();
+			},
+			onStart: () => {
+				recalculateFieldIndexes();
+			},
+		});
+		document.getElementById("add_field").addEventListener("click", addFieldHandler);
+		Array.from(container.getElementsByClassName("influactive_form_field")).forEach(function(formField) {
+			const fieldType = formField.querySelector(".field_type");
+			fieldType.addEventListener("change", fieldTypeChangeHandler(formField)); // Added this line
+			if (fieldType.value === "select") {
+				const addOptionElement = formField.querySelector(".add_option");
+				const removeOptionElement = formField.querySelector(".remove_option");
+				if (addOptionElement) {
+					addOptionElement.addEventListener("click", addOptionHandler);
+				}
+				if (removeOptionElement) {
+					removeOptionElement.addEventListener("click", removeOptionHandler);
+				}
 			}
-			if (removeOptionElement) {
-				removeOptionElement.addEventListener("click", removeOptionHandler);
+		});
+		container.addEventListener("click", function(e) {
+			if (e.target && e.target.classList.contains("remove_field")) {
+				removeFieldHandler(e);
 			}
-		}
-	});
-	container.addEventListener("click", function(e) {
-		if (e.target && e.target.classList.contains("remove_field")) {
-			removeFieldHandler(e);
-		}
-	});
+		});
+	}
 });
 
-function addFieldHandler(e) {
-	e.preventDefault();
-	let fieldElement = createFieldElement();
-	let container = document.getElementById("influactive_form_fields_container");
+function addFieldHandler(event) {
+	event.preventDefault();
+	const container = document.getElementById("influactive_form_fields_container");
+	const fieldElement = createFieldElement();
+	addFieldElementToContainer(container, fieldElement);
+	addFieldTypeChangeHandler(fieldElement);
+	addOptionHandlerIfPossible(fieldElement);
+	recalculateFieldIndexes();
+}
+
+function addFieldElementToContainer(container, fieldElement) {
 	container.appendChild(fieldElement);
+}
+
+function addFieldTypeChangeHandler(fieldElement) {
 	const fieldType = fieldElement.querySelector(".field_type");
 	fieldType.addEventListener("change", fieldTypeChangeHandler(fieldElement));
+}
+
+function addOptionHandlerIfPossible(fieldElement) {
 	const addOptionBtn = fieldElement.querySelector(".add_option");
 	if (addOptionBtn) {
 		addOptionBtn.addEventListener("click", addOptionHandler);
 	}
-	recalculateFieldIndexes();
 }
 
+/**
+ * @param {Element} fieldElement
+ */
 function fieldTypeChangeHandler(fieldElement) {
 	return function(event) {
 		recalculateFieldIndexes();
@@ -149,6 +167,9 @@ function fieldTypeChangeHandler(fieldElement) {
 	}
 }
 
+/**
+ * @param {ElementEventMap[keyof ElementEventMap]} e
+ */
 function addOptionHandler(e) {
 	e.preventDefault();
 	const optionsContainer = e.target.parentElement.previousElementSibling;
@@ -208,48 +229,57 @@ function createFieldElement() {
 	return fieldElement;
 }
 
-function createOptionElement() {
+function createOptionElement(
+	optionLabelLabelText,
+	optionValueLabelText,
+	removeOptionText
+) {
 	let optionElement = document.createElement('p');
 	optionElement.className = "option-field";
-	optionElement.innerHTML = `<label>${influactiveFormsTranslations.optionLabelLabelText} ` +
+	optionElement.innerHTML = `<label>${optionLabelLabelText} ` +
 		`<input type="text" class="option-label" name="influactive_form_fields[][options][][label]">` +
 		`</label> ` +
-		`<label>${influactiveFormsTranslations.optionValueLabelText} ` +
+		`<label>${optionValueLabelText} ` +
 		`<input type="text" class="option-value" name="influactive_form_fields[][options][][value]">` +
 		`</label> ` +
-		`<a href="#" class="remove_option">${influactiveFormsTranslations.removeOptionText}</a>`;
+		`<a href="#" class="remove_option">${removeOptionText}</a>`;
 	return optionElement;
 }
 
 function recalculateFieldIndexes() {
 	const container = document.getElementById("influactive_form_fields_container");
+	if (!container) {
+		console.error("Container not found");
+		return;
+	}
 	const formFields = Array.from(container.getElementsByClassName("influactive_form_field"));
 	formFields.forEach((fieldField, index) => {
 		const fieldType = fieldField.querySelector(".field_type");
 		const fieldLabel = fieldField.querySelector(".influactive_form_fields_label");
 		const fieldName = fieldField.querySelector(".influactive_form_fields_name");
 		const fieldOrder = fieldField.querySelector(".influactive_form_fields_order");
-		const fieldRequired = fieldField.querySelector(".influactive_form_fields_required");
-		const options = Array.from(fieldField.getElementsByClassName("option-field"));
 		if (fieldType && fieldLabel && fieldName && fieldOrder) {
-			fieldType.name = `influactive_form_fields[${index}][type]` ?? "";
-			fieldLabel.name = `influactive_form_fields[${index}][label]` ?? "";
-			fieldName.name = `influactive_form_fields[${index}][name]` ?? ""
-			fieldOrder.name = `influactive_form_fields[${index}][order]` ?? "";
-			// check if field is required
+			fieldType.name = `influactive_form_fields[${index}][type]`;
+			fieldLabel.name = `influactive_form_fields[${index}][label]`;
+			fieldName.name = `influactive_form_fields[${index}][name]`
+			fieldOrder.name = `influactive_form_fields[${index}][order]`;
+			const fieldRequired = fieldField.querySelector(".influactive_form_fields_required");
 			if (fieldRequired && fieldRequired.value === '1') {
-				fieldRequired.name = `influactive_form_fields[${index}][required]` ?? "";
+				fieldRequired.name = `influactive_form_fields[${index}][required]`;
 			}
+			const options = Array.from(fieldField.getElementsByClassName("option-field"));
 			if (options.length > 0) {
 				options.forEach((option, optionIndex) => {
 					const optionLabel = option.querySelector(".option-label");
 					const optionValue = option.querySelector(".option-value");
 					if (optionLabel && optionValue) {
-						optionLabel.name = `influactive_form_fields[${index}][options][${optionIndex}][label]` ?? "";
-						optionValue.name = `influactive_form_fields[${index}][options][${optionIndex}][value]` ?? "";
+						optionLabel.name = `influactive_form_fields[${index}][options][${optionIndex}][label]`;
+						optionValue.name = `influactive_form_fields[${index}][options][${optionIndex}][value]`;
 					}
 				});
 			}
+		} else {
+			console.warn("Some fields not found");
 		}
 	});
 }
