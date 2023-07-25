@@ -139,7 +139,14 @@ function influactive_form_fields_listing(WP_Post $post): void
     echo '<p><a href="#" id="add_field">' . __('Add Field', 'influactive-forms') . '</a></p>';
 }
 
-function influactive_form_email_style($post): void
+/**
+* Display the email layout for the Influactive form metabox.
+ *
+ * @param WP_Post $post The current post object.
+ * @return void
+ *
+ */
+function influactive_form_email_style(WP_Post $post): void
 {
     $email_style = get_post_meta($post->ID, '_influactive_form_email_style', true);
 	$email_style['form']['border_style'] ?? $email_style['form']['border_style'] = 'solid';
