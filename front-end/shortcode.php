@@ -1,8 +1,5 @@
 <?php
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-
 if (!defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
@@ -37,7 +34,7 @@ function influactive_form_shortcode_handler(array $atts): bool|string
     $form_id = (int)$atts['id'];
 
     if (!$form_id) {
-        return false;
+		throw new RuntimeException("Form ID not found. Exiting...");
     }
 
     // Showing the form if it exists
@@ -124,12 +121,12 @@ function influactive_form_shortcode_handler(array $atts): bool|string
 function enqueue_form_dynamic_style(): void
 {
     if (is_admin()) {
-        return;
+		throw new RuntimeException("WordPress environment not loaded. Exiting...");
     }
 
     $form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true) ?? 0;
     if (!$form_id) {
-        return;
+		throw new RuntimeException("Form ID not found. Exiting...");
     }
 
     // Enqueue du fichier dynamic-style.php
@@ -151,14 +148,14 @@ function influactive_send_email(): void
     if (empty($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'influactive_send_email')) {
         wp_send_json_error(['message' => __('Nonce verification failed', 'influactive-forms')]);
 
-        return;
+        exit;
     }
 
     // Check form fields
     if (empty($_POST['form_id'])) {
         wp_send_json_error(['message' => __('Form ID is required', 'influactive-forms')]);
 
-        return;
+	    exit;
     }
 
     $form_id = (int)$_POST['form_id'];
@@ -173,7 +170,7 @@ function influactive_send_email(): void
             $message = sprintf(__('The field %s is required', 'influactive-forms'), $name);
             wp_send_json_error(['message' => $message]);
 
-            return;
+	        exit;
         }
     }
 
@@ -185,47 +182,51 @@ function influactive_send_email(): void
     $secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
     $public_site_key = $_POST['recaptcha_site_key'] ?? '';
 
-    if (!empty($secret_site_key) && !empty($public_site_key)) {
-        $client = new Client();
+	if (!empty($secret_site_key) && !empty($public_site_key) && isset($_POST['recaptcha_response'])) {
+		$recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
+		$recaptcha_response = $_POST['recaptcha_response'];
 
-        $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
-        $recaptcha_response = $_POST['recaptcha_response'];
+		$url = $recaptcha_url . '?secret=' . urlencode($secret_site_key) . '&response=' . urlencode($recaptcha_response);
 
-        try {
-            $response = $client->get($recaptcha_url, [
-                'query' => [
-                    'secret' => $secret_site_key,
-                    'response' => $recaptcha_response
-                ]
-            ]);
-        } catch (GuzzleException $e) {
-            wp_send_json_error([
-                'message' => __('Failed to verify reCAPTCHA', 'influactive-forms'),
-            ]);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		try {
+			$response = curl_exec($ch);
+			if (curl_errno($ch)) {
+				throw new \RuntimeException(curl_error($ch));
+			}
+		} catch (Exception $e) {
+			wp_send_json_error([
+				'message' => __('Failed to verify reCAPTCHA', 'influactive-forms'),
+				'error' => $e->getMessage(),
+			]);
+			curl_close($ch);
+			exit;
+		}
+		curl_close($ch);
 
-            return;
-        }
+		try {
+			$recaptcha = json_decode($response, false, 512, JSON_THROW_ON_ERROR);
 
-        try {
-            $recaptcha = json_decode($response->getBody()->getContents(), false, 512, JSON_THROW_ON_ERROR);
+			if ($recaptcha->score < 0.5) {
+				// Not likely to be a human
+				wp_send_json_error([
+					'message' => __('Bot detected', 'influactive-forms'),
+					'score' => $recaptcha->score,
+				]);
 
-            if ($recaptcha->score < 0.5) {
-                // Not likely to be a human
-                wp_send_json_error([
-                    'message' => __('Bot detected', 'influactive-forms'),
-                    'score' => $recaptcha->score,
-                ]);
+				exit;
+			}
+		} catch (JsonException $e) {
+			wp_send_json_error([
+				'message' => __('Failed to verify reCAPTCHA', 'influactive-forms'),
+				'error' => $e->getMessage(),
+			]);
 
-                return;
-            }
-        } catch (JsonException) {
-            wp_send_json_error([
-                'message' => __('Failed to verify reCAPTCHA', 'influactive-forms'),
-            ]);
-
-            return;
-        }
-    }
+			exit;
+		}
+	}
 
     $layouts = $email_layout ?? [];
     $error = 0;
@@ -322,6 +323,8 @@ function influactive_send_email(): void
         wp_send_json_error([
             'message' => __('Failed to send email', 'influactive-forms'),
         ]);
+
+	    exit;
     }
 
     exit;
