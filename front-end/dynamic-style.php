@@ -1,21 +1,11 @@
 <?php
 
 if (!defined('ABSPATH')) {
-    $possible_paths = [
-        '/wp-load.php', // WordPress
-        '/wordpress/wp-load.php', // WordPlate
-        '/wp/wp-load.php', // Radicle
-    ];
-
-    // Try to get the document root from the server
-    $base_path = $_SERVER['DOCUMENT_ROOT'] ?? '';
-
-    foreach ($possible_paths as $possible_path) {
-        if (file_exists($base_path . $possible_path)) {
-            require_once($base_path . $possible_path);
-            break;
-        }
-    }
+    requireWordPressCore(array(
+            '/wp-load.php', // WordPress
+            '/wordpress/wp-load.php', // WordPlate
+            '/wp/wp-load.php', // Radicle
+    ));
 }
 
 header("Content-type: text/css; charset: UTF-8");
