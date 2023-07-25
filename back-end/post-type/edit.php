@@ -24,7 +24,7 @@ add_action('add_meta_boxes', 'influactive_form_add_metaboxes');
 function influactive_form_metabox(WP_Post $post): void
 {
     if (!current_user_can('edit_posts')) {
-        return;
+        throw new RuntimeException("WordPress environment not loaded. Exiting...");
     }
 
     ?>
