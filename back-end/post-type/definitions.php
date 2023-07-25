@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
-// Add custom post type form_influactive
-add_action('init', 'influactive_form_custom_post_type');
 
 /**
  * Register a custom post type for forms.
@@ -67,3 +65,5 @@ function influactive_form_custom_post_type(): void
     );
     register_post_type('influactive-forms', $args);
 }
+
+add_action('init', 'influactive_form_custom_post_type');

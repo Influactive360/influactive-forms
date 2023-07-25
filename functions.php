@@ -21,7 +21,6 @@ include(plugin_dir_path(__FILE__) . 'back-end/post-type/edit.php');
 include(plugin_dir_path(__FILE__) . 'back-end/settings/captchas.php');
 include(plugin_dir_path(__FILE__) . 'front-end/shortcode.php');
 
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
 /**
  * Adds a settings link to the plugin page.
  *
@@ -37,7 +36,8 @@ function influactive_forms_add_settings_link(array $links): array
     return $links; // Add the settings link to the plugin page.
 }
 
-add_action('admin_enqueue_scripts', 'influactive_form_edit');
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
+
 /**
  * Enqueues scripts and styles for editing an Influactive form.
  *
@@ -101,7 +101,9 @@ function influactive_form_edit(string $hook): void
     wp_enqueue_style('influactive-form-dynamic-style', plugin_dir_url(__FILE__) . 'front-end/dynamic-style.php?post_id=' . $form_id, array(), '1.0.0');
 }
 
-add_action('wp_enqueue_scripts', 'influactive_form_shortcode_enqueue');
+add_action('admin_enqueue_scripts', 'influactive_form_edit');
+
+
 /**
  * Enqueues the necessary scripts and styles for the Influactive form shortcode.
  *
@@ -119,7 +121,8 @@ function influactive_form_shortcode_enqueue(): void
     wp_localize_script('influactive-form', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
 }
 
-add_action('plugins_loaded', 'load_influactive_forms_textdomain');
+add_action('wp_enqueue_scripts', 'influactive_form_shortcode_enqueue');
+
 /**
  * Loads the Influactive Forms text domain for localization.
  *
@@ -129,6 +132,8 @@ function load_influactive_forms_textdomain(): void
 {
     load_plugin_textdomain('influactive-forms', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
+
+add_action('plugins_loaded', 'load_influactive_forms_textdomain');
 
 /**
  * Requires the WordPress core file from the given possible paths.

@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
-// Ajouter la colonne dans la page de la liste des posts
-add_filter('manage_influactive-forms_posts_columns', 'influactive_form_posts_columns');
 
 /**
  * Modifies the columns for the Influactive Form post-type.
@@ -20,7 +18,7 @@ function influactive_form_posts_columns(array $columns): array
     return $columns;
 }
 
-add_action('manage_influactive-forms_posts_custom_column', 'influactive_form_posts_custom_column', 10, 2);
+add_filter('manage_influactive-forms_posts_columns', 'influactive_form_posts_columns');
 
 /**
  * Displays the custom column content for the Influactive Form post-type.
@@ -36,3 +34,5 @@ function influactive_form_posts_custom_column(string $column, int $post_id): voi
         echo '[influactive_form id="' . $post_id . '"]';
     }
 }
+
+add_action('manage_influactive-forms_posts_custom_column', 'influactive_form_posts_custom_column', 10, 2);

@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
-add_action('admin_menu', 'influactive_form_menu');
-
 /**
  * Adds a submenu page for the Influactive Forms plugin.
  *
@@ -21,6 +19,8 @@ function influactive_form_menu(): void
     // Ajout de la sous-page
     add_submenu_page('edit.php?post_type=influactive-forms', __('Captchas', 'influactive-forms'), __('Captchas', 'influactive-forms'), 'manage_options', 'influactive-form-settings', 'influactive_form_settings_page');
 }
+
+add_action('admin_menu', 'influactive_form_menu');
 
 /**
  * Renders the submenu page for the Influactive Forms plugin settings.
@@ -46,8 +46,6 @@ function influactive_form_settings_page(): void
     </div>
     <?php
 }
-
-add_action('admin_init', 'influactive_forms_settings_init');
 
 /**
  * Initializes the settings for the Influactive Forms plugin.
@@ -86,6 +84,8 @@ function influactive_forms_settings_init(): void
             'influactive-forms-capcha-fields-section'
     );
 }
+
+add_action('admin_init', 'influactive_forms_settings_init');
 
 /**
  * Callback function for the "influactive-forms" settings section.

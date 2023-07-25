@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
-// Add metabox for influactive forms
-add_action('add_meta_boxes', 'influactive_form_add_metaboxes');
 /**
  * Add the Influactive Form metabox to the post-editor screen.
  *
@@ -15,13 +13,15 @@ function influactive_form_add_metaboxes(): void
 {
     add_meta_box('influactive_form_metabox', __('Influactive Form', 'influactive-forms'), 'influactive_form_metabox', 'influactive-forms');
 }
+add_action('add_meta_boxes', 'influactive_form_add_metaboxes');
 
 /**
  * Display the metabox for Influactive Form settings.
  *
  * @param WP_Post $post The current post object.
  * @return void
- */function influactive_form_metabox(WP_Post $post): void
+ */
+function influactive_form_metabox(WP_Post $post): void
 {
     ?>
     <?php influactive_form_shortcode($post); ?>
@@ -57,7 +57,8 @@ function influactive_form_add_metaboxes(): void
  *
  * @param WP_Post $post The current post object.
  * @return void
- */function influactive_form_shortcode(WP_Post $post): void
+ */
+function influactive_form_shortcode(WP_Post $post): void
 {
     echo '<code>[influactive_form id="' . $post->ID . '"]</code>';
 }
@@ -578,8 +579,6 @@ function influactive_form_email_layout(WP_Post $post): void
     <?php
 }
 
-// Enregistrement des champs
-add_action('save_post', 'influactive_form_save_post');
 /**
  * Save the Influactive Form settings when a post is saved.
  *
@@ -642,3 +641,4 @@ function influactive_form_save_post(int $post_id): void
         update_post_meta($post_id, '_influactive_form_email_layout', $email_layout);
     }
 }
+add_action('save_post', 'influactive_form_save_post');
