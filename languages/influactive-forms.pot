@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-25T09:51:56+00:00\n"
+"POT-Creation-Date: 2023-07-25T12:59:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: influactive-forms\n"
@@ -166,63 +166,63 @@ msgstr ""
 
 #: back-end/post-type/edit.php:82
 #: back-end/post-type/edit.php:91
-#: functions.php:69
 #: functions.php:73
+#: functions.php:77
 msgid "Text"
 msgstr ""
 
 #: back-end/post-type/edit.php:83
-#: functions.php:76
+#: functions.php:80
 msgid "Email"
 msgstr ""
 
 #: back-end/post-type/edit.php:84
-#: functions.php:78
+#: functions.php:82
 msgid "Number"
 msgstr ""
 
 #: back-end/post-type/edit.php:85
-#: functions.php:74
+#: functions.php:78
 msgid "Textarea"
 msgstr ""
 
 #: back-end/post-type/edit.php:86
-#: functions.php:75
+#: functions.php:79
 msgid "Select"
 msgstr ""
 
 #: back-end/post-type/edit.php:87
-#: functions.php:77
+#: functions.php:81
 msgid "GDPR"
 msgstr ""
 
 #: back-end/post-type/edit.php:88
-#: functions.php:79
+#: functions.php:83
 msgid "Free text"
 msgstr ""
 
 #: back-end/post-type/edit.php:113
-#: functions.php:67
+#: functions.php:71
 msgid "Option Label"
 msgstr ""
 
 #: back-end/post-type/edit.php:116
-#: functions.php:68
+#: functions.php:72
 msgid "Option Value"
 msgstr ""
 
 #: back-end/post-type/edit.php:119
-#: functions.php:62
+#: functions.php:66
 msgid "Remove option"
 msgstr ""
 
 #: back-end/post-type/edit.php:124
-#: functions.php:61
+#: functions.php:65
 msgid "Add option"
 msgstr ""
 
 #: back-end/post-type/edit.php:133
-#: functions.php:63
+#: functions.php:67
 msgid "Remove the field"
 msgstr ""
 
@@ -504,7 +504,7 @@ msgid "Content of the email"
 msgstr ""
 
 #: back-end/post-type/edit.php:572
-#: functions.php:90
+#: functions.php:94
 msgid "Delete layout"
 msgstr ""
 
@@ -513,7 +513,7 @@ msgid "Add new layout"
 msgstr ""
 
 #: back-end/settings/captchas.php:20
-#: functions.php:33
+#: functions.php:37
 msgid "Captchas"
 msgstr ""
 
@@ -537,15 +537,15 @@ msgstr ""
 msgid "Enter the Google Captcha site key. Here is the link to generate a key <a href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\" title=\"reCAPTCHA\">reCAPTCHA</a>"
 msgstr ""
 
-#: front-end/shortcode.php:102
+#: front-end/shortcode.php:101
 msgid "Check our Privacy Policy"
 msgstr ""
 
-#: front-end/shortcode.php:154
+#: front-end/shortcode.php:152
 msgid "Nonce verification failed"
 msgstr ""
 
-#: front-end/shortcode.php:161
+#: front-end/shortcode.php:159
 msgid "Form ID is required"
 msgstr ""
 
@@ -554,43 +554,48 @@ msgstr ""
 msgid "The field %s is required"
 msgstr ""
 
-#: front-end/shortcode.php:207
+#: front-end/shortcode.php:203
+#: front-end/shortcode.php:223
+msgid "Failed to verify reCAPTCHA"
+msgstr ""
+
+#: front-end/shortcode.php:215
 msgid "Bot detected"
 msgstr ""
 
 #. translators: %s is a placeholder for the file URL
-#: front-end/shortcode.php:282
+#: front-end/shortcode.php:297
 msgid "<a href='%s' target='_blank' title='Download our brochure'>Download our brochure</a>"
 msgstr ""
 
-#: front-end/shortcode.php:305
+#: front-end/shortcode.php:319
 msgid "Email sent successfully"
 msgstr ""
 
-#: front-end/shortcode.php:309
+#: front-end/shortcode.php:323
 msgid "Failed to send email"
 msgstr ""
 
-#: functions.php:64
+#: functions.php:68
 msgid "Type"
 msgstr ""
 
-#: functions.php:65
+#: functions.php:69
 msgid "Label"
 msgstr ""
 
-#: functions.php:66
+#: functions.php:70
 msgid "Name"
 msgstr ""
 
-#: functions.php:70
+#: functions.php:74
 msgid "Field added!"
 msgstr ""
 
-#: functions.php:71
+#: functions.php:75
 msgid "Option added!"
 msgstr ""
 
-#: functions.php:72
+#: functions.php:76
 msgid "Option removed!"
 msgstr ""
