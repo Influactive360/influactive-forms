@@ -34,7 +34,9 @@ add_action('admin_menu', 'influactive_form_menu');
  */
 function influactive_form_settings_page(): void
 {
-    $fields = get_option('influactive-forms-capcha-fields');
+    if (!current_user_can('edit_posts')) {
+        return;
+    }
     ?>
     <div class="influactive-form-settings">
         <h1><?= __("Settings", "influactive-forms") ?></h1>
