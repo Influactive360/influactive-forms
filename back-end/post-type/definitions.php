@@ -7,6 +7,11 @@ if (!defined('ABSPATH')) {
 // Add custom post type form_influactive
 add_action('init', 'influactive_form_custom_post_type');
 
+/**
+ * Register a custom post type for forms.
+ *
+ * @return void
+ */
 function influactive_form_custom_post_type(): void
 {
     $labels = array(
