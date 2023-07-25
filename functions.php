@@ -15,10 +15,6 @@ if (!defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
-if (!current_user_can('edit_posts')) {
-    return;
-}
-
 include(plugin_dir_path(__FILE__) . 'back-end/post-type/definitions.php');
 include(plugin_dir_path(__FILE__) . 'back-end/post-type/listing.php');
 include(plugin_dir_path(__FILE__) . 'back-end/post-type/edit.php');
