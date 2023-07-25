@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+    throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
 // Add custom post type form_influactive
