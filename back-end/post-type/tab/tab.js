@@ -1,28 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const tabsContainer = document.querySelector('.tabs');
 
-	tabsContainer.addEventListener('click', function(e) {
-		const target = e.target;
+	if (tabsContainer) {
 
-		if (target.matches('.tab-links a')) {
-			e.preventDefault();
+		tabsContainer.addEventListener('click', function(e) {
+			const target = e.target;
 
-			const currentAttrValue = target.getAttribute('href');
+			if (target.matches('.tab-links a')) {
+				e.preventDefault();
 
-			// Hide all tabs
-			const allTabs = document.querySelectorAll('.tabs .tab');
-			allTabs.forEach(tab => tab.style.display = 'none');
+				const currentAttrValue = target.getAttribute('href');
 
-			// Show the current tab
-			const currentTab = document.querySelector(currentAttrValue);
-			currentTab.style.display = 'block';
+				// Hide all tabs
+				const allTabs = document.querySelectorAll('.tabs .tab');
+				allTabs.forEach(tab => tab.style.display = 'none');
 
-			// Remove active class from all tab links
-			const allTabLinks = document.querySelectorAll('.tabs .tab-links a');
-			allTabLinks.forEach(link => link.parentElement.classList.remove('active'));
+				// Show the current tab
+				const currentTab = document.querySelector(currentAttrValue);
+				if (currentTab) {
+					currentTab.style.display = 'block';
+				}
 
-			// Add active class to the current tab link
-			target.parentElement.classList.add('active');
-		}
-	});
+				// Remove active class from all tab links
+				const allTabLinks = document.querySelectorAll('.tabs .tab-links a');
+				allTabLinks.forEach(link => link.parentElement.classList.remove('active'));
+
+				// Add active class to the current tab link
+				target.parentElement.classList.add('active');
+			}
+		});
+	}
 });
