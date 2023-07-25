@@ -12,7 +12,7 @@
  **/
 
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly.
+    throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
 include(plugin_dir_path(__FILE__) . 'back-end/post-type/definitions.php');
@@ -22,7 +22,14 @@ include(plugin_dir_path(__FILE__) . 'back-end/settings/captchas.php');
 include(plugin_dir_path(__FILE__) . 'front-end/shortcode.php');
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
-function influactive_forms_add_settings_link($links): array
+/**
+ * Adds a settings link to the plugin page.
+ *
+ * @param array $links An array of existing links on the plugin page.
+ *
+ * @return array An updated array of links including the new settings link.
+ */
+function influactive_forms_add_settings_link(array $links): array
 {
     $settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">' . __('Captchas', 'influactive-forms') . '</a>';
     $links[] = $settings_link;
@@ -31,7 +38,14 @@ function influactive_forms_add_settings_link($links): array
 }
 
 add_action('admin_enqueue_scripts', 'influactive_form_edit');
-function influactive_form_edit($hook): void
+/**
+ * Enqueues scripts and styles for editing an Influactive form.
+ *
+ * @param string $hook The current admin page hook.
+ *
+ * @return void
+ */
+function influactive_form_edit(string $hook): void
 {
     if ('post.php' !== $hook && 'post-new.php' !== $hook) {
         return;
@@ -88,6 +102,11 @@ function influactive_form_edit($hook): void
 }
 
 add_action('wp_enqueue_scripts', 'influactive_form_shortcode_enqueue');
+/**
+ * Enqueues the necessary scripts and styles for the Influactive form shortcode.
+ *
+ * @return void
+ */
 function influactive_form_shortcode_enqueue(): void
 {
     if (is_admin()) {
@@ -101,6 +120,11 @@ function influactive_form_shortcode_enqueue(): void
 }
 
 add_action('plugins_loaded', 'load_influactive_forms_textdomain');
+/**
+ * Loads the Influactive Forms text domain for localization.
+ *
+ * @return void
+ */
 function load_influactive_forms_textdomain(): void
 {
     load_plugin_textdomain('influactive-forms', false, dirname(plugin_basename(__FILE__)) . '/languages');
