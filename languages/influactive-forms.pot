@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-24T12:36:03+00:00\n"
+"POT-Creation-Date: 2023-07-25T09:51:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: influactive-forms\n"
@@ -30,567 +30,567 @@ msgstr ""
 msgid "https://influactive.com"
 msgstr ""
 
-#: back-end/post-type/definitions.php:13
+#: back-end/post-type/definitions.php:16
 msgctxt "Post Type General Name"
 msgid "Forms"
 msgstr ""
 
-#: back-end/post-type/definitions.php:14
+#: back-end/post-type/definitions.php:17
 msgctxt "Post Type Singular Name"
 msgid "Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:15
+#: back-end/post-type/definitions.php:18
 msgid "Forms"
 msgstr ""
 
-#: back-end/post-type/definitions.php:16
-#: back-end/post-type/definitions.php:42
+#: back-end/post-type/definitions.php:19
+#: back-end/post-type/definitions.php:45
 msgid "Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:17
+#: back-end/post-type/definitions.php:20
 msgid "Form Archives"
 msgstr ""
 
-#: back-end/post-type/definitions.php:18
+#: back-end/post-type/definitions.php:21
 msgid "Form Attributes"
 msgstr ""
 
-#: back-end/post-type/definitions.php:19
+#: back-end/post-type/definitions.php:22
 msgid "Parent Form:"
 msgstr ""
 
-#: back-end/post-type/definitions.php:20
+#: back-end/post-type/definitions.php:23
 msgid "All Forms"
 msgstr ""
 
-#: back-end/post-type/definitions.php:21
+#: back-end/post-type/definitions.php:24
 msgid "Add New Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:22
+#: back-end/post-type/definitions.php:25
 msgid "Add New"
 msgstr ""
 
-#: back-end/post-type/definitions.php:23
+#: back-end/post-type/definitions.php:26
 msgid "New Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:24
+#: back-end/post-type/definitions.php:27
 msgid "Edit Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:25
+#: back-end/post-type/definitions.php:28
 msgid "Update Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:26
+#: back-end/post-type/definitions.php:29
 msgid "View Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:27
+#: back-end/post-type/definitions.php:30
 msgid "View Forms"
 msgstr ""
 
-#: back-end/post-type/definitions.php:28
+#: back-end/post-type/definitions.php:31
 msgid "Search Form"
 msgstr ""
 
-#: back-end/post-type/definitions.php:29
+#: back-end/post-type/definitions.php:32
 msgid "Not found"
 msgstr ""
 
-#: back-end/post-type/definitions.php:30
+#: back-end/post-type/definitions.php:33
 msgid "Not found in Trash"
 msgstr ""
 
-#: back-end/post-type/definitions.php:31
+#: back-end/post-type/definitions.php:34
 msgid "Featured Image"
 msgstr ""
 
-#: back-end/post-type/definitions.php:32
+#: back-end/post-type/definitions.php:35
 msgid "Set featured image"
 msgstr ""
 
-#: back-end/post-type/definitions.php:33
+#: back-end/post-type/definitions.php:36
 msgid "Remove featured image"
 msgstr ""
 
-#: back-end/post-type/definitions.php:34
+#: back-end/post-type/definitions.php:37
 msgid "Use as featured image"
 msgstr ""
 
-#: back-end/post-type/definitions.php:35
-msgid "Insert into Form"
-msgstr ""
-
-#: back-end/post-type/definitions.php:36
-msgid "Uploaded to this Form"
-msgstr ""
-
-#: back-end/post-type/definitions.php:37
-msgid "Forms list"
-msgstr ""
-
 #: back-end/post-type/definitions.php:38
-msgid "Forms list navigation"
+msgid "Inserts into Form"
 msgstr ""
 
 #: back-end/post-type/definitions.php:39
+msgid "Uploaded to this Form"
+msgstr ""
+
+#: back-end/post-type/definitions.php:40
+msgid "Forms list"
+msgstr ""
+
+#: back-end/post-type/definitions.php:41
+msgid "Forms list navigation"
+msgstr ""
+
+#: back-end/post-type/definitions.php:42
 msgid "Filter Forms list"
 msgstr ""
 
-#: back-end/post-type/definitions.php:43
+#: back-end/post-type/definitions.php:46
 msgid "Custom post type for forms"
 msgstr ""
 
-#: back-end/post-type/edit.php:11
+#: back-end/post-type/edit.php:14
 msgid "Influactive Form"
 msgstr ""
 
-#: back-end/post-type/edit.php:20
-#: back-end/post-type/edit.php:28
+#: back-end/post-type/edit.php:30
+#: back-end/post-type/edit.php:38
 msgid "Form Fields"
 msgstr ""
 
-#: back-end/post-type/edit.php:21
-#: back-end/post-type/edit.php:33
+#: back-end/post-type/edit.php:31
+#: back-end/post-type/edit.php:43
 msgid "Form Style"
 msgstr ""
 
-#: back-end/post-type/edit.php:22
-#: back-end/post-type/edit.php:38
+#: back-end/post-type/edit.php:32
+#: back-end/post-type/edit.php:48
 msgid "Email Layout"
 msgstr ""
 
-#: back-end/post-type/edit.php:60
-#: back-end/post-type/edit.php:69
-#: functions.php:53
-#: functions.php:57
+#: back-end/post-type/edit.php:82
+#: back-end/post-type/edit.php:91
+#: functions.php:69
+#: functions.php:73
 msgid "Text"
 msgstr ""
 
-#: back-end/post-type/edit.php:61
-#: functions.php:60
+#: back-end/post-type/edit.php:83
+#: functions.php:76
 msgid "Email"
 msgstr ""
 
-#: back-end/post-type/edit.php:62
-#: functions.php:62
+#: back-end/post-type/edit.php:84
+#: functions.php:78
 msgid "Number"
 msgstr ""
 
-#: back-end/post-type/edit.php:63
-#: functions.php:58
+#: back-end/post-type/edit.php:85
+#: functions.php:74
 msgid "Textarea"
 msgstr ""
 
-#: back-end/post-type/edit.php:64
-#: functions.php:59
+#: back-end/post-type/edit.php:86
+#: functions.php:75
 msgid "Select"
 msgstr ""
 
-#: back-end/post-type/edit.php:65
-#: functions.php:61
+#: back-end/post-type/edit.php:87
+#: functions.php:77
 msgid "GDPR"
 msgstr ""
 
-#: back-end/post-type/edit.php:66
-#: functions.php:63
+#: back-end/post-type/edit.php:88
+#: functions.php:79
 msgid "Free text"
 msgstr ""
 
-#: back-end/post-type/edit.php:91
-#: functions.php:51
+#: back-end/post-type/edit.php:113
+#: functions.php:67
 msgid "Option Label"
 msgstr ""
 
-#: back-end/post-type/edit.php:94
-#: functions.php:52
+#: back-end/post-type/edit.php:116
+#: functions.php:68
 msgid "Option Value"
 msgstr ""
 
-#: back-end/post-type/edit.php:97
-#: functions.php:46
+#: back-end/post-type/edit.php:119
+#: functions.php:62
 msgid "Remove option"
 msgstr ""
 
-#: back-end/post-type/edit.php:102
-#: functions.php:45
+#: back-end/post-type/edit.php:124
+#: functions.php:61
 msgid "Add option"
 msgstr ""
 
-#: back-end/post-type/edit.php:111
-#: functions.php:47
+#: back-end/post-type/edit.php:133
+#: functions.php:63
 msgid "Remove the field"
 msgstr ""
 
-#: back-end/post-type/edit.php:118
+#: back-end/post-type/edit.php:140
 msgid "Add Field"
 msgstr ""
 
-#: back-end/post-type/edit.php:134
+#: back-end/post-type/edit.php:163
 msgid "Form Background color"
 msgstr ""
 
-#: back-end/post-type/edit.php:139
+#: back-end/post-type/edit.php:168
 msgid "Form Padding"
 msgstr ""
 
-#: back-end/post-type/edit.php:144
+#: back-end/post-type/edit.php:173
 msgid "Form Border width"
 msgstr ""
 
-#: back-end/post-type/edit.php:149
+#: back-end/post-type/edit.php:178
 msgid "Form Border style"
 msgstr ""
 
-#: back-end/post-type/edit.php:151
-#: back-end/post-type/edit.php:275
-#: back-end/post-type/edit.php:381
+#: back-end/post-type/edit.php:180
+#: back-end/post-type/edit.php:304
+#: back-end/post-type/edit.php:410
 msgid "Solid"
 msgstr ""
 
-#: back-end/post-type/edit.php:153
-#: back-end/post-type/edit.php:278
-#: back-end/post-type/edit.php:384
+#: back-end/post-type/edit.php:182
+#: back-end/post-type/edit.php:307
+#: back-end/post-type/edit.php:413
 msgid "Dashed"
 msgstr ""
 
-#: back-end/post-type/edit.php:155
-#: back-end/post-type/edit.php:281
-#: back-end/post-type/edit.php:387
+#: back-end/post-type/edit.php:184
+#: back-end/post-type/edit.php:310
+#: back-end/post-type/edit.php:416
 msgid "Dotted"
 msgstr ""
 
-#: back-end/post-type/edit.php:157
-#: back-end/post-type/edit.php:284
-#: back-end/post-type/edit.php:390
+#: back-end/post-type/edit.php:186
+#: back-end/post-type/edit.php:313
+#: back-end/post-type/edit.php:419
 msgid "Double"
 msgstr ""
 
-#: back-end/post-type/edit.php:159
-#: back-end/post-type/edit.php:287
-#: back-end/post-type/edit.php:393
+#: back-end/post-type/edit.php:188
+#: back-end/post-type/edit.php:316
+#: back-end/post-type/edit.php:422
 msgid "Groove"
 msgstr ""
 
-#: back-end/post-type/edit.php:161
-#: back-end/post-type/edit.php:290
-#: back-end/post-type/edit.php:396
+#: back-end/post-type/edit.php:190
+#: back-end/post-type/edit.php:319
+#: back-end/post-type/edit.php:425
 msgid "Ridge"
 msgstr ""
 
-#: back-end/post-type/edit.php:163
-#: back-end/post-type/edit.php:293
-#: back-end/post-type/edit.php:399
+#: back-end/post-type/edit.php:192
+#: back-end/post-type/edit.php:322
+#: back-end/post-type/edit.php:428
 msgid "Inset"
 msgstr ""
 
-#: back-end/post-type/edit.php:165
-#: back-end/post-type/edit.php:296
-#: back-end/post-type/edit.php:402
+#: back-end/post-type/edit.php:194
+#: back-end/post-type/edit.php:325
+#: back-end/post-type/edit.php:431
 msgid "Outset"
 msgstr ""
 
-#: back-end/post-type/edit.php:167
+#: back-end/post-type/edit.php:196
 msgid "None"
 msgstr ""
 
-#: back-end/post-type/edit.php:168
-#: back-end/post-type/edit.php:299
-#: back-end/post-type/edit.php:405
+#: back-end/post-type/edit.php:197
+#: back-end/post-type/edit.php:328
+#: back-end/post-type/edit.php:434
 msgid "Hidden"
 msgstr ""
 
-#: back-end/post-type/edit.php:173
+#: back-end/post-type/edit.php:202
 msgid "Form Border color"
 msgstr ""
 
-#: back-end/post-type/edit.php:180
+#: back-end/post-type/edit.php:209
 msgid "Label Font family"
 msgstr ""
 
-#: back-end/post-type/edit.php:185
+#: back-end/post-type/edit.php:214
 msgid "Label font size"
 msgstr ""
 
-#: back-end/post-type/edit.php:190
+#: back-end/post-type/edit.php:219
 msgid "Label font color"
 msgstr ""
 
-#: back-end/post-type/edit.php:195
+#: back-end/post-type/edit.php:224
 msgid "Label font weight"
 msgstr ""
 
-#: back-end/post-type/edit.php:198
-#: back-end/post-type/edit.php:240
-#: back-end/post-type/edit.php:344
+#: back-end/post-type/edit.php:227
+#: back-end/post-type/edit.php:269
+#: back-end/post-type/edit.php:373
 msgid "Normal"
 msgstr ""
 
-#: back-end/post-type/edit.php:201
-#: back-end/post-type/edit.php:243
-#: back-end/post-type/edit.php:347
+#: back-end/post-type/edit.php:230
+#: back-end/post-type/edit.php:272
+#: back-end/post-type/edit.php:376
 msgid "Bold"
 msgstr ""
 
-#: back-end/post-type/edit.php:204
-#: back-end/post-type/edit.php:246
-#: back-end/post-type/edit.php:350
+#: back-end/post-type/edit.php:233
+#: back-end/post-type/edit.php:275
+#: back-end/post-type/edit.php:379
 msgid "Bolder"
 msgstr ""
 
-#: back-end/post-type/edit.php:207
-#: back-end/post-type/edit.php:249
+#: back-end/post-type/edit.php:236
+#: back-end/post-type/edit.php:278
 msgid "Medium"
 msgstr ""
 
-#: back-end/post-type/edit.php:210
-#: back-end/post-type/edit.php:252
-#: back-end/post-type/edit.php:353
+#: back-end/post-type/edit.php:239
+#: back-end/post-type/edit.php:281
+#: back-end/post-type/edit.php:382
 msgid "Lighter"
 msgstr ""
 
-#: back-end/post-type/edit.php:215
+#: back-end/post-type/edit.php:244
 msgid "Label line height"
 msgstr ""
 
-#: back-end/post-type/edit.php:222
+#: back-end/post-type/edit.php:251
 msgid "Input font family"
 msgstr ""
 
-#: back-end/post-type/edit.php:227
+#: back-end/post-type/edit.php:256
 msgid "Input font size"
 msgstr ""
 
-#: back-end/post-type/edit.php:232
+#: back-end/post-type/edit.php:261
 msgid "Input font color"
 msgstr ""
 
-#: back-end/post-type/edit.php:237
+#: back-end/post-type/edit.php:266
 msgid "Input font weight"
 msgstr ""
 
-#: back-end/post-type/edit.php:257
+#: back-end/post-type/edit.php:286
 msgid "Input line height"
 msgstr ""
 
-#: back-end/post-type/edit.php:262
+#: back-end/post-type/edit.php:291
 msgid "Input background color"
 msgstr ""
 
-#: back-end/post-type/edit.php:267
+#: back-end/post-type/edit.php:296
 msgid "Input border width"
 msgstr ""
 
-#: back-end/post-type/edit.php:272
+#: back-end/post-type/edit.php:301
 msgid "Input border style"
 msgstr ""
 
-#: back-end/post-type/edit.php:304
+#: back-end/post-type/edit.php:333
 msgid "Input border color"
 msgstr ""
 
-#: back-end/post-type/edit.php:309
+#: back-end/post-type/edit.php:338
 msgid "Input border radius"
 msgstr ""
 
-#: back-end/post-type/edit.php:314
+#: back-end/post-type/edit.php:343
 msgid "Input padding"
 msgstr ""
 
-#: back-end/post-type/edit.php:321
+#: back-end/post-type/edit.php:350
 msgid "Submit font family"
 msgstr ""
 
-#: back-end/post-type/edit.php:326
+#: back-end/post-type/edit.php:355
 msgid "Submit font size"
 msgstr ""
 
-#: back-end/post-type/edit.php:331
+#: back-end/post-type/edit.php:360
 msgid "Submit font color"
 msgstr ""
 
-#: back-end/post-type/edit.php:336
+#: back-end/post-type/edit.php:365
 msgid "Submit font hover color"
 msgstr ""
 
-#: back-end/post-type/edit.php:341
+#: back-end/post-type/edit.php:370
 msgid "Submit font weight"
 msgstr ""
 
-#: back-end/post-type/edit.php:358
+#: back-end/post-type/edit.php:387
 msgid "Submit line height"
 msgstr ""
 
-#: back-end/post-type/edit.php:363
+#: back-end/post-type/edit.php:392
 msgid "Submit background color"
 msgstr ""
 
-#: back-end/post-type/edit.php:368
+#: back-end/post-type/edit.php:397
 msgid "Submit background hover color"
 msgstr ""
 
-#: back-end/post-type/edit.php:373
+#: back-end/post-type/edit.php:402
 msgid "Submit border color"
 msgstr ""
 
-#: back-end/post-type/edit.php:378
+#: back-end/post-type/edit.php:407
 msgid "Submit border style"
 msgstr ""
 
-#: back-end/post-type/edit.php:410
+#: back-end/post-type/edit.php:439
 msgid "Submit border width"
 msgstr ""
 
-#: back-end/post-type/edit.php:415
+#: back-end/post-type/edit.php:444
 msgid "Submit border radius"
 msgstr ""
 
-#: back-end/post-type/edit.php:420
+#: back-end/post-type/edit.php:449
 msgid "Submit padding"
 msgstr ""
 
-#: back-end/post-type/edit.php:427
+#: back-end/post-type/edit.php:456
 msgid "Free text font family"
 msgstr ""
 
-#: back-end/post-type/edit.php:432
+#: back-end/post-type/edit.php:461
 msgid "Free text font size"
 msgstr ""
 
-#: back-end/post-type/edit.php:437
+#: back-end/post-type/edit.php:466
 msgid "Free text font weight"
 msgstr ""
 
-#: back-end/post-type/edit.php:442
+#: back-end/post-type/edit.php:471
 msgid "Free text color"
 msgstr ""
 
-#: back-end/post-type/edit.php:447
+#: back-end/post-type/edit.php:476
 msgid "Free text line height"
 msgstr ""
 
-#: back-end/post-type/edit.php:463
+#: back-end/post-type/edit.php:498
 msgid "Fields available in the email"
 msgstr ""
 
-#: back-end/post-type/edit.php:491
-#: back-end/post-type/edit.php:517
+#: back-end/post-type/edit.php:526
+#: back-end/post-type/edit.php:552
 msgid "New subject"
 msgstr ""
 
-#: back-end/post-type/edit.php:492
-#: back-end/post-type/edit.php:525
+#: back-end/post-type/edit.php:527
+#: back-end/post-type/edit.php:560
 msgid "New message"
 msgstr ""
 
-#: back-end/post-type/edit.php:502
+#: back-end/post-type/edit.php:537
 msgid "Email sender"
 msgstr ""
 
-#: back-end/post-type/edit.php:509
+#: back-end/post-type/edit.php:544
 msgid "Email recipient"
 msgstr ""
 
-#: back-end/post-type/edit.php:515
+#: back-end/post-type/edit.php:550
 msgid "Subject of the email"
 msgstr ""
 
-#: back-end/post-type/edit.php:522
+#: back-end/post-type/edit.php:557
 msgid "Content of the email"
 msgstr ""
 
-#: back-end/post-type/edit.php:537
-#: functions.php:74
+#: back-end/post-type/edit.php:572
+#: functions.php:90
 msgid "Delete layout"
 msgstr ""
 
-#: back-end/post-type/edit.php:543
+#: back-end/post-type/edit.php:578
 msgid "Add new layout"
 msgstr ""
 
-#: back-end/settings/captchas.php:12
-#: functions.php:26
+#: back-end/settings/captchas.php:20
+#: functions.php:33
 msgid "Captchas"
 msgstr ""
 
-#: back-end/settings/captchas.php:20
+#: back-end/settings/captchas.php:40
 msgid "Settings"
 msgstr ""
 
-#: back-end/settings/captchas.php:38
+#: back-end/settings/captchas.php:66
 msgid "Google Captcha"
 msgstr ""
 
-#: back-end/settings/captchas.php:45
+#: back-end/settings/captchas.php:73
 msgid "Public Site key"
 msgstr ""
 
-#: back-end/settings/captchas.php:53
+#: back-end/settings/captchas.php:81
 msgid "Secret Site key"
 msgstr ""
 
-#: back-end/settings/captchas.php:62
-msgid "Enter the Google Captcha site key. Here the link to generate a key <a href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\" title=\"reCAPTCHA\">reCAPTCHA</a>"
+#: back-end/settings/captchas.php:101
+msgid "Enter the Google Captcha site key. Here is the link to generate a key <a href=\"https://www.google.com/recaptcha/admin\" target=\"_blank\" title=\"reCAPTCHA\">reCAPTCHA</a>"
 msgstr ""
 
-#: front-end/shortcode.php:87
+#: front-end/shortcode.php:102
 msgid "Check our Privacy Policy"
 msgstr ""
 
-#: front-end/shortcode.php:132
+#: front-end/shortcode.php:154
 msgid "Nonce verification failed"
 msgstr ""
 
-#: front-end/shortcode.php:139
+#: front-end/shortcode.php:161
 msgid "Form ID is required"
 msgstr ""
 
 #. translators: %s is a placeholder for the field name
-#: front-end/shortcode.php:151
+#: front-end/shortcode.php:173
 msgid "The field %s is required"
 msgstr ""
 
-#: front-end/shortcode.php:177
+#: front-end/shortcode.php:207
 msgid "Bot detected"
 msgstr ""
 
 #. translators: %s is a placeholder for the file URL
-#: front-end/shortcode.php:227
+#: front-end/shortcode.php:282
 msgid "<a href='%s' target='_blank' title='Download our brochure'>Download our brochure</a>"
 msgstr ""
 
-#: front-end/shortcode.php:250
+#: front-end/shortcode.php:305
 msgid "Email sent successfully"
 msgstr ""
 
-#: front-end/shortcode.php:254
+#: front-end/shortcode.php:309
 msgid "Failed to send email"
 msgstr ""
 
-#: functions.php:48
+#: functions.php:64
 msgid "Type"
 msgstr ""
 
-#: functions.php:49
+#: functions.php:65
 msgid "Label"
 msgstr ""
 
-#: functions.php:50
+#: functions.php:66
 msgid "Name"
 msgstr ""
 
-#: functions.php:54
+#: functions.php:70
 msgid "Field added!"
 msgstr ""
 
-#: functions.php:55
+#: functions.php:71
 msgid "Option added!"
 msgstr ""
 
-#: functions.php:56
+#: functions.php:72
 msgid "Option removed!"
 msgstr ""
