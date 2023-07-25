@@ -119,7 +119,6 @@ function influactive_form_shortcode_handler(array $atts): bool|string
     return ob_get_clean(); // End output buffering and return buffered output
 }
 
-add_action('wp_enqueue_scripts', 'enqueue_form_dynamic_style');
 /**
  * Enqueues the dynamic style file for a specific form.
  */
@@ -138,9 +137,7 @@ function enqueue_form_dynamic_style(): void
     wp_enqueue_style('influactive-form-dynamic-style', plugin_dir_url(__FILE__) . '/dynamic-style.php?post_id=' . $form_id, [], '1.0.0');
 }
 
-
-add_action('wp_ajax_send_email', 'influactive_send_email');
-add_action('wp_ajax_nopriv_send_email', 'influactive_send_email');
+add_action('wp_enqueue_scripts', 'enqueue_form_dynamic_style');
 
 /**
  * Sends an email based on the influactive form data.
@@ -316,6 +313,9 @@ function influactive_send_email(): void
     exit;
 }
 
+add_action('wp_ajax_send_email', 'influactive_send_email');
+add_action('wp_ajax_nopriv_send_email', 'influactive_send_email');
+
 /**
  * Replaces field placeholders in a string with the corresponding label and value.
  *
@@ -339,7 +339,6 @@ function replace_field_placeholder(string $string, string $field_name, array $la
     return $string;
 }
 
-add_action('wp_enqueue_scripts', 'enqueue_google_captcha_script');
 /**
  * Enqueues the Google reCAPTCHA script.
  *
@@ -363,3 +362,5 @@ function enqueue_google_captcha_script(): void
         wp_enqueue_script('google-captcha', "https://www.google.com/recaptcha/api.js?render=$public_site_key", [], null, true);
     }
 }
+
+add_action('wp_enqueue_scripts', 'enqueue_google_captcha_script');
