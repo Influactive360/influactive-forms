@@ -29,3 +29,5 @@ exclude:
   - name: PhpUndefinedFunctionInspection
   - name: PhpUndefinedVariableInspection
   - name: PhpElementIsNotAvailableInCurrentPhpVersionInspection
+  - name: PhpUndefinedClassConstantInspection
+  - name: PhpUndefinedClassInspection
