@@ -1,33 +1,33 @@
-document.addEventListener('DOMContentLoaded', function() {
-	const tabsContainer = document.querySelector('.tabs');
+document.addEventListener('DOMContentLoaded', () => {
+  const tabsContainer = document.querySelector('.tabs');
 
-	if (tabsContainer) {
+  if (tabsContainer) {
+    tabsContainer.addEventListener('click', (e) => {
+      const { target } = e;
 
-		tabsContainer.addEventListener('click', function(e) {
-			const target = e.target;
+      if (target.matches('.tab-links a')) {
+        e.preventDefault();
 
-			if (target.matches('.tab-links a')) {
-				e.preventDefault();
+        const currentAttrValue = target.getAttribute('href');
 
-				const currentAttrValue = target.getAttribute('href');
+        // Hide all tabs
+        const allTabs = document.querySelectorAll('.tabs .tab');
+        // eslint-disable-next-line no-param-reassign,no-return-assign
+        allTabs.forEach((tab) => tab.style.display = 'none');
 
-				// Hide all tabs
-				const allTabs = document.querySelectorAll('.tabs .tab');
-				allTabs.forEach(tab => tab.style.display = 'none');
+        // Show the current tab
+        const currentTab = document.querySelector(currentAttrValue);
+        if (currentTab) {
+          currentTab.style.display = 'block';
+        }
 
-				// Show the current tab
-				const currentTab = document.querySelector(currentAttrValue);
-				if (currentTab) {
-					currentTab.style.display = 'block';
-				}
+        // Remove active class from all tab links
+        const allTabLinks = document.querySelectorAll('.tabs .tab-links a');
+        allTabLinks.forEach((link) => link.parentElement.classList.remove('active'));
 
-				// Remove active class from all tab links
-				const allTabLinks = document.querySelectorAll('.tabs .tab-links a');
-				allTabLinks.forEach(link => link.parentElement.classList.remove('active'));
-
-				// Add active class to the current tab link
-				target.parentElement.classList.add('active');
-			}
-		});
-	}
+        // Add active class to the current tab link
+        target.parentElement.classList.add('active');
+      }
+    });
+  }
 });
