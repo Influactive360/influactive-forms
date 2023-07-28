@@ -5,15 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	new Sortable(container, {
 		animation: 150, // This class should be on the elements you want to be draggable
 		handle: '.influactive_form_field',
-		onEnd: () => {
-			recalculateFieldIndexes();
-		},
-		onMove: () => {
-			recalculateFieldIndexes();
-		},
-		onStart: () => {
-			recalculateFieldIndexes();
-		},
 	});
 	document.getElementById("add_field").addEventListener("click", addFieldHandler);
 	Array.from(container.getElementsByClassName("influactive_form_field")).forEach(function(formField) {
