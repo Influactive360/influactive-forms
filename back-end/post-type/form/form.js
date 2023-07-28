@@ -1,4 +1,4 @@
-/* global influactiveFormsTranslations */
+/* global influactiveFormsTranslations, tinymce */
 
 document.addEventListener('DOMContentLoaded', function() {
 	const container = document.getElementById("influactive_form_fields_container");
@@ -68,14 +68,33 @@ function fieldTypeChangeHandler(fieldElement) {
 			}
 		}
 		if (fieldValue === "gdpr") {
-			const gdprTextElement = document.createElement('label')
-			gdprTextElement.innerHTML = influactiveFormsTranslations.Text + " <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' data-type='gdpr' required>";
-			const gdprNameElement = document.createElement('label')
-			gdprNameElement.innerHTML = "<input type='hidden' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' value='gdpr'>";
+			const gdprTextElement = document.createElement('label');
+			const textNode = document.createTextNode(influactiveFormsTranslations.Text + " ");
+			gdprTextElement.appendChild(textNode);
+
+			const inputElement = document.createElement('input');
+			inputElement.type = 'text';
+			inputElement.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][label]';
+			inputElement.className = 'influactive_form_fields_label';
+			inputElement.dataset.type = 'gdpr';
+			inputElement.required = true;
+
+			gdprTextElement.appendChild(inputElement);
+
+			const gdprNameElement = document.createElement('label');
+			const hiddenInputElement = document.createElement('input');
+			hiddenInputElement.type = 'hidden';
+			hiddenInputElement.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][name]';
+			hiddenInputElement.className = 'influactive_form_fields_name';
+			hiddenInputElement.value = 'gdpr';
+
+			gdprNameElement.appendChild(hiddenInputElement);
+
 			// Append these elements to fieldElement or any other container element
 			fieldElement.appendChild(gdprTextElement);
 			fieldElement.appendChild(gdprNameElement);
 		}
+
 		if (fieldValue === "free_text") {
 			const textareaElement = document.createElement('textarea');
 			textareaElement.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][label]';
