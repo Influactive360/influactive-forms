@@ -7,18 +7,924 @@
         "driver": {
           "name": "ESLint",
           "informationUri": "https://eslint.org",
-          "rules": [],
+          "rules": [
+            {
+              "id": "indent",
+              "helpUri": "https://eslint.org/docs/latest/rules/indent",
+              "properties": {},
+              "shortDescription": {
+                "text": "Enforce consistent indentation"
+              }
+            },
+            {
+              "id": "quote-props",
+              "helpUri": "https://eslint.org/docs/latest/rules/quote-props",
+              "properties": {},
+              "shortDescription": {
+                "text": "Require quotes around object literal property names"
+              }
+            },
+            {
+              "id": "quotes",
+              "helpUri": "https://eslint.org/docs/latest/rules/quotes",
+              "properties": {},
+              "shortDescription": {
+                "text": "Enforce the consistent use of either backticks, double, or single quotes"
+              }
+            },
+            {
+              "id": "comma-dangle",
+              "helpUri": "https://eslint.org/docs/latest/rules/comma-dangle",
+              "properties": {},
+              "shortDescription": {
+                "text": "Require or disallow trailing commas"
+              }
+            },
+            {
+              "id": "semi",
+              "helpUri": "https://eslint.org/docs/latest/rules/semi",
+              "properties": {},
+              "shortDescription": {
+                "text": "Require or disallow semicolons instead of ASI"
+              }
+            }
+          ],
           "version": "8.45.0"
         }
       },
       "artifacts": [
         {
           "location": {
-            "uri": "file:///Users/antoine/PhpstormProjects/saint-priest/public/content/plugins/influactive-forms/.eslintrc.cjs"
+            "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs"
           }
         }
       ],
-      "results": []
+      "results": [
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 2 spaces but found 4."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'env' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 5,
+                  "endLine": 5,
+                  "endColumn": 6
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 5,
+                  "endLine": 2,
+                  "endColumn": 10
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 4 spaces but found 8."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 3,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'browser' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 9,
+                  "endLine": 3,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 9,
+                  "endLine": 3,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 4 spaces but found 8."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 1,
+                  "endLine": 4,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'es2021' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 9,
+                  "endLine": 4,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 9,
+                  "endLine": 4,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Missing trailing comma."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "ruleId": "comma-dangle",
+          "ruleIndex": 3
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 2 spaces but found 4."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 2 spaces but found 4."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 6,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'extends' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 5,
+                  "endLine": 6,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 5,
+                  "endLine": 6,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 16,
+                  "endLine": 6,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 2 spaces but found 4."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'overrides' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 5,
+                  "endLine": 7,
+                  "endColumn": 20
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 5,
+                  "endLine": 7,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 2 spaces but found 4."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'parserOptions' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 5,
+                  "endLine": 11,
+                  "endColumn": 6
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 5,
+                  "endLine": 8,
+                  "endColumn": 20
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 4 spaces but found 8."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'ecmaVersion' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 9,
+                  "endLine": 9,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 9,
+                  "endLine": 9,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 24,
+                  "endLine": 9,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 4 spaces but found 8."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 1,
+                  "endLine": 10,
+                  "endColumn": 9
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'sourceType' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 9,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 9,
+                  "endLine": 10,
+                  "endColumn": 21
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 23,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Missing trailing comma."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 31,
+                  "endLine": 11,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "ruleId": "comma-dangle",
+          "ruleIndex": 3
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 2 spaces but found 4."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Expected indentation of 2 spaces but found 4."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 1,
+                  "endLine": 12,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "ruleId": "indent",
+          "ruleIndex": 0
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Unnecessarily quoted property 'rules' found."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 5,
+                  "endLine": 12,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "ruleId": "quote-props",
+          "ruleIndex": 1
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Strings must use singlequote."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 5,
+                  "endLine": 12,
+                  "endColumn": 12
+                }
+              }
+            }
+          ],
+          "ruleId": "quotes",
+          "ruleIndex": 2
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Missing trailing comma."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 16,
+                  "endLine": 13,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "ruleId": "comma-dangle",
+          "ruleIndex": 3
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Missing semicolon."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.cjs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 2,
+                  "endLine": 14,
+                  "endColumn": 1
+                }
+              }
+            }
+          ],
+          "ruleId": "semi",
+          "ruleIndex": 4
+        }
+      ]
     }
   ]
 }
