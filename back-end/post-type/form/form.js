@@ -311,7 +311,6 @@ function fieldTypeChangeHandler(fieldElement) {
       requiredInput.value = '1'
       requiredInput.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][required]`
       requiredInput.className = 'influactive_form_fields_required'
-      requiredInput.required = true
 
       RequiredElement.appendChild(requiredInput)
 
