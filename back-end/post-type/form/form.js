@@ -180,13 +180,28 @@ function fieldTypeChangeHandler(fieldElement) {
 			fieldElement.appendChild(RequiredElement);
 		}
 		if (fieldValue === "select") {
-			const addOptionElement = document.createElement('p')
-			addOptionElement.innerHTML = "<a href='#' class='add_option'>Add option</a>";
+			// Create a paragraph element for adding options
+			const addOptionElement = document.createElement('p');
+
+			// Create an anchor element for the "Add option" link
+			const addOptionLink = document.createElement('a');
+			addOptionLink.href = '#';
+			addOptionLink.textContent = 'Add option';
+			addOptionLink.classList.add('add_option');
+
+			// Append the anchor to the paragraph
+			addOptionElement.appendChild(addOptionLink);
+
+			// Append the paragraph to the field element
 			fieldElement.appendChild(addOptionElement);
-			const optionsContainer = document.createElement('div')
+
+			// Create and append options container
+			const optionsContainer = document.createElement('div');
 			optionsContainer.classList.add("options_container");
 			fieldElement.appendChild(optionsContainer);
-			addOptionElement.addEventListener("click", addOptionHandler);
+
+			// Add event listener to the "Add option" link
+			addOptionLink.addEventListener("click", addOptionHandler);
 		} else {
 			const addOptionElement = fieldElement.querySelector(".add_option");
 			const optionsContainer = fieldElement.querySelector(".options_container");
