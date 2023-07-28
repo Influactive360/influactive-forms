@@ -22,7 +22,13 @@
   },
   "homepage": "https://github.com/Influactive360/influactive-forms#readme",
   "dependencies": {
+    "@microsoft/eslint-formatter-sarif": "^2.1.7",
     "sortablejs": "^1.15.0",
-    "tinymce": "^6.6.0"
+    "tinymce": "^6.6.0",
+    "vite": "^4.4.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-google": "^0.14.0"
   }
 }
