@@ -1,13 +1,13 @@
 /* global influactiveFormsTranslations, tinymce */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 	const container = document.getElementById("influactive_form_fields_container");
 	new Sortable(container, {
 		animation: 150, // This class should be on the elements you want to be draggable
 		handle: '.influactive_form_field',
 	});
 	document.getElementById("add_field").addEventListener("click", addFieldHandler);
-	Array.from(container.getElementsByClassName("influactive_form_field")).forEach(function(formField) {
+	Array.from(container.getElementsByClassName("influactive_form_field")).forEach(function (formField) {
 		const fieldType = formField.querySelector(".field_type");
 		fieldType.addEventListener("change", fieldTypeChangeHandler(formField)); // Added this line
 		if (fieldType.value === "select") {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 	});
-	container.addEventListener("click", function(e) {
+	container.addEventListener("click", function (e) {
 		if (e.target && e.target.classList.contains("remove_field")) {
 			removeFieldHandler(e);
 		}
@@ -46,7 +46,7 @@ function addFieldHandler(e) {
  * @param {Element} fieldElement
  */
 function fieldTypeChangeHandler(fieldElement) {
-	return function(event) {
+	return function (event) {
 		recalculateFieldIndexes();
 		let fieldValue = event.target.value;
 		// Remove existing elements
@@ -103,7 +103,7 @@ function fieldTypeChangeHandler(fieldElement) {
 			// Append textarea to the field element
 			fieldElement.appendChild(textareaElement);
 			// Initialize TinyMCE
-			setTimeout(function() {
+			setTimeout(function () {
 				tinymce.init({
 					selector: '.wysiwyg-editor',  // we use a class selector to select the new textarea
 					height: 215,
@@ -120,8 +120,19 @@ function fieldTypeChangeHandler(fieldElement) {
 					content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
 				});
 			}, 0);
-			const NameElement = document.createElement('label')
-			NameElement.innerHTML = "<input type='hidden' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' value='free_text'>";
+			const NameElement = document.createElement('label');
+			const inputElement = document.createElement('input');
+
+			// Attribuer les propriétés à l'élément input
+			inputElement.type = 'hidden';
+			inputElement.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][name]';
+			inputElement.className = 'influactive_form_fields_name';
+			inputElement.value = 'free_text';
+
+			// Ajouter l'élément input à l'élément label
+			NameElement.appendChild(inputElement);
+
+			// Ajouter l'élément label à l'élément parent
 			fieldElement.appendChild(NameElement);
 		}
 
@@ -129,12 +140,40 @@ function fieldTypeChangeHandler(fieldElement) {
 		let nameElement = fieldElement.querySelector(".influactive_form_fields_name");
 		// If they don't exist, create and append them
 		if (!labelElement && !nameElement) {
-			const LabelElement = document.createElement('label')
-			LabelElement.innerHTML = "Label <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][label]' class='influactive_form_fields_label' required>";
-			const NameElement = document.createElement('label')
-			NameElement.innerHTML = "Name <input type='text' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][name]' class='influactive_form_fields_name' required>";
-			const RequiredElement = document.createElement('label')
-			RequiredElement.innerHTML = "Required <input type='checkbox' value='1' name='influactive_form_fields[" + fieldElement.querySelector(".influactive_form_fields_order").value + "][required]' class='influactive_form_fields_required' required>";
+			const LabelElement = document.createElement('label');
+			LabelElement.textContent = "Label ";
+
+			const labelInput = document.createElement('input');
+			labelInput.type = 'text';
+			labelInput.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][label]';
+			labelInput.className = 'influactive_form_fields_label';
+			labelInput.required = true;
+
+			LabelElement.appendChild(labelInput);
+
+			const NameElement = document.createElement('label');
+			NameElement.textContent = "Name ";
+
+			const nameInput = document.createElement('input');
+			nameInput.type = 'text';
+			nameInput.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][name]';
+			nameInput.className = 'influactive_form_fields_name';
+			nameInput.required = true;
+
+			NameElement.appendChild(nameInput);
+
+			const RequiredElement = document.createElement('label');
+			RequiredElement.textContent = "Required ";
+
+			const requiredInput = document.createElement('input');
+			requiredInput.type = 'checkbox';
+			requiredInput.value = '1';
+			requiredInput.name = 'influactive_form_fields[' + fieldElement.querySelector(".influactive_form_fields_order").value + '][required]';
+			requiredInput.className = 'influactive_form_fields_required';
+			requiredInput.required = true;
+
+			RequiredElement.appendChild(requiredInput);
+
 			// Append these elements to fieldElement or any other container element
 			fieldElement.appendChild(LabelElement);
 			fieldElement.appendChild(NameElement);
