@@ -12,5 +12,10 @@
   "require": {
     "ext-curl": "*",
     "php": ">=8.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "*",
+    "phpunit/phpunit": "*",
+    "wp-coding-standards/wpcs": "^2.3"
   }
 }
