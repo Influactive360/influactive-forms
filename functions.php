@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Forms everywhere by Influactive
  * Description: A plugin to create custom forms and display them anywhere on your website.
- * Version: 1.2.4.2
+ * Version: 1.2.4.3
  * Author: Influactive
  * Author URI: https://influactive.com
  * Text Domain: influactive-forms
@@ -53,7 +53,7 @@ function influactive_form_edit( string $hook ): void {
 		'wp-tinymce',
 		'influactive-tabs',
 		'influactive-form-layout'
-	), '1.2.4.2', true );
+	), '1.2.4.3', true );
 	wp_localize_script( 'influactive-form', 'influactiveFormsTranslations', array(
 		'addOptionText'        => __( 'Add option', 'influactive-forms' ),
 		'removeOptionText'     => __( 'Remove option', 'influactive-forms' ),
@@ -75,26 +75,26 @@ function influactive_form_edit( string $hook ): void {
 		'Number'               => __( 'Number', 'influactive-forms' ),
 		'Freetext'             => __( 'Free text', 'influactive-forms' ),
 	) );
-	wp_enqueue_style( 'influactive-form', plugin_dir_url( __FILE__ ) . 'back-end/post-type/form/form.min.css', array(), '1.2.4.2' );
+	wp_enqueue_style( 'influactive-form', plugin_dir_url( __FILE__ ) . 'back-end/post-type/form/form.min.css', array(), '1.2.4.3' );
 
-	wp_enqueue_script( 'influactive-tabs', plugin_dir_url( __FILE__ ) . 'dist/backEndTab.bundled.js', array(), '1.2.4.2', true );
-	wp_enqueue_style( 'influactive-tabs', plugin_dir_url( __FILE__ ) . 'back-end/post-type/tab/tab.min.css', array(), '1.2.4.2' );
+	wp_enqueue_script( 'influactive-tabs', plugin_dir_url( __FILE__ ) . 'dist/backEndTab.bundled.js', array(), '1.2.4.3', true );
+	wp_enqueue_style( 'influactive-tabs', plugin_dir_url( __FILE__ ) . 'back-end/post-type/tab/tab.min.css', array(), '1.2.4.3' );
 
-	wp_enqueue_style( 'influactive-form-layout', plugin_dir_url( __FILE__ ) . 'back-end/post-type/layout/layout.min.css', array(), '1.2.4.2' );
-	wp_enqueue_script( 'influactive-form-layout', plugin_dir_url( __FILE__ ) . 'dist/backEndLayout.bundled.js', array(), '1.2.4.2', true );
+	wp_enqueue_style( 'influactive-form-layout', plugin_dir_url( __FILE__ ) . 'back-end/post-type/layout/layout.min.css', array(), '1.2.4.3' );
+	wp_enqueue_script( 'influactive-form-layout', plugin_dir_url( __FILE__ ) . 'dist/backEndLayout.bundled.js', array(), '1.2.4.3', true );
 	wp_localize_script( 'influactive-form-layout', 'influactiveFormsTranslations', array(
 		'delete_layout' => __( 'Delete layout', 'influactive-forms' ),
 	) );
 
-	wp_enqueue_style( 'influactive-form-style', plugin_dir_url( __FILE__ ) . 'back-end/post-type/style.min.css', array(), '1.2.4.2' );
+	wp_enqueue_style( 'influactive-form-style', plugin_dir_url( __FILE__ ) . 'back-end/post-type/style.min.css', array(), '1.2.4.3' );
 
-	wp_enqueue_style( 'influactive-form-preview', plugin_dir_url( __FILE__ ) . 'front-end/form.min.css', array(), '1.2.4.2' );
+	wp_enqueue_style( 'influactive-form-preview', plugin_dir_url( __FILE__ ) . 'front-end/form.min.css', array(), '1.2.4.3' );
 
 	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true );
 	if ( ! $form_id ) {
 		throw new RuntimeException( "Form ID not found. Exiting..." );
 	}
-	wp_enqueue_style( 'influactive-form-dynamic-style', plugin_dir_url( __FILE__ ) . 'front-end/dynamic-style.php?post_id=' . $form_id, array(), '1.2.4.2' );
+	wp_enqueue_style( 'influactive-form-dynamic-style', plugin_dir_url( __FILE__ ) . 'front-end/dynamic-style.php?post_id=' . $form_id, array(), '1.2.4.3' );
 }
 
 add_action( 'admin_enqueue_scripts', 'influactive_form_edit' );
@@ -125,8 +125,8 @@ function influactive_form_shortcode_enqueue(): void {
 		$script_handle = [];
 	}
 
-	wp_enqueue_script( 'influactive-form', plugin_dir_url( __FILE__ ) . 'dist/frontEnd.bundled.js', $script_handle, '1.2.4.2', true );
-	wp_enqueue_style( 'influactive-form', plugin_dir_url( __FILE__ ) . 'front-end/form.min.css', [], '1.2.4.2' );
+	wp_enqueue_script( 'influactive-form', plugin_dir_url( __FILE__ ) . 'dist/frontEnd.bundled.js', $script_handle, '1.2.4.3', true );
+	wp_enqueue_style( 'influactive-form', plugin_dir_url( __FILE__ ) . 'front-end/form.min.css', [], '1.2.4.3' );
 
 	wp_localize_script( 'influactive-form', 'ajaxObject', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
 }

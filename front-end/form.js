@@ -5,7 +5,9 @@
  * @param {Element} form
  * @param {string|Blob} recaptchaResponse
  */
-function submitFormGlobal(messageDiv, form, recaptchaResponse) {
+const submitFormGlobal = (messageDiv, form, recaptchaResponse) => {
+  const messageCloned = messageDiv
+  let message
   const xhr = new XMLHttpRequest()
   const formData = new FormData(form)
   formData.append('action', 'send_email')
@@ -17,23 +19,29 @@ function submitFormGlobal(messageDiv, form, recaptchaResponse) {
   xhr.open('POST', ajaxObject.ajaxurl, true)
 
   xhr.onload = function xhrOnLoad() {
-    const message = messageDiv
     if (xhr.status === 200) {
-      const response = JSON.parse(xhr.responseText)
-      if (response.data) {
-        // Display the success message in the div
-        message.textContent = response.data.message
-        form.reset()
-      } else {
-        // Display the error message in the div
-        message.textContent = response.data.message
+      try {
+        const response = JSON.parse(xhr.responseText)
+        if (response.data) {
+          message = response.data.message
+          form.reset()
+        } else {
+          message = 'An error occurred while processing the response'
+        }
+      } catch (error) {
+        message = 'An error occurred while parsing the response'
       }
     } else {
-      // Display the AJAX error message in the div
-      message.textContent = 'An error occurred with the AJAX request'
+      message = 'An error occurred with the AJAX request'
     }
   }
+
+  xhr.onerror = () => {
+    message = 'An error occurred while making the AJAX request'
+  }
+
   xhr.send(formData)
+  messageCloned.textContent = message
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -128,7 +128,7 @@ function enqueue_form_dynamic_style(): void {
 	}
 
 	// Enqueue du fichier dynamic-style.php
-	wp_enqueue_style( 'influactive-form-dynamic-style', plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id, [], '1.2.4.2' );
+	wp_enqueue_style( 'influactive-form-dynamic-style', plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id, [], '1.2.4.3' );
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );

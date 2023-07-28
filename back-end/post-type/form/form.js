@@ -2,36 +2,47 @@ import Sortable from 'sortablejs'
 
 /* global influactiveFormsTranslations, tinymce */
 
-function recalculateFieldIndexes() {
-  const container = document.getElementById('influactive_form_fields_container')
-  const formFields = [...container.getElementsByClassName('influactive_form_field')]
+const recalculateFieldIndexes = () => {
+  const formFieldsContainer = document.getElementById('form_fields_container')
+
+  if (!formFieldsContainer) {
+    return
+  }
+
+  const formFields = Array.from(formFieldsContainer.getElementsByClassName('form_field'))
 
   formFields.forEach((formField, index) => {
-    const fields = ['type', 'label', 'name', 'order', 'required']
-    const options = [...formField.getElementsByClassName('option-field')]
+    const fieldTypes = ['type', 'label', 'name', 'order', 'required']
+    const optionFields = Array.from(formField.getElementsByClassName('option-field'))
 
-    fields.forEach((field) => {
-      const fieldElement = formField.querySelector(`.${field}`)
-      if (fieldElement && (field !== 'required' || fieldElement.value === '1')) {
-        fieldElement.name = `influactive_form_fields[${index}][${field}]`
+    fieldTypes.forEach((fieldType) => {
+      const formFieldElement = formField.querySelector(`.${fieldType}`)
+
+      if (!formFieldElement || (fieldType === 'required' && formFieldElement.value !== '1')) {
+        return
       }
+
+      formFieldElement.name = `form_fields[${index}][${fieldType}]`
     })
 
-    if (options.length > 0) {
-      options.forEach((option, optionIndex) => {
-        const optionFields = ['label', 'value']
-        optionFields.forEach((optionField) => {
-          const fieldElement = option.querySelector(`.${optionField}`)
-          if (fieldElement) {
-            fieldElement.name = `influactive_form_fields[${index}][options][${optionIndex}][${optionField}]`
+    if (optionFields.length > 0) {
+      optionFields.forEach((option, optionIndex) => {
+        const optionFieldTypes = ['label', 'value']
+        optionFieldTypes.forEach((optionFieldType) => {
+          const optionFieldElement = option.querySelector(`.${optionFieldType}`)
+
+          if (!optionFieldElement) {
+            return
           }
+
+          optionFieldElement.name = `form_fields[${index}][options][${optionIndex}][${optionFieldType}]`
         })
       })
     }
   })
 }
 
-function createInputWithLabel(parent, labelText, name, type, className) {
+const createInputWithLabel = (parent, labelText, name, type, className) => {
   const label = document.createElement('label')
   label.textContent = labelText
   const input = document.createElement('input')
@@ -43,7 +54,7 @@ function createInputWithLabel(parent, labelText, name, type, className) {
   parent.appendChild(label)
 }
 
-function createFieldElement() {
+const createFieldElement = () => {
   const fieldElement = document.createElement('div')
   const id = document.getElementsByClassName('influactive_form_field').length
   fieldElement.className = 'influactive_form_field'
@@ -114,7 +125,7 @@ function createFieldElement() {
   return fieldElement
 }
 
-function createOptionElement() {
+const createOptionElement = () => {
   const optionElement = document.createElement('p')
   optionElement.className = 'option-field'
 
@@ -157,7 +168,7 @@ function createOptionElement() {
 /**
  * @param {Event} e
  */
-function removeOptionHandler(e) {
+const removeOptionHandler = (e) => {
   e.preventDefault()
   e.target.closest('.option-field').remove()
   recalculateFieldIndexes()
@@ -166,7 +177,7 @@ function removeOptionHandler(e) {
 /**
  * @param {ElementEventMap[keyof ElementEventMap]} e
  */
-function addOptionHandler(e) {
+const addOptionHandler = (e) => {
   e.preventDefault()
   const optionsContainer = e.target.parentElement.previousElementSibling
   const optionElement = createOptionElement()
@@ -189,173 +200,171 @@ function addOptionHandler(e) {
 /**
  * @param {Element} fieldElement
  */
-function fieldTypeChangeHandler(fieldElement) {
-  return function eventFunction(event) {
-    recalculateFieldIndexes()
-    const fieldValue = event.target.value
-    // Remove existing elements
-    const oldLabelElement = fieldElement.querySelector('.influactive_form_fields_label')
-    const oldNameElement = fieldElement.querySelector('.influactive_form_fields_name')
-    const oldRequiredElement = fieldElement.querySelector('.influactive_form_fields_required')
-    const oldTextAreaElement = fieldElement.querySelector('.wysiwyg-editor') // Added this line
-    if (oldLabelElement && oldNameElement) {
-      if (oldTextAreaElement && tinymce.get(oldTextAreaElement.id)) {
-        tinymce.get(oldTextAreaElement.id).remove()
-      }
-      oldLabelElement.parentElement.remove()
-      oldNameElement.parentElement.remove()
-      if (oldRequiredElement) {
-        oldRequiredElement.parentElement.remove()
-      }
-      if (oldTextAreaElement) {
-        oldTextAreaElement.remove()
-      }
+const fieldTypeChangeHandler = (fieldElement) => function eventFunction(event) {
+  recalculateFieldIndexes()
+  const fieldValue = event.target.value
+  // Remove existing elements
+  const oldLabelElement = fieldElement.querySelector('.influactive_form_fields_label')
+  const oldNameElement = fieldElement.querySelector('.influactive_form_fields_name')
+  const oldRequiredElement = fieldElement.querySelector('.influactive_form_fields_required')
+  const oldTextAreaElement = fieldElement.querySelector('.wysiwyg-editor') // Added this line
+  if (oldLabelElement && oldNameElement) {
+    if (oldTextAreaElement && tinymce.get(oldTextAreaElement.id)) {
+      tinymce.get(oldTextAreaElement.id).remove()
     }
-    if (fieldValue === 'gdpr') {
-      const gdprTextElement = document.createElement('label')
-      const textNode = document.createTextNode(`${influactiveFormsTranslations.Text} `)
-      gdprTextElement.appendChild(textNode)
-
-      const inputElement = document.createElement('input')
-      inputElement.type = 'text'
-      inputElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][label]`
-      inputElement.className = 'influactive_form_fields_label'
-      inputElement.dataset.type = 'gdpr'
-      inputElement.required = true
-
-      gdprTextElement.appendChild(inputElement)
-
-      const gdprNameElement = document.createElement('label')
-      const hiddenInputElement = document.createElement('input')
-      hiddenInputElement.type = 'hidden'
-      hiddenInputElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][name]`
-      hiddenInputElement.className = 'influactive_form_fields_name'
-      hiddenInputElement.value = 'gdpr'
-
-      gdprNameElement.appendChild(hiddenInputElement)
-
-      // Append these elements to fieldElement or any other container element
-      fieldElement.appendChild(gdprTextElement)
-      fieldElement.appendChild(gdprNameElement)
+    oldLabelElement.parentElement.remove()
+    oldNameElement.parentElement.remove()
+    if (oldRequiredElement) {
+      oldRequiredElement.parentElement.remove()
     }
-
-    if (fieldValue === 'free_text') {
-      const textareaElement = document.createElement('textarea')
-      textareaElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][label]`
-      textareaElement.className = 'influactive_form_fields_label wysiwyg-editor'
-      textareaElement.rows = 10
-      // Append textarea to the field element
-      fieldElement.appendChild(textareaElement)
-      // Initialize TinyMCE
-      setTimeout(() => {
-        tinymce.init({
-          selector: '.wysiwyg-editor', // we use a class selector to select the new textarea
-          height: 215,
-          menubar: false,
-          plugins: [
-            'lists link image charmap',
-            'fullscreen',
-            'paste',
-          ],
-          toolbar: 'bold italic underline link unlink undo redo formatselect backcolor alignleft aligncenter alignright alignjustify bullist numlist outdent indent removeformat',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-        })
-      }, 0)
-      const NameElement = document.createElement('label')
-      const inputElement = document.createElement('input')
-
-      // Attribuer les propriétés à l'élément input
-      inputElement.type = 'hidden'
-      inputElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][name]`
-      inputElement.className = 'influactive_form_fields_name'
-      inputElement.value = 'free_text'
-
-      // Ajouter l'élément input à l'élément label
-      NameElement.appendChild(inputElement)
-
-      // Ajouter l'élément label à l'élément parent
-      fieldElement.appendChild(NameElement)
+    if (oldTextAreaElement) {
+      oldTextAreaElement.remove()
     }
+  }
+  if (fieldValue === 'gdpr') {
+    const gdprTextElement = document.createElement('label')
+    const textNode = document.createTextNode(`${influactiveFormsTranslations.Text} `)
+    gdprTextElement.appendChild(textNode)
 
-    const labelElement = fieldElement.querySelector('.influactive_form_fields_label')
-    const nameElement = fieldElement.querySelector('.influactive_form_fields_name')
-    // If they don't exist, create and append them
-    if (!labelElement && !nameElement) {
-      const LabelElement = document.createElement('label')
-      LabelElement.textContent = 'Label '
+    const inputElement = document.createElement('input')
+    inputElement.type = 'text'
+    inputElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][label]`
+    inputElement.className = 'influactive_form_fields_label'
+    inputElement.dataset.type = 'gdpr'
+    inputElement.required = true
 
-      const labelInput = document.createElement('input')
-      labelInput.type = 'text'
-      labelInput.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][label]`
-      labelInput.className = 'influactive_form_fields_label'
-      labelInput.required = true
+    gdprTextElement.appendChild(inputElement)
 
-      LabelElement.appendChild(labelInput)
+    const gdprNameElement = document.createElement('label')
+    const hiddenInputElement = document.createElement('input')
+    hiddenInputElement.type = 'hidden'
+    hiddenInputElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][name]`
+    hiddenInputElement.className = 'influactive_form_fields_name'
+    hiddenInputElement.value = 'gdpr'
 
-      const NameElement = document.createElement('label')
-      NameElement.textContent = 'Name '
+    gdprNameElement.appendChild(hiddenInputElement)
 
-      const nameInput = document.createElement('input')
-      nameInput.type = 'text'
-      nameInput.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][name]`
-      nameInput.className = 'influactive_form_fields_name'
-      nameInput.required = true
+    // Append these elements to fieldElement or any other container element
+    fieldElement.appendChild(gdprTextElement)
+    fieldElement.appendChild(gdprNameElement)
+  }
 
-      NameElement.appendChild(nameInput)
+  if (fieldValue === 'free_text') {
+    const textareaElement = document.createElement('textarea')
+    textareaElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][label]`
+    textareaElement.className = 'influactive_form_fields_label wysiwyg-editor'
+    textareaElement.rows = 10
+    // Append textarea to the field element
+    fieldElement.appendChild(textareaElement)
+    // Initialize TinyMCE
+    setTimeout(() => {
+      tinymce.init({
+        selector: '.wysiwyg-editor', // we use a class selector to select the new textarea
+        height: 215,
+        menubar: false,
+        plugins: [
+          'lists link image charmap',
+          'fullscreen',
+          'paste',
+        ],
+        toolbar: 'bold italic underline link unlink undo redo formatselect backcolor alignleft aligncenter alignright alignjustify bullist numlist outdent indent removeformat',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+      })
+    }, 0)
+    const NameElement = document.createElement('label')
+    const inputElement = document.createElement('input')
 
-      const RequiredElement = document.createElement('label')
-      RequiredElement.textContent = 'Required '
+    // Attribuer les propriétés à l'élément input
+    inputElement.type = 'hidden'
+    inputElement.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][name]`
+    inputElement.className = 'influactive_form_fields_name'
+    inputElement.value = 'free_text'
 
-      const requiredInput = document.createElement('input')
-      requiredInput.type = 'checkbox'
-      requiredInput.value = '1'
-      requiredInput.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][required]`
-      requiredInput.className = 'influactive_form_fields_required'
+    // Ajouter l'élément input à l'élément label
+    NameElement.appendChild(inputElement)
 
-      RequiredElement.appendChild(requiredInput)
+    // Ajouter l'élément label à l'élément parent
+    fieldElement.appendChild(NameElement)
+  }
 
-      // Append these elements to fieldElement or any other container element
-      fieldElement.appendChild(LabelElement)
-      fieldElement.appendChild(NameElement)
-      fieldElement.appendChild(RequiredElement)
+  const labelElement = fieldElement.querySelector('.influactive_form_fields_label')
+  const nameElement = fieldElement.querySelector('.influactive_form_fields_name')
+  // If they don't exist, create and append them
+  if (!labelElement && !nameElement) {
+    const LabelElement = document.createElement('label')
+    LabelElement.textContent = 'Label '
+
+    const labelInput = document.createElement('input')
+    labelInput.type = 'text'
+    labelInput.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][label]`
+    labelInput.className = 'influactive_form_fields_label'
+    labelInput.required = true
+
+    LabelElement.appendChild(labelInput)
+
+    const NameElement = document.createElement('label')
+    NameElement.textContent = 'Name '
+
+    const nameInput = document.createElement('input')
+    nameInput.type = 'text'
+    nameInput.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][name]`
+    nameInput.className = 'influactive_form_fields_name'
+    nameInput.required = true
+
+    NameElement.appendChild(nameInput)
+
+    const RequiredElement = document.createElement('label')
+    RequiredElement.textContent = 'Required '
+
+    const requiredInput = document.createElement('input')
+    requiredInput.type = 'checkbox'
+    requiredInput.value = '1'
+    requiredInput.name = `influactive_form_fields[${fieldElement.querySelector('.influactive_form_fields_order').value}][required]`
+    requiredInput.className = 'influactive_form_fields_required'
+
+    RequiredElement.appendChild(requiredInput)
+
+    // Append these elements to fieldElement or any other container element
+    fieldElement.appendChild(LabelElement)
+    fieldElement.appendChild(NameElement)
+    fieldElement.appendChild(RequiredElement)
+  }
+  if (fieldValue === 'select') {
+    // Create a paragraph element for adding options
+    const addOptionElement = document.createElement('p')
+
+    // Create an anchor element for the "Add option" link
+    const addOptionLink = document.createElement('a')
+    addOptionLink.href = '#'
+    addOptionLink.textContent = 'Add option'
+    addOptionLink.classList.add('add_option')
+
+    // Append the anchor to the paragraph
+    addOptionElement.appendChild(addOptionLink)
+
+    // Append the paragraph to the field element
+    fieldElement.appendChild(addOptionElement)
+
+    // Create and append options container
+    const optionsContainer = document.createElement('div')
+    optionsContainer.classList.add('options_container')
+    fieldElement.appendChild(optionsContainer)
+
+    // Add event listener to the "Add option" link
+    addOptionLink.addEventListener('click', addOptionHandler)
+  } else {
+    const addOptionElement = fieldElement.querySelector('.add_option')
+    const optionsContainer = fieldElement.querySelector('.options_container')
+    if (addOptionElement) {
+      addOptionElement.remove()
     }
-    if (fieldValue === 'select') {
-      // Create a paragraph element for adding options
-      const addOptionElement = document.createElement('p')
-
-      // Create an anchor element for the "Add option" link
-      const addOptionLink = document.createElement('a')
-      addOptionLink.href = '#'
-      addOptionLink.textContent = 'Add option'
-      addOptionLink.classList.add('add_option')
-
-      // Append the anchor to the paragraph
-      addOptionElement.appendChild(addOptionLink)
-
-      // Append the paragraph to the field element
-      fieldElement.appendChild(addOptionElement)
-
-      // Create and append options container
-      const optionsContainer = document.createElement('div')
-      optionsContainer.classList.add('options_container')
-      fieldElement.appendChild(optionsContainer)
-
-      // Add event listener to the "Add option" link
-      addOptionLink.addEventListener('click', addOptionHandler)
-    } else {
-      const addOptionElement = fieldElement.querySelector('.add_option')
-      const optionsContainer = fieldElement.querySelector('.options_container')
-      if (addOptionElement) {
-        addOptionElement.remove()
-      }
-      if (optionsContainer) {
-        optionsContainer.remove()
-      }
+    if (optionsContainer) {
+      optionsContainer.remove()
     }
   }
 }
 
-function addFieldHandler(e) {
+const addFieldHandler = (e) => {
   e.preventDefault()
   const fieldElement = createFieldElement()
   const container = document.getElementById('influactive_form_fields_container')
@@ -372,7 +381,7 @@ function addFieldHandler(e) {
 /**
  * @param {MouseEvent} e
  */
-function removeFieldHandler(e) {
+const removeFieldHandler = (e) => {
   e.preventDefault()
   e.target.closest('.influactive_form_field').remove()
   recalculateFieldIndexes()
