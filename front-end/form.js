@@ -1,7 +1,7 @@
 /* global grecaptcha, ajax_object */
 
 /**
- * @param messageDiv
+ * @param {HTMLElement} messageDiv
  * @param {Element} form
  * @param {string|Blob} recaptchaResponse
  */
@@ -18,22 +18,22 @@ function submitFormGlobal(messageDiv, form, recaptchaResponse) {
   xhr.open('POST', ajax_object.ajaxurl, true)
 
   xhr.onload = function xhrOnLoad() {
+    const message = messageDiv
     if (xhr.status === 200) {
       const response = JSON.parse(xhr.responseText)
       if (response.data) {
         // Display the success message in the div
-        messageDiv.textContent = response.data.message
+        message.textContent = response.data.message
         form.reset()
       } else {
         // Display the error message in the div
-        messageDiv.textContent = response.data.message
+        message.textContent = response.data.message
       }
     } else {
       // Display the AJAX error message in the div
-      messageDiv.textContent = 'An error occurred with the AJAX request'
+      message.textContent = 'An error occurred with the AJAX request'
     }
   }
-
   xhr.send(formData)
 }
 
