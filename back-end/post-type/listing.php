@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
@@ -15,6 +15,7 @@ if (!defined('ABSPATH')) {
 function influactive_form_posts_columns(array $columns): array
 {
     $columns['shortcode'] = 'Shortcode';
+
     return $columns;
 }
 
