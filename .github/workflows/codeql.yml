@@ -14,13 +14,17 @@ name: "CodeQL"
 on:
   push:
     branches: [ "master" ]
+    paths-ignore:
+      - 'dist/**'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "master" ]
     paths-ignore:
-          - 'dist/**'
+      - 'dist/**'
   schedule:
     - cron: '27 3 * * 6'
+    paths-ignore:
+      - 'dist/**'
 
 jobs:
   analyze:
