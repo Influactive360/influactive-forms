@@ -6,7 +6,7 @@ A plugin to create custom forms and display them anywhere on your website.
 
 ## Version
 
-1.2.4.1
+1.2.4.2
 
 ## Author
 
