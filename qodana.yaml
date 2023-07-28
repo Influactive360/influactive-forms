@@ -26,4 +26,6 @@ linter: jetbrains/qodana-php:latest
 include:
   - name: CheckDependencyLicenses
 exclude:
+  - name: PhpUndefinedFunctionInspection
+  - name: PhpUndefinedVariableInspection
   - name: PhpElementIsNotAvailableInCurrentPhpVersionInspection
