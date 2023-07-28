@@ -11,7 +11,12 @@ if (!defined('ABSPATH')) {
  */
 function influactive_form_add_metaboxes(): void
 {
-    add_meta_box('influactive_form_metabox', __('Influactive Form', 'influactive-forms'), 'influactive_form_metabox', 'influactive-forms');
+    add_meta_box(
+        'influactive_form_metabox',
+        __('Influactive Form', 'influactive-forms'),
+        'influactive_form_metabox',
+        'influactive-forms'
+    );
 }
 add_action('add_meta_boxes', 'influactive_form_add_metaboxes');
 
@@ -19,6 +24,7 @@ add_action('add_meta_boxes', 'influactive_form_add_metaboxes');
  * Display the metabox for Influactive Form settings.
  *
  * @param WP_Post $post The current post object.
+ *
  * @return void
  */
 function influactive_form_metabox(WP_Post $post): void
@@ -60,6 +66,7 @@ function influactive_form_metabox(WP_Post $post): void
  * Generate the shortcode for displaying the Influactive Form.
  *
  * @param WP_Post $post The current post object.
+ *
  * @return void
  */
 function influactive_form_shortcode(WP_Post $post): void
@@ -71,72 +78,155 @@ function influactive_form_shortcode(WP_Post $post): void
  * Display the form fields listing for the Influactive form metabox.
  *
  * @param WP_Post $post The current post object.
+ *
  * @return void
  */
 function influactive_form_fields_listing(WP_Post $post): void
 {
     $fields = get_post_meta($post->ID, '_influactive_form_fields', true);
-
     echo '<div id="influactive_form_fields_container">';
 
-    if (is_array($fields)) {
-        foreach ($fields as $key => $field) {
-            echo '<div class="influactive_form_field">';
-            echo '<p><label>Type <select name="influactive_form_fields[' . (int)$key . '][type]" class="field_type">';
-            echo '<option value="text" ' . (isset($field['type']) && $field['type'] === 'text' ? 'selected' : '') . '>' . __('Text', 'influactive-forms') . '</option>';
-            echo '<option value="email" ' . (isset($field['type']) && $field['type'] === 'email' ? 'selected' : '') . '>' . __('Email', 'influactive-forms') . '</option>';
-            echo '<option value="number" ' . (isset($field['type']) && $field['type'] === 'number' ? 'selected' : '') . '>' . __('Number', 'influactive-forms') . '</option>';
-            echo '<option value="textarea" ' . (isset($field['type']) && $field['type'] === 'textarea' ? 'selected' : '') . '>' . __('Textarea', 'influactive-forms') . '</option>';
-            echo '<option value="select" ' . (isset($field['type']) && $field['type'] === 'select' ? 'selected' : '') . '>' . __('Select', 'influactive-forms') . '</option>';
-            echo '<option value="gdpr" ' . (isset($field['type']) && $field['type'] === 'gdpr' ? 'selected' : '') . '>' . __('GDPR', 'influactive-forms') . '</option>';
-            echo '<option value="free_text" ' . (isset($field['type']) && $field['type'] === 'free_text' ? 'selected' : '') . '>' . __('Free text', 'influactive-forms') . '</option>';
-            echo '</select></label>';
-            if (isset($field['type']) && $field['type'] === 'gdpr') {
-                echo '<label>' . __('Text', 'influactive-forms') . ' <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label" required></label> ';
-                echo '<label><input type="hidden" name="influactive_form_fields[' . (int)$key . '][name]" value="gdpr" class="influactive_form_fields_name"></label>';
-            } else if (isset($field['type']) && $field['type'] === 'free_text') {
-                // Wysiwyg field
-                wp_editor($field['label'], 'influactive_form_fields_' . $key . '_label', array(
-                    'textarea_name' => 'influactive_form_fields[' . (int)$key . '][label]',
-                    'textarea_rows' => 10,
-                    'media_buttons' => false,
-                    'tinymce' => array(
-                        'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo,formatselect,backcolor,alignleft,aligncenter,alignright,alignjustify,bullist,numlist,outdent,indent,removeformat',
-                    ),
-                    'editor_class' => 'influactive_form_fields_label wysiwyg-editor'
-                ));
-                echo '<label><input type="hidden" name="influactive_form_fields[' . (int)$key . '][name]" value="free_text" class="influactive_form_fields_name"></label>';
-            } else if (isset($field['type']) && $field['type'] === 'select') {
-                echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label" required></label> ';
-                echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name" required></label> ';
-                echo '<div class="options_container">';
-                if (is_array($field['options'])) {
-                    foreach ($field['options'] as $option_index => $option) {
-                        echo '<p class="option-field" data-index="' . $option_index . '">';
-                        echo '<label>' . __('Option Label', 'influactive-forms');
-                        echo '<input type="text" class="option-label" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][label]" value="' . esc_attr($option['label']) . '" required>';
-                        echo '</label>';
-                        echo '<label>' . __('Option Value', 'influactive-forms');
-                        echo '<input type="text" class="option-value" name="influactive_form_fields[' . (int)$key . '][options][' . (int)$option_index . '][value]" value="' . esc_attr($option['value']) . '" required>';
-                        echo '</label>';
-                        echo '<a href="#" class="remove_option">' . __('Remove option', 'influactive-forms') . '</a>';
-                        echo '</p>';
-                    }
-                }
-                echo '</div>';
-                echo '<p><a href="#" class="add_option">' . __('Add option', 'influactive-forms') . '</a></p>';
-                echo '<label>Required <input type="checkbox" name="influactive_form_fields[' . (int)$key . '][required]" value="1" ' . (isset($field['required']) && $field['required'] === '1' ? 'checked' : '') . ' class="influactive_form_fields_required"></label>';
-            } else if (isset($field['type'])) {
-                echo '<label>Label <input type="text" name="influactive_form_fields[' . (int)$key . '][label]" value="' . esc_attr($field['label']) . '" class="influactive_form_fields_label" required></label> ';
-                echo '<label>Name <input type="text" name="influactive_form_fields[' . (int)$key . '][name]" value="' . strtolower(esc_attr($field['name'])) . '" class="influactive_form_fields_name" required></label> ';
-                echo '<label>Required <input type="checkbox" name="influactive_form_fields[' . (int)$key . '][required]" value="1" ' . (isset($field['required']) && $field['required'] === '1' ? 'checked' : '') . ' class="influactive_form_fields_required"></label>';
-            }
-
-            echo '<input type="hidden" name="influactive_form_fields[' . (int)$key . '][order]" value="' . (int)$key . '" class="influactive_form_fields_order">';
-            echo '<a href="#" class="remove_field">' . __('Remove the field', 'influactive-forms') . '</a></p>';
-            echo '</div>';
-        }
-    }
+    if (is_array($fields)) :
+        foreach ($fields as $key => $field) : ?>
+        <div class="influactive_form_field">
+            <p>
+                <label>Type
+                    <select name="influactive_form_fields[<?= (int)$key ?>][type]" class="field_type">
+                        <option value="text"
+                        <?= isset($field['type']) && $field['type'] === 'text' ? 'selected' : '' ?>>
+                        <?= __('Text', 'influactive-forms') ?>
+                        </option>
+                        <option value="email"
+                        <?= isset($field['type']) && $field['type'] === 'email' ? 'selected' : '' ?>>
+                        <?= __('Email', 'influactive-forms') ?>
+                        </option>
+                        <option value="number"
+                        <?= isset($field['type']) && $field['type'] === 'number' ? 'selected' : '' ?>>
+                        <?= __('Number', 'influactive-forms') ?>
+                        </option>
+                        <option value="textarea"
+                        <?= isset($field['type']) && $field['type'] === 'textarea' ? 'selected' : '' ?>>
+                        <?= __('Textarea', 'influactive-forms') ?></option>
+                        <option value="select"
+                        <?= isset($field['type']) && $field['type'] === 'select' ? 'selected' : '' ?>>
+                        <?= __('Select', 'influactive-forms') ?>
+                        </option>
+                        <option value="gdpr"
+                        <?= isset($field['type']) && $field['type'] === 'gdpr' ? 'selected' : '' ?>>
+                        <?= __('GDPR', 'influactive-forms') ?>
+                        </option>
+                        <option value="free_text"
+                        <?= isset($field['type']) && $field['type'] === 'free_text' ? 'selected' : '' ?>>
+                        <?= __('Free text', 'influactive-forms') ?>
+                        </option>
+                    </select>
+                </label>
+                    <?php if (isset($field['type']) && $field['type'] === 'gdpr') : ?>
+                    <label>
+                        <?= __('Text', 'influactive-forms') ?>
+                        <input type="text"
+                        ="influactive_form_fields[<?= (int)$key ?>][label]"
+                        value="<?= esc_attr($field['label']) ?>"
+                        class="influactive_form_fields_label" required>
+                    </label>
+                    <label>
+                        <input type="hidden"
+                        name="influactive_form_fields[<?= (int)$key ?>][name]"
+                        value="gdpr"
+                        class="influactive_form_fields_name">
+                    </label>
+                    <?php elseif (isset($field['type']) && $field['type'] === 'free_text') : ?>
+                        <?php
+                    // Wysiwyg field
+                        wp_editor($field['label'], 'influactive_form_fields_' . $key . '_label', array(
+                            'textarea_name' => 'influactive_form_fields[' . (int)$key . '][label]',
+                            'textarea_rows' => 10,
+                            'media_buttons' => false,
+                            'tinymce' => array(
+                                    'toolbar1' => 'bold,italic,underline,link,unlink,undo,
+                                    redo,formatselect,backcolor,alignleft,aligncenter,alignright,
+                                    alignjustify,bullist,numlist,outdent,indent,removeformat',
+                            ),
+                            'editor_class' => 'influactive_form_fields_label wysiwyg-editor'
+                        ));
+                        ?>
+                    <label>
+                        <input type="hidden"
+                        name="influactive_form_fields[<?= (int)$key ?>][name]"
+                        value="free_text"
+                        class="influactive_form_fields_name">
+                    </label>
+                    <?php elseif (isset($field['type']) && $field['type'] === 'select') : ?>
+                <label>Label
+                    <input type="text"
+                    name="influactive_form_fields[<?= (int)$key ?>][label]"
+                    value="<?= esc_attr($field['label']) ?>"
+                    class="influactive_form_fields_label" required>
+                </label>
+                <label>Name
+                    <input type="text"
+                    name="influactive_form_fields[<?= (int)$key ?>][name]"
+                    value="<?= strtolower(esc_attr($field['name'])) ?>"
+                    class="influactive_form_fields_name" required>
+                </label>
+            <div class="options_container">
+                        <?php if (is_array($field['options'])) : ?>
+                            <?php foreach ($field['options'] as $option_index => $option) : ?>
+                        <p class="option-field" data-index="<?= $option_index ?>">
+                            <label>
+                                <?= __('Option Label', 'influactive-forms') ?>
+                                <input type="text"
+                                class="option-label"
+                        name="influactive_form_fields[<?= (int)$key ?>][options][<?= (int)$option_index ?>][label]"
+                                value="<?= esc_attr($option['label']) ?>" required>
+                            </label>
+                            <label>
+                                <?= __('Option Value', 'influactive-forms') ?>
+                                <input type="text"
+                                class="option-value"
+                        name="influactive_form_fields[<?= (int)$key ?>][options][<?= (int)$option_index ?>][value]"
+                                value="<?= esc_attr($option['value']) ?>" required>
+                            </label>
+                            <a href="#" class="remove_option"><?= __('Remove option', 'influactive-forms') ?></a>
+                        </p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+            </div>
+            <p><a href="#" class="add_option"><?= __('Add option', 'influactive-forms') ?></a></p>
+            <label>Required
+                <input type="checkbox"
+                name="influactive_form_fields[<?= (int)$key ?>][required]"
+                value="1" <?= isset($field['required']) && $field['required'] === '1' ? 'checked' : '' ?>
+                class="influactive_form_fields_required">
+            </label>
+                    <?php elseif (isset($field['type'])) : ?>
+                <label>Label
+                    <input type="text"
+                    name="influactive_form_fields[<?= (int)$key ?>][label]"
+                    value="<?= esc_attr($field['label']) ?>"
+                    class="influactive_form_fields_label" required>
+                </label>
+                <label>Name
+                    <input type="text"
+                    name="influactive_form_fields[<?= (int)$key ?>][name]"
+                    value="<?= strtolower(esc_attr($field['name'])) ?>"
+                    class="influactive_form_fields_name" required>
+                </label>
+                <label>Required
+                    <input type="checkbox"
+                    name="influactive_form_fields[<?= (int)$key ?>][required]"
+                    value="1" <?= isset($field['required']) && $field['required'] === '1' ? 'checked' : '' ?>
+                    class="influactive_form_fields_required">
+                </label>
+                    <?php endif; ?>
+            <input type="hidden"
+            name="influactive_form_fields[<?= (int)$key ?>][order]"
+            value="<?= (int)$key ?>"
+            class="influactive_form_fields_order">
+            <a href="#" class="remove_field"><?= __('Remove the field', 'influactive-forms') ?></a>
+            </div>
+        <?php endforeach;
+    endif;
 
     echo '</div>';
 
@@ -147,16 +237,17 @@ function influactive_form_fields_listing(WP_Post $post): void
 * Display the email styles for the Influactive form.
  *
  * @param WP_Post $post The current post object.
+ *
  * @return void
  *
  */
 function influactive_form_email_style(WP_Post $post): void
 {
     $email_style = get_post_meta($post->ID, '_influactive_form_email_style', true);
-	$email_style['form']['border_style'] ?? $email_style['form']['border_style'] = 'solid';
-	$email_style['label']['font_weight'] ?? $email_style['label']['font_weight'] = 'normal';
+    $email_style['form']['border_style'] ?? $email_style['form']['border_style'] = 'solid';
+    $email_style['label']['font_weight'] ?? $email_style['label']['font_weight'] = 'normal';
     $email_style['input']['font_weight'] ?? $email_style['input']['font_weight'] = 'normal';
-	$email_style['input']['border_style'] ?? $email_style['input']['border_style'] = 'solid';
+    $email_style['input']['border_style'] ?? $email_style['input']['border_style'] = 'solid';
     $email_style['submit']['font_weight'] ?? $email_style['submit']['font_weight'] = 'normal';
     $email_style['submit']['border_style'] ?? $email_style['submit']['border_style'] = 'solid';
     ?>
@@ -180,24 +271,34 @@ function influactive_form_email_style(WP_Post $post): void
             <label>
                  <?= __('Form Border style', 'influactive-forms') ?>
                 <select name="influactive_form_email_style[form][border_style]">
-                    <option value="solid" <?= $email_style['form']['border_style'] === "solid" ? "selected" : "" ?>><?= __('Solid', 'influactive-forms') ?>
+                    <option value="solid" <?= $email_style['form']['border_style'] === "solid" ? "selected" : "" ?>>
+                    <?= __('Solid', 'influactive-forms') ?>
                     </option>
-                    <option value="dashed" <?= $email_style['form']['border_style'] === "dashed" ? "selected" : "" ?>><?= __('Dashed', 'influactive-forms') ?>
+                    <option value="dashed" <?= $email_style['form']['border_style'] === "dashed" ? "selected" : "" ?>>
+                    <?= __('Dashed', 'influactive-forms') ?>
                     </option>
-                    <option value="dotted" <?= $email_style['form']['border_style'] === "dotted" ? "selected" : "" ?>><?= __('Dotted', 'influactive-forms') ?>
+                    <option value="dotted" <?= $email_style['form']['border_style'] === "dotted" ? "selected" : "" ?>>
+                    <?= __('Dotted', 'influactive-forms') ?>
                     </option>
-                    <option value="double" <?= $email_style['form']['border_style'] === "double" ? "selected" : "" ?>><?= __('Double', 'influactive-forms') ?>
+                    <option value="double" <?= $email_style['form']['border_style'] === "double" ? "selected" : "" ?>>
+                    <?= __('Double', 'influactive-forms') ?>
                     </option>
-                    <option value="groove" <?= $email_style['form']['border_style'] === "groove" ? "selected" : "" ?>><?= __('Groove', 'influactive-forms') ?>
+                    <option value="groove" <?= $email_style['form']['border_style'] === "groove" ? "selected" : "" ?>>
+                    <?= __('Groove', 'influactive-forms') ?>
                     </option>
-                    <option value="ridge" <?= $email_style['form']['border_style'] === "ridge" ? "selected" : "" ?>><?= __('Ridge', 'influactive-forms') ?>
+                    <option value="ridge" <?= $email_style['form']['border_style'] === "ridge" ? "selected" : "" ?>>
+                    <?= __('Ridge', 'influactive-forms') ?>
                     </option>
-                    <option value="inset" <?= $email_style['form']['border_style'] === "inset" ? "selected" : "" ?>><?= __('Inset', 'influactive-forms') ?>
+                    <option value="inset" <?= $email_style['form']['border_style'] === "inset" ? "selected" : "" ?>>
+                    <?= __('Inset', 'influactive-forms') ?>
                     </option>
-                    <option value="outset" <?= $email_style['form']['border_style'] === "outset" ? "selected" : "" ?>><?= __('Outset', 'influactive-forms') ?>
+                    <option value="outset" <?= $email_style['form']['border_style'] === "outset" ? "selected" : "" ?>>
+                    <?= __('Outset', 'influactive-forms') ?>
                     </option>
-                    <option value="none" <?= $email_style['form']['border_style'] === "none" ? "selected" : "" ?>><?= __('None', 'influactive-forms') ?></option>
-                    <option value="hidden" <?= $email_style['form']['border_style'] === "hidden" ? "selected" : "" ?>><?= __('Hidden', 'influactive-forms') ?>
+                    <option value="none" <?= $email_style['form']['border_style'] === "none" ? "selected" : "" ?>>
+                    <?= __('None', 'influactive-forms') ?></option>
+                    <option value="hidden" <?= $email_style['form']['border_style'] === "hidden" ? "selected" : "" ?>>
+                    <?= __('Hidden', 'influactive-forms') ?>
                     </option>
                 </select>
             </label>
@@ -381,7 +482,8 @@ function influactive_form_email_style(WP_Post $post): void
                     <option value="bolder" <?= $email_style['submit']['font_weight'] === "bolder" ? "selected" : "" ?>>
                         <?= __('Bolder', 'influactive-forms') ?>
                     </option>
-                    <option value="lighter" <?= $email_style['submit']['font_weight'] === "lighter" ? "selected" : "" ?>>
+                    <option value="lighter"
+                    <?= $email_style['submit']['font_weight'] === "lighter" ? "selected" : "" ?>>
                         <?= __('Lighter', 'influactive-forms') ?>
                     </option>
                 </select>
@@ -458,7 +560,9 @@ function influactive_form_email_style(WP_Post $post): void
             <label>
                 <?= __('Free text font family', 'influactive-forms') ?>
                 <input type="text" name="influactive_form_email_style[free_text][font_family]"
-                       value="<?= esc_attr($email_style['free_text']['font_family'] ?? 'Arial, Helvetica, sans-serif') ?>">
+                       value="
+                       <?= esc_attr($email_style['free_text']['font_family'] ?? 'Arial, Helvetica, sans-serif') ?>
+                       ">
             </label>
             <label>
                 <?= __('Free text font size', 'influactive-forms') ?>
@@ -489,6 +593,7 @@ function influactive_form_email_style(WP_Post $post): void
  * Display the email layout settings for Influactive Form.
  *
  * @param WP_Post $post The current post object.
+ *
  * @return void
  */
 function influactive_form_email_layout(WP_Post $post): void
@@ -500,8 +605,8 @@ function influactive_form_email_layout(WP_Post $post): void
     ?>
     <p><strong><?= __('Fields available in the email', 'influactive-forms') ?></strong></p>
     <ul>
-        <?php foreach ($fields as $field): ?>
-            <?php if ($field['type'] === 'select'): ?>
+        <?php foreach ($fields as $field) : ?>
+            <?php if ($field['type'] === 'select') : ?>
                 <li>
                     <code>
                         {<?= strtolower($field['name']) ?>:label}
@@ -512,7 +617,7 @@ function influactive_form_email_layout(WP_Post $post): void
                         {<?= strtolower($field['name']) ?>:value}
                     </code>
                 </li>
-            <?php else: ?>
+            <?php else : ?>
                 <li><code>{<?= strtolower($field['name']) ?>}</code></li>
             <?php endif; ?>
         <?php endforeach; ?>
@@ -521,20 +626,21 @@ function influactive_form_email_layout(WP_Post $post): void
         <?php endif; ?>
     </ul>
     <?php
-        if (count($email_layout) === 0) {
-            $email_layout = [
-                0 => [
-                    'sender' => get_bloginfo('admin_email'),
-                    'recipient' => get_bloginfo('admin_email'),
-                    'subject' => __('New subject', 'influactive-forms'),
-                    'message' => __('New message', 'influactive-forms'),
-                ]
-            ];
-        }
+    if (count($email_layout) === 0) {
+        $email_layout = [
+            0 => [
+                'sender' => get_bloginfo('admin_email'),
+                'recipient' => get_bloginfo('admin_email'),
+                'subject' => __('New subject', 'influactive-forms'),
+                'message' => __('New message', 'influactive-forms'),
+            ]
+        ];
+    }
     ?>
     <div id="layout_container">
-        <?php foreach ($email_layout as $key => $layout): ?>
-            <div id="influactive_form_layout_container_<?= $key ?>" class="influactive_form_layout_container" data-layout="<?= $key ?>">
+        <?php foreach ($email_layout as $key => $layout) : ?>
+            <div id="influactive_form_layout_container_<?= $key ?>"
+            class="influactive_form_layout_container" data-layout="<?= $key ?>">
                 <p>
                     <label>
                         <?= __('Email sender', 'influactive-forms') ?>
@@ -586,6 +692,7 @@ function influactive_form_email_layout(WP_Post $post): void
  * Save the Influactive Form settings when a post is saved.
  *
  * @param int $post_id The ID of the post being saved.
+ *
  * @return void
  */
 function influactive_form_save_post(int $post_id): void
@@ -635,6 +742,7 @@ add_action('save_post', 'influactive_form_save_post');
  * Sanitize options array.
  *
  * @param array $field_options The array containing the options to sanitize.
+ *
  * @return array The sanitized options array.
  */
 function sanitizeOptions(array $field_options): array
@@ -654,6 +762,7 @@ function sanitizeOptions(array $field_options): array
  * @param int $order The order of the field.
  * @param string $label The label for the field.
  * @param array $options The options for a select field (optional).
+ *
  * @return array The created field.
  */
 function createField(string $type, string $name, int $order, string $label, array $options): array
@@ -677,6 +786,7 @@ function createField(string $type, string $name, int $order, string $label, arra
  *
  * @param string $label The label to sanitize.
  * @param string $type The type of the label.
+ *
  * @return string The sanitized label.
  */
 function sanitizeLabel(string $label, string $type): string
