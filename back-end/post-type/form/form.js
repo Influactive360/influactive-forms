@@ -258,29 +258,85 @@ function removeOptionHandler(e) {
 
 function createFieldElement() {
 	let fieldElement = document.createElement('div');
-	let id = 0;
-	if (document.getElementsByClassName("influactive_form_field").length > 0) {
-		id = document.getElementsByClassName("influactive_form_field").length;
-	}
+	let id = document.getElementsByClassName("influactive_form_field").length;
 	fieldElement.className = "influactive_form_field";
-	fieldElement.innerHTML =
-		`<p><label>Type <select required class="field_type" name="influactive_form_fields[${id}][type]">` +
-		`<option value="text">${influactiveFormsTranslations.Text}</option>` +
-		`<option value="email">${influactiveFormsTranslations.Email}</option>` +
-		`<option value="number">${influactiveFormsTranslations.Number}</option>` +
-		`<option value="textarea">${influactiveFormsTranslations.Textarea}</option>` +
-		`<option value="select">${influactiveFormsTranslations.Select}</option>` +
-		`<option value="gdpr">${influactiveFormsTranslations.GDPR}</option>` +
-		`<option value="free_text">${influactiveFormsTranslations.Freetext}</option>` +
-		`</select></label> ` +
-		`<label>Label <input type="text" name="influactive_form_fields[${id}][label]" class="influactive_form_fields_label" required></label> ` +
-		`<label>Name <input type="text" name="influactive_form_fields[${id}][name]" class="influactive_form_fields_name" required></label> ` +
-		`<div class="options_container"></div>` +
-		`<label>Required <input type="checkbox" name="influactive_form_fields[${id}][required]" value="1" class="influactive_form_fields_required"></label>` +
-		`<input type="hidden" name="influactive_form_fields[${id}][order]" class="influactive_form_fields_order" value="${id}">` +
-		`<a href="#" class="remove_field">${influactiveFormsTranslations.removeFieldText}</a> ` +
-		`</p>`;
+
+	let p = document.createElement('p');
+
+	// Création du select pour le type
+	let labelType = document.createElement('label');
+	labelType.textContent = "Type ";
+
+	let selectType = document.createElement('select');
+	selectType.required = true;
+	selectType.className = "field_type";
+	selectType.name = `influactive_form_fields[${id}][type]`;
+
+	const optionsData = [
+		["text", influactiveFormsTranslations.Text],
+		["email", influactiveFormsTranslations.Email],
+		["number", influactiveFormsTranslations.Number],
+		["textarea", influactiveFormsTranslations.Textarea],
+		["select", influactiveFormsTranslations.Select],
+		["gdpr", influactiveFormsTranslations.GDPR],
+		["free_text", influactiveFormsTranslations.Freetext]
+	];
+
+	optionsData.forEach(([value, text]) => {
+		let option = document.createElement('option');
+		option.value = value;
+		option.textContent = text;
+		selectType.appendChild(option);
+	});
+
+	labelType.appendChild(selectType);
+	p.appendChild(labelType);
+
+	createInputWithLabel(p, "Label ", `influactive_form_fields[${id}][label]`, "text", "influactive_form_fields_label");
+	createInputWithLabel(p, "Name ", `influactive_form_fields[${id}][name]`, "text", "influactive_form_fields_name");
+
+	let optionsContainer = document.createElement('div');
+	optionsContainer.className = "options_container";
+	p.appendChild(optionsContainer);
+
+	let labelRequired = document.createElement('label');
+	labelRequired.textContent = "Required ";
+	let inputRequired = document.createElement('input');
+	inputRequired.type = "checkbox";
+	inputRequired.name = `influactive_form_fields[${id}][required]`;
+	inputRequired.value = "1";
+	inputRequired.className = "influactive_form_fields_required";
+	labelRequired.appendChild(inputRequired);
+	p.appendChild(labelRequired);
+
+	let inputHidden = document.createElement('input');
+	inputHidden.type = "hidden";
+	inputHidden.name = `influactive_form_fields[${id}][order]`;
+	inputHidden.className = "influactive_form_fields_order";
+	inputHidden.value = id;
+	p.appendChild(inputHidden);
+
+	let aRemove = document.createElement('a');
+	aRemove.href = "#";
+	aRemove.className = "remove_field";
+	aRemove.textContent = influactiveFormsTranslations.removeFieldText;
+	p.appendChild(aRemove);
+
+	fieldElement.appendChild(p);
+
 	return fieldElement;
+}
+
+function createInputWithLabel(parent, labelText, name, type, className) {
+	let label = document.createElement('label');
+	label.textContent = labelText;
+	let input = document.createElement('input');
+	input.type = type;
+	input.name = name;
+	input.required = true;
+	input.className = className;
+	label.appendChild(input);
+	parent.appendChild(label);
 }
 
 function createOptionElement() {
