@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/influactive-forms",
+  "description": "A plugin to create custom forms and display them anywhere on your website.",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "antoine",
+      "email": "support@influactive.com"
+    }
+  ],
+  "require": {
+    "ext-curl": "*"
+  }
+}
