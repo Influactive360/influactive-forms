@@ -1,6 +1,6 @@
 <?php
 
-if (!defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
 
@@ -17,7 +17,14 @@ if (!defined('ABSPATH')) {
 function influactive_form_menu(): void
 {
     // Ajout de la sous-page
-    add_submenu_page('edit.php?post_type=influactive-forms', __('Captchas', 'influactive-forms'), __('Captchas', 'influactive-forms'), 'manage_options', 'influactive-form-settings', 'influactive_form_settings_page');
+    add_submenu_page(
+        'edit.php?post_type=influactive-forms',
+        __('Captchas', 'influactive-forms'),
+        __('Captchas', 'influactive-forms'),
+        'manage_options',
+        'influactive-form-settings',
+        'influactive_form_settings_page'
+    );
 }
 
 add_action('admin_menu', 'influactive_form_menu');
@@ -34,7 +41,7 @@ add_action('admin_menu', 'influactive_form_menu');
  */
 function influactive_form_settings_page(): void
 {
-    if (!current_user_can('edit_posts')) {
+    if (! current_user_can('edit_posts')) {
         return;
     }
     ?>
@@ -64,26 +71,26 @@ function influactive_forms_settings_init(): void
     register_setting('influactive-forms-captcha-fields', 'influactive-forms-captcha-fields');
 
     add_settings_section(
-            'influactive-forms-captcha-fields-section',
-            __('Google Captcha', 'influactive-forms'),
-            'influactive_forms_settings_section_callback',
-            'influactive-forms-captcha-fields'
+        'influactive-forms-captcha-fields-section',
+        __('Google Captcha', 'influactive-forms'),
+        'influactive_forms_settings_section_callback',
+        'influactive-forms-captcha-fields'
     );
 
     add_settings_field(
-            'influactive-forms-captcha-fields-google-captcha-site-key-public',
-            __('Public Site key', 'influactive-forms'),
-            'influactive_forms_settings_field_callback_public',
-            'influactive-forms-captcha-fields',
-            'influactive-forms-captcha-fields-section'
+        'influactive-forms-captcha-fields-google-captcha-site-key-public',
+        __('Public Site key', 'influactive-forms'),
+        'influactive_forms_settings_field_callback_public',
+        'influactive-forms-captcha-fields',
+        'influactive-forms-captcha-fields-section'
     );
 
     add_settings_field(
-            'influactive-forms-captcha-fields-google-captcha-site-key-secret',
-            __('Secret Site key', 'influactive-forms'),
-            'influactive_forms_settings_field_callback_secret',
-            'influactive-forms-captcha-fields',
-            'influactive-forms-captcha-fields-section'
+        'influactive-forms-captcha-fields-google-captcha-site-key-secret',
+        __('Secret Site key', 'influactive-forms'),
+        'influactive_forms_settings_field_callback_secret',
+        'influactive-forms-captcha-fields',
+        'influactive-forms-captcha-fields-section'
     );
 }
 
@@ -100,7 +107,11 @@ add_action('admin_init', 'influactive_forms_settings_init');
  */
 function influactive_forms_settings_section_callback(): void
 {
-    echo __('Enter the Google Captcha site key. Here is the link to generate a key <a href="https://www.google.com/recaptcha/admin" target="_blank" title="reCAPTCHA">reCAPTCHA</a>', 'influactive-forms');
+    echo __(
+        'Enter the Google Captcha site key. Here is the link to generate a key 
+                <a href="https://www.google.com/recaptcha/admin" target="_blank" title="reCAPTCHA">reCAPTCHA</a>',
+        'influactive-forms'
+    );
 }
 
 /**
@@ -117,10 +128,13 @@ function influactive_forms_settings_section_callback(): void
  */
 function influactive_forms_settings_field_callback_public(): void
 {
-    $options = get_option('influactive-forms-captcha-fields') ?? [];
+    $options         = get_option('influactive-forms-captcha-fields') ?? [];
     $public_site_key = $options['google-captcha']['public-site-key'] ?? '';
 
-    echo '<input type="text" id="influactive-forms-captcha-fields-google-captcha-site-key-public" name="influactive-forms-captcha-fields[google-captcha][public-site-key]" value="' . $public_site_key . '">';
+    echo '<input type="text" 
+    id="influactive-forms-captcha-fields-google-captcha-site-key-public" 
+    name="influactive-forms-captcha-fields[google-captcha][public-site-key]" 
+    value="' . $public_site_key . '">';
 }
 
 /**
@@ -136,11 +150,14 @@ function influactive_forms_settings_field_callback_public(): void
  */
 function influactive_forms_settings_field_callback_secret(): void
 {
-    $options = get_option('influactive-forms-captcha-fields') ?? [];
+    $options         = get_option('influactive-forms-captcha-fields') ?? [];
     $secret_site_key = $options['google-captcha']['secret-site-key'] ?? '';
-    $type = $secret_site_key !== '' ? 'password' : 'text';
+    $type            = $secret_site_key !== '' ? 'password' : 'text';
 
-    echo '<input type="' . $type . '" id="influactive-forms-captcha-fields-google-captcha-site-key-secret" name="influactive-forms-captcha-fields[google-captcha][secret-site-key]" value="' . $secret_site_key . '">';
+    echo '<input type="' . $type . '" 
+    id="influactive-forms-captcha-fields-google-captcha-site-key-secret" 
+    name="influactive-forms-captcha-fields[google-captcha][secret-site-key]" 
+    value="' . $secret_site_key . '">';
 }
 
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_forms_add_settings_link');
