@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hide all tabs
         const allTabs = document.querySelectorAll('.tabs .tab')
-        // eslint-disable-next-line no-param-reassign,no-return-assign
-        allTabs.forEach((tab) => tab.style.display = 'none')
+        allTabs.forEach((tab) => {
+          const currentTab = document.querySelector(`#${tab.id}`)
+          currentTab.style.display = 'none'
+        })
 
         // Show the current tab
         const currentTab = document.querySelector(currentAttrValue)

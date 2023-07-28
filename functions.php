@@ -130,7 +130,7 @@ function influactive_form_shortcode_enqueue(): void {
 	wp_enqueue_script( 'influactive-form', plugin_dir_url( __FILE__ ) . 'front-end/form.js', $script_handle, '1.2.2', true );
 	wp_enqueue_style( 'influactive-form', plugin_dir_url( __FILE__ ) . 'front-end/form.min.css', [], '1.2.2' );
 
-	wp_localize_script( 'influactive-form', 'ajax_object', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
+	wp_localize_script( 'influactive-form', 'ajaxObject', [ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
 }
 
 add_action( 'wp_enqueue_scripts', 'influactive_form_shortcode_enqueue' );

@@ -379,7 +379,6 @@ function removeFieldHandler(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('influactive_form_fields_container')
-  // eslint-disable-next-line no-new
   new Sortable(container, {
     animation: 150, // This class should be on the elements you want to be draggable
     handle: '.influactive_form_field',

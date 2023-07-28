@@ -1,4 +1,4 @@
-/* global grecaptcha, ajax_object */
+/* global grecaptcha, ajaxObject */
 
 /**
  * @param {HTMLElement} messageDiv
@@ -14,8 +14,7 @@ function submitFormGlobal(messageDiv, form, recaptchaResponse) {
     formData.append('recaptcha_response', recaptchaResponse)
   }
 
-  // eslint-disable-next-line camelcase
-  xhr.open('POST', ajax_object.ajaxurl, true)
+  xhr.open('POST', ajaxObject.ajaxurl, true)
 
   xhr.onload = function xhrOnLoad() {
     const message = messageDiv

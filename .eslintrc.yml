@@ -8,4 +8,5 @@ parserOptions:
   sourceType: module
 rules: {
 semi: [error, never],
+"no-new": "off"
 }

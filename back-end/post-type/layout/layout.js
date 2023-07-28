@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update the names and values of inputs and textarea in the new layout
     const inputs = newLayout.querySelectorAll('input, textarea')
     inputs.forEach((input) => {
-      // eslint-disable-next-line no-param-reassign
-      input.name = input.name.replace(/\[0]/, `[${layoutCount}]`)
-      // eslint-disable-next-line no-param-reassign
-      input.value = '' // reset the value of each input field
+      const clonedInput = input.cloneNode(true) // Clone the input/textarea element
+      clonedInput.name = clonedInput.name.replace(/\[0]/, `[${layoutCount}]`)
+      clonedInput.value = '' // reset the value of each cloned input field
+      input.replaceWith(clonedInput) // Replace the original input with the cloned one
     })
 
     // Add a deleted button if not already present
