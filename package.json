@@ -1,0 +1,28 @@
+{
+  "name": "influactive-forms",
+  "version": "1.2.1",
+  "description": "A plugin to create custom forms and display them anywhere on your website.",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Influactive360/influactive-forms.git"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "form"
+  ],
+  "author": "Influactive",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/Influactive360/influactive-forms/issues"
+  },
+  "homepage": "https://github.com/Influactive360/influactive-forms#readme",
+  "dependencies": {
+    "sortablejs": "^1.15.0",
+    "tinymce": "^6.6.0"
+  }
+}
