@@ -196,7 +196,7 @@ function influactive_send_email(): void
             if (curl_errno($ch)) {
                 throw new RuntimeException(curl_error($ch));
             }
-        } catch (Exception $e) {
+        } catch (RuntimeException $e) {
             wp_send_json_error([
                 'message' => __('Failed to verify reCAPTCHA', 'influactive-forms'),
                 'error' => $e->getMessage(),
