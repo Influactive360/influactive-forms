@@ -1,4 +1,7 @@
-/* global Sortable, influactiveFormsTranslations, tinymce */
+import Sortable from 'sortablejs'
+import tinymce from 'tinymce/tinymce'
+
+/* global influactiveFormsTranslations */
 
 function recalculateFieldIndexes() {
   const container = document.getElementById('influactive_form_fields_container')

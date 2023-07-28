@@ -4,7 +4,13 @@
   "description": "A plugin to create custom forms and display them anywhere on your website.",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "pre-commit": "npm run lint:fix",
+    "pre-push": "npm run lint:fix"
   },
   "repository": {
     "type": "git",
