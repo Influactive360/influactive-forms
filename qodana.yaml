@@ -31,3 +31,4 @@ exclude:
   - name: PhpElementIsNotAvailableInCurrentPhpVersionInspection
   - name: PhpUndefinedClassConstantInspection
   - name: PhpUndefinedClassInspection
+  - name: PhpLanguageLevelInspection
