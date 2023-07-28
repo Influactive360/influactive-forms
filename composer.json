@@ -10,6 +10,7 @@
     }
   ],
   "require": {
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "php": ">=8.0"
   }
 }
