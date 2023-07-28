@@ -48,7 +48,7 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'influactive_form
 function influactive_form_edit(string $hook): void
 {
     if ('post.php' !== $hook && 'post-new.php' !== $hook) {
-		throw new RuntimeException("WordPress environment not loaded. Exiting...");
+        return;
     }
 
     wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'back-end/post-type/form/form.min.js', array(
@@ -96,7 +96,7 @@ function influactive_form_edit(string $hook): void
 
     $form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true);
     if (!$form_id) {
-		throw new RuntimeException("Form ID not found. Exiting...");
+        throw new RuntimeException("Form ID not found. Exiting...");
     }
     wp_enqueue_style('influactive-form-dynamic-style', plugin_dir_url(__FILE__) . 'front-end/dynamic-style.php?post_id=' . $form_id, array(), '1.2');
 }
@@ -112,11 +112,11 @@ add_action('admin_enqueue_scripts', 'influactive_form_edit');
 function influactive_form_shortcode_enqueue(): void
 {
     if (is_admin()) {
-		throw new RuntimeException("WordPress environment not loaded. Exiting...");
+        throw new RuntimeException("WordPress environment not loaded. Exiting...");
     }
 
     if (wp_script_is('google-captcha') || wp_script_is('google-recaptcha')) {
-		throw new RuntimeException("Google Captcha script already loaded. Exiting...");
+        throw new RuntimeException("Google Captcha script already loaded. Exiting...");
     }
 
     $options_captcha = get_option('influactive-forms-captcha-fields') ?? [];
