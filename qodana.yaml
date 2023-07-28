@@ -25,3 +25,5 @@ profile:
 linter: jetbrains/qodana-php:latest
 include:
   - name: CheckDependencyLicenses
+exclude:
+  - name: PhpElementIsNotAvailableInCurrentPhpVersionInspection
