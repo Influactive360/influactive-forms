@@ -6,70 +6,67 @@
  * @param {string|Blob} recaptchaResponse
  */
 function submitFormGlobal(messageDiv, form, recaptchaResponse) {
-  const xhr = new XMLHttpRequest();
-  const formData = new FormData(form);
-  formData.append('action', 'send_email');
+  const xhr = new XMLHttpRequest()
+  const formData = new FormData(form)
+  formData.append('action', 'send_email')
 
   if (recaptchaResponse) {
-    formData.append('recaptcha_response', recaptchaResponse);
+    formData.append('recaptcha_response', recaptchaResponse)
   }
 
   // eslint-disable-next-line camelcase
-  xhr.open('POST', ajax_object.ajaxurl, true);
+  xhr.open('POST', ajax_object.ajaxurl, true)
 
   xhr.onload = function xhrOnLoad() {
     if (xhr.status === 200) {
-      const response = JSON.parse(xhr.responseText);
+      const response = JSON.parse(xhr.responseText)
       if (response.data) {
         // Display the success message in the div
-        // eslint-disable-next-line no-param-reassign
-        messageDiv.textContent = response.data.message;
-        form.reset();
+        messageDiv.textContent = response.data.message
+        form.reset()
       } else {
         // Display the error message in the div
-        // eslint-disable-next-line no-param-reassign
-        messageDiv.textContent = response.data.message;
+        messageDiv.textContent = response.data.message
       }
     } else {
       // Display the AJAX error message in the div
-      // eslint-disable-next-line no-param-reassign
-      messageDiv.textContent = 'An error occurred with the AJAX request';
+      messageDiv.textContent = 'An error occurred with the AJAX request'
     }
-  };
+  }
 
-  xhr.send(formData);
+  xhr.send(formData)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const forms = document.querySelectorAll('.influactive-form');
+  const forms = document.querySelectorAll('.influactive-form')
 
   forms.forEach((form) => { // On boucle sur chaque formulaire
     if (form.parentElement.parentElement.parentElement.classList.contains('influactive-modal-form-brochure')) {
-      return;
+      return
     }
 
     form.addEventListener('submit', (event) => {
-      event.preventDefault();
+      event.preventDefault()
 
-      const messageDiv = form.querySelector('.influactive-form-message');
-      const recaptchaInput = form.querySelector('input[name="recaptcha_site_key"]');
+      const messageDiv = form.querySelector('.influactive-form-message')
+      const recaptchaInput = form.querySelector('input[name="recaptcha_site_key"]')
 
       if (recaptchaInput && grecaptcha) {
-        const recaptchaSiteKey = recaptchaInput.value;
+        const recaptchaSiteKey = recaptchaInput.value
         grecaptcha.ready(() => {
           grecaptcha.execute(recaptchaSiteKey, { action: 'submit' }).then((token) => {
-            submitFormGlobal(messageDiv, form, token);
+            submitFormGlobal(messageDiv, form, token)
             setTimeout(() => {
-              messageDiv.textContent = '';
-            }, 5000);
-          });
-        });
+              messageDiv.textContent = ''
+            }, 5000)
+          })
+        })
       } else {
-        submitFormGlobal(messageDiv, form, null);
+        submitFormGlobal(messageDiv, form, null)
         setTimeout(() => {
-          messageDiv.textContent = '';
-        }, 5000);
+          messageDiv.textContent = ''
+        }, 5000)
       }
-    });
-  });
-});
+    })
+  })
+})
