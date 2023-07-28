@@ -47,7 +47,7 @@ const submitFormGlobal = (messageDiv, form, recaptchaResponse) => {
 document.addEventListener('DOMContentLoaded', () => {
   const forms = document.querySelectorAll('.influactive-form')
 
-  forms.forEach((form) => { // On boucle sur chaque formulaire
+  forms.forEach((form) => {
     if (form.parentElement.parentElement.parentElement.classList.contains('influactive-modal-form-brochure')) {
       return
     }

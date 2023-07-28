@@ -280,10 +280,7 @@ const fieldTypeChangeHandler = (fieldElement) => function eventFunction(event) {
     inputElement.className = 'influactive_form_fields_name'
     inputElement.value = 'free_text'
 
-    // Ajouter l'élément input à l'élément label
     NameElement.appendChild(inputElement)
-
-    // Ajouter l'élément label à l'élément parent
     fieldElement.appendChild(NameElement)
   }
 
