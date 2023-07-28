@@ -342,13 +342,40 @@ function createInputWithLabel(parent, labelText, name, type, className) {
 function createOptionElement() {
 	let optionElement = document.createElement('p');
 	optionElement.className = "option-field";
-	optionElement.innerHTML = `<label>${influactiveFormsTranslations.optionLabelLabelText} ` +
-		`<input type="text" class="option-label" name="influactive_form_fields[][options][][label]">` +
-		`</label> ` +
-		`<label>${influactiveFormsTranslations.optionValueLabelText} ` +
-		`<input type="text" class="option-value" name="influactive_form_fields[][options][][value]">` +
-		`</label> ` +
-		`<a href="#" class="remove_option">${influactiveFormsTranslations.removeOptionText}</a>`;
+
+	// Create the option label
+	let optionLabel = document.createElement('label');
+	optionLabel.textContent = influactiveFormsTranslations.optionLabelLabelText + " ";
+	let optionLabelInput = document.createElement('input');
+	optionLabelInput.type = "text";
+	optionLabelInput.className = "option-label";
+	optionLabelInput.name = "influactive_form_fields[][options][][label]";
+	optionLabel.appendChild(optionLabelInput);
+	optionElement.appendChild(optionLabel);
+
+	// Add space
+	optionElement.appendChild(document.createTextNode(" "));
+
+	// Create the value label
+	let valueLabel = document.createElement('label');
+	valueLabel.textContent = influactiveFormsTranslations.optionValueLabelText + " ";
+	let valueLabelInput = document.createElement('input');
+	valueLabelInput.type = "text";
+	valueLabelInput.className = "option-value";
+	valueLabelInput.name = "influactive_form_fields[][options][][value]";
+	valueLabel.appendChild(valueLabelInput);
+	optionElement.appendChild(valueLabel);
+
+	// Add space
+	optionElement.appendChild(document.createTextNode(" "));
+
+	// Create remove option link
+	let removeOptionLink = document.createElement('a');
+	removeOptionLink.href = "#";
+	removeOptionLink.className = "remove_option";
+	removeOptionLink.textContent = influactiveFormsTranslations.removeOptionText;
+	optionElement.appendChild(removeOptionLink);
+
 	return optionElement;
 }
 
