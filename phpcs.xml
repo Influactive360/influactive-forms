@@ -2,7 +2,5 @@
 <ruleset name="WordPress Coding Standards for My Project">
     <description>Custom coding standards for my WordPress project.</description>
     <arg name="extensions" value="php"/>
-    <rule ref="WordPress-Core"/>
-    <rule ref="WordPress-Docs"/>
-    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress"/>
 </ruleset>
