@@ -221,7 +221,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 /**
  * Enqueues the dynamic style file for a specific form.
  *
- * @throws RuntimeException if the WordPress environment is not loaded or form
+ * @throws RuntimeException If the WordPress environment is not loaded or form
  *   ID is not found.
  */
 function enqueue_form_dynamic_style(): void {
@@ -248,13 +248,13 @@ add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );
  * Sends an email based on the submitted form data.
  *
  * @return void
- * @throws RuntimeException if the WordPress environment is not loaded.
+ * @throws RuntimeException If the WordPress environment is not loaded.
  */
 function influactive_send_email(): void {
 	$_POST = array_map( 'sanitize_text_field', $_POST );
 
 	if ( isset ( $_POST['nonce'] ) ) {
-		$_POST['nonce'] = sanitize_key( $_POST['nonce'] );
+		$_POST['nonce'] = wp_unslash( $_POST['nonce'] );
 	}
 
 	// Check if our nonce is set and verify it.
@@ -290,11 +290,11 @@ function influactive_send_email(): void {
 
 	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
-	$public_site_key = $_POST['recaptcha_site_key'] ?? '';
+	$public_site_key = wp_unslash( $_POST['recaptcha_site_key'] ) ?? '';
 
 	if ( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $_POST['recaptcha_response'] ) ) {
 		$recaptcha_url      = 'https://www.google.com/recaptcha/api/siteverify';
-		$recaptcha_response = $_POST['recaptcha_response'];
+		$recaptcha_response = wp_unslash( $_POST['recaptcha_response'] );
 
 		$url = $recaptcha_url
 					 . '?secret=' .
