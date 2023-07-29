@@ -14,7 +14,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.yml"
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/mermoz-wordpress/wp-content/plugins/influactive-forms/.eslintrc.yml"
           }
         }
       ],
@@ -31,7 +31,7 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "file:///Users/antoine/PhpstormProjects/influactive-forms/.eslintrc.yml",
+                      "uri": "file:///Users/antoinegreuzard/PhpstormProjects/mermoz-wordpress/wp-content/plugins/influactive-forms/.eslintrc.yml",
                       "index": 0
                     },
                     "region": {
