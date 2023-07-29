@@ -354,14 +354,14 @@ function influactive_send_email(): void {
 		$subject      = $layout['subject'] ?? '';
 		$to           = $layout['recipient'] ?? get_bloginfo( 'admin_email' );
 		$from         = $layout['sender'] ?? get_bloginfo( 'admin_email' );
-		$allowed_html = [
+		$allowed_html = array(
 			'br'         => array(),
 			'p'          => array(),
-			'a'          => [
+			'a'          => array(
 				'href'   => array(),
 				'title'  => array(),
 				'target' => array(),
-			],
+			),
 			'h1'         => array(),
 			'h2'         => array(),
 			'h3'         => array(),
@@ -376,11 +376,11 @@ function influactive_send_email(): void {
 			'blockquote' => array(),
 			'pre'        => array(),
 			'code'       => array(),
-			'img'        => [
+			'img'        => array(
 				'src' => array(),
 				'alt' => array(),
-			],
-		];
+			),
+		);
 
 		foreach ( $fields as $field ) {
 			// Convert textarea newlines to HTML breaks
