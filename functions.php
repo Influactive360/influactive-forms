@@ -62,7 +62,7 @@ function influactive_form_edit( string $hook ): void {
 			'influactive-form-layout',
 		],
 		'1.2.6',
-		TRUE
+		true
 	);
 	wp_localize_script(
 		'influactive-form',
@@ -103,7 +103,7 @@ function influactive_form_edit( string $hook ): void {
 		. 'dist/backEndTab.bundled.js',
 		[],
 		'1.2.6',
-		TRUE
+		true
 	);
 	wp_enqueue_style(
 		'influactive-tabs',
@@ -125,7 +125,7 @@ function influactive_form_edit( string $hook ): void {
 		plugin_dir_url( __FILE__ ) . 'dist/backEndLayout.bundled.js',
 		[],
 		'1.2.6',
-		TRUE
+		true
 	);
 	wp_localize_script(
 		'influactive-form-layout',
@@ -142,7 +142,7 @@ function influactive_form_edit( string $hook ): void {
 		'1.2.6'
 	);
 
-	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', TRUE );
+	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true );
 	if ( ! $form_id ) {
 		throw new RuntimeException( "Form ID not found. Exiting..." );
 	}
@@ -171,16 +171,16 @@ function influactive_form_shortcode_enqueue(): void {
 	}
 
 	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? [];
-	$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? NULL;
-	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? NULL;
+	$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? null;
+	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? null;
 
 	if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
 		wp_enqueue_script(
 			'google-captcha',
 			"https://www.google.com/recaptcha/api.js?render=$public_site_key",
 			[],
-			NULL,
-			TRUE
+			null,
+			true
 		);
 		$script_handle = [ 'google-captcha' ];
 	} else {
@@ -193,7 +193,7 @@ function influactive_form_shortcode_enqueue(): void {
 		'dist/frontEnd.bundled.js',
 		$script_handle,
 		'1.2.6',
-		TRUE
+		true
 	);
 	wp_enqueue_style(
 		'influactive-form',
@@ -219,7 +219,7 @@ add_action( 'wp_enqueue_scripts', 'influactive_form_shortcode_enqueue' );
 function load_influactive_forms_textdomain(): void {
 	load_plugin_textdomain(
 		'influactive-forms',
-		FALSE,
+		false,
 		dirname( plugin_basename( __FILE__ ) ) . '/languages'
 	);
 }

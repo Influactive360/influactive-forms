@@ -90,7 +90,7 @@ function influactive_form_shortcode(WP_Post $post): void
  */
 function influactive_form_fields_listing(WP_Post $post): void
 {
-    $fields = get_post_meta($post->ID, '_influactive_form_fields', TRUE);
+    $fields = get_post_meta($post->ID, '_influactive_form_fields', true);
     echo '<div id="influactive_form_fields_container">';
 
     if (is_array($fields)) :
@@ -148,7 +148,7 @@ function influactive_form_fields_listing(WP_Post $post): void
                         wp_editor($field['label'], 'influactive_form_fields_' . $key . '_label', [
                             'textarea_name' => 'influactive_form_fields[' . (int)$key . '][label]',
                             'textarea_rows' => 10,
-                            'media_buttons' => FALSE,
+                            'media_buttons' => false,
                             'tinymce' => [
                                     'toolbar1' => 'bold,italic,underline,link,unlink,undo,
                                     redo,formatselect,backcolor,alignleft,aligncenter,alignright,
@@ -250,7 +250,7 @@ function influactive_form_fields_listing(WP_Post $post): void
  */
 function influactive_form_email_style(WP_Post $post): void
 {
-    $email_style = get_post_meta($post->ID, '_influactive_form_email_style', TRUE);
+    $email_style = get_post_meta($post->ID, '_influactive_form_email_style', true);
     $email_style['form']['border_style'] ?? $email_style['form']['border_style'] = 'solid';
     $email_style['label']['font_weight'] ?? $email_style['label']['font_weight'] = 'normal';
     $email_style['input']['font_weight'] ?? $email_style['input']['font_weight'] = 'normal';
@@ -605,10 +605,10 @@ function influactive_form_email_style(WP_Post $post): void
  */
 function influactive_form_email_layout(WP_Post $post): void
 {
-    $email_layout = get_post_meta($post->ID, '_influactive_form_email_layout', TRUE) ?? [];
+    $email_layout = get_post_meta($post->ID, '_influactive_form_email_layout', true) ?? [];
 
     // List all influactive_form_fields_name like "{field_name}"
-    $fields = get_post_meta($post->ID, '_influactive_form_fields', TRUE) ?? [];
+    $fields = get_post_meta($post->ID, '_influactive_form_fields', true) ?? [];
     ?>
     <p><strong><?= __('Fields available in the email', 'influactive-forms') ?></strong></p>
     <ul>
