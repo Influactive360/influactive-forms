@@ -502,14 +502,13 @@ add_action( 'wp_ajax_send_email', 'influactive_send_email' );
 add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
 
 /**
- * Replaces field placeholders in a string with the corresponding label and
- * value.
+ * Replaces the placeholder in a string with the label and value of a field.
  *
- * @param string $string The string to replace placeholders in.
+ * @param string $string The string containing the placeholder.
  * @param string $field_name The name of the field.
- * @param array $label_value An array containing the label and value of field.
+ * @param array $label_value The label and value of the field.
  *
- * @return string The string with replaced placeholders.
+ * @return string The string with the placeholder replaced.
  */
 function replace_field_placeholder( string $string, string $field_name, array $label_value ): string {
 	if ( str_contains( $string, '{' . $field_name . ':label}' ) ) {
