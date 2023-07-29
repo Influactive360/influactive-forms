@@ -93,7 +93,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					     esc_attr( $required ) .
 					     ' name="' .
 					     esc_attr( $field['name'] ) . '">
-					</label>';
+		</label>';
 					break;
 				case 'email':
 					echo '<label>' .
@@ -102,10 +102,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					     esc_attr( $required ) .
 					     ' name="' . esc_attr( $field['name'] ) . '" autocomplete="email"></label>';
 					break;
-
 				case 'number':
 					echo '<label>' .
-					     $field['label'] .
+					     esc_attr( $field['label'] ) .
 					     ': <input type="number" ' .
 					     esc_attr( $required ) . ' name="' .
 					     esc_attr( $field['name'] ) .
@@ -142,7 +141,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					                                 __( 'Check our Privacy Policy', 'influactive-forms' ) .
 					                                 '</a>' : '';
 					echo '<label>
-						<input type="checkbox" name="' .
+			<input type="checkbox" name="' .
 					     esc_attr( $field['name'] ) . '" required>' .
 					     esc_attr( $field['label'] ) . ' ' . $pp .
 					     '</label>';
