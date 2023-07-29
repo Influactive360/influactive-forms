@@ -7,7 +7,7 @@
  * @package Influactive Forms
  */
 
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
 
@@ -32,7 +32,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 	ob_start();
 
 	$atts = shortcode_atts(
-		array(
+		array (
 			'id'      => '0',
 			'form_id' => '0',
 		),
@@ -42,17 +42,17 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 	$form_id = (int) $atts['id'];
 
-	if( ! $form_id ) {
+	if ( ! $form_id ) {
 		throw new RuntimeException( 'Form ID not found. Exiting...' );
 	}
 
 	// Showing the form if it exists.
 	$form = get_post( $form_id );
 
-	if( $form ) {
+	if ( $form ) {
 		update_post_meta( get_the_ID(), 'influactive_form_id', $form_id );
 
-		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
+		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array ();
 		?>
 		<div class="influactive-form-wrapper">
 			<form id="influactive-form-<?php echo esc_attr( $form_id ); ?>"
@@ -66,11 +66,11 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							 value="<?php echo esc_attr( $form_id ); ?>">
 
 				<?php
-				$options_captcha  = get_option( 'influactive-forms-captcha-fields' ) ?? array();
+				$options_captcha  = get_option( 'influactive-forms-captcha-fields' ) ?? array ();
 				$public_site_key  = $options_captcha['google-captcha']['public-site-key'] ?? '';
 				$secret_site_key  = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
-				if( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
+				if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
 					?>
 
 					<input type="hidden"
@@ -84,7 +84,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					<?php
 				}
 
-				if( is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
+				if ( is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
 					?>
 
 					<input type="hidden" name="brochure"
@@ -93,14 +93,14 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					<?php
 				}
 
-				foreach( $fields as $field ) {
-					if( isset( $field['required'] ) && '1' === $field['required'] ) {
+				foreach ( $fields as $field ) {
+					if ( isset( $field['required'] ) && '1' === $field['required'] ) {
 						$required = 'required';
 					} else {
 						$required = '';
 					}
 
-					switch( $field['type'] ) {
+					switch ( $field['type'] ) {
 						case 'text':
 							?>
 
@@ -158,7 +158,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 									name="<?php echo esc_attr( $field['name'] ); ?>">
 
 									<?php
-									foreach( $field['options'] as $option ) {
+									foreach ( $field['options'] as $option ) {
 										?>
 
 										<option
@@ -225,19 +225,19 @@ function influactive_form_shortcode_handler( array $atts ): string {
  *   ID is not found.
  */
 function enqueue_form_dynamic_style(): void {
-	if( is_admin() ) {
+	if ( is_admin() ) {
 		throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 	}
 
 	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true ) ?? 0;
-	if( ! $form_id ) {
+	if ( ! $form_id ) {
 		throw new RuntimeException( 'Form ID not found. Exiting...' );
 	}
 
 	wp_enqueue_style(
 		'influactive-form-dynamic-style',
 		plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id,
-		array(),
+		array (),
 		'1.2.6'
 	);
 }
@@ -253,53 +253,53 @@ add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );
 function influactive_send_email(): void {
 	$_POST = array_map( 'sanitize_text_field', $_POST );
 
-	if( isset ( $_POST['nonce'] ) ) {
+	if ( isset ( $_POST['nonce'] ) ) {
 		$nonce = wp_unslash( $_POST['nonce'] );
 	}
 
 	// Check if our nonce is set and verify it.
-	if( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'influactive_send_email' ) ) {
-		wp_send_json_error( array( 'message' => __( 'Nonce verification failed', 'influactive-forms' ) ) );
+	if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'influactive_send_email' ) ) {
+		wp_send_json_error( array ( 'message' => __( 'Nonce verification failed', 'influactive-forms' ) ) );
 
 		exit;
 	}
 
-	if( empty( $_POST['form_id'] ) ) {
-		wp_send_json_error( array( 'message' => __( 'Form ID is required', 'influactive-forms' ) ) );
+	if ( empty( $_POST['form_id'] ) ) {
+		wp_send_json_error( array ( 'message' => __( 'Form ID is required', 'influactive-forms' ) ) );
 
 		exit;
 	}
 
 	$form_id = (int) $_POST['form_id'];
 
-	$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
+	$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array ();
 
-	foreach( $fields as $field ) {
-		if( isset( $_POST[ $field['name'] ] ) && empty( $_POST[ $field['name'] ] ) && '1' === $field['required'] ) {
+	foreach ( $fields as $field ) {
+		if ( isset( $_POST[ $field['name'] ] ) && empty( $_POST[ $field['name'] ] ) && '1' === $field['required'] ) {
 			$name = $field['name'];
 			/* translators: %s is a placeholder for the field name */
 			$message = sprintf( __( 'The field %s is required', 'influactive-forms' ), $name );
-			wp_send_json_error( array( 'message' => $message ) );
+			wp_send_json_error( array ( 'message' => $message ) );
 
 			exit;
 		}
 	}
 
-	$email_layout = get_post_meta( $form_id, '_influactive_form_email_layout', true ) ?? array();
+	$email_layout = get_post_meta( $form_id, '_influactive_form_email_layout', true ) ?? array ();
 	$sitename     = get_bloginfo( 'name' );
 
-	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
+	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array ();
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
-	if( isset( $_POST['recaptcha_site_key'] ) ) {
+	if ( isset( $_POST['recaptcha_site_key'] ) ) {
 		$public_site_key = wp_unslash( $_POST['recaptcha_site_key'] );
 	}
 
-	if( isset( $_POST['recaptcha_response'] ) ) {
+	if ( isset( $_POST['recaptcha_response'] ) ) {
 		$recaptcha_response = wp_unslash( $_POST['recaptcha_response'] );
 	}
 
-	if( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $recaptcha_response ) ) {
+	if ( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $recaptcha_response ) ) {
 		$recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
 
 		$url = $recaptcha_url
@@ -312,12 +312,12 @@ function influactive_send_email(): void {
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
 		try {
 			$response = curl_exec( $ch );
-			if( curl_errno( $ch ) ) {
+			if ( curl_errno( $ch ) ) {
 				throw new RuntimeException( curl_error( $ch ) );
 			}
 		}
-		catch( RuntimeException $e ) {
-			wp_send_json_error( array(
+		catch ( RuntimeException $e ) {
+			wp_send_json_error( array (
 				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
 				'error'   => $e->getMessage(),
 			) );
@@ -329,9 +329,9 @@ function influactive_send_email(): void {
 		try {
 			$recaptcha = json_decode( $response, false, 512, JSON_THROW_ON_ERROR );
 
-			if( $recaptcha->score < 0.5 ) {
+			if ( $recaptcha->score < 0.5 ) {
 				// Not likely to be a human
-				wp_send_json_error( array(
+				wp_send_json_error( array (
 					'message' => __( 'Bot detected', 'influactive-forms' ),
 					'score'   => $recaptcha->score,
 				) );
@@ -339,8 +339,8 @@ function influactive_send_email(): void {
 				exit;
 			}
 		}
-		catch( JsonException $e ) {
-			wp_send_json_error( array(
+		catch ( JsonException $e ) {
+			wp_send_json_error( array (
 				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
 				'error'   => $e->getMessage(),
 			) );
@@ -349,44 +349,44 @@ function influactive_send_email(): void {
 		}
 	}
 
-	$layouts = $email_layout ?? array();
+	$layouts = $email_layout ?? array ();
 	$error   = 0;
-	foreach( $layouts as $layout ) {
+	foreach ( $layouts as $layout ) {
 		$content      = $layout['content'] ?? '';
 		$subject      = $layout['subject'] ?? '';
 		$to           = $layout['recipient'] ?? get_bloginfo( 'admin_email' );
 		$from         = $layout['sender'] ?? get_bloginfo( 'admin_email' );
 		$allowed_html = [
-			'br'         => array(),
-			'p'          => array(),
+			'br'         => array (),
+			'p'          => array (),
 			'a'          => [
-				'href'   => array(),
-				'title'  => array(),
-				'target' => array(),
+				'href'   => array (),
+				'title'  => array (),
+				'target' => array (),
 			],
-			'h1'         => array(),
-			'h2'         => array(),
-			'h3'         => array(),
-			'h4'         => array(),
-			'h5'         => array(),
-			'h6'         => array(),
-			'strong'     => array(),
-			'em'         => array(),
-			'ul'         => array(),
-			'ol'         => array(),
-			'li'         => array(),
-			'blockquote' => array(),
-			'pre'        => array(),
-			'code'       => array(),
+			'h1'         => array (),
+			'h2'         => array (),
+			'h3'         => array (),
+			'h4'         => array (),
+			'h5'         => array (),
+			'h6'         => array (),
+			'strong'     => array (),
+			'em'         => array (),
+			'ul'         => array (),
+			'ol'         => array (),
+			'li'         => array (),
+			'blockquote' => array (),
+			'pre'        => array (),
+			'code'       => array (),
 			'img'        => [
-				'src' => array(),
-				'alt' => array(),
+				'src' => array (),
+				'alt' => array (),
 			],
 		];
 
-		foreach( $fields as $field ) {
+		foreach ( $fields as $field ) {
 			// Convert textarea newlines to HTML breaks
-			if( $field['type'] === 'textarea' ) {
+			if ( $field['type'] === 'textarea' ) {
 				$_POST[ $field['name'] ] = nl2br( $_POST[ $field['name'] ] );
 				$content                 = str_replace(
 					'{' . $field['name'] . '}',
@@ -408,12 +408,12 @@ function influactive_send_email(): void {
 					wp_kses( $_POST[ $field['name'] ], $allowed_html ),
 					$from
 				);
-			} elseif( $field['type'] === 'select' ) {
+			} elseif ( $field['type'] === 'select' ) {
 				$content = replace_field_placeholder( $content, $field['name'], explode( ':', $_POST[ $field['name'] ] ) );
 				$subject = replace_field_placeholder( $subject, $field['name'], explode( ':', $_POST[ $field['name'] ] ) );
 				$to      = replace_field_placeholder( $to, $field['name'], explode( ':', $_POST[ $field['name'] ] ) );
 				$from    = replace_field_placeholder( $from, $field['name'], explode( ':', $_POST[ $field['name'] ] ) );
-			} elseif( $field['type'] === 'email' ) {
+			} elseif ( $field['type'] === 'email' ) {
 				$content = str_replace( '{' . $field['name'] . '}', sanitize_email( $_POST[ $field['name'] ] ), $content );
 				$subject = str_replace( '{' . $field['name'] . '}', sanitize_email( $_POST[ $field['name'] ] ), $subject );
 				$to      = str_replace( '{' . $field['name'] . '}', sanitize_email( $_POST[ $field['name'] ] ), $to );
@@ -442,8 +442,8 @@ function influactive_send_email(): void {
 			}
 		}
 
-		if( isset( $_POST['brochure'] )
-				&& is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
+		if ( isset( $_POST['brochure'] )
+				 && is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
 			$relative_url  = wp_get_attachment_url( $_POST['brochure'] );
 			$file_url      = home_url( $relative_url );
 			$download_link = sprintf(
@@ -466,17 +466,17 @@ function influactive_send_email(): void {
 			'Reply-To: ' . $from,
 		];
 
-		if( ! wp_mail( $to, $subject, $content, $headers ) ) {
+		if ( ! wp_mail( $to, $subject, $content, $headers ) ) {
 			$error ++;
 		}
 	}
 
-	if( $error === 0 ) {
-		wp_send_json_success( array(
+	if ( $error === 0 ) {
+		wp_send_json_success( array (
 			'message' => __( 'Email sent successfully', 'influactive-forms' ),
 		) );
 	} else {
-		wp_send_json_error( array(
+		wp_send_json_error( array (
 			'message' => __( 'Failed to send email', 'influactive-forms' ),
 		) );
 
@@ -502,12 +502,12 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
  */
 function replace_field_placeholder( string $string, string $field_name, array $label_value ): string {
 	// Replace label placeholder if it exists
-	if( str_contains( $string, '{' . $field_name . ':label}' ) ) {
+	if ( str_contains( $string, '{' . $field_name . ':label}' ) ) {
 		$string = str_replace( '{' . $field_name . ':label}', $label_value[1], $string );
 	}
 
 	// Replace value placeholder if it exists
-	if( str_contains( $string, '{' . $field_name . ':value}' ) ) {
+	if ( str_contains( $string, '{' . $field_name . ':value}' ) ) {
 		$string = str_replace( '{' . $field_name . ':value}', $label_value[0], $string );
 	}
 
