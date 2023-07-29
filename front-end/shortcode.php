@@ -253,8 +253,8 @@ add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );
 function influactive_send_email(): void {
 	$_POST = array_map( 'sanitize_text_field', $_POST );
 
-	if ( isset ( $_POST['nonce'] ) ) {
-		$nonce = wp_unslash( $_POST['nonce'] );
+	if ( isset( $_POST['nonce'] ) ) {
+		$nonce = sanitize_text_field( $_POST['nonce'] );
 	}
 
 	// Check if our nonce is set and verify it.
@@ -292,11 +292,11 @@ function influactive_send_email(): void {
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
 	if ( isset( $_POST['recaptcha_site_key'] ) ) {
-		$public_site_key = wp_unslash( $_POST['recaptcha_site_key'] );
+		$public_site_key = sanitize_text_field( $_POST['recaptcha_site_key'] );
 	}
 
 	if ( isset( $_POST['recaptcha_response'] ) ) {
-		$recaptcha_response = wp_unslash( $_POST['recaptcha_response'] );
+		$recaptcha_response = sanitize_text_field( $_POST['recaptcha_response'] );
 	}
 
 	if ( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $recaptcha_response ) ) {
@@ -315,8 +315,7 @@ function influactive_send_email(): void {
 			if ( curl_errno( $ch ) ) {
 				throw new RuntimeException( curl_error( $ch ) );
 			}
-		}
-		catch ( RuntimeException $e ) {
+		} catch ( RuntimeException $e ) {
 			wp_send_json_error( array(
 				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
 				'error'   => $e->getMessage(),
@@ -338,8 +337,7 @@ function influactive_send_email(): void {
 
 				exit;
 			}
-		}
-		catch ( JsonException $e ) {
+		} catch ( JsonException $e ) {
 			wp_send_json_error( array(
 				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
 				'error'   => $e->getMessage(),
