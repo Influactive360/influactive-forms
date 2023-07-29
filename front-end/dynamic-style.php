@@ -99,4 +99,4 @@ ob_start();
 
 <?php
 $css = ob_get_clean();
-echo $css;
+echo esc_html( $css );
