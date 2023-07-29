@@ -29,10 +29,13 @@ add_action( 'init', 'register_influactive_form_shortcode', 1 );
  * @throws RuntimeException If the form ID is not found.
  */
 function influactive_form_shortcode_handler( array $atts ): string {
-	ob_start(); // Start output buffering
+	ob_start();
 
 	$atts = shortcode_atts(
-		[ 'id' => '0' ],
+		[
+			'id'      => '0',
+			'form_id' => '0',
+		],
 		$atts,
 		'influactive_form'
 	);
@@ -143,7 +146,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 		echo '</div>';
 	}
 
-	return ob_get_clean(); // End output buffering and return buffered output
+	return ob_get_clean();
 }
 
 /**
