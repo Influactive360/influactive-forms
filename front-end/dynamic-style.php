@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     ] );
 }
 
-header( "Content-type: text/css; charset: UTF-8" );
+header( 'Content-type: text/css; charset: UTF-8' );
 
 $post_id     = isset( $_GET['post_id'] ) ? (int) $_GET['post_id'] : 0;
 $email_style = get_post_meta( $post_id, '_influactive_form_email_style', TRUE );

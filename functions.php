@@ -13,7 +13,7 @@
  **/
 
 if ( ! defined( 'ABSPATH' ) ) {
-	throw new RuntimeException( "WordPress environment not loaded. Exiting..." );
+	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
 
 include( plugin_dir_path( __FILE__ ) . 'back-end/post-type/definitions.php' );

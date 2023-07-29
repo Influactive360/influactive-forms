@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	throw new RuntimeException( "WordPress environment not loaded. Exiting..." );
+	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
 
 /**
