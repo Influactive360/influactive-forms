@@ -390,6 +390,7 @@ function influactive_send_email(): void {
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST[ $field['name'] ] ) ) {
 				$name = wp_unslash( nl2br( $_POST[ $field['name'] ] ) );
+				$name = sanitize_text_field( $name );
 			} else {
 				$name = '';
 			}
@@ -415,12 +416,12 @@ function influactive_send_email(): void {
 					wp_kses( $name, $allowed_html ),
 					$from
 				);
-			} elseif ( $field['type'] === 'select' ) {
+			} elseif ( 'select' === $field['type'] ) {
 				$content = replace_field_placeholder( $content, $field['name'], explode( ':', $name ) );
 				$subject = replace_field_placeholder( $subject, $field['name'], explode( ':', $name ) );
 				$to      = replace_field_placeholder( $to, $field['name'], explode( ':', $name ) );
 				$from    = replace_field_placeholder( $from, $field['name'], explode( ':', $name ) );
-			} elseif ( $field['type'] === 'email' ) {
+			} elseif ( 'email' === $field['type'] ) {
 				$content = str_replace( '{' . $field['name'] . '}', sanitize_email( $name ), $content );
 				$subject = str_replace( '{' . $field['name'] . '}', sanitize_email( $name ), $subject );
 				$to      = str_replace( '{' . $field['name'] . '}', sanitize_email( $name ), $to );
@@ -467,25 +468,29 @@ function influactive_send_email(): void {
 		$from = sanitize_email( $from );
 		$to   = sanitize_email( $to );
 
-		$headers = [
+		$headers = array(
 			'Content-Type: text/html; charset=UTF-8',
 			'From: ' . $sitename . ' <' . $from . '>',
 			'Reply-To: ' . $from,
-		];
+		);
 
 		if ( ! wp_mail( $to, $subject, $content, $headers ) ) {
 			$error ++;
 		}
 	}
 
-	if ( $error === 0 ) {
-		wp_send_json_success( array(
-			'message' => __( 'Email sent successfully', 'influactive-forms' ),
-		) );
+	if ( 0 === $error ) {
+		wp_send_json_success(
+			array(
+				'message' => __( 'Email sent successfully', 'influactive-forms' ),
+			)
+		);
 	} else {
-		wp_send_json_error( array(
-			'message' => __( 'Failed to send email', 'influactive-forms' ),
-		) );
+		wp_send_json_error(
+			array(
+				'message' => __( 'Failed to send email', 'influactive-forms' ),
+			)
+		);
 
 		exit;
 	}
