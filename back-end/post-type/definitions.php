@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return void
  */
 function influactive_form_custom_post_type(): void {
-	$labels = [
+	$labels = array(
 		'name'                  => _x( 'Forms', 'Post Type General Name', 'influactive-forms' ),
 		'singular_name'         => _x( 'Form', 'Post Type Singular Name', 'influactive-forms' ),
 		'menu_name'             => __( 'Forms', 'influactive-forms' ),
@@ -45,13 +45,13 @@ function influactive_form_custom_post_type(): void {
 		'items_list'            => __( 'Forms list', 'influactive-forms' ),
 		'items_list_navigation' => __( 'Forms list navigation', 'influactive-forms' ),
 		'filter_items_list'     => __( 'Filter Forms list', 'influactive-forms' ),
-	];
-	$args   = [
+	);
+	$args   = array(
 		'label'               => __( 'Form', 'influactive-forms' ),
 		'description'         => __( 'Custom post type for forms', 'influactive-forms' ),
 		'labels'              => $labels,
-		'supports'            => [ 'title', 'revisions', 'custom-fields' ],
-		'taxonomies'          => [],
+		'supports'            => array( 'title', 'revisions', 'custom-fields' ),
+		'taxonomies'          => array(),
 		'hierarchical'        => false,
 		'public'              => false,
 		'show_ui'             => true,
@@ -67,7 +67,7 @@ function influactive_form_custom_post_type(): void {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
 		'capability_type'     => 'post',
-	];
+	);
 	register_post_type( 'influactive-forms', $args );
 }
 
