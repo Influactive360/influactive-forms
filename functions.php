@@ -52,50 +52,94 @@ function influactive_form_edit(string $hook): void
         return;
     }
 
-    wp_enqueue_script('influactive-form', plugin_dir_url(__FILE__) . 'dist/backEndForm.bundled.js', array(
-        'wp-tinymce',
+    wp_enqueue_script(
+        'influactive-form',
+        plugin_dir_url(__FILE__) . 'dist/backEndForm.bundled.js',
+        array(
+            'wp-tinymce',
+            'influactive-tabs',
+            'influactive-form-layout'
+        ),
+        '1.2.6',
+        true
+    );
+    wp_localize_script(
+        'influactive-form',
+        'influactiveFormsTranslations',
+        array(
+            'addOptionText'        => __('Add option', 'influactive-forms'),
+            'removeOptionText'     => __('Remove option', 'influactive-forms'),
+            'removeFieldText'      => __('Remove the field', 'influactive-forms'),
+            'typeLabelText'        => __('Type', 'influactive-forms'),
+            'labelLabelText'       => __('Label', 'influactive-forms'),
+            'nameLabelText'        => __('Name', 'influactive-forms'),
+            'optionLabelLabelText' => __('Option Label', 'influactive-forms'),
+            'optionValueLabelText' => __('Option Value', 'influactive-forms'),
+            'gdprTextLabelText'    => __('Text', 'influactive-forms'),
+            'fieldAddedText'       => __('Field added!', 'influactive-forms'),
+            'optionAddedText'      => __('Option added!', 'influactive-forms'),
+            'optionRemovedText'    => __('Option removed!', 'influactive-forms'),
+            'Text'                 => __('Text', 'influactive-forms'),
+            'Textarea'             => __('Textarea', 'influactive-forms'),
+            'Select'               => __('Select', 'influactive-forms'),
+            'Email'                => __('Email', 'influactive-forms'),
+            'GDPR'                 => __('GDPR', 'influactive-forms'),
+            'Number'               => __('Number', 'influactive-forms'),
+            'Freetext'             => __('Free text', 'influactive-forms'),
+        )
+    );
+    wp_enqueue_style(
+        'influactive-form',
+        plugin_dir_url(__FILE__)
+        . 'dist/backForm.bundled.css',
+        array(),
+        '1.2.6'
+    );
+
+    wp_enqueue_script(
         'influactive-tabs',
-        'influactive-form-layout'
-    ), '1.2.6', true);
-    wp_localize_script('influactive-form', 'influactiveFormsTranslations', array(
-        'addOptionText'        => __('Add option', 'influactive-forms'),
-        'removeOptionText'     => __('Remove option', 'influactive-forms'),
-        'removeFieldText'      => __('Remove the field', 'influactive-forms'),
-        'typeLabelText'        => __('Type', 'influactive-forms'),
-        'labelLabelText'       => __('Label', 'influactive-forms'),
-        'nameLabelText'        => __('Name', 'influactive-forms'),
-        'optionLabelLabelText' => __('Option Label', 'influactive-forms'),
-        'optionValueLabelText' => __('Option Value', 'influactive-forms'),
-        'gdprTextLabelText'    => __('Text', 'influactive-forms'),
-        'fieldAddedText'       => __('Field added!', 'influactive-forms'),
-        'optionAddedText'      => __('Option added!', 'influactive-forms'),
-        'optionRemovedText'    => __('Option removed!', 'influactive-forms'),
-        'Text'                 => __('Text', 'influactive-forms'),
-        'Textarea'             => __('Textarea', 'influactive-forms'),
-        'Select'               => __('Select', 'influactive-forms'),
-        'Email'                => __('Email', 'influactive-forms'),
-        'GDPR'                 => __('GDPR', 'influactive-forms'),
-        'Number'               => __('Number', 'influactive-forms'),
-        'Freetext'             => __('Free text', 'influactive-forms'),
-    ));
-    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__)
-                                          . 'dist/backForm.bundled.css', array(), '1.2.6');
+        plugin_dir_url(__FILE__)
+        . 'dist/backEndTab.bundled.js',
+        array(),
+        '1.2.6',
+        true
+    );
+    wp_enqueue_style(
+        'influactive-tabs',
+        plugin_dir_url(__FILE__)
+        . 'dist/tab.bundled.css',
+        array(),
+        '1.2.6'
+    );
 
-    wp_enqueue_script('influactive-tabs', plugin_dir_url(__FILE__)
-                                           . 'dist/backEndTab.bundled.js', array(), '1.2.6', true);
-    wp_enqueue_style('influactive-tabs', plugin_dir_url(__FILE__)
-                                          . 'dist/tab.bundled.css', array(), '1.2.6');
+    wp_enqueue_style(
+        'influactive-form-layout',
+        plugin_dir_url(__FILE__)
+        . 'dist/layout.bundled.css',
+        array(),
+        '1.2.6'
+    );
+    wp_enqueue_script(
+        'influactive-form-layout',
+        plugin_dir_url(__FILE__) . 'dist/backEndLayout.bundled.js',
+        array(),
+        '1.2.6',
+        true
+    );
+    wp_localize_script(
+        'influactive-form-layout',
+        'influactiveFormsTranslations',
+        array(
+            'delete_layout' => __('Delete layout', 'influactive-forms'),
+        )
+    );
 
-    wp_enqueue_style('influactive-form-layout', plugin_dir_url(__FILE__)
-                                                 . 'dist/layout.bundled.css', array(), '1.2.6');
-    wp_enqueue_script('influactive-form-layout', plugin_dir_url(__FILE__)
-                                                  . 'dist/backEndLayout.bundled.js', array(), '1.2.6', true);
-    wp_localize_script('influactive-form-layout', 'influactiveFormsTranslations', array(
-        'delete_layout' => __('Delete layout', 'influactive-forms'),
-    ));
-
-    wp_enqueue_style('influactive-form-style', plugin_dir_url(__FILE__)
-                                                . 'dist/style.bundled.css', array(), '1.2.6');
+    wp_enqueue_style(
+        'influactive-form-style',
+        plugin_dir_url(__FILE__) . 'dist/style.bundled.css',
+        array(),
+        '1.2.6'
+    );
 
     $form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true);
     if (! $form_id) {
@@ -152,9 +196,18 @@ function influactive_form_shortcode_enqueue(): void
         '1.2.6',
         true
     );
-    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'dist/frontForm.bundled.css', [], '1.2.6');
+    wp_enqueue_style(
+        'influactive-form',
+        plugin_dir_url(__FILE__) . 'dist/frontForm.bundled.css',
+        [],
+        '1.2.6'
+    );
 
-    wp_localize_script('influactive-form', 'ajaxObject', [ 'ajaxurl' => admin_url('admin-ajax.php') ]);
+    wp_localize_script(
+        'influactive-form',
+        'ajaxObject',
+        [ 'ajaxurl' => admin_url('admin-ajax.php') ]
+    );
 }
 
 add_action('wp_enqueue_scripts', 'influactive_form_shortcode_enqueue');
@@ -166,7 +219,11 @@ add_action('wp_enqueue_scripts', 'influactive_form_shortcode_enqueue');
  */
 function load_influactive_forms_textdomain(): void
 {
-    load_plugin_textdomain('influactive-forms', false, dirname(plugin_basename(__FILE__)) . '/languages');
+    load_plugin_textdomain(
+        'influactive-forms',
+        false,
+        dirname(plugin_basename(__FILE__)) . '/languages'
+    );
 }
 
 add_action('plugins_loaded', 'load_influactive_forms_textdomain');
