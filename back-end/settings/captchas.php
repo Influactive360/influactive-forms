@@ -51,7 +51,7 @@ function influactive_form_settings_page(): void {
 	}
 	?>
 	<div class="influactive-form-settings">
-		<h1><?php echo __( 'Settings', 'influactive-forms' ); ?></h1>
+		<h1><?php echo esc_html__( 'Settings', 'influactive-forms' ); ?></h1>
 		<form action="options.php" method="post">
 			<?php settings_fields( 'influactive-forms-captcha-fields' ); ?>
 			<?php do_settings_sections( 'influactive-forms-captcha-fields' ); ?>
@@ -119,8 +119,18 @@ function influactive_forms_settings_section_callback(): void {
 		esc_html__( 'reCAPTCHA', 'influactive-forms' )
 	);
 
-	echo sprintf(
-		__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' ),
+	/* translators: %s is a placeholder for a link to Google CAPTCHA admin */
+	printf(
+		wp_kses(
+			__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' ),
+			array(
+				'a' => array(
+					'href'   => array(),
+					'target' => array(),
+					'title'  => array(),
+				),
+			)
+		),
 		$recaptcha_link
 	);
 }
