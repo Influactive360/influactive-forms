@@ -389,7 +389,7 @@ function influactive_send_email(): void {
 
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST[ $field['name'] ] ) ) {
-				$name = sanitize_text_field( nl2br( wp_unslash( $_POST[ $field['name'] ] ) ) );
+				$name = nl2br( sanitize_text_field( wp_unslash( $_POST[ $field['name'] ] ) ) );
 			} else {
 				$name = '';
 			}
@@ -451,9 +451,10 @@ function influactive_send_email(): void {
 
 		if ( isset( $_POST['brochure'] )
 				 && is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
-			$relative_url  = wp_get_attachment_url( $_POST['brochure'] );
-			$file_url      = home_url( $relative_url );
-			$download_link = sprintf(
+			$brochure_post_id = filter_input( INPUT_POST, 'brochure', FILTER_SANITIZE_NUMBER_INT );
+			$relative_url     = wp_get_attachment_url( $brochure_post_id );
+			$file_url         = home_url( $relative_url );
+			$download_link    = sprintf(
 			/* translators: %s is a placeholder for the file URL */
 				__(
 					"<a href='%s' target='_blank' title='Download our brochure'>Download our brochure</a>",
@@ -461,7 +462,7 @@ function influactive_send_email(): void {
 				),
 				$file_url
 			);
-			$content       = str_replace( '{brochure}', $download_link, $content );
+			$content          = str_replace( '{brochure}', $download_link, $content );
 		}
 
 		$from = sanitize_email( $from );
@@ -506,8 +507,7 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
  *
  * @param string $string The string to replace placeholders in.
  * @param string $field_name The name of the field.
- * @param array $label_value An array containing the label and value of the
- * field.
+ * @param array $label_value An array containing the label and value of field
  *
  * @return string The string with replaced placeholders.
  */
