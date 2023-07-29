@@ -46,7 +46,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 		throw new RuntimeException( 'Form ID not found. Exiting...' );
 	}
 
-	// Showing the form if it exists
+	// Showing the form if it exists.
 	$form = get_post( $form_id );
 
 	if ( $form ) {
@@ -56,30 +56,30 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 		echo '<div class="influactive-form-wrapper">';
 
-		echo '<form id="influactive-form-' . $form_id . '" class="influactive-form">';
+		echo '<form id="influactive-form-' . esc_attr( $form_id ) . '" class="influactive-form">';
 
 		wp_nonce_field( 'influactive_send_email', 'nonce' );
 
-		echo '<input type="hidden" name="form_id" value="' . $form_id . '">';
+		echo '<input type="hidden" name="form_id" value="' . esc_attr( $form_id ) . '">';
 
 		$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 		$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
 		$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
 		if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
-			echo '<input type="hidden" id="recaptchaResponse-' . $form_id . '" name="recaptcha_response">';
+			echo '<input type="hidden" id="recaptchaResponse-' . esc_attr( $form_id ) . '" name="recaptcha_response">';
 			echo '<input type="hidden" 
-            id="recaptchaSiteKey-' . $form_id . '" 
+            id="recaptchaSiteKey-' . esc_attr( $form_id ) . '" 
             name="recaptcha_site_key" 
-            value="' . $public_site_key . '">';
+            value="' . esc_attr( $public_site_key ) . '">';
 		}
 
 		if ( is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
-			echo '<input type="hidden" name="brochure" value="' . get_option( 'modal_form_file_select' ) . '">';
+			echo '<input type="hidden" name="brochure" value="' . esc_attr( get_option( 'modal_form_file_select' ) ) . '">';
 		}
 
 		foreach ( $fields as $field ) {
-			if ( isset( $field['required'] ) && $field['required'] === '1' ) {
+			if ( isset( $field['required'] ) && '1' === $field['required'] ) {
 				$required = 'required';
 			} else {
 				$required = '';
@@ -87,9 +87,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 			switch ( $field['type'] ) {
 				case 'text':
-					echo '<label>' .
-					     $field['label']
-					     . ': <input type="text" ' . $required . ' name="' . esc_attr( $field['name'] ) . '"></label>';
+					echo '<label>
+' . esc_attr( $field['label'] ) . ': <input type="text" ' . $required . ' name="' . esc_attr( $field['name'] ) . '">
+					</label>';
 					break;
 				case 'email':
 					echo '<label>' .
