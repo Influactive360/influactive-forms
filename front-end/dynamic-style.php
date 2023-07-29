@@ -7,11 +7,13 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	requireWordPressCore( [
-		'/wp-load.php', // WordPress
-		'/wordpress/wp-load.php', // WordPlate
-		'/wp/wp-load.php', // Radicle
-	] );
+	requireWordPressCore(
+		array(
+			'/wp-load.php', // WordPress
+			'/wordpress/wp-load.php', // WordPlate
+			'/wp/wp-load.php', // Radicle
+		)
+	);
 }
 
 header( 'Content-type: text/css; charset: UTF-8' );
