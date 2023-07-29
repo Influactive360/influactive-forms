@@ -292,11 +292,11 @@ function influactive_send_email(): void {
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
 	if ( isset( $_POST['recaptcha_site_key'] ) ) {
-		$public_site_key = sanitize_text_field( $_POST['recaptcha_site_key'] );
+		$public_site_key = sanitize_text_field( wp_unslash( $_POST['recaptcha_site_key'] ) );
 	}
 
 	if ( isset( $_POST['recaptcha_response'] ) ) {
-		$recaptcha_response = sanitize_text_field( $_POST['recaptcha_response'] );
+		$recaptcha_response = sanitize_text_field( wp_unslash( $_POST['recaptcha_response'] ) );
 	}
 
 	if ( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $recaptcha_response ) ) {
