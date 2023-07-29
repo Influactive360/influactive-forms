@@ -254,7 +254,7 @@ function influactive_send_email(): void {
 	$_POST = array_map( 'sanitize_text_field', $_POST );
 
 	if ( isset( $_POST['nonce'] ) ) {
-		$nonce = sanitize_text_field( $_POST['nonce'] );
+		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
 	}
 
 	// Check if our nonce is set and verify it.
