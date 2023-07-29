@@ -1,5 +1,8 @@
 <?php
 /**
+ * Description: This file is responsible for the listing of Influactive Forms
+ * in the admin.
+ *
  * @package Influactive Forms
  */
 

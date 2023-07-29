@@ -1,5 +1,8 @@
 <?php
 /**
+ * Description: This file contains the shortcode handler for the
+ * 'influactive_form' shortcode.
+ *
  * @package Influactive Forms
  */
 

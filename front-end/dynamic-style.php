@@ -1,5 +1,8 @@
 <?php
 /**
+ * Description: This file is responsible for generating the dynamic CSS for the
+ * email style.
+ *
  * @package Influactive Forms
  */
 

@@ -1,5 +1,8 @@
 <?php
 /**
+ * Description: This file contains the definitions for the Influactive Form
+ * post-type.
+ *
  * @package Influactive Forms
  */
 

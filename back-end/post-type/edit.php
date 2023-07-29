@@ -1,5 +1,8 @@
 <?php
 /**
+ * Description: This file is responsible for displaying the edit screen for the
+ * Influactive Form post-type.
+ *
  * @package Influactive Forms
  */
 
