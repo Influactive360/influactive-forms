@@ -316,10 +316,12 @@ function influactive_send_email(): void {
 				throw new RuntimeException( curl_error( $ch ) );
 			}
 		} catch ( RuntimeException $e ) {
-			wp_send_json_error( array(
-				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
-				'error'   => $e->getMessage(),
-			) );
+			wp_send_json_error(
+				array(
+					'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
+					'error'   => $e->getMessage(),
+				)
+			);
 			curl_close( $ch );
 			exit;
 		}
@@ -330,18 +332,22 @@ function influactive_send_email(): void {
 
 			if ( $recaptcha->score < 0.5 ) {
 				// Not likely to be a human
-				wp_send_json_error( array(
-					'message' => __( 'Bot detected', 'influactive-forms' ),
-					'score'   => $recaptcha->score,
-				) );
+				wp_send_json_error(
+					array(
+						'message' => __( 'Bot detected', 'influactive-forms' ),
+						'score'   => $recaptcha->score,
+					)
+				);
 
 				exit;
 			}
 		} catch ( JsonException $e ) {
-			wp_send_json_error( array(
-				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
-				'error'   => $e->getMessage(),
-			) );
+			wp_send_json_error(
+				array(
+					'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
+					'error'   => $e->getMessage(),
+				)
+			);
 
 			exit;
 		}
@@ -383,9 +389,8 @@ function influactive_send_email(): void {
 		);
 
 		foreach ( $fields as $field ) {
-			// Convert textarea newlines to HTML breaks
-			if ( $field['type'] === 'textarea' ) {
-				$_POST[ $field['name'] ] = nl2br( $_POST[ $field['name'] ] );
+			if ( 'textarea' === $field['type'] ) {
+				$_POST[ $field['name'] ] = wp_unslash( nl2br( $_POST[ $field['name'] ] ) );
 				$content                 = str_replace(
 					'{' . $field['name'] . '}',
 					wp_kses( $_POST[ $field['name'] ], $allowed_html ),
