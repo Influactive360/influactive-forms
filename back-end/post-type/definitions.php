@@ -9,6 +9,8 @@
  * Domain Path: /languages
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ *
+ *  @package Influactive Forms
  */
 
 if (! defined('ABSPATH')) {

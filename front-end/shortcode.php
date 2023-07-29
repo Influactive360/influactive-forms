@@ -1,4 +1,17 @@
 <?php
+/**
+ * Plugin Name: Influactive Forms
+ * Description: A plugin to create custom forms and display them anywhere on your website.
+ * Version: 1.2.6
+ * Author: Influactive
+ * Author URI: https://influactive.com
+ * Text Domain: influactive-forms
+ * Domain Path: /languages
+ * License: GPL2
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * @package Influactive Forms
+ */
 
 if (! defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
