@@ -185,7 +185,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 								<input type="checkbox"
 											 name="<?php echo esc_attr( $field['name'] ); ?>"
 											 required>
-								<?php echo esc_attr( $field['label'] ) . ' ' . $pp_content; ?>
+								<?php echo esc_attr( $field['label'] ) . ' ' . esc_attr( $pp_content ); ?>
 							</label>
 
 							<?php
@@ -248,21 +248,20 @@ add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );
  *
  * @return void
  * @throws RuntimeException
- * @throws Exception
  */
 function influactive_send_email(): void {
-	$_POST = array_map( 'sanitize_text_field', $_POST );
+	$_POST          = array_map( 'sanitize_text_field', $_POST );
+	$_POST['nonce'] = sanitize_key( $_POST['nonce'] );
 
 	// Check if our nonce is set and verify it.
 	if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'influactive_send_email' ) ) {
-		wp_send_json_error( [ 'message' => __( 'Nonce verification failed', 'influactive-forms' ) ] );
+		wp_send_json_error( array( 'message' => __( 'Nonce verification failed', 'influactive-forms' ) ) );
 
 		exit;
 	}
 
-	// Check form fields
 	if ( empty( $_POST['form_id'] ) ) {
-		wp_send_json_error( [ 'message' => __( 'Form ID is required', 'influactive-forms' ) ] );
+		wp_send_json_error( array( 'message' => __( 'Form ID is required', 'influactive-forms' ) ) );
 
 		exit;
 	}
@@ -310,10 +309,10 @@ function influactive_send_email(): void {
 			}
 		}
 		catch ( RuntimeException $e ) {
-			wp_send_json_error( [
+			wp_send_json_error( array(
 				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
 				'error'   => $e->getMessage(),
-			] );
+			) );
 			curl_close( $ch );
 			exit;
 		}
@@ -324,19 +323,19 @@ function influactive_send_email(): void {
 
 			if ( $recaptcha->score < 0.5 ) {
 				// Not likely to be a human
-				wp_send_json_error( [
+				wp_send_json_error( array(
 					'message' => __( 'Bot detected', 'influactive-forms' ),
 					'score'   => $recaptcha->score,
-				] );
+				) );
 
 				exit;
 			}
 		}
 		catch ( JsonException $e ) {
-			wp_send_json_error( [
+			wp_send_json_error( array(
 				'message' => __( 'Failed to verify reCAPTCHA', 'influactive-forms' ),
 				'error'   => $e->getMessage(),
-			] );
+			) );
 
 			exit;
 		}
@@ -465,13 +464,13 @@ function influactive_send_email(): void {
 	}
 
 	if ( $error === 0 ) {
-		wp_send_json_success( [
+		wp_send_json_success( array(
 			'message' => __( 'Email sent successfully', 'influactive-forms' ),
-		] );
+		) );
 	} else {
-		wp_send_json_error( [
+		wp_send_json_error( array(
 			'message' => __( 'Failed to send email', 'influactive-forms' ),
-		] );
+		) );
 
 		exit;
 	}
