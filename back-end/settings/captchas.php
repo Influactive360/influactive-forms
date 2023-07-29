@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	throw new RuntimeException( "WordPress environment not loaded. Exiting..." );
+	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
 
 /**
@@ -51,7 +51,7 @@ function influactive_form_settings_page(): void {
 	}
 	?>
 	<div class="influactive-form-settings">
-		<h1><?= __( "Settings", "influactive-forms" ) ?></h1>
+		<h1><?= __( 'Settings', "influactive-forms" ) ?></h1>
 		<form action="options.php" method="post">
 			<?php settings_fields( 'influactive-forms-captcha-fields' ); ?>
 			<?php do_settings_sections( 'influactive-forms-captcha-fields' ); ?>
