@@ -27,7 +27,7 @@ include( plugin_dir_path( __FILE__ ) . 'front-end/shortcode.php' );
 /**
  * Adds a settings link to the plugin page.
  *
- * @param array $links An array of existing links on the plugin page.
+ * @param    array    $links    An array of existing links on the plugin page.
  *
  * @return array An updated array of links including the new settings link.
  */
@@ -44,7 +44,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'influactive_f
 /**
  * Enqueues scripts and styles for editing an Influactive form.
  *
- * @param string $hook The current admin page hook.
+ * @param    string    $hook    The current admin page hook.
  *
  * @return void
  */
@@ -229,8 +229,8 @@ add_action( 'plugins_loaded', 'load_influactive_forms_textdomain' );
 /**
  * Requires the WordPress core file from the given possible paths.
  *
- * @param array $possiblePaths An array of possible paths where the WordPress
- *     core file may exist.
+ * @param    array    $possiblePaths    An array of possible paths where the
+ *                                      WordPress core file may exist.
  *
  * @return void
  */
