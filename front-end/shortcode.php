@@ -55,7 +55,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
 		?>
 		<div class="influactive-form-wrapper">
-			<form id="influactive-form-<?= esc_attr( $form_id ) ?>"
+			<form id="influactive-form-<?php echo esc_attr( $form_id ) ?>"
 						class="influactive-form">
 
 				<?php
@@ -63,7 +63,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 				?>
 
 				<input type="hidden" name="form_id"
-							 value="<?= esc_attr( $form_id ) ?>">
+							 value="<?php echo esc_attr( $form_id ) ?>">
 
 				<?php
 				$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
@@ -74,12 +74,12 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					?>
 
 					<input type="hidden"
-								 id="recaptchaResponse-<?= esc_attr( $form_id ) ?>"
+								 id="recaptchaResponse-<?php echo esc_attr( $form_id ) ?>"
 								 name="recaptcha_response">
 					<input type="hidden"
-								 id="recaptchaSiteKey-<?= esc_attr( $form_id ) ?>"
+								 id="recaptchaSiteKey-<?php echo esc_attr( $form_id ) ?>"
 								 name="recaptcha_site_key"
-								 value="<?= esc_attr( $public_site_key ) ?>">
+								 value="<?php echo esc_attr( $public_site_key ) ?>">
 
 					<?php
 				}
@@ -88,7 +88,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					?>
 
 					<input type="hidden" name="brochure"
-								 value="<?= esc_attr( get_option( 'modal_form_file_select' ) ) ?>">
+								 value="<?php echo esc_attr( get_option( 'modal_form_file_select' ) ) ?>">
 
 					<?php
 				}
@@ -105,9 +105,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<label>
-								<?= esc_attr( $field['label'] ) ?>:
-								<input type="text" <?= esc_attr( $required ) ?>
-											 name="<?= esc_attr( $field['name'] ) ?>">
+								<?php echo esc_attr( $field['label'] ) ?>:
+								<input type="text" <?php echo esc_attr( $required ) ?>
+											 name="<?php echo esc_attr( $field['name'] ) ?>">
 							</label>
 
 							<?php
@@ -116,9 +116,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<label>
-								<?= esc_attr( $field['label'] ) ?>:
-								<input type="email" <?= esc_attr( $required ) ?>
-											 name="<?= esc_attr( $field['name'] ) ?>"
+								<?php echo esc_attr( $field['label'] ) ?>:
+								<input type="email" <?php echo esc_attr( $required ) ?>
+											 name="<?php echo esc_attr( $field['name'] ) ?>"
 											 autocomplete="email">
 							</label>
 
@@ -128,10 +128,10 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<label>
-								<?= esc_attr( $field['label'] ) ?>:
+								<?php echo esc_attr( $field['label'] ) ?>:
 								<input
-									type="number" <?= esc_attr( $required ) ?>
-									name="<?= esc_attr( $field['name'] ) ?>">
+									type="number" <?php echo esc_attr( $required ) ?>
+									name="<?php echo esc_attr( $field['name'] ) ?>">
 							</label>
 
 							<?php
@@ -140,9 +140,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<label>
-								<?= esc_attr( $field['label'] ) ?>:
-								<textarea <?= esc_attr( $required ) ?> name="<?= esc_attr( $field['name'] ) ?>"
-																											 rows="10">
+								<?php echo esc_attr( $field['label'] ) ?>:
+								<textarea <?php echo esc_attr( $required ) ?> name="<?php echo esc_attr( $field['name'] ) ?>"
+																															rows="10">
                                 </textarea>
 							</label>
 
@@ -152,17 +152,17 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<label>
-								<?= esc_attr( $field['label'] ) ?>:
-								<select <?= esc_attr( $required ) ?>
-									name="<?= esc_attr( $field['name'] ) ?>">
+								<?php echo esc_attr( $field['label'] ) ?>:
+								<select <?php echo esc_attr( $required ) ?>
+									name="<?php echo esc_attr( $field['name'] ) ?>">
 
 									<?php
 									foreach ( $field['options'] as $option ) {
 										?>
 
 										<option
-											value="<?= esc_attr( $option['value'] ) ?>:<?= esc_attr( $option['label'] ) ?>">
-											<?= esc_attr( $option['label'] ) ?>
+											value="<?php echo esc_attr( $option['value'] ) ?>:<?php echo esc_attr( $option['label'] ) ?>">
+											<?php echo esc_attr( $option['label'] ) ?>
 										</option>
 
 										<?php
@@ -182,9 +182,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 							<label>
 								<input type="checkbox"
-											 name="<?= esc_attr( $field['name'] ) ?>"
+											 name="<?php echo esc_attr( $field['name'] ) ?>"
 											 required>
-								<?= esc_attr( $field['label'] ) . ' ' . $pp ?>
+								<?php echo esc_attr( $field['label'] ) . ' ' . $pp ?>
 							</label>
 
 							<?php
@@ -193,12 +193,12 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<div class="free-text">
-								<?= esc_attr( $field['label'] ) ?>
+								<?php echo esc_attr( $field['label'] ) ?>
 							</div>
 
 							<input type="hidden"
-										 name="<?= esc_attr( $field['name'] ) ?>"
-										 value="<?= esc_attr( $field['label'] ) ?>">
+										 name="<?php echo esc_attr( $field['name'] ) ?>"
+										 value="<?php echo esc_attr( $field['label'] ) ?>">
 
 							<?php
 							break;
