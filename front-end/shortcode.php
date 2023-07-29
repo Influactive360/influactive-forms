@@ -87,15 +87,19 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 			switch ( $field['type'] ) {
 				case 'text':
-					echo '<label>
-' . esc_attr( $field['label'] ) . ': <input type="text" ' . esc_attr( $required ) . ' name="' . esc_attr( $field['name'] ) . '">
+					echo '<label>' .
+					     esc_attr( $field['label'] ) .
+					     ': <input type="text" ' .
+					     esc_attr( $required ) .
+					     ' name="' .
+					     esc_attr( $field['name'] ) . '">
 					</label>';
 					break;
 				case 'email':
 					echo '<label>' .
-					     $field['label'] .
+					     esc_attr( $field['label'] ) .
 					     ': <input type="email" ' .
-					     $required .
+					     esc_attr( $required ) .
 					     ' name="' . esc_attr( $field['name'] ) . '" autocomplete="email"></label>';
 					break;
 
@@ -109,15 +113,15 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					break;
 				case 'textarea':
 					echo '<label>' .
-					     $field['label'] .
+					     esc_attr( $field['label'] ) .
 					     ': <textarea ' .
-					     $required .
+					     esc_attr( $required ) .
 					     ' name="' . esc_attr( $field['name'] ) .
 					     '" rows="10"></textarea></label>';
 					break;
 				case 'select':
 					echo '<label>' .
-					     $field['label'] .
+					     esc_attr( $field['label'] ) .
 					     ': <select ' .
 					     esc_attr( $required ) .
 					     ' name="' . esc_attr( $field['name'] ) . '">';
