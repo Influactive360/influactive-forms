@@ -276,7 +276,7 @@ function influactive_send_email(): void {
 			$name = $field['name'];
 			/* translators: %s is a placeholder for the field name */
 			$message = sprintf( __( 'The field %s is required', 'influactive-forms' ), $name );
-			wp_send_json_error( [ 'message' => $message ] );
+			wp_send_json_error( array( 'message' => $message ) );
 
 			exit;
 		}
