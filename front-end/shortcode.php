@@ -388,7 +388,11 @@ function influactive_send_email(): void {
 		);
 
 		foreach ( $fields as $field ) {
-			$name = wp_unslash( nl2br( $_POST[ $field['name'] ] ) );
+			if ( isset( $_POST[ $field['name'] ] ) ) {
+				$name = wp_unslash( nl2br( $_POST[ $field['name'] ] ) );
+			} else {
+				$name = '';
+			}
 
 			if ( 'textarea' === $field['type'] ) {
 				$content = str_replace(
