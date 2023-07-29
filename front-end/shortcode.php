@@ -66,9 +66,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							 value="<?php echo esc_attr( $form_id ); ?>">
 
 				<?php
-				$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
-				$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
-				$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+				$options_captcha  = get_option( 'influactive-forms-captcha-fields' ) ?? array();
+				$public_site_key  = $options_captcha['google-captcha']['public-site-key'] ?? '';
+				$secret_site_key  = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
 				if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
 					?>
@@ -141,7 +141,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 							<label>
 								<?php echo esc_attr( $field['label'] ); ?>:
-								<textarea <?php echo esc_attr( $required ) ?>
+								<textarea <?php echo esc_attr( $required ); ?>
 									name="<?php echo esc_attr( $field['name'] ); ?>"
 									rows="10">
 								</textarea>
@@ -163,7 +163,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 										<option
 											value="<?php echo esc_attr( $option['value'] ); ?>:<?php echo esc_attr( $option['label'] ); ?>">
-											<?php echo esc_attr( $option['label'] ) ?>
+											<?php echo esc_attr( $option['label'] ); ?>
 										</option>
 
 										<?php
@@ -177,15 +177,15 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							break;
 						case 'gdpr':
 							$gdpr_translate = __( 'Check our Privacy Policy', 'influactive-forms' );
-							$gdpr_text = '<a href="' . get_privacy_policy_url() . '" target="_blank" title="Privacy Policy">' . $gdpr_translate . '</a>';
-							$pp        = get_privacy_policy_url() ? $gdpr_text : '';
+							$gdpr_text  = '<a href="' . get_privacy_policy_url() . '" target="_blank" title="Privacy Policy">' . $gdpr_translate . '</a>';
+							$pp_content = get_privacy_policy_url() ? $gdpr_text : '';
 							?>
 
 							<label>
 								<input type="checkbox"
 											 name="<?php echo esc_attr( $field['name'] ); ?>"
 											 required>
-								<?php echo esc_attr( $field['label'] ) . ' ' . $pp; ?>
+								<?php echo esc_attr( $field['label'] ) . ' ' . $pp_content; ?>
 							</label>
 
 							<?php
@@ -220,18 +220,19 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 /**
  * Enqueues the dynamic style file for a specific form.
+ *
+ * @throws RuntimeException
  */
 function enqueue_form_dynamic_style(): void {
 	if ( is_admin() ) {
-		throw new RuntimeException( "WordPress environment not loaded. Exiting..." );
+		throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 	}
 
 	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true ) ?? 0;
 	if ( ! $form_id ) {
-		throw new RuntimeException( "Form ID not found. Exiting..." );
+		throw new RuntimeException( 'Form ID not found. Exiting...' );
 	}
 
-	// Enqueue du fichier dynamic-style.php
 	wp_enqueue_style(
 		'influactive-form-dynamic-style',
 		plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id,
