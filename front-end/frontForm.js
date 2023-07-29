@@ -1,3 +1,5 @@
+import './form.scss'
+
 /* global grecaptcha, ajaxObject */
 
 /**

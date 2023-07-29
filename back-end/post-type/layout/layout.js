@@ -1,3 +1,5 @@
+import './layout.scss'
+
 /* global influactiveFormsTranslations */
 
 document.addEventListener('DOMContentLoaded', () => {

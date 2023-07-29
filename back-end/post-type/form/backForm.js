@@ -1,4 +1,5 @@
 import Sortable from 'sortablejs'
+import './form.scss'
 
 /* global influactiveFormsTranslations, tinymce */
 

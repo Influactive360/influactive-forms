@@ -79,15 +79,15 @@ function influactive_form_edit(string $hook): void
         'Freetext'             => __('Free text', 'influactive-forms'),
     ));
     wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__)
-                                          . 'back-end/post-type/form/form.min.css', array(), '1.2.5');
+                                          . 'dist/backForm.bundled.css', array(), '1.2.5');
 
     wp_enqueue_script('influactive-tabs', plugin_dir_url(__FILE__)
                                            . 'dist/backEndTab.bundled.js', array(), '1.2.5', true);
     wp_enqueue_style('influactive-tabs', plugin_dir_url(__FILE__)
-                                          . 'back-end/post-type/tab/tab.min.css', array(), '1.2.5');
+                                          . 'dist/tab.bundled.css', array(), '1.2.5');
 
     wp_enqueue_style('influactive-form-layout', plugin_dir_url(__FILE__)
-                                                 . 'back-end/post-type/layout/layout.min.css', array(), '1.2.5');
+                                                 . 'dist/layout.bundled.css', array(), '1.2.5');
     wp_enqueue_script('influactive-form-layout', plugin_dir_url(__FILE__)
                                                   . 'dist/backEndLayout.bundled.js', array(), '1.2.4.3', true);
     wp_localize_script('influactive-form-layout', 'influactiveFormsTranslations', array(
@@ -95,10 +95,7 @@ function influactive_form_edit(string $hook): void
     ));
 
     wp_enqueue_style('influactive-form-style', plugin_dir_url(__FILE__)
-                                                . 'back-end/post-type/style.min.css', array(), '1.2.4.3');
-
-    wp_enqueue_style('influactive-form-preview', plugin_dir_url(__FILE__)
-                                                  . 'front-end/form.min.css', array(), '1.2.4.3');
+                                                . 'dist/style.bundled.css', array(), '1.2.4.3');
 
     $form_id = get_post_meta(get_the_ID(), 'influactive_form_id', true);
     if (! $form_id) {
@@ -155,7 +152,7 @@ function influactive_form_shortcode_enqueue(): void
         '1.2.4.3',
         true
     );
-    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'front-end/form.min.css', [], '1.2.4.3');
+    wp_enqueue_style('influactive-form', plugin_dir_url(__FILE__) . 'dist/frontForm.bundled.css', [], '1.2.4.3');
 
     wp_localize_script('influactive-form', 'ajaxObject', [ 'ajaxurl' => admin_url('admin-ajax.php') ]);
 }

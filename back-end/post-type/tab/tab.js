@@ -1,3 +1,5 @@
+import './tab.scss'
+
 document.addEventListener('DOMContentLoaded', () => {
   const tabsContainer = document.querySelector('.tabs')
 
