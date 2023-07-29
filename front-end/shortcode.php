@@ -32,10 +32,10 @@ function influactive_form_shortcode_handler( array $atts ): string {
 	ob_start();
 
 	$atts = shortcode_atts(
-		[
+		array(
 			'id'      => '0',
 			'form_id' => '0',
-		],
+		),
 		$atts,
 		'influactive_form'
 	);
@@ -52,7 +52,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 	if ( $form ) {
 		update_post_meta( get_the_ID(), 'influactive_form_id', $form_id );
 
-		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? [];
+		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
 
 		echo '<div class="influactive-form-wrapper">';
 
@@ -62,7 +62,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 		echo '<input type="hidden" name="form_id" value="' . $form_id . '">';
 
-		$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? [];
+		$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 		$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
 		$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
@@ -166,7 +166,7 @@ function enqueue_form_dynamic_style(): void {
 	wp_enqueue_style(
 		'influactive-form-dynamic-style',
 		plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id,
-		[],
+		array(),
 		'1.2.6'
 	);
 }
@@ -200,7 +200,7 @@ function influactive_send_email(): void {
 	$form_id = (int) $_POST['form_id'];
 
 	// Get form fields
-	$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? [];
+	$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
 
 	foreach ( $fields as $field ) {
 		if ( isset( $_POST[ $field['name'] ] ) && empty( $_POST[ $field['name'] ] ) && $field['required'] === '1' ) {
@@ -214,10 +214,10 @@ function influactive_send_email(): void {
 	}
 
 	// Get email layout
-	$email_layout = get_post_meta( $form_id, '_influactive_form_email_layout', true ) ?? [];
+	$email_layout = get_post_meta( $form_id, '_influactive_form_email_layout', true ) ?? array();
 	$sitename     = get_bloginfo( 'name' );
 
-	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? [];
+	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 	$public_site_key = $_POST['recaptcha_site_key'] ?? '';
 
@@ -272,7 +272,7 @@ function influactive_send_email(): void {
 		}
 	}
 
-	$layouts = $email_layout ?? [];
+	$layouts = $email_layout ?? array();
 	$error   = 0;
 	foreach ( $layouts as $layout ) {
 		$content      = $layout['content'] ?? '';
@@ -280,30 +280,30 @@ function influactive_send_email(): void {
 		$to           = $layout['recipient'] ?? get_bloginfo( 'admin_email' );
 		$from         = $layout['sender'] ?? get_bloginfo( 'admin_email' );
 		$allowed_html = [
-			'br'         => [],
-			'p'          => [],
+			'br'         => array(),
+			'p'          => array(),
 			'a'          => [
-				'href'   => [],
-				'title'  => [],
-				'target' => [],
+				'href'   => array(),
+				'title'  => array(),
+				'target' => array(),
 			],
-			'h1'         => [],
-			'h2'         => [],
-			'h3'         => [],
-			'h4'         => [],
-			'h5'         => [],
-			'h6'         => [],
-			'strong'     => [],
-			'em'         => [],
-			'ul'         => [],
-			'ol'         => [],
-			'li'         => [],
-			'blockquote' => [],
-			'pre'        => [],
-			'code'       => [],
+			'h1'         => array(),
+			'h2'         => array(),
+			'h3'         => array(),
+			'h4'         => array(),
+			'h5'         => array(),
+			'h6'         => array(),
+			'strong'     => array(),
+			'em'         => array(),
+			'ul'         => array(),
+			'ol'         => array(),
+			'li'         => array(),
+			'blockquote' => array(),
+			'pre'        => array(),
+			'code'       => array(),
 			'img'        => [
-				'src' => [],
-				'alt' => [],
+				'src' => array(),
+				'alt' => array(),
 			],
 		];
 
