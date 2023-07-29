@@ -132,7 +132,7 @@ function influactive_forms_settings_section_callback(): void {
  * @return void
  */
 function influactive_forms_settings_field_callback_public(): void {
-	$options         = get_option( 'influactive-forms-captcha-fields' ) ?? [];
+	$options         = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$public_site_key = $options['google-captcha']['public-site-key'] ?? '';
 
 	echo '<input type="text"
@@ -154,7 +154,7 @@ function influactive_forms_settings_field_callback_public(): void {
  * @return void
  */
 function influactive_forms_settings_field_callback_secret(): void {
-	$options         = get_option( 'influactive-forms-captcha-fields' ) ?? [];
+	$options         = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$secret_site_key = $options['google-captcha']['secret-site-key'] ?? '';
 	$type            = $secret_site_key !== '' ? 'password' : 'text';
 
