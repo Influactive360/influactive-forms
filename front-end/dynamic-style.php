@@ -6,18 +6,18 @@
  * @package Influactive Forms
  */
 
-if (! defined('ABSPATH')) {
-    requireWordPressCore([
+if ( ! defined( 'ABSPATH' ) ) {
+    requireWordPressCore( [
             '/wp-load.php', // WordPress
             '/wordpress/wp-load.php', // WordPlate
             '/wp/wp-load.php', // Radicle
-    ]);
+    ] );
 }
 
-header("Content-type: text/css; charset: UTF-8");
+header( "Content-type: text/css; charset: UTF-8" );
 
-$post_id     = isset($_GET['post_id']) ? (int) $_GET['post_id'] : 0;
-$email_style = get_post_meta($post_id, '_influactive_form_email_style', true);
+$post_id     = isset( $_GET['post_id'] ) ? (int) $_GET['post_id'] : 0;
+$email_style = get_post_meta( $post_id, '_influactive_form_email_style', TRUE );
 $form        = $email_style['form'];
 $label       = $email_style['label'];
 $input       = $email_style['input'];
