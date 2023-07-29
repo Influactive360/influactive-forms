@@ -119,11 +119,10 @@ function influactive_forms_settings_section_callback(): void {
 		esc_html__( 'reCAPTCHA', 'influactive-forms' )
 	);
 
-	/* translators: %s is a placeholder for a link to Google CAPTCHA admin */
 	printf(
 		wp_kses(
-			__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' ),
-			array(
+		/* translators: %s: URL of the Google captcha site key generation page */
+			__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' ), array(
 				'a' => array(
 					'href'   => array(),
 					'target' => array(),
@@ -131,7 +130,7 @@ function influactive_forms_settings_section_callback(): void {
 				),
 			)
 		),
-		$recaptcha_link
+		esc_attr( $recaptcha_link )
 	);
 }
 

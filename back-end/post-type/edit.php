@@ -7,9 +7,10 @@
  * @package Influactive Forms
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
     throw new RuntimeException('WordPress environment not loaded. Exiting...');
 }
+
 
 /**
  * Add the Influactive Form metabox to the post-editor screen.
