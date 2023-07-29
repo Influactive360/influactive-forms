@@ -53,116 +53,162 @@ function influactive_form_shortcode_handler( array $atts ): string {
 		update_post_meta( get_the_ID(), 'influactive_form_id', $form_id );
 
 		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
+		?>
+        <div class="influactive-form-wrapper">
+            <form id="influactive-form-<?= esc_attr( $form_id ) ?>"
+                  class="influactive-form">
 
-		echo '<div class="influactive-form-wrapper">';
+				<?php
+				wp_nonce_field( 'influactive_send_email', 'nonce' );
+				?>
 
-		echo '<form id="influactive-form-' . esc_attr( $form_id ) . '" class="influactive-form">';
+                <input type="hidden" name="form_id"
+                       value="<?= esc_attr( $form_id ) ?>">
 
-		wp_nonce_field( 'influactive_send_email', 'nonce' );
+				<?php
+				$options_captcha       = get_option( 'influactive-forms-captcha-fields' ) ?? array();
+				$public_site_key       = $options_captcha['google-captcha']['public-site-key'] ?? '';
+				$secret_site_key       = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
-		echo '<input type="hidden" name="form_id" value="' . esc_attr( $form_id ) . '">';
+				if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
+					?>
 
-		$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
-		$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
-		$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+                    <input type="hidden"
+                           id="recaptchaResponse-<?= esc_attr( $form_id ) ?>"
+                           name="recaptcha_response">
+                    <input type="hidden"
+                           id="recaptchaSiteKey-<?= esc_attr( $form_id ) ?>"
+                           name="recaptcha_site_key"
+                           value="<?= esc_attr( $public_site_key ) ?>">
 
-		if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
-			echo '<input type="hidden" id="recaptchaResponse-' . esc_attr( $form_id ) . '" name="recaptcha_response">';
-			echo '<input type="hidden" 
-            id="recaptchaSiteKey-' . esc_attr( $form_id ) . '" 
-            name="recaptcha_site_key" 
-            value="' . esc_attr( $public_site_key ) . '">';
-		}
+					<?php
+				}
 
-		if ( is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
-			echo '<input type="hidden" name="brochure" value="' . esc_attr( get_option( 'modal_form_file_select' ) ) . '">';
-		}
+				if ( is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
+					?>
 
-		foreach ( $fields as $field ) {
-			if ( isset( $field['required'] ) && '1' === $field['required'] ) {
-				$required = 'required';
-			} else {
-				$required = '';
-			}
+                    <input type="hidden" name="brochure"
+                           value="<?= esc_attr( get_option( 'modal_form_file_select' ) ) ?>">
 
-			switch ( $field['type'] ) {
-				case 'text':
-					echo '<label>' .
-					     esc_attr( $field['label'] ) .
-					     ': <input type="text" ' .
-					     esc_attr( $required ) .
-					     ' name="' .
-					     esc_attr( $field['name'] ) . '">
-		</label>';
-					break;
-				case 'email':
-					echo '<label>' .
-					     esc_attr( $field['label'] ) .
-					     ': <input type="email" ' .
-					     esc_attr( $required ) .
-					     ' name="' . esc_attr( $field['name'] ) . '" autocomplete="email"></label>';
-					break;
-				case 'number':
-					echo '<label>' .
-					     esc_attr( $field['label'] ) .
-					     ': <input type="number" ' .
-					     esc_attr( $required ) . ' name="' .
-					     esc_attr( $field['name'] ) .
-					     '"></label>';
-					break;
-				case 'textarea':
-					echo '<label>' .
-					     esc_attr( $field['label'] ) .
-					     ': <textarea ' .
-					     esc_attr( $required ) .
-					     ' name="' . esc_attr( $field['name'] ) .
-					     '" rows="10"></textarea></label>';
-					break;
-				case 'select':
-					echo '<label>' .
-					     esc_attr( $field['label'] ) .
-					     ': <select ' .
-					     esc_attr( $required ) .
-					     ' name="' . esc_attr( $field['name'] ) . '">';
-					foreach ( $field['options'] as $option ) {
-						echo '<option value="' .
-						     esc_attr( $option['value'] ) .
-						     ':' . esc_attr( $option['label'] ) .
-						     '">' .
-						     esc_attr( $option['label'] ) .
-						     '</option>';
+					<?php
+				}
+
+				foreach ( $fields as $field ) {
+					if ( isset( $field['required'] ) && '1' === $field['required'] ) {
+						$required = 'required';
+					} else {
+						$required = '';
 					}
-					echo '</select></label>';
-					break;
-				case 'gdpr':
-					$pp = get_privacy_policy_url() ? '<a href="' .
-					                                 get_privacy_policy_url() .
-					                                 '" target="_blank" title="Privacy Policy">' .
-					                                 __( 'Check our Privacy Policy', 'influactive-forms' ) .
-					                                 '</a>' : '';
-					echo '<label>
-			<input type="checkbox" name="' .
-					     esc_attr( $field['name'] ) . '" required>' .
-					     esc_attr( $field['label'] ) . ' ' . $pp .
-					     '</label>';
-					break;
-				case 'free_text':
-					echo '<div class="free-text">' .
-					     esc_attr( $field['label'] ) .
-					     '</div>';
-					echo '<input type="hidden" name="' .
-					     esc_attr( $field['name'] ) .
-					     '" value="' .
-					     esc_attr( $field['label'] ) . '">';
-					break;
-			}
-		}
 
-		echo '<input type="submit">';
+					switch ( $field['type'] ) {
+						case 'text':
+							?>
 
-		echo '<div class="influactive-form-message"></div>';
-		echo '</form>';
-		echo '</div>';
+                            <label>
+								<?= esc_attr( $field['label'] ) ?>:
+                                <input type="text" <?= esc_attr( $required ) ?>
+                                       name="<?= esc_attr( $field['name'] ) ?>">
+                            </label>
+
+							<?php
+							break;
+						case 'email':
+							?>
+
+                            <label>
+								<?= esc_attr( $field['label'] ) ?>:
+                                <input type="email" <?= esc_attr( $required ) ?>
+                                       name="<?= esc_attr( $field['name'] ) ?>"
+                                       autocomplete="email">
+                            </label>
+
+							<?php
+							break;
+						case 'number':
+							?>
+
+                            <label>
+								<?= esc_attr( $field['label'] ) ?>:
+                                <input type="number" <?= esc_attr( $required ) ?>
+                                       name="<?= esc_attr( $field['name'] ) ?>">
+                            </label>
+
+							<?php
+							break;
+						case 'textarea':
+							?>
+
+                            <label>
+								<?= esc_attr( $field['label'] ) ?>:
+                                <textarea <?= esc_attr( $required ) ?> name="<?= esc_attr( $field['name'] ) ?>"
+                                                                       rows="10"></textarea>
+                            </label>
+
+							<?php
+							break;
+						case 'select':
+							?>
+
+                            <label>
+								<?= esc_attr( $field['label'] ) ?>:
+                                <select <?= esc_attr( $required ) ?>
+                                        name="<?= esc_attr( $field['name'] ) ?>">
+
+									<?php
+									foreach ( $field['options'] as $option ) {
+										?>
+
+                                        <option value="<?= esc_attr( $option['value'] ) ?>:<?= esc_attr( $option['label'] ) ?>">
+											<?= esc_attr( $option['label'] ) ?>
+                                        </option>
+
+										<?php
+									}
+									?>
+
+                                </select>
+                            </label>
+
+							<?php
+							break;
+						case 'gdpr':
+							$gdpr_translate = __( 'Check our Privacy Policy', 'influactive-forms' );
+							$gdpr_text = '<a href="' . get_privacy_policy_url() . '" target="_blank" title="Privacy Policy">' . $gdpr_translate . '</a>';
+							$pp        = get_privacy_policy_url() ? $gdpr_text : '';
+							?>
+
+                            <label>
+                                <input type="checkbox"
+                                       name="<?= esc_attr( $field['name'] ) ?>"
+                                       required>
+								<?= esc_attr( $field['label'] ) . ' ' . $pp ?>
+                            </label>
+
+							<?php
+							break;
+						case 'free_text':
+							?>
+
+                            <div class="free-text">
+								<?= esc_attr( $field['label'] ) ?>
+                            </div>
+
+                            <input type="hidden"
+                                   name="<?= esc_attr( $field['name'] ) ?>"
+                                   value="<?= esc_attr( $field['label'] ) ?>">
+
+							<?php
+							break;
+					}
+				}
+				?>
+
+                <input type="submit">
+                <div class="influactive-form-message"></div>
+            </form>
+        </div>
+
+		<?php
 	}
 
 	return ob_get_clean();
