@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Modifies the columns for the Influactive Form post-type.
  *
- * @param    array    $columns    An array of the current columns.
+ * @param array $columns An array of the current columns.
  *
  * @return array Modified array of columns with 'shortcode' column added.
  */
@@ -29,8 +29,8 @@ add_filter( 'manage_influactive-forms_posts_columns', 'influactive_form_posts_co
 /**
  * Generates a custom column value for the "influactive_form" post type.
  *
- * @param    string    $column     The name of the column.
- * @param    int       $post_id    The ID of the post.
+ * @param string $column  The name of the column.
+ * @param int    $post_id The ID of the post.
  *
  * @return void
  */
