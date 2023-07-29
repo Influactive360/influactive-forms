@@ -254,11 +254,11 @@ function influactive_send_email(): void {
 	$_POST = array_map( 'sanitize_text_field', $_POST );
 
 	if ( isset ( $_POST['nonce'] ) ) {
-		$_POST['nonce'] = wp_unslash( $_POST['nonce'] );
+		$nonce = sanitize_text_field( $_POST['nonce'] );
 	}
 
 	// Check if our nonce is set and verify it.
-	if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'influactive_send_email' ) ) {
+	if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'influactive_send_email' ) ) {
 		wp_send_json_error( array( 'message' => __( 'Nonce verification failed', 'influactive-forms' ) ) );
 
 		exit;
@@ -292,9 +292,12 @@ function influactive_send_email(): void {
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 	$public_site_key = wp_unslash( $_POST['recaptcha_site_key'] ) ?? '';
 
-	if ( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $_POST['recaptcha_response'] ) ) {
-		$recaptcha_url      = 'https://www.google.com/recaptcha/api/siteverify';
+	if ( isset( $_POST['recaptcha_response'] ) ) {
 		$recaptcha_response = wp_unslash( $_POST['recaptcha_response'] );
+	}
+
+	if ( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $recaptcha_response ) ) {
+		$recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
 
 		$url = $recaptcha_url
 					 . '?secret=' .
