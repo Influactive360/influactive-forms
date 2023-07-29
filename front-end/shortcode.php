@@ -88,53 +88,69 @@ function influactive_form_shortcode_handler( array $atts ): string {
 			switch ( $field['type'] ) {
 				case 'text':
 					echo '<label>
-' . esc_attr( $field['label'] ) . ': <input type="text" ' . $required . ' name="' . esc_attr( $field['name'] ) . '">
+' . esc_attr( $field['label'] ) . ': <input type="text" ' . esc_attr( $required ) . ' name="' . esc_attr( $field['name'] ) . '">
 					</label>';
 					break;
 				case 'email':
 					echo '<label>' .
-					     $field['label']
-					     . ': <input type="email" ' .
-					     $required
-					     . ' name="' . esc_attr( $field['name'] ) . '" autocomplete="email"></label>';
+					     $field['label'] .
+					     ': <input type="email" ' .
+					     $required .
+					     ' name="' . esc_attr( $field['name'] ) . '" autocomplete="email"></label>';
 					break;
+
 				case 'number':
 					echo '<label>' .
-					     $field['label']
-					     . ': <input type="number" ' . $required . ' name="' . esc_attr( $field['name'] ) . '"></label>';
+					     $field['label'] .
+					     ': <input type="number" ' .
+					     esc_attr( $required ) . ' name="' .
+					     esc_attr( $field['name'] ) .
+					     '"></label>';
 					break;
 				case 'textarea':
 					echo '<label>' .
-					     $field['label']
-					     . ': <textarea ' .
-					     $required
-					     . ' name="' . esc_attr( $field['name'] ) . '" rows="10"></textarea></label>';
+					     $field['label'] .
+					     ': <textarea ' .
+					     $required .
+					     ' name="' . esc_attr( $field['name'] ) .
+					     '" rows="10"></textarea></label>';
 					break;
 				case 'select':
 					echo '<label>' .
-					     $field['label']
-					     . ': <select ' . $required . ' name="' . esc_attr( $field['name'] ) . '">';
+					     $field['label'] .
+					     ': <select ' .
+					     esc_attr( $required ) .
+					     ' name="' . esc_attr( $field['name'] ) . '">';
 					foreach ( $field['options'] as $option ) {
 						echo '<option value="' .
-						     esc_attr( $option['value'] )
-						     . ':' . esc_attr( $option['label'] ) . '">' . esc_attr( $option['label'] ) . '</option>';
+						     esc_attr( $option['value'] ) .
+						     ':' . esc_attr( $option['label'] ) .
+						     '">' .
+						     esc_attr( $option['label'] ) .
+						     '</option>';
 					}
 					echo '</select></label>';
 					break;
 				case 'gdpr':
-					$pp = get_privacy_policy_url() ? '<a href="' . get_privacy_policy_url() . '" 
-                    target="_blank" title="Privacy Policy">' .
-					                                 __( 'Check our Privacy Policy', 'influactive-forms' )
-					                                 . '</a>' : '';
+					$pp = get_privacy_policy_url() ? '<a href="' .
+					                                 get_privacy_policy_url() .
+					                                 '" target="_blank" title="Privacy Policy">' .
+					                                 __( 'Check our Privacy Policy', 'influactive-forms' ) .
+					                                 '</a>' : '';
 					echo '<label>
-						<input type="checkbox" name="' . esc_attr( $field['name'] ) . '" required>
-						 ' . $field['label'] . ' ' . $pp . '
-						</label>';
+						<input type="checkbox" name="' .
+					     esc_attr( $field['name'] ) . '" required>' .
+					     esc_attr( $field['label'] ) . ' ' . $pp .
+					     '</label>';
 					break;
 				case 'free_text':
-					echo '<div class="free-text">' . $field['label'] . '</div>';
-					echo '<input type="hidden" 
-                    name="' . esc_attr( $field['name'] ) . '" value="' . esc_attr( $field['label'] ) . '">';
+					echo '<div class="free-text">' .
+					     esc_attr( $field['label'] ) .
+					     '</div>';
+					echo '<input type="hidden" name="' .
+					     esc_attr( $field['name'] ) .
+					     '" value="' .
+					     esc_attr( $field['label'] ) . '">';
 					break;
 			}
 		}
