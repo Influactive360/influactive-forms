@@ -145,7 +145,7 @@ function influactive_forms_settings_field_callback_public(): void {
 	echo '<input type="text"
     id="influactive-forms-captcha-fields-google-captcha-site-key-public"
     name="influactive-forms-captcha-fields[google-captcha][public-site-key]"
-    value="' . $public_site_key . '">';
+    value="' . esc_attr( $public_site_key ) . '">';
 }
 
 /**
@@ -163,12 +163,12 @@ function influactive_forms_settings_field_callback_public(): void {
 function influactive_forms_settings_field_callback_secret(): void {
 	$options         = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$secret_site_key = $options['google-captcha']['secret-site-key'] ?? '';
-	$type            = $secret_site_key !== '' ? 'password' : 'text';
+	$type            = '' !== $secret_site_key ? 'password' : 'text';
 
-	echo '<input type="' . $type . '"
+	echo '<input type="' . esc_attr( $type ) . '"
     id="influactive-forms-captcha-fields-google-captcha-site-key-secret"
     name="influactive-forms-captcha-fields[google-captcha][secret-site-key]"
-    value="' . $secret_site_key . '">';
+    value="' . esc_attr( $secret_site_key ) . '">';
 }
 
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'influactive_forms_add_settings_link' );
