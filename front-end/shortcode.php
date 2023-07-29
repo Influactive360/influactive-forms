@@ -254,7 +254,7 @@ function influactive_send_email(): void {
 	$_POST = array_map( 'sanitize_text_field', $_POST );
 
 	if ( isset ( $_POST['nonce'] ) ) {
-		$nonce = sanitize_text_field( $_POST['nonce'] );
+		$nonce = wp_unslash( $_POST['nonce'] );
 	}
 
 	// Check if our nonce is set and verify it.
@@ -290,7 +290,10 @@ function influactive_send_email(): void {
 
 	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
-	$public_site_key = wp_unslash( $_POST['recaptcha_site_key'] ) ?? '';
+
+	if ( isset( $_POST['recaptcha_site_key'] ) ) {
+		$public_site_key = wp_unslash( $_POST['recaptcha_site_key'] );
+	}
 
 	if ( isset( $_POST['recaptcha_response'] ) ) {
 		$recaptcha_response = wp_unslash( $_POST['recaptcha_response'] );
