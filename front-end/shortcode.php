@@ -504,9 +504,9 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
 /**
  * Replaces the placeholder in a string with the label and value of a field.
  *
- * @param string $string     The string containing the placeholder.
- * @param string $field_name The name of the field.
- * @param array $label_value The label and value of the field.
+ * @param string $string      The string containing the placeholder.
+ * @param string $field_name  The name of the field.
+ * @param array  $label_value The label and value of the field.
  *
  * @return string The string with the placeholder replaced.
  */
