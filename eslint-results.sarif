@@ -8,7 +8,7 @@
           "name": "ESLint",
           "informationUri": "https://eslint.org",
           "rules": [],
-          "version": "8.45.0"
+          "version": "8.46.0"
         }
       },
       "artifacts": [
