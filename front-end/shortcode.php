@@ -43,7 +43,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 	$form_id = (int) $atts['id'];
 
 	if ( ! $form_id ) {
-		throw new RuntimeException( "Form ID not found. Exiting..." );
+		throw new RuntimeException( 'Form ID not found. Exiting...' );
 	}
 
 	// Showing the form if it exists
@@ -52,7 +52,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 	if ( $form ) {
 		update_post_meta( get_the_ID(), 'influactive_form_id', $form_id );
 
-		$fields = get_post_meta( $form_id, '_influactive_form_fields', TRUE ) ?? [];
+		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? [];
 
 		echo '<div class="influactive-form-wrapper">';
 
@@ -157,7 +157,7 @@ function enqueue_form_dynamic_style(): void {
 		throw new RuntimeException( "WordPress environment not loaded. Exiting..." );
 	}
 
-	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', TRUE ) ?? 0;
+	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true ) ?? 0;
 	if ( ! $form_id ) {
 		throw new RuntimeException( "Form ID not found. Exiting..." );
 	}
@@ -200,7 +200,7 @@ function influactive_send_email(): void {
 	$form_id = (int) $_POST['form_id'];
 
 	// Get form fields
-	$fields = get_post_meta( $form_id, '_influactive_form_fields', TRUE ) ?? [];
+	$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? [];
 
 	foreach ( $fields as $field ) {
 		if ( isset( $_POST[ $field['name'] ] ) && empty( $_POST[ $field['name'] ] ) && $field['required'] === '1' ) {
@@ -214,7 +214,7 @@ function influactive_send_email(): void {
 	}
 
 	// Get email layout
-	$email_layout = get_post_meta( $form_id, '_influactive_form_email_layout', TRUE ) ?? [];
+	$email_layout = get_post_meta( $form_id, '_influactive_form_email_layout', true ) ?? [];
 	$sitename     = get_bloginfo( 'name' );
 
 	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? [];
@@ -250,7 +250,7 @@ function influactive_send_email(): void {
 		curl_close( $ch );
 
 		try {
-			$recaptcha = json_decode( $response, FALSE, 512, JSON_THROW_ON_ERROR );
+			$recaptcha = json_decode( $response, false, 512, JSON_THROW_ON_ERROR );
 
 			if ( $recaptcha->score < 0.5 ) {
 				// Not likely to be a human
