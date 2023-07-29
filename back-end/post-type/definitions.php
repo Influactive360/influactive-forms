@@ -3,6 +3,7 @@
  * Description: This file contains the definitions for the Influactive Form
  * post-type.
  *
+ * @throws RuntimeException If the WordPress environment is not loaded.
  * @package Influactive Forms
  */
 

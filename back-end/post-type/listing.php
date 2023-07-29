@@ -3,6 +3,7 @@
  * Description: This file is responsible for the listing of Influactive Forms
  * in the admin.
  *
+ * @throws RuntimeException If the WordPress environment is not loaded.
  * @package Influactive Forms
  */
 

@@ -10,6 +10,8 @@
  * Domain Path: /languages
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * @throws RuntimeException If the WordPress environment is not loaded.
  **/
 
 if ( ! defined( 'ABSPATH' ) ) {
