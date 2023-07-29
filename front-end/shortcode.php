@@ -221,7 +221,8 @@ function influactive_form_shortcode_handler( array $atts ): string {
 /**
  * Enqueues the dynamic style file for a specific form.
  *
- * @throws RuntimeException
+ * @throws RuntimeException if the WordPress environment is not loaded or form
+ *   ID is not found.
  */
 function enqueue_form_dynamic_style(): void {
 	if ( is_admin() ) {
@@ -247,11 +248,14 @@ add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );
  * Sends an email based on the submitted form data.
  *
  * @return void
- * @throws RuntimeException
+ * @throws RuntimeException if the WordPress environment is not loaded.
  */
 function influactive_send_email(): void {
-	$_POST          = array_map( 'sanitize_text_field', $_POST );
-	$_POST['nonce'] = sanitize_key( $_POST['nonce'] );
+	$_POST = array_map( 'sanitize_text_field', $_POST );
+
+	if ( isset ( $_POST['nonce'] ) ) {
+		$_POST['nonce'] = sanitize_key( $_POST['nonce'] );
+	}
 
 	// Check if our nonce is set and verify it.
 	if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'influactive_send_email' ) ) {
@@ -268,11 +272,10 @@ function influactive_send_email(): void {
 
 	$form_id = (int) $_POST['form_id'];
 
-	// Get form fields
 	$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
 
 	foreach ( $fields as $field ) {
-		if ( isset( $_POST[ $field['name'] ] ) && empty( $_POST[ $field['name'] ] ) && $field['required'] === '1' ) {
+		if ( isset( $_POST[ $field['name'] ] ) && empty( $_POST[ $field['name'] ] ) && '1' === $field['required'] ) {
 			$name = $field['name'];
 			/* translators: %s is a placeholder for the field name */
 			$message = sprintf( __( 'The field %s is required', 'influactive-forms' ), $name );
@@ -282,7 +285,6 @@ function influactive_send_email(): void {
 		}
 	}
 
-	// Get email layout
 	$email_layout = get_post_meta( $form_id, '_influactive_form_email_layout', true ) ?? array();
 	$sitename     = get_bloginfo( 'name' );
 
