@@ -1,16 +1,6 @@
 <?php
 /**
- * Plugin Name: Influactive Forms
- * Description: A plugin to create custom forms and display them anywhere on your website.
- * Version: 1.2.6
- * Author: Influactive
- * Author URI: https://influactive.com
- * Text Domain: influactive-forms
- * Domain Path: /languages
- * License: GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- *
- *  @package Influactive Forms
+ * @package Influactive Forms
  */
 
 if (!defined('ABSPATH')) {
@@ -151,17 +141,17 @@ function influactive_form_fields_listing(WP_Post $post): void
                     <?php elseif (isset($field['type']) && $field['type'] === 'free_text') : ?>
                         <?php
                     // Wysiwyg field
-                        wp_editor($field['label'], 'influactive_form_fields_' . $key . '_label', array(
+                        wp_editor($field['label'], 'influactive_form_fields_' . $key . '_label', [
                             'textarea_name' => 'influactive_form_fields[' . (int)$key . '][label]',
                             'textarea_rows' => 10,
                             'media_buttons' => false,
-                            'tinymce' => array(
+                            'tinymce' => [
                                     'toolbar1' => 'bold,italic,underline,link,unlink,undo,
                                     redo,formatselect,backcolor,alignleft,aligncenter,alignright,
                                     alignjustify,bullist,numlist,outdent,indent,removeformat',
-                            ),
-                            'editor_class' => 'influactive_form_fields_label wysiwyg-editor'
-                        ));
+                            ],
+                            'editor_class' => 'influactive_form_fields_label wysiwyg-editor',
+                        ]);
                         ?>
                     <label>
                         <input type="hidden"
@@ -646,7 +636,7 @@ function influactive_form_email_layout(WP_Post $post): void
                 'recipient' => get_bloginfo('admin_email'),
                 'subject' => __('New subject', 'influactive-forms'),
                 'message' => __('New message', 'influactive-forms'),
-            ]
+            ],
         ];
     }
     ?>
@@ -681,10 +671,10 @@ function influactive_form_email_layout(WP_Post $post): void
                         // Les valeurs par défaut
                         $content = $layout['content'] ?? __('New message', 'influactive-forms');
                         $editor_id = 'influactive_form_email_editor_' . $key;
-                        $settings = array(
+                        $settings = [
                             'textarea_name' => "influactive_form_email_layout[$key][content]",
                             'editor_height' => 425,
-                        );
+                        ];
 
                         wp_editor($content, $editor_id, $settings);
                         ?>

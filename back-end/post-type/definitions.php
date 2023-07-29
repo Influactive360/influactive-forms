@@ -1,22 +1,11 @@
 <?php
 /**
- * Plugin Name: Influactive Forms
- * Description: A plugin to create custom forms and display them anywhere on your website.
- * Version: 1.2.6
- * Author: Influactive
- * Author URI: https://influactive.com
- * Text Domain: influactive-forms
- * Domain Path: /languages
- * License: GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- *
- *  @package Influactive Forms
+ * @package Influactive Forms
  */
 
 if (! defined('ABSPATH')) {
     throw new RuntimeException("WordPress environment not loaded. Exiting...");
 }
-
 
 /**
  * Register a custom post type for forms.
@@ -25,7 +14,7 @@ if (! defined('ABSPATH')) {
  */
 function influactive_form_custom_post_type(): void
 {
-    $labels = array(
+    $labels = [
         'name'                  => _x('Forms', 'Post Type General Name', 'influactive-forms'),
         'singular_name'         => _x('Form', 'Post Type Singular Name', 'influactive-forms'),
         'menu_name'             => __('Forms', 'influactive-forms'),
@@ -53,13 +42,13 @@ function influactive_form_custom_post_type(): void
         'items_list'            => __('Forms list', 'influactive-forms'),
         'items_list_navigation' => __('Forms list navigation', 'influactive-forms'),
         'filter_items_list'     => __('Filter Forms list', 'influactive-forms'),
-    );
-    $args   = array(
+    ];
+    $args   = [
         'label'               => __('Form', 'influactive-forms'),
         'description'         => __('Custom post type for forms', 'influactive-forms'),
         'labels'              => $labels,
-        'supports'            => array( 'title', 'revisions', 'custom-fields' ),
-        'taxonomies'          => array(),
+        'supports'            => [ 'title', 'revisions', 'custom-fields' ],
+        'taxonomies'          => [],
         'hierarchical'        => false,
         'public'              => false,
         'show_ui'             => true,
@@ -75,7 +64,7 @@ function influactive_form_custom_post_type(): void
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
-    );
+    ];
     register_post_type('influactive-forms', $args);
 }
 

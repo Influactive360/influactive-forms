@@ -1,15 +1,5 @@
 <?php
 /**
- * Plugin Name: Influactive Forms
- * Description: A plugin to create custom forms and display them anywhere on your website.
- * Version: 1.2.6
- * Author: Influactive
- * Author URI: https://influactive.com
- * Text Domain: influactive-forms
- * Domain Path: /languages
- * License: GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- *
  * @package Influactive Forms
  */
 
@@ -32,7 +22,8 @@ add_action('init', 'register_influactive_form_shortcode', 1);
  *
  * @param array $atts An array of attributes passed to the shortcode handler.
  *
- * @return bool|string Returns false if the form ID is not provided. Returns the form HTML content otherwise.
+ * @return bool|string Returns false if the form ID is not provided. Returns
+ *     the form HTML content otherwise.
  *
  */
 function influactive_form_shortcode_handler(array $atts): bool|string
@@ -40,7 +31,7 @@ function influactive_form_shortcode_handler(array $atts): bool|string
     ob_start(); // Start output buffering
 
     $atts = shortcode_atts(
-        array( 'id' => '0' ),
+        [ 'id' => '0' ],
         $atts,
         'influactive_form'
     );
@@ -53,7 +44,6 @@ function influactive_form_shortcode_handler(array $atts): bool|string
 
     // Showing the form if it exists
     $form = get_post($form_id);
-
 
     if ($form) {
         update_post_meta(get_the_ID(), 'influactive_form_id', $form_id);
@@ -283,33 +273,33 @@ function influactive_send_email(): void
         $subject      = $layout['subject'] ?? '';
         $to           = $layout['recipient'] ?? get_bloginfo('admin_email');
         $from         = $layout['sender'] ?? get_bloginfo('admin_email');
-        $allowed_html = array(
-            'br'         => array(),
-            'p'          => array(),
-            'a'          => array(
-                'href'   => array(),
-                'title'  => array(),
-                'target' => array(),
-            ),
-            'h1'         => array(),
-            'h2'         => array(),
-            'h3'         => array(),
-            'h4'         => array(),
-            'h5'         => array(),
-            'h6'         => array(),
-            'strong'     => array(),
-            'em'         => array(),
-            'ul'         => array(),
-            'ol'         => array(),
-            'li'         => array(),
-            'blockquote' => array(),
-            'pre'        => array(),
-            'code'       => array(),
-            'img'        => array(
-                'src' => array(),
-                'alt' => array(),
-            ),
-        );
+        $allowed_html = [
+            'br'         => [],
+            'p'          => [],
+            'a'          => [
+                'href'   => [],
+                'title'  => [],
+                'target' => [],
+            ],
+            'h1'         => [],
+            'h2'         => [],
+            'h3'         => [],
+            'h4'         => [],
+            'h5'         => [],
+            'h6'         => [],
+            'strong'     => [],
+            'em'         => [],
+            'ul'         => [],
+            'ol'         => [],
+            'li'         => [],
+            'blockquote' => [],
+            'pre'        => [],
+            'code'       => [],
+            'img'        => [
+                'src' => [],
+                'alt' => [],
+            ],
+        ];
 
         foreach ($fields as $field) {
             // Convert textarea newlines to HTML breaks
@@ -369,7 +359,6 @@ function influactive_send_email(): void
             }
         }
 
-
         if (isset($_POST['brochure'])
              && is_plugin_active('influactive-forms/functions.php') && get_option('modal_form_select')) {
             $relative_url  = wp_get_attachment_url($_POST['brochure']);
@@ -391,7 +380,7 @@ function influactive_send_email(): void
         $headers = [
             'Content-Type: text/html; charset=UTF-8',
             'From: ' . $sitename . ' <' . $from . '>',
-            'Reply-To: ' . $from
+            'Reply-To: ' . $from,
         ];
 
         if (! wp_mail($to, $subject, $content, $headers)) {
@@ -418,11 +407,13 @@ add_action('wp_ajax_send_email', 'influactive_send_email');
 add_action('wp_ajax_nopriv_send_email', 'influactive_send_email');
 
 /**
- * Replaces field placeholders in a string with the corresponding label and value.
+ * Replaces field placeholders in a string with the corresponding label and
+ * value.
  *
  * @param string $string The string to replace placeholders in.
  * @param string $field_name The name of the field.
- * @param array $label_value An array containing the label and value of the field.
+ * @param array $label_value An array containing the label and value of the
+ *     field.
  *
  * @return string The string with replaced placeholders.
  */

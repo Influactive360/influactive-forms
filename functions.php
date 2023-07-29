@@ -1,7 +1,8 @@
 <?php
 /**
  * Plugin Name: Forms everywhere by Influactive
- * Description: A plugin to create custom forms and display them anywhere on your website.
+ * Description: A plugin to create custom forms and display them anywhere on
+ * your website.
  * Version: 1.2.6
  * Author: Influactive
  * Author URI: https://influactive.com
@@ -55,18 +56,18 @@ function influactive_form_edit(string $hook): void
     wp_enqueue_script(
         'influactive-form',
         plugin_dir_url(__FILE__) . 'dist/backEndForm.bundled.js',
-        array(
+        [
             'wp-tinymce',
             'influactive-tabs',
-            'influactive-form-layout'
-        ),
+            'influactive-form-layout',
+        ],
         '1.2.6',
         true
     );
     wp_localize_script(
         'influactive-form',
         'influactiveFormsTranslations',
-        array(
+        [
             'addOptionText'        => __('Add option', 'influactive-forms'),
             'removeOptionText'     => __('Remove option', 'influactive-forms'),
             'removeFieldText'      => __('Remove the field', 'influactive-forms'),
@@ -86,13 +87,13 @@ function influactive_form_edit(string $hook): void
             'GDPR'                 => __('GDPR', 'influactive-forms'),
             'Number'               => __('Number', 'influactive-forms'),
             'Freetext'             => __('Free text', 'influactive-forms'),
-        )
+        ]
     );
     wp_enqueue_style(
         'influactive-form',
         plugin_dir_url(__FILE__)
         . 'dist/backForm.bundled.css',
-        array(),
+        [],
         '1.2.6'
     );
 
@@ -100,7 +101,7 @@ function influactive_form_edit(string $hook): void
         'influactive-tabs',
         plugin_dir_url(__FILE__)
         . 'dist/backEndTab.bundled.js',
-        array(),
+        [],
         '1.2.6',
         true
     );
@@ -108,7 +109,7 @@ function influactive_form_edit(string $hook): void
         'influactive-tabs',
         plugin_dir_url(__FILE__)
         . 'dist/tab.bundled.css',
-        array(),
+        [],
         '1.2.6'
     );
 
@@ -116,28 +117,28 @@ function influactive_form_edit(string $hook): void
         'influactive-form-layout',
         plugin_dir_url(__FILE__)
         . 'dist/layout.bundled.css',
-        array(),
+        [],
         '1.2.6'
     );
     wp_enqueue_script(
         'influactive-form-layout',
         plugin_dir_url(__FILE__) . 'dist/backEndLayout.bundled.js',
-        array(),
+        [],
         '1.2.6',
         true
     );
     wp_localize_script(
         'influactive-form-layout',
         'influactiveFormsTranslations',
-        array(
+        [
             'delete_layout' => __('Delete layout', 'influactive-forms'),
-        )
+        ]
     );
 
     wp_enqueue_style(
         'influactive-form-style',
         plugin_dir_url(__FILE__) . 'dist/style.bundled.css',
-        array(),
+        [],
         '1.2.6'
     );
 
@@ -148,13 +149,12 @@ function influactive_form_edit(string $hook): void
     wp_enqueue_style(
         'influactive-form-dynamic-style',
         plugin_dir_url(__FILE__) . 'front-end/dynamic-style.php?post_id=' . $form_id,
-        array(),
+        [],
         '1.2.6'
     );
 }
 
 add_action('admin_enqueue_scripts', 'influactive_form_edit');
-
 
 /**
  * Enqueues the necessary scripts and styles for the Influactive form shortcode.
@@ -231,7 +231,8 @@ add_action('plugins_loaded', 'load_influactive_forms_textdomain');
 /**
  * Requires the WordPress core file from the given possible paths.
  *
- * @param array $possiblePaths An array of possible paths where the WordPress core file may exist.
+ * @param array $possiblePaths An array of possible paths where the WordPress
+ *     core file may exist.
  *
  * @return void
  */
