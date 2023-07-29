@@ -141,7 +141,8 @@ function influactive_form_shortcode_handler( array $atts ): string {
                             <label>
 								<?= esc_attr( $field['label'] ) ?>:
                                 <textarea <?= esc_attr( $required ) ?> name="<?= esc_attr( $field['name'] ) ?>"
-                                                                       rows="10"></textarea>
+                                                                       rows="10">
+                                </textarea>
                             </label>
 
 							<?php
