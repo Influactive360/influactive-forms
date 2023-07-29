@@ -389,8 +389,7 @@ function influactive_send_email(): void {
 
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST[ $field['name'] ] ) ) {
-				$name = wp_unslash( nl2br( $_POST[ $field['name'] ] ) );
-				$name = sanitize_text_field( $name );
+				$name = sanitize_text_field( nl2br( wp_unslash( $_POST[ $field['name'] ] ) ) );
 			} else {
 				$name = '';
 			}
@@ -508,17 +507,15 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
  * @param string $string The string to replace placeholders in.
  * @param string $field_name The name of the field.
  * @param array $label_value An array containing the label and value of the
- *         field.
+ * field.
  *
  * @return string The string with replaced placeholders.
  */
 function replace_field_placeholder( string $string, string $field_name, array $label_value ): string {
-	// Replace label placeholder if it exists
 	if ( str_contains( $string, '{' . $field_name . ':label}' ) ) {
 		$string = str_replace( '{' . $field_name . ':label}', $label_value[1], $string );
 	}
 
-	// Replace value placeholder if it exists
 	if ( str_contains( $string, '{' . $field_name . ':value}' ) ) {
 		$string = str_replace( '{' . $field_name . ':value}', $label_value[0], $string );
 	}
