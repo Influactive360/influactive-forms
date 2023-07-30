@@ -875,10 +875,10 @@ function influactive_form_email_style( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_email_layout( WP_Post $post ): void {
-	$email_layout = get_post_meta( $post->ID, '_influactive_form_email_layout', true ) ?? [];
+	$email_layout = get_post_meta( $post->ID, '_influactive_form_email_layout', true ) ?? array();
 
 	// List all influactive_form_fields_name like "{field_name}"
-	$fields = get_post_meta( $post->ID, '_influactive_form_fields', true ) ?? [];
+	$fields = get_post_meta( $post->ID, '_influactive_form_fields', true ) ?? array();
 	?>
 	<p>
 		<strong><?php echo esc_html__( 'Fields available in the email', 'influactive-forms' ) ?></strong>
@@ -959,7 +959,6 @@ function influactive_form_email_layout( WP_Post $post ): void {
 					<label>
 						<?php echo esc_html__( 'Content of the email', 'influactive-forms' ); ?>
 						<?php
-						// Les valeurs par défaut
 						$content   = esc_html( $layout['content'] ) ?? esc_html__( 'New message', 'influactive-forms' );
 						$editor_id = 'influactive_form_email_editor_' . $key;
 						$settings  = [
@@ -999,22 +998,22 @@ function influactive_form_email_layout( WP_Post $post ): void {
  */
 function influactive_form_save_post( int $post_id ): void {
 	if ( get_post_type( $post_id ) === 'influactive-forms' ) {
-		$fields         = $_POST['influactive_form_fields'] ?? [];
-		$fields_type    = $_POST['influactive_form_fields']['type'] ?? [];
-		$fields_label   = $_POST['influactive_form_fields']['label'] ?? [];
-		$fields_name    = $_POST['influactive_form_fields']['name'] ?? [];
-		$fields_options = $_POST['influactive_form_fields']['options'] ?? [];
-		$field_order    = $_POST['influactive_form_fields']['order'] ?? [];
-		$email_style    = $_POST['influactive_form_email_style'] ?? [];
+		$fields         = $_POST['influactive_form_fields'] ?? array();
+		$fields_type    = $_POST['influactive_form_fields']['type'] ?? array();
+		$fields_label   = $_POST['influactive_form_fields']['label'] ?? array();
+		$fields_name    = $_POST['influactive_form_fields']['name'] ?? array();
+		$fields_options = $_POST['influactive_form_fields']['options'] ?? array();
+		$field_order    = $_POST['influactive_form_fields']['order'] ?? array();
+		$email_style    = $_POST['influactive_form_email_style'] ?? array();
 
 		foreach ( $fields_name as $i => $field_name ) {
-			$options = sanitizeOptions( $fields_options[ $field_order[ $i ] ] ?? [] );
+			$options = influactive_sanitize_options( $fields_options[ $field_order[ $i ] ] ?? array() );
 
-			$fields[ $i ] = createField(
+			$fields[ $i ] = influactive_create_field(
 				$fields_type[ $i ],
 				$field_name,
 				$field_order[ $i ],
-				sanitizeLabel( $fields_label[ $i ], $fields[ $i ]['type'] ),
+				influactive_sanitize_label( $fields_label[ $i ], $fields[ $i ]['type'] ),
 				$options
 			);
 		}
@@ -1023,7 +1022,7 @@ function influactive_form_save_post( int $post_id ): void {
 
 		update_post_meta( $post_id, '_influactive_form_email_style', $email_style );
 
-		$email_layout = $_POST['influactive_form_email_layout'] ?? [];
+		$email_layout = ! empty( $_POST['influactive_form_email_layout'] ) ? $_POST['influactive_form_email_layout'] : array();
 
 		foreach ( $email_layout as $key => $layout ) {
 			if ( isset( $layout['content'] ) ) {
@@ -1047,12 +1046,13 @@ add_action( 'save_post', 'influactive_form_save_post' );
  *
  * @return array The sanitized options array.
  */
-function sanitizeOptions( array $field_options ): array {
-	return array_map( static function( $option ) {
-		return is_array( $option )
-			? array_map( 'sanitize_text_field', $option )
-			: sanitize_text_field( $option );
-	}, $field_options );
+function influactive_sanitize_options( array $field_options ): array {
+	return array_map(
+		static function( $option ) {
+			return is_array( $option )
+				? array_map( 'sanitize_text_field', $option )
+				: sanitize_text_field( $option );
+		}, $field_options );
 }
 
 /**
@@ -1066,7 +1066,7 @@ function sanitizeOptions( array $field_options ): array {
  *
  * @return array The created field.
  */
-function createField( string $type, string $name, int $order, string $label, array $options ): array {
+function influactive_create_field( string $type, string $name, int $order, string $label, array $options ): array {
 	$field = [
 		'type'  => sanitize_text_field( $type ),
 		'name'  => strtolower( sanitize_text_field( $name ) ),
@@ -1074,7 +1074,7 @@ function createField( string $type, string $name, int $order, string $label, arr
 		'label' => $label,
 	];
 
-	if ( $type === 'select' ) {
+	if ( 'select' === $type ) {
 		$field['options'] = $options;
 	}
 
@@ -1089,8 +1089,8 @@ function createField( string $type, string $name, int $order, string $label, arr
  *
  * @return string The sanitized label.
  */
-function sanitizeLabel( string $label, string $type ): string {
-	return $type === 'free_text'
+function influactive_sanitize_label( string $label, string $type ): string {
+	return 'free_text' === $type
 		? wp_kses_post( $label )
 		: sanitize_text_field( $label );
 }
