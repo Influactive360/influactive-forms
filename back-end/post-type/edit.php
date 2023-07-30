@@ -121,9 +121,9 @@ function influactive_form_save_post( int $post_id ): void {
 
 		foreach ( $unslashed_fields as $key => $value ) {
 			if ( is_array( $value ) ) {
-				$unslashed_fields[ $key ] = array_map( 'sanitize_text_field', $value );
+				$unslashed_fields[ $key ] = array_map( 'wp_kses_post', $value );
 			} else {
-				$unslashed_fields[ $key ] = sanitize_text_field( $value );
+				$unslashed_fields[ $key ] = wp_kses_post( $value );
 			}
 		}
 
@@ -135,9 +135,9 @@ function influactive_form_save_post( int $post_id ): void {
 
 		foreach ( $unslashed_fields as $key => $value ) {
 			if ( is_array( $value ) ) {
-				$unslashed_fields[ $key ] = array_map( 'sanitize_text_field', $value );
+				$unslashed_fields[ $key ] = array_map( 'wp_kses_post', $value );
 			} else {
-				$unslashed_fields[ $key ] = sanitize_text_field( $value );
+				$unslashed_fields[ $key ] = wp_kses_post( $value );
 			}
 		}
 
@@ -149,9 +149,9 @@ function influactive_form_save_post( int $post_id ): void {
 
 		foreach ( $unslashed_fields as $key => $value ) {
 			if ( is_array( $value ) ) {
-				$unslashed_fields[ $key ] = array_map( 'sanitize_text_field', $value );
+				$unslashed_fields[ $key ] = array_map( 'wp_kses_post', $value );
 			} else {
-				$unslashed_fields[ $key ] = sanitize_text_field( $value );
+				$unslashed_fields[ $key ] = wp_kses_post( $value );
 			}
 		}
 
