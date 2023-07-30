@@ -126,6 +126,35 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 								class="influactive_form_fields_name"
 							>
 						</label>
+					<?php elseif ( isset( $field['type'] ) && 'select' === $field['type'] ) : ?>
+						<label>Label
+							<input
+								type="text"
+								name="influactive_form_fields[<?php echo (int) $key; ?>][label]"
+								value="<?php echo esc_attr( $field['label'] ); ?>"
+								class="influactive_form_fields_label" required
+							>
+						</label>
+						<label>Name
+							<input
+								type="text"
+								name="influactive_form_fields[<?php echo (int) $key; ?>][name]"
+								value="<?php echo esc_attr( strtolower( $field['name'] ) ); ?>"
+								class="influactive_form_fields_name" required
+							>
+						</label>
+						<?php influactive_container_options( $field, $key ); ?>
+						<a href="#" class="add_option">
+							<?php echo esc_html__( 'Add option', 'influactive-forms' ); ?>
+						</a>
+						<label>Required
+							<input
+								type="checkbox"
+								name="influactive_form_fields[<?php echo (int) $key; ?>][required]"
+								value="1" <?php echo isset( $field['required'] ) && '1' === $field['required'] ? 'checked' : ''; ?>
+								class="influactive_form_fields_required"
+							>
+						</label>
 					<?php elseif ( isset( $field['type'] ) && 'free_text' === $field['type'] ) : ?>
 						<?php
 						wp_editor(
@@ -152,78 +181,44 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 								class="influactive_form_fields_name"
 							>
 						</label>
-					<?php elseif ( isset( $field['type'] ) && 'select' === $field['type'] ) : ?>
-					<label>Label
-						<input
-							type="text"
-							name="influactive_form_fields[<?php echo (int) $key; ?>][label]"
-							value="<?php echo esc_attr( $field['label'] ); ?>"
-							class="influactive_form_fields_label" required
-						>
-					</label>
-					<label>Name
-						<input
-							type="text"
-							name="influactive_form_fields[<?php echo (int) $key; ?>][name]"
-							value="<?php echo esc_attr( strtolower( $field['name'] ) ); ?>"
-							class="influactive_form_fields_name" required
-						>
-					</label>
-					<?php influactive_container_options( $field, $key ); ?>
-				<p>
+					<?php elseif ( isset( $field['type'] ) ) : ?>
+						<label>Label
+							<input
+								type="text"
+								name="influactive_form_fields[<?php echo (int) $key; ?>][label]"
+								value="<?php echo esc_attr( $field['label'] ); ?>"
+								class="influactive_form_fields_label" required
+							>
+						</label>
+						<label>Name
+							<input
+								type="text"
+								name="influactive_form_fields[<?php echo (int) $key; ?>][name]"
+								value="<?php echo esc_attr( strtolower( $field['name'] ) ); ?>"
+								class="influactive_form_fields_name" required
+							>
+						</label>
+						<label>Required
+							<input
+								type="checkbox"
+								name="influactive_form_fields[<?php echo (int) $key; ?>][required]"
+								value="1" <?php echo isset( $field['required'] ) && '1' === $field['required'] ? 'checked' : ''; ?>
+								class="influactive_form_fields_required"
+							>
+						</label>
+					<?php endif; ?>
+					<input
+						type="hidden"
+						name="influactive_form_fields[<?php echo (int) $key; ?>][order]"
+						value="<?php echo (int) $key; ?>"
+						class="influactive_form_fields_order"
+					>
 					<a
 						href="#"
-						class="add_option"
+						class="remove_field"
 					>
-						<?php echo esc_html__( 'Add option', 'influactive-forms' ); ?>
+						<?php echo esc_html__( 'Remove the field', 'influactive-forms' ); ?>
 					</a>
-				</p>
-				<label>Required
-					<input
-						type="checkbox"
-						name="influactive_form_fields[<?php echo (int) $key; ?>][required]"
-						value="1" <?php echo isset( $field['required'] ) && '1' === $field['required'] ? 'checked' : ''; ?>
-						class="influactive_form_fields_required"
-					>
-				</label>
-				<?php elseif ( isset( $field['type'] ) ) : ?>
-					<label>Label
-						<input
-							type="text"
-							name="influactive_form_fields[<?php echo (int) $key; ?>][label]"
-							value="<?php echo esc_attr( $field['label'] ); ?>"
-							class="influactive_form_fields_label" required
-						>
-					</label>
-					<label>Name
-						<input
-							type="text"
-							name="influactive_form_fields[<?php echo (int) $key; ?>][name]"
-							value="<?php echo esc_attr( strtolower( $field['name'] ) ); ?>"
-							class="influactive_form_fields_name" required
-						>
-					</label>
-					<label>Required
-						<input
-							type="checkbox"
-							name="influactive_form_fields[<?php echo (int) $key; ?>][required]"
-							value="1" <?php echo isset( $field['required'] ) && '1' === $field['required'] ? 'checked' : ''; ?>
-							class="influactive_form_fields_required"
-						>
-					</label>
-				<?php endif; ?>
-				<input
-					type="hidden"
-					name="influactive_form_fields[<?php echo (int) $key; ?>][order]"
-					value="<?php echo (int) $key; ?>"
-					class="influactive_form_fields_order"
-				>
-				<a
-					href="#"
-					class="remove_field"
-				>
-					<?php echo esc_html__( 'Remove the field', 'influactive-forms' ); ?>
-				</a>
 			</div>
 		<?php endforeach; ?>
 
@@ -270,10 +265,7 @@ function influactive_container_options( array $field, int $key ): void {
 						value="<?php echo esc_attr( $option['value'] ); ?>" required
 					>
 				</label>
-				<a
-					href="#"
-					class="remove_option"
-				>
+				<a href="#" class="remove_option">
 					<?php echo esc_html__( 'Remove option', 'influactive-forms' ); ?>
 				</a>
 			</p>
