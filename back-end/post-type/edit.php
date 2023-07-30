@@ -105,16 +105,21 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	if ( ! isset( $_POST['post_type'] ) || 'influactive-forms' !== wp_unslash( $_POST['post_type'] ) ) {
+	if ( isset ( $_POST ) ) {
+		$_POST = array_map( 'wp_unslash', $_POST );
+	} else {
 		return;
 	}
 
-	if ( ! isset( $_POST['influactive_form_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['influactive_form_nonce'] ), 'influactive_form_save_post' ) ) {
+	if ( ! isset( $_POST['post_type'] ) || 'influactive-forms' !== $_POST['post_type'] ) {
+		return;
+	}
+
+	if ( ! isset( $_POST['influactive_form_nonce'] ) || ! wp_verify_nonce( $_POST['influactive_form_nonce'], 'influactive_form_save_post' ) ) {
 		return;
 	}
 
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
-		$_POST = array_map( 'wp_unslash', $_POST );
 		if ( isset( $_POST['influactive_form_fields'] ) && is_array( $_POST['influactive_form_fields'] ) ) {
 			$fields = $_POST['influactive_form_fields'];
 		} else {
