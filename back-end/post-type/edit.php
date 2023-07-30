@@ -471,23 +471,23 @@ function influactive_form_email_style( WP_Post $post ): void {
 				<?php echo esc_html__( 'Label font weight', 'influactive-forms' ); ?>
 				<select name="influactive_form_email_style[label][font_weight]">
 					<option
-						value="normal" <?php echo "normal" === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
+						value="normal" <?php echo 'normal' === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Normal', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="bold" <?php echo "bold" === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
+						value="bold" <?php echo 'bold' === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Bold', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="bolder" <?php echo "bolder" === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
+						value="bolder" <?php echo 'bolder' === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Bolder', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="medium" <?php echo "medium" === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
+						value="medium" <?php echo 'medium' === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Medium', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="lighter" <?php echo "lighter" === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
+						value="lighter" <?php echo 'lighter' === $email_style['label']['font_weight'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Lighter', 'influactive-forms' ); ?>
 					</option>
 				</select>
