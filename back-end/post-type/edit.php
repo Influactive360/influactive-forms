@@ -130,31 +130,35 @@ function influactive_form_save_post( int $post_id ): void {
 		$fields = $unslashed_fields;
 	}
 
-	if ( isset( $data['influactive_form_email_style'] ) ) {
-		$form_email_style = wp_unslash( $data['influactive_form_email_style'] );
+	if ( isset( $data['influactive_form_email_style'] ) && is_array( $data['influactive_form_email_style'] ) ) {
+		$unslashed_fields = wp_unslash( $data['influactive_form_email_style'] );
 
-		foreach ( $form_email_style as $key => $value ) {
+		foreach ( $unslashed_fields as $key => $value ) {
 			if ( is_array( $value ) ) {
-				$form_email_style[ $key ] = array_map( 'sanitize_text_field', $value );
+				$unslashed_fields[ $key ] = array_map( 'sanitize_text_field', $value );
 			} else {
-				$form_email_style[ $key ] = sanitize_text_field( $value );
+				$unslashed_fields[ $key ] = sanitize_text_field( $value );
 			}
 		}
+
+		$form_email_style = $unslashed_fields;
 	}
 
-	if ( isset( $data['influactive_form_email_layout'] ) ) {
-		$form_email_layout = wp_unslash( $data['influactive_form_email_layout'] );
+	if ( isset( $data['influactive_form_email_layout'] ) && is_array( $data['influactive_form_email_layout'] ) ) {
+		$unslashed_fields = wp_unslash( $data['influactive_form_email_layout'] );
 
-		foreach ( $form_email_layout as $key => $value ) {
+		foreach ( $unslashed_fields as $key => $value ) {
 			if ( is_array( $value ) ) {
-				$form_email_layout[ $key ] = array_map( 'sanitize_text_field', $value );
+				$unslashed_fields[ $key ] = array_map( 'sanitize_text_field', $value );
 			} else {
-				$form_email_layout[ $key ] = sanitize_text_field( $value );
+				$unslashed_fields[ $key ] = sanitize_text_field( $value );
 			}
 		}
+
+		$form_email_layout = $unslashed_fields;
 	}
 
-	if ( isset( $data, $fields ) && 'influactive-forms' === get_post_type( $post_id ) ) {
+	if ( isset( $data, $fields, $form_email_style, $form_email_layout ) && 'influactive-forms' === get_post_type( $post_id ) ) {
 		$fields_type    = $fields['type'];
 		$fields_label   = $fields['label'];
 		$fields_name    = $fields['name'];
