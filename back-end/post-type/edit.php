@@ -105,7 +105,7 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	$_POST = empty ( $_POST ) ? array() : array_map( 'sanitize_text_field', $_POST );
+	$_POST = empty( $_POST ) ? array() : array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST ) );
 
 	if ( ! isset( $_POST['post_type'] ) || 'influactive-forms' !== $_POST['post_type'] ) {
 		return;
@@ -115,15 +115,15 @@ function influactive_form_save_post( int $post_id ): void {
 		return;
 	}
 
-	$_POST['influactive_form_fields']       = empty ( $_POST['influactive_form_fields'] )
+	$_POST['influactive_form_fields']       = empty( $_POST['influactive_form_fields'] )
 		? array()
-		: array_map( 'sanitize_text_field', $_POST['influactive_form_fields'] );
-	$_POST['influactive_form_email_style']  = empty ( $_POST['influactive_form_email_style'] )
+		: array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['influactive_form_fields'] ) );
+	$_POST['influactive_form_email_style']  = empty( $_POST['influactive_form_email_style'] )
 		? array()
-		: array_map( 'sanitize_text_field', $_POST['influactive_form_email_style'] );
-	$_POST['influactive_form_email_layout'] = empty ( $_POST['influactive_form_email_layout'] )
+		: array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['influactive_form_email_style'] ) );
+	$_POST['influactive_form_email_layout'] = empty( $_POST['influactive_form_email_layout'] )
 		? array()
-		: array_map( 'sanitize_text_field', $_POST['influactive_form_email_layout'] );
+		: array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['influactive_form_email_layout'] ) );
 
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
 		$fields         = $_POST['influactive_form_fields'];
