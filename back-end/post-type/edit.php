@@ -105,17 +105,13 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	if ( ! isset( $_POST['influactive_form_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['influactive_form_nonce'] ), 'influactive_form_save_post' ) ) {
-		return;
-	}
-
 	if ( ! isset( $_POST['post_type'] ) || 'influactive-forms' !== $_POST['post_type'] ) {
 		return;
 	}
 
-	$fields            = isset( $_POST['influactive_form_fields'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_fields'] ) ) : null;
-	$form_email_style  = isset( $_POST['influactive_form_email_style'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_email_style'] ) ) : null;
-	$form_email_layout = isset( $_POST['influactive_form_email_layout'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_email_layout'] ) ) : null;
+	$fields            = isset( $_POST['influactive_form_fields'] ) ? influactive_sanitize_array( $_POST['influactive_form_fields'] ) : array();
+	$form_email_style  = isset( $_POST['influactive_form_email_style'] ) ? influactive_sanitize_array( $_POST['influactive_form_email_style'] ) : array();
+	$form_email_layout = isset( $_POST['influactive_form_email_layout'] ) ? influactive_sanitize_array( $_POST['influactive_form_email_layout'] ) : array();
 
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
 		$fields_type    = $fields['type'];
@@ -156,6 +152,26 @@ function influactive_form_save_post( int $post_id ): void {
 }
 
 add_action( 'save_post', 'influactive_form_save_post' );
+
+/**
+ * Sanitize an array by applying sanitization functions to its values
+ * recursively.
+ *
+ * @param array $data The array to be sanitized.
+ *
+ * @return array The sanitized array.
+ */
+function influactive_sanitize_array( array $data ): array {
+	foreach ( $data as $key => $value ) {
+		if ( is_array( $value ) ) {
+			$data[ $key ] = influactive_sanitize_array( $value );
+		} else {
+			$data[ $key ] = sanitize_text_field( $value );
+		}
+	}
+
+	return $data;
+}
 
 /**
  * Sanitize options array.
