@@ -1068,7 +1068,8 @@ function influactive_sanitize_options( array $field_options ): array {
 		static function( $option ) {
 			return is_array( $option ) ? array_map( 'sanitize_text_field', $option ) : sanitize_text_field( $option );
 		},
-		$field_options );
+		$field_options
+	);
 }
 
 /**
