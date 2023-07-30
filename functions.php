@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Forms everywhere by Influactive
+ * Plugin Name: Influactive Forms
  * Description: A plugin to create custom forms and display them anywhere on
  * your website.
  * Version: 1.2.6
