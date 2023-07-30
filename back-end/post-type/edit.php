@@ -751,7 +751,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 					<option
 						value="solid" <?php echo 'solid' === $email_style['submit']['border_style'] ? 'selected' : ''; ?>
 					>
-						<?php echo esc_html__( 'Solid', 'influactive-forms' ) ?>
+						<?php echo esc_html__( 'Solid', 'influactive-forms' ); ?>
 					</option>
 					<option
 						value="dashed" <?php echo 'dashed' === $email_style['submit']['border_style'] ? 'selected' : ''; ?>
