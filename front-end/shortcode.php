@@ -62,8 +62,12 @@ function influactive_form_shortcode_handler( array $atts ): string {
 				wp_nonce_field( 'influactive_send_email', 'nonce' );
 				?>
 
-				<input type="hidden" name="form_id"
-							 value="<?php echo esc_attr( $form_id ); ?>">
+				<input
+					type="hidden"
+					name="form_id"
+					value="<?php echo esc_attr( $form_id ); ?>"
+				>
+
 
 				<?php
 				$options_captcha  = get_option( 'influactive-forms-captcha-fields' ) ?? array();
@@ -73,13 +77,15 @@ function influactive_form_shortcode_handler( array $atts ): string {
 				if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
 					?>
 
-					<input type="hidden"
-								 id="recaptchaResponse-<?php echo esc_attr( $form_id ); ?>"
-								 name="recaptcha_response">
-					<input type="hidden"
-								 id="recaptchaSiteKey-<?php echo esc_attr( $form_id ); ?>"
-								 name="recaptcha_site_key"
-								 value="<?php echo esc_attr( $public_site_key ); ?>">
+					<input
+						type="hidden"
+						id="recaptchaResponse-<?php echo esc_attr( $form_id ); ?>"
+						name="recaptcha_response">
+					<input
+						type="hidden"
+						id="recaptchaSiteKey-<?php echo esc_attr( $form_id ); ?>"
+						name="recaptcha_site_key"
+						value="<?php echo esc_attr( $public_site_key ); ?>">
 
 					<?php
 				}
@@ -87,8 +93,11 @@ function influactive_form_shortcode_handler( array $atts ): string {
 				if ( is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
 					?>
 
-					<input type="hidden" name="brochure"
-								 value="<?php echo esc_attr( get_option( 'modal_form_file_select' ) ); ?>">
+					<input
+						type="hidden"
+						name="brochure"
+						value="<?php echo esc_attr( get_option( 'modal_form_file_select' ) ); ?>"
+					>
 
 					<?php
 				}
@@ -106,8 +115,10 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 							<label>
 								<?php echo esc_attr( $field['label'] ); ?>:
-								<input type="text" <?php echo esc_attr( $required ); ?>
-											 name="<?php echo esc_attr( $field['name'] ); ?>">
+								<input
+									type="text"<?php echo esc_attr( $required ); ?>
+									name="<?php echo esc_attr( $field['name'] ); ?>"
+								>
 							</label>
 
 							<?php
@@ -117,9 +128,11 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 							<label>
 								<?php echo esc_attr( $field['label'] ); ?>:
-								<input type="email" <?php echo esc_attr( $required ); ?>
-											 name="<?php echo esc_attr( $field['name'] ); ?>"
-											 autocomplete="email">
+								<input
+									type="email" <?php echo esc_attr( $required ); ?>
+									name="<?php echo esc_attr( $field['name'] ); ?>"
+									autocomplete="email"
+								>
 							</label>
 
 							<?php
@@ -182,9 +195,11 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<label>
-								<input type="checkbox"
-											 name="<?php echo esc_attr( $field['name'] ); ?>"
-											 required>
+								<input
+									type="checkbox"
+									name="<?php echo esc_attr( $field['name'] ); ?>"
+									required
+								>
 								<?php echo esc_attr( $field['label'] ) . ' ' . esc_attr( $pp_content ); ?>
 							</label>
 
@@ -197,9 +212,11 @@ function influactive_form_shortcode_handler( array $atts ): string {
 								<?php echo esc_attr( $field['label'] ); ?>
 							</div>
 
-							<input type="hidden"
-										 name="<?php echo esc_attr( $field['name'] ); ?>"
-										 value="<?php echo esc_attr( $field['label'] ); ?>">
+							<input
+								type="hidden"
+								name="<?php echo esc_attr( $field['name'] ); ?>"
+								value="<?php echo esc_attr( $field['label'] ); ?>"
+							>
 
 							<?php
 							break;
@@ -302,10 +319,7 @@ function influactive_send_email(): void {
 	if ( ! empty( $secret_site_key ) && ! empty( $public_site_key ) && isset( $recaptcha_response ) ) {
 		$recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
 
-		$url = $recaptcha_url
-					 . '?secret=' .
-					 urlencode( $secret_site_key )
-					 . '&response=' . urlencode( $recaptcha_response );
+		$url = $recaptcha_url . '?secret=' . urlencode( $secret_site_key ) . '&response=' . urlencode( $recaptcha_response );
 
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
@@ -449,8 +463,7 @@ function influactive_send_email(): void {
 			}
 		}
 
-		if ( isset( $_POST['brochure'] )
-				 && is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
+		if ( isset( $_POST['brochure'] ) && is_plugin_active( 'influactive-forms/functions.php' ) && get_option( 'modal_form_select' ) ) {
 			$brochure_post_id = filter_input( INPUT_POST, 'brochure', FILTER_SANITIZE_NUMBER_INT );
 			$relative_url     = wp_get_attachment_url( $brochure_post_id );
 			$file_url         = home_url( $relative_url );
