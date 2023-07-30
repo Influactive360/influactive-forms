@@ -45,6 +45,7 @@ function influactive_form_metabox( WP_Post $post ): void {
 	}
 
 	influactive_form_shortcode( $post );
+	wp_nonce_field( 'influactive_form_save_post', 'influactive_form_save_post' );
 	?>
 	<div class='tabs'>
 		<ul class='tab-links'>
@@ -109,9 +110,13 @@ function influactive_form_save_post( int $post_id ): void {
 		return;
 	}
 
-	$fields            = isset( $_POST['influactive_form_fields'] ) ? influactive_sanitize_array( $_POST['influactive_form_fields'] ) : array();
-	$form_email_style  = isset( $_POST['influactive_form_email_style'] ) ? influactive_sanitize_array( $_POST['influactive_form_email_style'] ) : array();
-	$form_email_layout = isset( $_POST['influactive_form_email_layout'] ) ? influactive_sanitize_array( $_POST['influactive_form_email_layout'] ) : array();
+	if ( ! isset( $_POST['influactive_form_save_post'] ) || ! wp_verify_nonce( $_POST['influactive_form_save_post'], 'influactive_form_save_post' ) ) {
+		return;
+	}
+
+	$fields            = isset( $_POST['influactive_form_fields'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_fields'] ) : array();
+	$form_email_style  = isset( $_POST['influactive_form_email_style'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_email_style'] ) : array();
+	$form_email_layout = isset( $_POST['influactive_form_email_layout'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_email_layout'] ) : array();
 
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
 		$fields_type    = $fields['type'];
@@ -152,26 +157,6 @@ function influactive_form_save_post( int $post_id ): void {
 }
 
 add_action( 'save_post', 'influactive_form_save_post' );
-
-/**
- * Sanitize an array by applying sanitization functions to its values
- * recursively.
- *
- * @param array $data The array to be sanitized.
- *
- * @return array The sanitized array.
- */
-function influactive_sanitize_array( array $data ): array {
-	foreach ( $data as $key => $value ) {
-		if ( is_array( $value ) ) {
-			$data[ $key ] = influactive_sanitize_array( $value );
-		} else {
-			$data[ $key ] = sanitize_text_field( $value );
-		}
-	}
-
-	return $data;
-}
 
 /**
  * Sanitize options array.
