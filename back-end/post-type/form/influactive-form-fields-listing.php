@@ -169,7 +169,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 							class="influactive_form_fields_name" required
 						>
 					</label>
-					<?php influactive_container_options( $field, $key ) ?>
+					<?php influactive_container_options( $field, $key ); ?>
 				<p>
 					<a
 						href="#"
@@ -281,5 +281,5 @@ function influactive_container_options( array $field, int $key ): void {
 	</div>
 	<?php
 	$html = ob_get_clean();
-	echo $html;
+	echo esc_html( $html );
 }
