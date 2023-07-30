@@ -213,7 +213,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 						<?php foreach ( $field['options'] as $option_index => $option ) : ?>
 							<p class="option-field" data-index="<?= $option_index ?>">
 								<label>
-									<?= __( 'Option Label', 'influactive-forms' ) ?>
+									<?= esc_html__( 'Option Label', 'influactive-forms' ) ?>
 									<input
 										type="text"
 										class="option-label"
@@ -222,7 +222,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 									>
 								</label>
 								<label>
-									<?= __( 'Option Value', 'influactive-forms' ) ?>
+									<?= esc_html__( 'Option Value', 'influactive-forms' ) ?>
 									<input
 										type="text"
 										class="option-value"
@@ -234,14 +234,14 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 									href="#"
 									class="remove_option"
 								>
-									<?= __( 'Remove option', 'influactive-forms' ) ?>
+									<?= esc_html__( 'Remove option', 'influactive-forms' ) ?>
 								</a>
 							</p>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</div>
 				<p><a href="#"
-							class="add_option"><?= __( 'Add option', 'influactive-forms' ) ?></a>
+							class="add_option"><?= esc_html__( 'Add option', 'influactive-forms' ) ?></a>
 				</p>
 				<label>Required
 					<input
@@ -287,7 +287,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 					href="#"
 					class="remove_field"
 				>
-					<?= __( 'Remove the field', 'influactive-forms' ) ?>
+					<?= esc_html__( 'Remove the field', 'influactive-forms' ) ?>
 				</a>
 			</div>
 		<?php
@@ -297,7 +297,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 
 	echo '</div>';
 
-	echo '<p><a href="#" id="add_field">' . __( 'Add Field', 'influactive-forms' ) . '</a></p>';
+	echo '<p><a href="#" id="add_field">' . esc_html__( 'Add Field', 'influactive-forms' ) . '</a></p>';
 }
 
 /**
@@ -320,7 +320,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 	<div id="influactive_form_style_container">
 		<p>
 			<label>
-				<?= __( 'Form Background color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Form Background color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[form][background_color]"
@@ -328,7 +328,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Form Padding', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Form Padding', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[form][padding]"
@@ -336,7 +336,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Form Border width', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Form Border width', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[form][border_width]"
@@ -344,51 +344,51 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Form Border style', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Form Border style', 'influactive-forms' ) ?>
 				<select name="influactive_form_email_style[form][border_style]">
 					<option
 						value="solid" <?= $email_style['form']['border_style'] === "solid" ? "selected" : "" ?>>
-						<?= __( 'Solid', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Solid', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="dashed" <?= $email_style['form']['border_style'] === "dashed" ? "selected" : "" ?>>
-						<?= __( 'Dashed', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Dashed', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="dotted" <?= $email_style['form']['border_style'] === "dotted" ? "selected" : "" ?>>
-						<?= __( 'Dotted', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Dotted', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="double" <?= $email_style['form']['border_style'] === "double" ? "selected" : "" ?>>
-						<?= __( 'Double', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Double', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="groove" <?= $email_style['form']['border_style'] === "groove" ? "selected" : "" ?>>
-						<?= __( 'Groove', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Groove', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="ridge" <?= $email_style['form']['border_style'] === "ridge" ? "selected" : "" ?>>
-						<?= __( 'Ridge', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Ridge', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="inset" <?= $email_style['form']['border_style'] === "inset" ? "selected" : "" ?>>
-						<?= __( 'Inset', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Inset', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="outset" <?= $email_style['form']['border_style'] === "outset" ? "selected" : "" ?>>
-						<?= __( 'Outset', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Outset', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="none" <?= $email_style['form']['border_style'] === "none" ? "selected" : "" ?>>
-						<?= __( 'None', 'influactive-forms' ) ?></option>
+						<?= esc_html__( 'None', 'influactive-forms' ) ?></option>
 					<option
 						value="hidden" <?= $email_style['form']['border_style'] === "hidden" ? "selected" : "" ?>>
-						<?= __( 'Hidden', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Hidden', 'influactive-forms' ) ?>
 					</option>
 				</select>
 			</label>
 			<label>
-				<?= __( 'Form Border color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Form Border color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[form][border_color]"
@@ -398,7 +398,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 		</p>
 		<p>
 			<label>
-				<?= __( 'Label Font family', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Label Font family', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[label][font_family]"
@@ -406,7 +406,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Label font size', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Label font size', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[label][font_size]"
@@ -414,7 +414,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Label font color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Label font color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[label][font_color]"
@@ -422,32 +422,32 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Label font weight', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Label font weight', 'influactive-forms' ) ?>
 				<select name="influactive_form_email_style[label][font_weight]">
 					<option
 						value="normal" <?= $email_style['label']['font_weight'] === "normal" ? "selected" : "" ?>>
-						<?= __( 'Normal', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Normal', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="bold" <?= $email_style['label']['font_weight'] === "bold" ? "selected" : "" ?>>
-						<?= __( 'Bold', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Bold', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="bolder" <?= $email_style['label']['font_weight'] === "bolder" ? "selected" : "" ?>>
-						<?= __( 'Bolder', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Bolder', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="medium" <?= $email_style['label']['font_weight'] === "medium" ? "selected" : "" ?>>
-						<?= __( 'Medium', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Medium', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="lighter" <?= $email_style['label']['font_weight'] === "lighter" ? "selected" : "" ?>>
-						<?= __( 'Lighter', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Lighter', 'influactive-forms' ) ?>
 					</option>
 				</select>
 			</label>
 			<label>
-				<?= __( 'Label line height', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Label line height', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[label][line_height]"
@@ -457,7 +457,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 		</p>
 		<p>
 			<label>
-				<?= __( 'Input font family', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input font family', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[input][font_family]"
@@ -465,7 +465,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input font size', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input font size', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[input][font_size]"
@@ -473,7 +473,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input font color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input font color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[input][font_color]"
@@ -481,37 +481,37 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input font weight', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input font weight', 'influactive-forms' ) ?>
 				<select name="influactive_form_email_style[input][font_weight]">
 					<option
 						value="normal" <?= $email_style['input']['font_weight'] === "normal" ? "selected" : "" ?>
 					>
-						<?= __( 'Normal', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Normal', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="bold" <?= $email_style['input']['font_weight'] === "bold" ? "selected" : "" ?>
 					>
-						<?= __( 'Bold', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Bold', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="bolder" <?= $email_style['input']['font_weight'] === "bolder" ? "selected" : "" ?>
 					>
-						<?= __( 'Bolder', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Bolder', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="medium" <?= $email_style['input']['font_weight'] === "medium" ? "selected" : "" ?>
 					>
-						<?= __( 'Medium', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Medium', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="lighter" <?= $email_style['input']['font_weight'] === "lighter" ? "selected" : "" ?>
 					>
-						<?= __( 'Lighter', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Lighter', 'influactive-forms' ) ?>
 					</option>
 				</select>
 			</label>
 			<label>
-				<?= __( 'Input line height', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input line height', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[input][line_height]"
@@ -519,7 +519,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input background color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input background color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[input][background_color]"
@@ -527,7 +527,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input border width', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input border width', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[input][border_width]"
@@ -535,57 +535,57 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input border style', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input border style', 'influactive-forms' ) ?>
 				<select name="influactive_form_email_style[input][border_style]">
 					<option
 						value="solid" <?= $email_style['input']['border_style'] === "solid" ? "selected" : "" ?>
 					>
-						<?= __( 'Solid', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Solid', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="dashed" <?= $email_style['input']['border_style'] === "dashed" ? "selected" : "" ?>
 					>
-						<?= __( 'Dashed', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Dashed', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="dotted" <?= $email_style['input']['border_style'] === "dotted" ? "selected" : "" ?>
 					>
-						<?= __( 'Dotted', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Dotted', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="double" <?= $email_style['input']['border_style'] === "double" ? "selected" : "" ?>
 					>
-						<?= __( 'Double', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Double', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="groove" <?= $email_style['input']['border_style'] === "groove" ? "selected" : "" ?>
 					>
-						<?= __( 'Groove', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Groove', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="ridge" <?= $email_style['input']['border_style'] === "ridge" ? "selected" : "" ?>
 					>
-						<?= __( 'Ridge', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Ridge', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="inset" <?= $email_style['input']['border_style'] === "inset" ? "selected" : "" ?>
 					>
-						<?= __( 'Inset', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Inset', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="outset" <?= $email_style['input']['border_style'] === "outset" ? "selected" : "" ?>
 					>
-						<?= __( 'Outset', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Outset', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="hidden" <?= $email_style['input']['border_style'] === "hidden" ? "selected" : "" ?>
 					>
-						<?= __( 'Hidden', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Hidden', 'influactive-forms' ) ?>
 					</option>
 				</select>
 			</label>
 			<label>
-				<?= __( 'Input border color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input border color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[input][border_color]"
@@ -593,7 +593,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input border radius', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input border radius', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[input][border_radius]"
@@ -601,7 +601,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Input padding', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Input padding', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[input][padding]"
@@ -611,7 +611,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 		</p>
 		<p>
 			<label>
-				<?= __( 'Submit font family', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit font family', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[submit][font_family]"
@@ -619,7 +619,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit font size', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit font size', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[submit][font_size]"
@@ -627,7 +627,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit font color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit font color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[submit][font_color]"
@@ -635,7 +635,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit font hover color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit font hover color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[submit][font_hover_color]"
@@ -643,32 +643,32 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit font weight', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit font weight', 'influactive-forms' ) ?>
 				<select name="influactive_form_email_style[submit][font_weight]">
 					<option
 						value="normal" <?= $email_style['submit']['font_weight'] === "normal" ? "selected" : "" ?>
 					>
-						<?= __( 'Normal', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Normal', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="bold" <?= $email_style['submit']['font_weight'] === "bold" ? "selected" : "" ?>
 					>
-						<?= __( 'Bold', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Bold', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="bolder" <?= $email_style['submit']['font_weight'] === "bolder" ? "selected" : "" ?>
 					>
-						<?= __( 'Bolder', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Bolder', 'influactive-forms' ) ?>
 					</option>
 					<option value="lighter"
 						<?= $email_style['submit']['font_weight'] === "lighter" ? "selected" : "" ?>
 					>
-						<?= __( 'Lighter', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Lighter', 'influactive-forms' ) ?>
 					</option>
 				</select>
 			</label>
 			<label>
-				<?= __( 'Submit line height', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit line height', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[submit][line_height]"
@@ -676,7 +676,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit background color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit background color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[submit][background_color]"
@@ -684,7 +684,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit background hover color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit background hover color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[submit][background_hover_color]"
@@ -692,7 +692,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit border color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit border color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[submit][border_color]"
@@ -700,57 +700,57 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit border style', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit border style', 'influactive-forms' ) ?>
 				<select name="influactive_form_email_style[submit][border_style]">
 					<option
 						value="solid" <?= $email_style['submit']['border_style'] === "solid" ? "selected" : "" ?>
 					>
-						<?= __( 'Solid', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Solid', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="dashed" <?= $email_style['submit']['border_style'] === "dashed" ? "selected" : "" ?>
 					>
-						<?= __( 'Dashed', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Dashed', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="dotted" <?= $email_style['submit']['border_style'] === "dotted" ? "selected" : "" ?>
 					>
-						<?= __( 'Dotted', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Dotted', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="double" <?= $email_style['submit']['border_style'] === "double" ? "selected" : "" ?>
 					>
-						<?= __( 'Double', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Double', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="groove" <?= $email_style['submit']['border_style'] === "groove" ? "selected" : "" ?>
 					>
-						<?= __( 'Groove', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Groove', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="ridge" <?= $email_style['submit']['border_style'] === "ridge" ? "selected" : "" ?>
 					>
-						<?= __( 'Ridge', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Ridge', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="inset" <?= $email_style['submit']['border_style'] === "inset" ? "selected" : "" ?>
 					>
-						<?= __( 'Inset', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Inset', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="outset" <?= $email_style['submit']['border_style'] === "outset" ? "selected" : "" ?>
 					>
-						<?= __( 'Outset', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Outset', 'influactive-forms' ) ?>
 					</option>
 					<option
 						value="hidden" <?= $email_style['submit']['border_style'] === "hidden" ? "selected" : "" ?>
 					>
-						<?= __( 'Hidden', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Hidden', 'influactive-forms' ) ?>
 					</option>
 				</select>
 			</label>
 			<label>
-				<?= __( 'Submit border width', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit border width', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[submit][border_width]"
@@ -758,7 +758,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit border radius', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit border radius', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[submit][border_radius]"
@@ -766,7 +766,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Submit padding', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Submit padding', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[submit][padding]"
@@ -776,7 +776,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 		</p>
 		<p>
 			<label>
-				<?= __( 'Free text font family', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Free text font family', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[free_text][font_family]"
@@ -784,7 +784,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Free text font size', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Free text font size', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[free_text][font_size]"
@@ -792,7 +792,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Free text font weight', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Free text font weight', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[free_text][font_weight]"
@@ -800,7 +800,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Free text color', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Free text color', 'influactive-forms' ) ?>
 				<input
 					type="color"
 					name="influactive_form_email_style[free_text][color]"
@@ -808,7 +808,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				>
 			</label>
 			<label>
-				<?= __( 'Free text line height', 'influactive-forms' ) ?>
+				<?= esc_html__( 'Free text line height', 'influactive-forms' ) ?>
 				<input
 					type="text"
 					name="influactive_form_email_style[free_text][line_height]"
@@ -834,7 +834,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 	$fields = get_post_meta( $post->ID, '_influactive_form_fields', true ) ?? [];
 	?>
 	<p>
-		<strong><?= __( 'Fields available in the email', 'influactive-forms' ) ?></strong>
+		<strong><?= esc_html__( 'Fields available in the email', 'influactive-forms' ) ?></strong>
 	</p>
 	<ul>
 		<?php foreach ( $fields as $field ) : ?>
@@ -863,8 +863,8 @@ function influactive_form_email_layout( WP_Post $post ): void {
 			0 => [
 				'sender'    => get_bloginfo( 'admin_email' ),
 				'recipient' => get_bloginfo( 'admin_email' ),
-				'subject'   => __( 'New subject', 'influactive-forms' ),
-				'message'   => __( 'New message', 'influactive-forms' ),
+				'subject'   => esc_html__( 'New subject', 'influactive-forms' ),
+				'message'   => esc_html__( 'New message', 'influactive-forms' ),
 			],
 		];
 	}
@@ -877,7 +877,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 			>
 				<p>
 					<label>
-						<?= __( 'Email sender', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Email sender', 'influactive-forms' ) ?>
 						<input
 							type="text"
 							name="influactive_form_email_layout[<?= $key ?>][sender]"
@@ -887,7 +887,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 				</p>
 				<p>
 					<label>
-						<?= __( 'Email recipient', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Email recipient', 'influactive-forms' ) ?>
 						<input
 							type="text"
 							name="influactive_form_email_layout[<?= $key ?>][recipient]"
@@ -896,20 +896,20 @@ function influactive_form_email_layout( WP_Post $post ): void {
 					</label>
 				<p>
 					<label>
-						<?= __( 'Subject of the email', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Subject of the email', 'influactive-forms' ) ?>
 						<input
 							type="text"
 							name="influactive_form_email_layout[<?= $key ?>][subject]"
-							value="<?= esc_attr( $layout['subject'] ?? __( 'New subject', 'influactive-forms' ) ) ?>"
+							value="<?= esc_attr( $layout['subject'] ?? esc_html__( 'New subject', 'influactive-forms' ) ) ?>"
 						>
 					</label>
 				</p>
 				<div>
 					<label>
-						<?= __( 'Content of the email', 'influactive-forms' ) ?>
+						<?= esc_html__( 'Content of the email', 'influactive-forms' ) ?>
 						<?php
 						// Les valeurs par défaut
-						$content   = $layout['content'] ?? __( 'New message', 'influactive-forms' );
+						$content   = $layout['content'] ?? esc_html__( 'New message', 'influactive-forms' );
 						$editor_id = 'influactive_form_email_editor_' . $key;
 						$settings  = [
 							'textarea_name' => "influactive_form_email_layout[$key][content]",
@@ -922,7 +922,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 				</div>
 				<?php if ( $key > 0 ) : ?>
 					<button class="delete_layout"
-									type="button"><?= __( 'Delete layout', 'influactive-forms' ) ?></button>
+									type="button"><?= esc_html__( 'Delete layout', 'influactive-forms' ) ?></button>
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
@@ -934,7 +934,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 		value="<?= count( $email_layout ) ?>"
 	>
 	<button id="add_new_layout">
-		<?= __( 'Add new layout', 'influactive-forms' ) ?>
+		<?= esc_html__( 'Add new layout', 'influactive-forms' ) ?>
 	</button>
 	<?php
 }
