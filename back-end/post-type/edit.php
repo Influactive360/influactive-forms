@@ -310,7 +310,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 						<input
 							type="text"
 							name="influactive_form_fields[<?php echo (int) $key; ?>][name]"
-							value="<?php echo strtolower( esc_attr( $field['name'] ) ); ?>"
+							value="<?php echo esc_attr( strtolower( $field['name'] ) ); ?>"
 							class="influactive_form_fields_name" required
 						>
 					</label>
@@ -352,16 +352,27 @@ function influactive_form_fields_listing( WP_Post $post ): void {
  * @param WP_Post $post The current post object.
  *
  * @return void
- *
  */
 function influactive_form_email_style( WP_Post $post ): void {
 	$email_style = get_post_meta( $post->ID, '_influactive_form_email_style', true );
-		$email_style['form']['border_style'] ?? $email_style['form']['border_style'] = 'solid';
-		$email_style['label']['font_weight'] ?? $email_style['label']['font_weight'] = 'normal';
-		$email_style['input']['font_weight'] ?? $email_style['input']['font_weight'] = 'normal';
-		$email_style['input']['border_style'] ?? $email_style['input']['border_style'] = 'solid';
-		$email_style['submit']['font_weight'] ?? $email_style['submit']['font_weight'] = 'normal';
-		$email_style['submit']['border_style'] ?? $email_style['submit']['border_style'] = 'solid';
+	if ( ! isset( $email_style['form']['border_style'] ) ) {
+		$email_style['form']['border_style'] = 'solid';
+	}
+	if ( ! isset( $email_style['label']['font_weight'] ) ) {
+		$email_style['label']['font_weight'] = 'normal';
+	}
+	if ( ! isset( $email_style['input']['font_weight'] ) ) {
+		$email_style['input']['font_weight'] = 'normal';
+	}
+	if ( ! isset( $email_style['input']['border_style'] ) ) {
+		$email_style['input']['border_style'] = 'solid';
+	}
+	if ( ! isset( $email_style['submit']['font_weight'] ) ) {
+		$email_style['submit']['font_weight'] = 'normal';
+	}
+	if ( ! isset( $email_style['submit']['border_style'] ) ) {
+		$email_style['submit']['border_style'] = 'solid';
+	}
 	?>
 	<div id="influactive_form_style_container">
 		<p>
@@ -405,30 +416,31 @@ function influactive_form_email_style( WP_Post $post ): void {
 						<?php echo esc_html__( 'Dotted', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="double" <?php echo 'double' === $email_style['form']['border_style'] ? 'selected' : '' ?>>
+						value="double" <?php echo 'double' === $email_style['form']['border_style'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Double', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="groove" <?php echo ( 'groove' === $email_style['form']['border_style'] ) ? 'selected' : '' ?>>
+						value="groove" <?php echo ( 'groove' === $email_style['form']['border_style'] ) ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Groove', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="ridge" <?php echo 'ridge' === $email_style['form']['border_style'] ? 'selected' : '' ?>>
+						value="ridge" <?php echo 'ridge' === $email_style['form']['border_style'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Ridge', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="inset" <?php echo 'inset' === $email_style['form']['border_style'] ? 'selected' : '' ?>>
+						value="inset" <?php echo 'inset' === $email_style['form']['border_style'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Inset', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="outset" <?php echo 'outset' === $email_style['form']['border_style'] ? 'selected' : '' ?>>
+						value="outset" <?php echo 'outset' === $email_style['form']['border_style'] ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Outset', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="none" <?php echo $email_style['form']['border_style'] === 'none' ? 'selected' : '' ?>>
+						value="none" <?php echo $email_style['form']['border_style'] === 'none' ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'None', 'influactive-forms' ); ?></option>
 					<option
-						value="hidden" <?php echo $email_style['form']['border_style'] === 'hidden' ? 'selected' : '' ?>>
+						value="hidden" <?php echo $email_style['form']['border_style']
+																			=== 'hidden' ? 'selected' : ''; ?>>
 						<?php echo esc_html__( 'Hidden', 'influactive-forms' ); ?>
 					</option>
 				</select>
