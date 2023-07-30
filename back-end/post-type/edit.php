@@ -116,7 +116,8 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 								?>
 							>
 								<?php
-								echo esc_html__( 'Text', 'influactive-forms' ); ?>
+								echo esc_html__( 'Text', 'influactive-forms' );
+								?>
 							</option>
 							<option
 								value="email"
@@ -144,7 +145,8 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 								echo isset( $field['type'] ) && 'textarea' === $field['type'] ? 'selected' : '';
 								?>
 							>
-								<?php echo esc_html__( 'Textarea', 'influactive-forms' );
+								<?php
+								echo esc_html__( 'Textarea', 'influactive-forms' );
 								?></option>
 							<option
 								value="select"
@@ -201,20 +203,23 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 								class="influactive_form_fields_name"
 							>
 						</label>
-					<?php elseif ( isset( $field['type'] ) && 'free_text' === $field['type'] ) : ?>
-						<?php
-						// Wysiwyg field
-						wp_editor( $field['label'], 'influactive_form_fields_' . $key . '_label', [
-							'textarea_name' => 'influactive_form_fields[' . (int) $key . '][label]',
-							'textarea_rows' => 10,
-							'media_buttons' => false,
-							'tinymce'       => [
-								'toolbar1' => 'bold,italic,underline,link,unlink,undo,
+					<?php
+					elseif ( isset( $field['type'] ) && 'free_text' === $field['type'] ) :
+						wp_editor(
+							$field['label'],
+							'influactive_form_fields_' . $key . '_label',
+							array(
+								'textarea_name' => 'influactive_form_fields[' . (int) $key . '][label]',
+								'textarea_rows' => 10,
+								'media_buttons' => false,
+								'tinymce'       => array(
+									'toolbar1' => 'bold,italic,underline,link,unlink,undo,
                                     redo,formatselect,backcolor,alignleft,aligncenter,alignright,
                                     alignjustify,bullist,numlist,outdent,indent,removeformat',
-							],
-							'editor_class'  => 'influactive_form_fields_label wysiwyg-editor',
-						] );
+								),
+								'editor_class'  => 'influactive_form_fields_label wysiwyg-editor',
+							)
+						);
 						?>
 						<label>
 							<input
@@ -224,7 +229,9 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 								class="influactive_form_fields_name"
 							>
 						</label>
-					<?php elseif ( isset( $field['type'] ) && 'select' === $field['type'] ) : ?>
+					<?php
+					elseif ( isset( $field['type'] ) && 'select' === $field['type'] ) :
+					?>
 					<label>Label
 						<input
 							type="text"
@@ -237,7 +244,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 						<input
 							type="text"
 							name="influactive_form_fields[<?php echo (int) $key; ?>][name]"
-							value="<?php echo strtolower( esc_attr( $field['name'] ) ); ?>"
+							value="<?php echo esc_attr( strtolower( $field['name'] ) ); ?>"
 							class="influactive_form_fields_name" required
 						>
 					</label>
