@@ -124,8 +124,26 @@ function influactive_form_save_post( int $post_id ): void {
 	} else {
 		$fields = array();
 	}
-	$form_email_style  = isset( $_POST['influactive_form_email_style'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_email_style'] ) : array();
-	$form_email_layout = isset( $_POST['influactive_form_email_layout'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_email_layout'] ) : array();
+	if ( isset( $_POST['influactive_form_email_style'] ) ) {
+		$form_email_style = array_map(
+			static function( $value ) {
+				return sanitize_text_field( wp_unslash( $value ) );
+			},
+			$_POST['influactive_form_email_style']
+		);
+	} else {
+		$form_email_style = array();
+	}
+	if ( isset( $_POST['influactive_form_email_layout'] ) ) {
+		$form_email_layout = array_map(
+			static function( $value ) {
+				return sanitize_text_field( wp_unslash( $value ) );
+			},
+			$_POST['influactive_form_email_layout']
+		);
+	} else {
+		$form_email_layout = array();
+	}
 
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
 		$fields_type    = $fields['type'];
