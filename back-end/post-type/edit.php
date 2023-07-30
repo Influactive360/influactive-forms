@@ -100,7 +100,8 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 	echo '<div id="influactive_form_fields_container">';
 
 	if ( is_array( $fields ) ) :
-		foreach ( $fields as $key => $field ) : ?>
+		foreach ( $fields as $key => $field ) :
+			?>
 			<div class='influactive_form_field'>
 				<p>
 					<label>Type
@@ -110,51 +111,81 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 						>
 							<option
 								value='text'
-								<?php echo isset( $field['type'] ) && $field['type'] === 'text' ? 'selected' : ''; ?>
+								<?php
+								echo isset( $field['type'] ) && $field['type'] === 'text' ? 'selected' : '';
+								?>
 							>
-								<?php echo esc_html__( 'Text', 'influactive-forms' ); ?>
+								<?php
+								echo esc_html__( 'Text', 'influactive-forms' ); ?>
 							</option>
 							<option
 								value="email"
-								<?php echo isset( $field['type'] ) && $field['type'] === 'email' ? 'selected' : ''; ?>
+								<?php
+								echo isset( $field['type'] ) && $field['type'] === 'email' ? 'selected' : '';
+								?>
 							>
-								<?php echo esc_html__( 'Email', 'influactive-forms' ); ?>
+								<?php
+								echo esc_html__( 'Email', 'influactive-forms' );
+								?>
 							</option>
 							<option
 								value="number"
-								<?php echo isset( $field['type'] ) && $field['type'] === 'number' ? 'selected' : ''; ?>
+								<?php
+								echo isset( $field['type'] ) && $field['type'] === 'number' ? 'selected' : '';
+								?>
 							>
-								<?php echo esc_html__( 'Number', 'influactive-forms' ); ?>
+								<?php
+								echo esc_html__( 'Number', 'influactive-forms' );
+								?>
 							</option>
 							<option
 								value="textarea"
-								<?php echo isset( $field['type'] ) && $field['type'] === 'textarea' ? 'selected' : ''; ?>
+								<?php
+								echo isset( $field['type'] ) && $field['type'] === 'textarea' ? 'selected' : '';
+								?>
 							>
 								<?php echo esc_html__( 'Textarea', 'influactive-forms' );
 								?></option>
 							<option
 								value="select"
-								<?php echo isset( $field['type'] ) && $field['type'] === 'select' ? 'selected' : ''; ?>
+								<?php
+								echo isset( $field['type'] ) && $field['type'] === 'select'
+									? 'selected' : '';
+								?>
 							>
-								<?php echo esc_html__( 'Select', 'influactive-forms' ); ?>
+								<?php
+								echo esc_html__( 'Select', 'influactive-forms' );
+								?>
 							</option>
 							<option
 								value="gdpr"
-								<?php echo isset( $field['type'] ) && $field['type'] === 'gdpr' ? 'selected' : ''; ?>
+								<?php
+								echo isset( $field['type'] ) && $field['type'] === 'gdpr' ? 'selected' : '';
+								?>
 							>
-								<?php echo esc_html__( 'GDPR', 'influactive-forms' ); ?>
+								<?php
+								echo esc_html__( 'GDPR', 'influactive-forms' );
+								?>
 							</option>
 							<option
 								value="free_text"
-								<?php echo isset( $field['type'] ) && $field['type'] === 'free_text' ? 'selected' : ''; ?>
+								<?php
+								echo isset( $field['type'] ) && $field['type'] === 'free_text' ? 'selected' : '';
+								?>
 							>
-								<?php echo esc_html__( 'Free text', 'influactive-forms' ); ?>
+								<?php
+								echo esc_html__( 'Free text', 'influactive-forms' );
+								?>
 							</option>
 						</select>
 					</label>
-					<?php if ( isset( $field['type'] ) && $field['type'] === 'gdpr' ) : ?>
+					<?php
+					if ( isset( $field['type'] ) && $field['type'] === 'gdpr' ) :
+						?>
 						<label>
-							<?php echo esc_html__( 'Text', 'influactive-forms' ); ?>
+							<?php
+							echo esc_html__( 'Text', 'influactive-forms' );
+							?>
 							<input
 								type="text"
 								name="influactive_form_fields[<?php echo (int) $key; ?>][label]"
