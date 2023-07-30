@@ -1008,15 +1008,20 @@ function influactive_form_email_layout( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
+	if ( ! isset( $_POST['influactive_nonce'] ) || ! wp_verify_nonce( $_POST['influactive_nonce'], 'influactive_form_save_post' ) ) {
+		return;
+	}
+
 	if ( 'influactive-forms' === get_post_type( $post_id ) ) {
-		$_POST          = influactive_sanitize_array( $_POST );
-		$fields         = influactive_sanitize_array( $_POST['influactive_form_fields'] ?? array() );
+		$_POST = array_map( 'sanitize_text_field', wp_unslash( $_POST ) );
+
+		$fields         = $_POST['influactive_form_fields'] ?? array();
 		$fields_type    = $fields['type'] ?? array();
 		$fields_label   = $fields['label'] ?? array();
 		$fields_name    = $fields['name'] ?? array();
 		$fields_options = $fields['options'] ?? array();
 		$field_order    = $fields['order'] ?? array();
-		$email_style    = influactive_sanitize_array( $_POST['influactive_form_email_style'] ?? array() );
+		$email_style    = $_POST['influactive_form_email_style'] ?? array();
 
 		foreach ( $fields_name as $i => $field_name ) {
 			$options = influactive_sanitize_options( $fields_options[ $field_order[ $i ] ] ?? array() );
@@ -1035,7 +1040,7 @@ function influactive_form_save_post( int $post_id ): void {
 
 		$email_layout = ! empty( $_POST['influactive_form_email_layout'] ) ? wp_unslash( $_POST['influactive_form_email_layout'] ) : array();
 
-		foreach ( $email_layout as $key => $layout ) {
+		foreach ( $email_layout as $layout ) {
 			if ( isset( $layout['subject'] ) && is_string( $layout['subject'] ) && is_array( $layout ) ) {
 				$layout['subject'] = sanitize_text_field( $layout['subject'] );
 			}
@@ -1049,26 +1054,6 @@ function influactive_form_save_post( int $post_id ): void {
 }
 
 add_action( 'save_post', 'influactive_form_save_post' );
-
-/**
- * Sanitize an array recursively by applying the sanitize_text_field function
- * to each value.
- *
- * @param array $array The array to be sanitized.
- *
- * @return array The sanitized array.
- */
-function influactive_sanitize_array( array $array ): array {
-	foreach ( $array as &$value ) {
-		if ( is_array( $value ) ) {
-			$value = influactive_sanitize_array( $value );
-		} else {
-			$value = sanitize_text_field( $value );
-		}
-	}
-
-	return $array;
-}
 
 /**
  * Sanitize options array.
