@@ -92,6 +92,21 @@ function influactive_form_edit( string $hook ): void {
 			'Freetext'             => __( 'Free text', 'influactive-forms' ),
 		)
 	);
+	// Global CSS
+	wp_enqueue_style(
+		'influactive-form-style',
+		plugin_dir_url( __FILE__ ) . 'dist/style.bundled.css',
+		array(),
+		'1.2.6'
+	);
+	// Form CSS and JS.
+	wp_enqueue_script(
+		'influactive-form',
+		plugin_dir_url( __FILE__ )
+		. 'dist/backEndForm.bundled.js',
+		array(),
+		'1.2.6'
+	);
 	wp_enqueue_style(
 		'influactive-form',
 		plugin_dir_url( __FILE__ )
@@ -99,7 +114,7 @@ function influactive_form_edit( string $hook ): void {
 		array(),
 		'1.2.6'
 	);
-
+	// Tabs CSS and JS.
 	wp_enqueue_script(
 		'influactive-tabs',
 		plugin_dir_url( __FILE__ )
@@ -115,7 +130,7 @@ function influactive_form_edit( string $hook ): void {
 		array(),
 		'1.2.6'
 	);
-
+	// Layout CSS and JS.
 	wp_enqueue_style(
 		'influactive-form-layout',
 		plugin_dir_url( __FILE__ )
@@ -136,13 +151,6 @@ function influactive_form_edit( string $hook ): void {
 		array(
 			'delete_layout' => __( 'Delete layout', 'influactive-forms' ),
 		)
-	);
-
-	wp_enqueue_style(
-		'influactive-form-style',
-		plugin_dir_url( __FILE__ ) . 'dist/style.bundled.css',
-		array(),
-		'1.2.6'
 	);
 
 	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true );
@@ -191,6 +199,7 @@ function influactive_form_shortcode_enqueue(): void {
 		$script_handle = array();
 	}
 
+	// Form CSS and JS.
 	wp_enqueue_script(
 		'influactive-form',
 		plugin_dir_url( __FILE__ ) .
@@ -205,7 +214,6 @@ function influactive_form_shortcode_enqueue(): void {
 		array(),
 		'1.2.6'
 	);
-
 	wp_localize_script(
 		'influactive-form',
 		'ajaxObject',

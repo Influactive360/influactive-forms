@@ -46,8 +46,13 @@ function influactive_form_metabox( WP_Post $post ): void {
 
 	influactive_form_shortcode( $post );
 	?>
-	<div class='"tabs'>
+	<div class='tabs'>
 		<ul class='tab-links'>
+			<li>
+				<a href='#fields'>
+					<?php echo esc_html__( 'Form Fields', 'influactive-forms' ); ?>
+				</a>
+			</li>
 			<li>
 				<a href='#style'>
 					<?php echo esc_html__( 'Form Style', 'influactive-forms' ); ?>
@@ -100,12 +105,6 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	$nonce = isset( $_POST['influactive_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_nonce'] ) ) : null;
-
-	if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'influactive_form_save_post' ) ) {
-		return;
-	}
-
 	if ( 'influactive-forms' === get_post_type( $post_id ) ) {
 		$_POST = array_map( 'sanitize_text_field', wp_unslash( $_POST ) );
 

@@ -19,8 +19,37 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return void
  */
 function influactive_form_email_layout( WP_Post $post ): void {
-	$email_layout = get_post_meta( $post->ID, '_influactive_form_email_layout', true ) ?? array();
+	$email_layout = get_post_meta( $post->ID, '_influactive_form_email_layout', true );
 	$fields       = get_post_meta( $post->ID, '_influactive_form_fields', true ) ?? array();
+	if ( ! is_array( $fields ) && ! is_object( $fields ) ) {
+		$fields = array(
+			0 => array(
+				'name'  => 'Name',
+				'type'  => 'text',
+				'label' => 'Name',
+			),
+			1 => array(
+				'name'  => 'Email',
+				'type'  => 'email',
+				'label' => 'Email',
+			),
+			2 => array(
+				'name'  => 'Message',
+				'type'  => 'textarea',
+				'label' => 'Message',
+			),
+		);
+	}
+	if ( ! is_array( $email_layout ) && ! is_object( $email_layout ) ) {
+		$email_layout = array(
+			0 => array(
+				'sender'    => get_bloginfo( 'admin_email' ),
+				'recipient' => get_bloginfo( 'admin_email' ),
+				'subject'   => esc_html__( 'New subject', 'influactive-forms' ),
+				'content'   => esc_html__( 'New message', 'influactive-forms' ),
+			),
+		);
+	}
 	?>
 	<p>
 		<strong><?php echo esc_html__( 'Fields available in the email', 'influactive-forms' ); ?></strong>
@@ -56,7 +85,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 				'sender'    => get_bloginfo( 'admin_email' ),
 				'recipient' => get_bloginfo( 'admin_email' ),
 				'subject'   => esc_html__( 'New subject', 'influactive-forms' ),
-				'message'   => esc_html__( 'New message', 'influactive-forms' ),
+				'content'   => esc_html__( 'New message', 'influactive-forms' ),
 			),
 		);
 	}

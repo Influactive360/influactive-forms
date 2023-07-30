@@ -7,14 +7,9 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	require_wordpress_core(
-		array(
-			'/wp-load.php', // WordPress.
-			'/wordpress/wp-load.php', // WordPlate.
-			'/wp/wp-load.php', // Radicle.
-		)
-	);
+	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
+
 /**
  * Display the email styles for the Influactive form.
  *
@@ -24,6 +19,43 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function influactive_form_email_style( WP_Post $post ): void {
 	$email_style = get_post_meta( $post->ID, '_influactive_form_email_style', true );
+
+	if ( ! is_array( $email_style ) && ! is_object( $email_style ) ) {
+		$email_style = array(
+			'form'   => array(
+				'background_color' => '#f6f6f6',
+				'padding'          => '20px',
+				'border_width'     => '1px',
+				'border_style'     => 'solid',
+				'border_color'     => '#cccccc',
+			),
+			'label'  => array(
+				'font_size'   => '14px',
+				'font_weight' => 'normal',
+				'font_family' => 'Arial',
+				'color'       => '#000000',
+			),
+			'input'  => array(
+				'font_size'    => '14px',
+				'font_weight'  => 'normal',
+				'font_family'  => 'Arial',
+				'color'        => '#000000',
+				'border_width' => '1px',
+				'border_style' => 'solid',
+				'border_color' => '#cccccc',
+			),
+			'submit' => array(
+				'font_size'    => '14px',
+				'font_weight'  => 'normal',
+				'font_family'  => 'Arial',
+				'color'        => '#000000',
+				'border_width' => '1px',
+				'border_style' => 'solid',
+				'border_color' => '#cccccc',
+			),
+		);
+	}
+
 	if ( ! isset( $email_style['form']['border_style'] ) ) {
 		$email_style['form']['border_style'] = 'solid';
 	}

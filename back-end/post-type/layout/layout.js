@@ -3,7 +3,6 @@ import './layout.scss'
 /* global influactiveFormsTranslations */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Add a new layout
   document.getElementById('add_new_layout').addEventListener('click', (e) => {
     e.preventDefault()
 
