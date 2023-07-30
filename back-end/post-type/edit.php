@@ -105,16 +105,14 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	if ( 'influactive-forms' === get_post_type( $post_id ) ) {
-		$_POST = array_map( 'sanitize_text_field', wp_unslash( $_POST ) );
+	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
+		$fields = $_POST['influactive_form_fields'];
 
-		$fields         = isset( $_POST['influactive_form_fields'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_fields'] ) ) : array();
-		$fields_type    = isset( $fields['type'] ) ? sanitize_text_field( $fields['type'] ) : array();
-		$fields_label   = isset( $fields['label'] ) ? sanitize_text_field( $fields['label'] ) : array();
-		$fields_name    = isset( $fields['name'] ) ? sanitize_text_field( $fields['name'] ) : array();
-		$fields_options = isset( $fields['options'] ) ? sanitize_text_field( $fields['options'] ) : array();
-		$field_order    = isset( $fields['order'] ) ? sanitize_text_field( $fields['order'] ) : array();
-		$email_style    = isset( $_POST['influactive_form_email_style'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_email_style'] ) ) : array();
+		$fields_type    = $fields['type'];
+		$fields_label   = $fields['label'];
+		$fields_name    = $fields['name'];
+		$fields_options = $fields['options'];
+		$field_order    = $fields['order'];
 
 		foreach ( $fields_name as $i => $field_name ) {
 			$options      = influactive_sanitize_options( isset( $fields_options[ $field_order[ $i ] ] ) ? sanitize_text_field( $fields_options[ $field_order[ $i ] ] ) : array() );
@@ -126,11 +124,13 @@ function influactive_form_save_post( int $post_id ): void {
 				$options
 			);
 		}
-
 		update_post_meta( $post_id, '_influactive_form_fields', $fields );
+
+		$email_style = $_POST['influactive_form_email_style'];
+
 		update_post_meta( $post_id, '_influactive_form_email_style', $email_style );
 
-		$email_layout = isset( $_POST['influactive_form_email_layout'] ) ? wp_kses_post( wp_unslash( $_POST['influactive_form_email_layout'] ) ) : array();
+		$email_layout = $_POST['influactive_form_email_layout'];
 
 		foreach ( $email_layout as $layout ) {
 			if ( isset( $layout['subject'] ) && is_string( $layout['subject'] ) && is_array( $layout ) ) {
