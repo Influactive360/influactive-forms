@@ -56,7 +56,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 		?>
 		<div class="influactive-form-wrapper">
 			<form id="influactive-form-<?php echo esc_attr( $form_id ); ?>"
-						class="influactive-form">
+			      class="influactive-form">
 
 				<?php
 				wp_nonce_field( 'influactive_send_email', 'nonce' );
@@ -255,7 +255,7 @@ function enqueue_form_dynamic_style(): void {
 		'influactive-form-dynamic-style',
 		plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id,
 		array(),
-		'1.2.6'
+		'1.3.0'
 	);
 }
 
