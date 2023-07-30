@@ -126,15 +126,7 @@ function influactive_form_save_post( int $post_id ): void {
 		: array_map( 'sanitize_text_field', $_POST['influactive_form_email_layout'] );
 
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
-		$fields         = is_array( $_POST['influactive_form_fields'] )
-			? $_POST['influactive_form_fields']
-			: array(
-				'type'    => array(),
-				'label'   => array(),
-				'name'    => array(),
-				'options' => array(),
-				'order'   => array(),
-			);
+		$fields         = $_POST['influactive_form_fields'];
 		$fields_type    = $fields['type'];
 		$fields_label   = $fields['label'];
 		$fields_name    = $fields['name'];
