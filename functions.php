@@ -239,7 +239,7 @@ add_action( 'plugins_loaded', 'load_influactive_forms_textdomain' );
  * @throws RuntimeException If the DOCUMENT_ROOT is not set.
  */
 function require_wordpress_core( array $possible_paths ): void {
-	if ( isset ( $_SERVER['DOCUMENT_ROOT'] ) ) {
+	if ( isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
 		$base_path = sanitize_text_field( wp_unslash( $_SERVER['DOCUMENT_ROOT'] ) ) ?? '';
 		foreach ( $possible_paths as $possible_path ) {
 			$full_path = $base_path . DIRECTORY_SEPARATOR . ltrim( $possible_path, '/' );
