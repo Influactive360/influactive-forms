@@ -42,34 +42,34 @@ function influactive_form_metabox( WP_Post $post ): void {
 
 	influactive_form_shortcode( $post );
 	?>
-	<div class="tabs">
-		<ul class="tab-links">
+	<div class='"tabs'>
+		<ul class='tab-links'>
 			<li>
-				<a href="#style">
-					<?= __( 'Form Style', 'influactive-forms' ) ?>
+				<a href='#style'>
+					<?= esc_html__( 'Form Style', 'influactive-forms' ) ?>
 				</a>
 			</li>
 			<li>
-				<a href="#email">
-					<?= __( 'Email Layout', 'influactive-forms' ) ?>
+				<a href='#email'>
+					<?= esc_html__( 'Email Layout', 'influactive-forms' ) ?>
 				</a>
 			</li>
 		</ul>
 
-		<div class="tab-content">
-			<div id="fields" class="tab active">
+		<div class='tab-content'>
+			<div id='fields' class='tab active'>
 				<!-- Form fields content -->
-				<h2><?= __( 'Form Fields', 'influactive-forms' ) ?></h2>
+				<h2><?= esc_html__( 'Form Fields', 'influactive-forms' ) ?></h2>
 				<?php influactive_form_fields_listing( $post ); ?>
 			</div>
-			<div id="style" class="tab">
+			<div id='style' class='tab'>
 				<!-- Email style content -->
-				<h2><?= __( 'Form Style', 'influactive-forms' ) ?></h2>
+				<h2><?= esc_html__( 'Form Style', 'influactive-forms' ) ?></h2>
 				<?php influactive_form_email_style( $post ); ?>
 			</div>
-			<div id="email" class="tab">
+			<div id='email' class='tab'>
 				<!-- Email style content -->
-				<h2><?= __( 'Email Layout', 'influactive-forms' ) ?></h2>
+				<h2><?= esc_html__( 'Email Layout', 'influactive-forms' ) ?></h2>
 				<?php influactive_form_email_layout( $post ); ?>
 			</div>
 		</div>
@@ -101,57 +101,57 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 
 	if ( is_array( $fields ) ) :
 		foreach ( $fields as $key => $field ) : ?>
-			<div class="influactive_form_field">
+			<div class='influactive_form_field'>
 				<p>
 					<label>Type
 						<select name="influactive_form_fields[<?= (int) $key ?>][type]"
-										class="field_type">
+										class='field_type'>
 							<option
-								value="text"
+								value='text'
 								<?= isset( $field['type'] ) && $field['type'] === 'text' ? 'selected' : '' ?>
 							>
-								<?= __( 'Text', 'influactive-forms' ) ?>
+								<?= esc_html__( 'Text', 'influactive-forms' ) ?>
 							</option>
 							<option
 								value="email"
 								<?= isset( $field['type'] ) && $field['type'] === 'email' ? 'selected' : '' ?>
 							>
-								<?= __( 'Email', 'influactive-forms' ) ?>
+								<?= esc_html__( 'Email', 'influactive-forms' ) ?>
 							</option>
 							<option
 								value="number"
 								<?= isset( $field['type'] ) && $field['type'] === 'number' ? 'selected' : '' ?>
 							>
-								<?= __( 'Number', 'influactive-forms' ) ?>
+								<?= esc_html__( 'Number', 'influactive-forms' ) ?>
 							</option>
 							<option
 								value="textarea"
 								<?= isset( $field['type'] ) && $field['type'] === 'textarea' ? 'selected' : '' ?>
 							>
-								<?= __( 'Textarea', 'influactive-forms' ) ?></option>
+								<?= esc_html__( 'Textarea', 'influactive-forms' ) ?></option>
 							<option
 								value="select"
 								<?= isset( $field['type'] ) && $field['type'] === 'select' ? 'selected' : '' ?>
 							>
-								<?= __( 'Select', 'influactive-forms' ) ?>
+								<?= esc_html__( 'Select', 'influactive-forms' ) ?>
 							</option>
 							<option
 								value="gdpr"
 								<?= isset( $field['type'] ) && $field['type'] === 'gdpr' ? 'selected' : '' ?>
 							>
-								<?= __( 'GDPR', 'influactive-forms' ) ?>
+								<?= esc_html__( 'GDPR', 'influactive-forms' ) ?>
 							</option>
 							<option
 								value="free_text"
 								<?= isset( $field['type'] ) && $field['type'] === 'free_text' ? 'selected' : '' ?>
 							>
-								<?= __( 'Free text', 'influactive-forms' ) ?>
+								<?= esc_html__( 'Free text', 'influactive-forms' ) ?>
 							</option>
 						</select>
 					</label>
 					<?php if ( isset( $field['type'] ) && $field['type'] === 'gdpr' ) : ?>
 						<label>
-							<?= __( 'Text', 'influactive-forms' ) ?>
+							<?= esc_html__( 'Text', 'influactive-forms' ) ?>
 							<input
 								type="text"
 								name="influactive_form_fields[<?= (int) $key ?>][label]"
