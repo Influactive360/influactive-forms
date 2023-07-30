@@ -584,47 +584,47 @@ function influactive_form_email_style( WP_Post $post ): void {
 				<?php echo esc_html__( 'Input border style', 'influactive-forms' ); ?>
 				<select name="influactive_form_email_style[input][border_style]">
 					<option
-						value="solid" <?php echo "solid" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="solid" <?php echo 'solid' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Solid', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="dashed" <?php echo "dashed" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="dashed" <?php echo 'dashed' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Dashed', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="dotted" <?php echo "dotted" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="dotted" <?php echo 'dotted' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Dotted', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="double" <?php echo "double" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="double" <?php echo 'double' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Double', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="groove" <?php echo "groove" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="groove" <?php echo 'groove' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Groove', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="ridge" <?php echo "ridge" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="ridge" <?php echo 'ridge' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Ridge', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="inset" <?php echo "inset" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="inset" <?php echo 'inset' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Inset', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="outset" <?php echo "outset" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="outset" <?php echo 'outset' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Outset', 'influactive-forms' ); ?>
 					</option>
 					<option
-						value="hidden" <?php echo "hidden" === $email_style['input']['border_style'] ? 'selected' : ''; ?>
+						value="hidden" <?php echo 'hidden' === $email_style['input']['border_style'] ? 'selected' : ''; ?>
 					>
 						<?php echo esc_html__( 'Hidden', 'influactive-forms' ); ?>
 					</option>
@@ -704,7 +704,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 					<option
 						value="bolder" <?php echo "bolder" === $email_style['submit']['font_weight'] ? 'selected' : ''; ?>
 					>
-						<?php echo esc_html__( 'Bolder', 'influactive-forms' ) ?>
+						<?php echo esc_html__( 'Bolder', 'influactive-forms' ); ?>
 					</option>
 					<option value="lighter"
 						<?php echo "lighter" === $email_style['submit']['font_weight'] ? 'selected' : ''; ?>
@@ -826,8 +826,7 @@ function influactive_form_email_style( WP_Post $post ): void {
 				<input
 					type="text"
 					name="influactive_form_email_style[free_text][font_family]"
-					value="<?php echo esc_attr(
-						$email_style['free_text']['font_family'] ?? 'Arial, Helvetica, sans-serif' ); ?>"
+					value="<?php echo esc_attr( $email_style['free_text']['font_family'] ?? 'Arial, Helvetica, sans-serif' ); ?>"
 				>
 			</label>
 			<label>
@@ -909,14 +908,14 @@ function influactive_form_email_layout( WP_Post $post ): void {
 	</ul>
 	<?php
 	if ( count( $email_layout ) === 0 ) {
-		$email_layout = [
-			0 => [
+		$email_layout = array(
+			0 => array(
 				'sender'    => get_bloginfo( 'admin_email' ),
 				'recipient' => get_bloginfo( 'admin_email' ),
 				'subject'   => esc_html__( 'New subject', 'influactive-forms' ),
 				'message'   => esc_html__( 'New message', 'influactive-forms' ),
-			],
-		];
+			),
+		);
 	}
 	?>
 	<div id="layout_container">
