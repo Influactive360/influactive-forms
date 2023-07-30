@@ -114,7 +114,9 @@ function influactive_form_save_post( int $post_id ): void {
 		return;
 	}
 
-	$fields            = isset( $_POST['influactive_form_fields'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_fields'] ) : array();
+	if ( isset( $_POST['influactive_form_fields'] ) ) {
+		$fields = array_map( 'wp_unslash', $_POST['influactive_form_fields'] );
+	}
 	$form_email_style  = isset( $_POST['influactive_form_email_style'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_email_style'] ) : array();
 	$form_email_layout = isset( $_POST['influactive_form_email_layout'] ) ? array_map( 'wp_unslash', $_POST['influactive_form_email_layout'] ) : array();
 
