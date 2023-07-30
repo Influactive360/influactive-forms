@@ -19,6 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
 
+require_once( plugin_dir_path( __FILE__ ) . 'back-end/post-type/definitions.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'back-end/post-type/edit.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'back-end/post-type/listing.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'back-end/settings/captchas.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'front-end/shortcode.php' );
+
 /**
  * Adds a settings link to the plugin page.
  *

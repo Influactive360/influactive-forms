@@ -7,9 +7,14 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
+	require_wordpress_core(
+		array(
+			'/wp-load.php', // WordPress.
+			'/wordpress/wp-load.php', // WordPlate.
+			'/wp/wp-load.php', // Radicle.
+		)
+	);
 }
-
 /**
  * Display the email styles for the Influactive form.
  *

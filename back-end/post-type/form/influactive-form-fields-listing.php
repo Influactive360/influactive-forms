@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Display the form fields listing for the Influactive form metabox.
+ * Renders the form fields listing HTML for a given post.
  *
- * @param WP_Post $post The current post object.
+ * @param WP_Post $post The post object.
  *
  * @return void
  */

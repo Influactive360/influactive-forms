@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
 
+require_once( plugin_dir_path( __FILE__ ) . 'form/influactive-form-email-layout.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'form/influactive-form-email-style.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'form/influactive-form-fields-listing.php' );
+
 /**
  * Add the Influactive Form metabox to the post-editor screen.
  *
