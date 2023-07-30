@@ -105,7 +105,7 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	$_POST = empty ( $_POST ) ? array() : array_map( 'wp_unslash', $_POST );
+	$_POST = empty ( $_POST ) ? array() : array_map( 'sanitize_text_field', $_POST );
 
 	if ( ! isset( $_POST['post_type'] ) || 'influactive-forms' !== $_POST['post_type'] ) {
 		return;
