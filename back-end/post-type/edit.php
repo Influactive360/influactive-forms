@@ -147,7 +147,8 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 							>
 								<?php
 								echo esc_html__( 'Textarea', 'influactive-forms' );
-								?></option>
+								?>
+							</option>
 							<option
 								value="select"
 								<?php
