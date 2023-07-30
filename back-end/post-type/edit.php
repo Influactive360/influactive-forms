@@ -177,13 +177,9 @@ function influactive_form_save_post( int $post_id ): void {
 		}
 		update_post_meta( $post_id, '_influactive_form_fields', $fields );
 
-		$email_style = $form_email_style;
+		update_post_meta( $post_id, '_influactive_form_email_style', $form_email_style );
 
-		update_post_meta( $post_id, '_influactive_form_email_style', $email_style );
-
-		$email_layout = $form_email_layout;
-
-		foreach ( $email_layout as $layout ) {
+		foreach ( $form_email_layout as $layout ) {
 			if ( isset( $layout['subject'] ) && is_string( $layout['subject'] ) && is_array( $layout ) ) {
 				$layout['subject'] = sanitize_text_field( $layout['subject'] );
 			}
@@ -192,7 +188,7 @@ function influactive_form_save_post( int $post_id ): void {
 			}
 		}
 
-		update_post_meta( $post_id, '_influactive_form_email_layout', $email_layout );
+		update_post_meta( $post_id, '_influactive_form_email_layout', $form_email_layout );
 	}
 }
 
