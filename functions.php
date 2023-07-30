@@ -12,6 +12,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @throws RuntimeException If the WordPress environment is not loaded.
+ * @package Influactive Forms
  **/
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,11 +33,12 @@ include( plugin_dir_path( __FILE__ ) . 'front-end/shortcode.php' );
  * @return array An updated array of links including the new settings link.
  */
 function influactive_forms_add_settings_link( array $links ): array {
-	$settings_link = '<a href="edit.php?post_type=influactive-forms&page=influactive-form-settings">'
-	                 . __( 'Captchas', 'influactive-forms' ) . '</a>';
+	$link          = "edit.php?post_type=influactive-forms&page=influactive-form-settings";
+	$link_text     = __( 'Captchas', 'influactive-forms' );
+	$settings_link = '<a href="' . $link . '">' . $link_text . '</a>';
 	$links[]       = $settings_link;
 
-	return $links; // Add the settings link to the plugin page.
+	return $links;
 }
 
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'influactive_forms_add_settings_link' );
