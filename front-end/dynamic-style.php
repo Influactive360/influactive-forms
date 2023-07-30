@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	requireWordPressCore(
+	require_wordpress_core(
 		array(
 			'/wp-load.php', // WordPress.
 			'/wordpress/wp-load.php', // WordPlate.

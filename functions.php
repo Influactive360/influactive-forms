@@ -147,7 +147,7 @@ function influactive_form_edit( string $hook ): void {
 
 	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true );
 	if ( ! $form_id ) {
-		throw new RuntimeException( "Form ID not found. Exiting..." );
+		throw new RuntimeException( 'Form ID not found. Exiting...' );
 	}
 	wp_enqueue_style(
 		'influactive-form-dynamic-style',
@@ -167,14 +167,14 @@ add_action( 'admin_enqueue_scripts', 'influactive_form_edit' );
  */
 function influactive_form_shortcode_enqueue(): void {
 	if ( is_admin() ) {
-		throw new RuntimeException( "WordPress environment not loaded. Exiting..." );
+		throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 	}
 
 	if ( wp_script_is( 'google-captcha' ) || wp_script_is( 'google-recaptcha' ) ) {
-		throw new RuntimeException( "Google Captcha script already loaded. Exiting..." );
+		throw new RuntimeException( 'Google Captcha script already loaded. Exiting...' );
 	}
 
-	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? [];
+	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? null;
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? null;
 
@@ -186,9 +186,9 @@ function influactive_form_shortcode_enqueue(): void {
 			'1.2.6',
 			true
 		);
-		$script_handle = [ 'google-captcha' ];
+		$script_handle = array( 'google-captcha' );
 	} else {
-		$script_handle = [];
+		$script_handle = array();
 	}
 
 	wp_enqueue_script(
@@ -202,14 +202,14 @@ function influactive_form_shortcode_enqueue(): void {
 	wp_enqueue_style(
 		'influactive-form',
 		plugin_dir_url( __FILE__ ) . 'dist/frontForm.bundled.css',
-		[],
+		array(),
 		'1.2.6'
 	);
 
 	wp_localize_script(
 		'influactive-form',
 		'ajaxObject',
-		[ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ]
+		array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
 	);
 }
 
@@ -237,8 +237,8 @@ add_action( 'plugins_loaded', 'load_influactive_forms_textdomain' );
  *
  * @return void
  */
-function requireWordPressCore( array $possible_paths ): void {
-	$base_path = $_SERVER['DOCUMENT_ROOT'] ?? '';
+function require_wordpress_core( array $possible_paths ): void {
+	$base_path = sanitize_text_field( wp_unslash( $_SERVER['DOCUMENT_ROOT'] ) ) ?? '';
 	foreach ( $possible_paths as $possible_path ) {
 		$full_path = $base_path . DIRECTORY_SEPARATOR . ltrim( $possible_path, '/' );
 		if ( file_exists( $full_path ) ) {
