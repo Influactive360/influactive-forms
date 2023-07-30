@@ -33,7 +33,7 @@ include( plugin_dir_path( __FILE__ ) . 'front-end/shortcode.php' );
  * @return array An updated array of links including the new settings link.
  */
 function influactive_forms_add_settings_link( array $links ): array {
-	$link          = "edit.php?post_type=influactive-forms&page=influactive-form-settings";
+	$link          = 'edit.php?post_type=influactive-forms&page=influactive-form-settings';
 	$link_text     = __( 'Captchas', 'influactive-forms' );
 	$settings_link = '<a href="' . $link . '">' . $link_text . '</a>';
 	$links[]       = $settings_link;
@@ -49,6 +49,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'influactive_f
  * @param string $hook The current admin page hook.
  *
  * @return void
+ * @throws RuntimeException If the Form ID is not found.
  */
 function influactive_form_edit( string $hook ): void {
 	if ( 'post.php' !== $hook && 'post-new.php' !== $hook ) {
@@ -58,18 +59,18 @@ function influactive_form_edit( string $hook ): void {
 	wp_enqueue_script(
 		'influactive-form',
 		plugin_dir_url( __FILE__ ) . 'dist/backEndForm.bundled.js',
-		[
+		array(
 			'wp-tinymce',
 			'influactive-tabs',
 			'influactive-form-layout',
-		],
+		),
 		'1.2.6',
 		true
 	);
 	wp_localize_script(
 		'influactive-form',
 		'influactiveFormsTranslations',
-		[
+		array(
 			'addOptionText'        => __( 'Add option', 'influactive-forms' ),
 			'removeOptionText'     => __( 'Remove option', 'influactive-forms' ),
 			'removeFieldText'      => __( 'Remove the field', 'influactive-forms' ),
@@ -89,13 +90,13 @@ function influactive_form_edit( string $hook ): void {
 			'GDPR'                 => __( 'GDPR', 'influactive-forms' ),
 			'Number'               => __( 'Number', 'influactive-forms' ),
 			'Freetext'             => __( 'Free text', 'influactive-forms' ),
-		]
+		)
 	);
 	wp_enqueue_style(
 		'influactive-form',
 		plugin_dir_url( __FILE__ )
 		. 'dist/backForm.bundled.css',
-		[],
+		array(),
 		'1.2.6'
 	);
 
@@ -103,7 +104,7 @@ function influactive_form_edit( string $hook ): void {
 		'influactive-tabs',
 		plugin_dir_url( __FILE__ )
 		. 'dist/backEndTab.bundled.js',
-		[],
+		array(),
 		'1.2.6',
 		true
 	);
@@ -111,7 +112,7 @@ function influactive_form_edit( string $hook ): void {
 		'influactive-tabs',
 		plugin_dir_url( __FILE__ )
 		. 'dist/tab.bundled.css',
-		[],
+		array(),
 		'1.2.6'
 	);
 
@@ -119,28 +120,28 @@ function influactive_form_edit( string $hook ): void {
 		'influactive-form-layout',
 		plugin_dir_url( __FILE__ )
 		. 'dist/layout.bundled.css',
-		[],
+		array(),
 		'1.2.6'
 	);
 	wp_enqueue_script(
 		'influactive-form-layout',
 		plugin_dir_url( __FILE__ ) . 'dist/backEndLayout.bundled.js',
-		[],
+		array(),
 		'1.2.6',
 		true
 	);
 	wp_localize_script(
 		'influactive-form-layout',
 		'influactiveFormsTranslations',
-		[
+		array(
 			'delete_layout' => __( 'Delete layout', 'influactive-forms' ),
-		]
+		)
 	);
 
 	wp_enqueue_style(
 		'influactive-form-style',
 		plugin_dir_url( __FILE__ ) . 'dist/style.bundled.css',
-		[],
+		array(),
 		'1.2.6'
 	);
 
@@ -151,7 +152,7 @@ function influactive_form_edit( string $hook ): void {
 	wp_enqueue_style(
 		'influactive-form-dynamic-style',
 		plugin_dir_url( __FILE__ ) . 'front-end/dynamic-style.php?post_id=' . $form_id,
-		[],
+		array(),
 		'1.2.6'
 	);
 }
@@ -162,6 +163,7 @@ add_action( 'admin_enqueue_scripts', 'influactive_form_edit' );
  * Enqueues the necessary scripts and styles for the Influactive form shortcode.
  *
  * @return void
+ * @throws RuntimeException If the WordPress environment is not loaded.
  */
 function influactive_form_shortcode_enqueue(): void {
 	if ( is_admin() ) {
@@ -180,8 +182,8 @@ function influactive_form_shortcode_enqueue(): void {
 		wp_enqueue_script(
 			'google-captcha',
 			"https://www.google.com/recaptcha/api.js?render=$public_site_key",
-			[],
-			null,
+			array(),
+			'1.2.6',
 			true
 		);
 		$script_handle = [ 'google-captcha' ];
@@ -231,17 +233,16 @@ add_action( 'plugins_loaded', 'load_influactive_forms_textdomain' );
 /**
  * Requires the WordPress core file from the given possible paths.
  *
- * @param array $possiblePaths          An array of possible paths where the
- *                                      WordPress core file may exist.
+ * @param array $possible_paths The possible paths to the WordPress core file.
  *
  * @return void
  */
-function requireWordPressCore( array $possiblePaths ): void {
-	$basePath = $_SERVER['DOCUMENT_ROOT'] ?? '';
-	foreach ( $possiblePaths as $possiblePath ) {
-		$fullPath = $basePath . DIRECTORY_SEPARATOR . ltrim( $possiblePath, '/' );
-		if ( file_exists( $fullPath ) ) {
-			require_once( $fullPath );
+function requireWordPressCore( array $possible_paths ): void {
+	$base_path = $_SERVER['DOCUMENT_ROOT'] ?? '';
+	foreach ( $possible_paths as $possible_path ) {
+		$full_path = $base_path . DIRECTORY_SEPARATOR . ltrim( $possible_path, '/' );
+		if ( file_exists( $full_path ) ) {
+			require_once( $full_path );
 			break;
 		}
 	}
