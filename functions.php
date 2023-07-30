@@ -92,7 +92,7 @@ function influactive_form_edit( string $hook ): void {
 			'Freetext'             => __( 'Free text', 'influactive-forms' ),
 		)
 	);
-	// Global CSS
+	// Global CSS.
 	wp_enqueue_style(
 		'influactive-form-style',
 		plugin_dir_url( __FILE__ ) . 'dist/style.bundled.css',
