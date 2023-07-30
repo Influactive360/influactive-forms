@@ -105,7 +105,7 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	if ( ! sanitize_key( $_POST['influactive_form_nonce'] ) !== null || ! wp_verify_nonce( sanitize_key( $_POST['influactive_form_nonce'] ), 'influactive_form_save_post' ) ) {
+	if ( ! isset( $_POST['influactive_form_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['influactive_form_nonce'] ), 'influactive_form_save_post' ) ) {
 		return;
 	}
 
@@ -113,20 +113,11 @@ function influactive_form_save_post( int $post_id ): void {
 		return;
 	}
 
-	$_POST = empty( $_POST ) ? array() : array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST ) );
-
-	$_POST['influactive_form_fields']       = empty( $_POST['influactive_form_fields'] )
-		? array()
-		: array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['influactive_form_fields'] ) );
-	$_POST['influactive_form_email_style']  = empty( $_POST['influactive_form_email_style'] )
-		? array()
-		: array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['influactive_form_email_style'] ) );
-	$_POST['influactive_form_email_layout'] = empty( $_POST['influactive_form_email_layout'] )
-		? array()
-		: array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST['influactive_form_email_layout'] ) );
+	$fields            = isset( $_POST['influactive_form_fields'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_fields'] ) ) : null;
+	$form_email_style  = isset( $_POST['influactive_form_email_style'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_email_style'] ) ) : null;
+	$form_email_layout = isset( $_POST['influactive_form_email_layout'] ) ? sanitize_text_field( wp_unslash( $_POST['influactive_form_email_layout'] ) ) : null;
 
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
-		$fields         = $_POST['influactive_form_fields'];
 		$fields_type    = $fields['type'];
 		$fields_label   = $fields['label'];
 		$fields_name    = $fields['name'];
@@ -145,11 +136,11 @@ function influactive_form_save_post( int $post_id ): void {
 		}
 		update_post_meta( $post_id, '_influactive_form_fields', $fields );
 
-		$email_style = $_POST['influactive_form_email_style'];
+		$email_style = $form_email_style;
 
 		update_post_meta( $post_id, '_influactive_form_email_style', $email_style );
 
-		$email_layout = $_POST['influactive_form_email_layout'];
+		$email_layout = $form_email_layout;
 
 		foreach ( $email_layout as $layout ) {
 			if ( isset( $layout['subject'] ) && is_string( $layout['subject'] ) && is_array( $layout ) ) {
