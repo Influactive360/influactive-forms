@@ -105,15 +105,15 @@ function influactive_form_shortcode( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	$_POST = empty( $_POST ) ? array() : array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST ) );
+	if ( ! sanitize_key( $_POST['influactive_form_nonce'] ) !== null || ! wp_verify_nonce( sanitize_key( $_POST['influactive_form_nonce'] ), 'influactive_form_save_post' ) ) {
+		return;
+	}
 
 	if ( ! isset( $_POST['post_type'] ) || 'influactive-forms' !== $_POST['post_type'] ) {
 		return;
 	}
 
-	if ( ! isset( $_POST['influactive_form_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['influactive_form_nonce'] ), 'influactive_form_save_post' ) ) {
-		return;
-	}
+	$_POST = empty( $_POST ) ? array() : array_map( 'sanitize_text_field', array_map( 'wp_unslash', $_POST ) );
 
 	$_POST['influactive_form_fields']       = empty( $_POST['influactive_form_fields'] )
 		? array()
