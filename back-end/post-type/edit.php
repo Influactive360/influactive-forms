@@ -941,7 +941,8 @@ function influactive_form_email_layout( WP_Post $post ): void {
 						<?php echo esc_html__( 'Email recipient', 'influactive-forms' ); ?>
 						<input
 							type="text"
-							name="influactive_form_email_layout[<?php echo $key ?>][recipient]"
+							name="influactive_form_email_layout[<?php echo esc_html( $key );
+							?>][recipient]"
 							value="<?php echo esc_attr( $layout['recipient'] ?? get_bloginfo( 'admin_email' ) ); ?>"
 						>
 					</label>
@@ -950,7 +951,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 						<?php echo esc_html__( 'Subject of the email', 'influactive-forms' ); ?>
 						<input
 							type="text"
-							name="influactive_form_email_layout[<?php echo $key ?>][subject]"
+							name="influactive_form_email_layout[<?php echo esc_html( $key ); ?>][subject]"
 							value="<?php echo esc_attr( $layout['subject'] ?? esc_html__( 'New subject', 'influactive-forms' ) ); ?>"
 						>
 					</label>
@@ -960,11 +961,11 @@ function influactive_form_email_layout( WP_Post $post ): void {
 						<?php echo esc_html__( 'Content of the email', 'influactive-forms' ); ?>
 						<?php
 						$content   = esc_html( $layout['content'] ) ?? esc_html__( 'New message', 'influactive-forms' );
-						$editor_id = 'influactive_form_email_editor_' . $key;
-						$settings  = [
+						$editor_id = 'influactive_form_email_editor_' . esc_html( $key );
+						$settings  = array(
 							'textarea_name' => "influactive_form_email_layout[$key][content]",
 							'editor_height' => 425,
-						];
+						);
 
 						wp_editor( $content, $editor_id, $settings );
 						?>
@@ -997,14 +998,14 @@ function influactive_form_email_layout( WP_Post $post ): void {
  * @return void
  */
 function influactive_form_save_post( int $post_id ): void {
-	if ( get_post_type( $post_id ) === 'influactive-forms' ) {
-		$fields         = $_POST['influactive_form_fields'] ?? array();
-		$fields_type    = $_POST['influactive_form_fields']['type'] ?? array();
-		$fields_label   = $_POST['influactive_form_fields']['label'] ?? array();
-		$fields_name    = $_POST['influactive_form_fields']['name'] ?? array();
-		$fields_options = $_POST['influactive_form_fields']['options'] ?? array();
-		$field_order    = $_POST['influactive_form_fields']['order'] ?? array();
-		$email_style    = $_POST['influactive_form_email_style'] ?? array();
+	if ( 'influactive-forms' === get_post_type( $post_id ) ) {
+		$fields         = wp_unslash( $_POST['influactive_form_fields'] ?? array() );
+		$fields_type    = $fields['type'] ?? array();
+		$fields_label   = $fields['label'] ?? array();
+		$fields_name    = $fields['name'] ?? array();
+		$fields_options = $fields['options'] ?? array();
+		$field_order    = $fields['order'] ?? array();
+		$email_style    = wp_unslash( $_POST['influactive_form_email_style'] ?? array() );
 
 		foreach ( $fields_name as $i => $field_name ) {
 			$options = influactive_sanitize_options( $fields_options[ $field_order[ $i ] ] ?? array() );
@@ -1019,17 +1020,16 @@ function influactive_form_save_post( int $post_id ): void {
 		}
 
 		update_post_meta( $post_id, '_influactive_form_fields', $fields );
-
 		update_post_meta( $post_id, '_influactive_form_email_style', $email_style );
 
-		$email_layout = ! empty( $_POST['influactive_form_email_layout'] ) ? $_POST['influactive_form_email_layout'] : array();
+		$email_layout = ! empty( $_POST['influactive_form_email_layout'] ) ? wp_unslash( $_POST['influactive_form_email_layout'] ) : array();
 
 		foreach ( $email_layout as $key => $layout ) {
-			if ( isset( $layout['content'] ) ) {
-				$email_layout[ $key ]['content'] = wp_kses_post( $layout['content'] );
+			if ( isset( $layout['subject'] ) && is_string( $layout['subject'] ) && is_array( $layout ) ) {
+				$layout['subject'] = sanitize_text_field( $layout['subject'] );
 			}
-			if ( isset( $layout['subject'] ) ) {
-				$email_layout[ $key ]['subject'] = sanitize_text_field( $layout['subject'] );
+			if ( isset( $layout['content'] ) && is_array( $layout ) ) {
+				$layout['content'] = wp_kses_post( $layout['content'] );
 			}
 		}
 
