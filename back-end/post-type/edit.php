@@ -106,8 +106,17 @@ function influactive_form_shortcode( WP_Post $post ): void {
  */
 function influactive_form_save_post( int $post_id ): void {
 	if ( isset( $_POST ) && 'influactive-forms' === get_post_type( $post_id ) ) {
-		$fields = $_POST['influactive_form_fields'];
-
+		if ( isset( $_POST['influactive_form_fields'] ) && is_array( $_POST['influactive_form_fields'] ) ) {
+			$fields = $_POST['influactive_form_fields'];
+		} else {
+			$fields = array(
+				'type'    => array(),
+				'label'   => array(),
+				'name'    => array(),
+				'options' => array(),
+				'order'   => array(),
+			);
+		}
 		$fields_type    = $fields['type'];
 		$fields_label   = $fields['label'];
 		$fields_name    = $fields['name'];
