@@ -33,6 +33,7 @@ add_action( 'add_meta_boxes', 'influactive_form_add_metaboxes' );
  * @param WP_Post $post The current post object.
  *
  * @return void
+ * @throws RuntimeException If the WordPress environment is not loaded.
  */
 function influactive_form_metabox( WP_Post $post ): void {
 	if ( ! current_user_can( 'edit_posts' ) ) {
