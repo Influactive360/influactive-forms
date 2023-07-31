@@ -232,7 +232,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
  * Renders the options container HTML for a given field.
  *
  * @param array $field The field options.
- * @param int $key The field key.
+ * @param int   $key The field key.
  *
  * @return void
  */
