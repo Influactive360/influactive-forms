@@ -377,7 +377,8 @@ function influactive_send_email(): void {
 
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST[ $field['name'] ] ) ) {
-				$name = wp_kses_post( nl2br( wp_unslash( $_POST[ $field['name'] ] ) ) );
+				$raw_data = filter_input( INPUT_POST, $field['name'], FILTER_UNSAFE_RAW );
+				$name     = wp_kses_post( nl2br( $raw_data ) );
 			} else {
 				$name = '';
 			}
