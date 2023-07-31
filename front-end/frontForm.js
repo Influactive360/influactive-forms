@@ -8,76 +8,76 @@ import './form.scss'
  * @param {string|Blob} recaptchaResponse
  */
 const submitFormGlobal = (messageDiv, form, recaptchaResponse) => {
-	let message
-	const xhr = new XMLHttpRequest()
-	const formData = new FormData(form)
-	formData.append('action', 'send_email')
+  let message
+  const xhr = new XMLHttpRequest()
+  const formData = new FormData(form)
+  formData.append('action', 'send_email')
 
-	if (recaptchaResponse) {
-		formData.append('recaptcha_response', recaptchaResponse)
-	}
+  if (recaptchaResponse) {
+    formData.append('recaptcha_response', recaptchaResponse)
+  }
 
-	xhr.open('POST', ajaxObject.ajaxurl, true)
+  xhr.open('POST', ajaxObject.ajaxurl, true)
 
-	xhr.onload = function xhrOnLoad() {
-		if (xhr.status === 200) {
-			try {
-				const response = JSON.parse(xhr.responseText)
-				if (response.data) {
-					message = response.data.message
-					form.reset()
-					messageDiv.textContent = message
-				} else {
-					message = 'An error occurred while processing the response'
-				}
-			} catch (error) {
-				message = 'An error occurred while parsing the response'
-			}
-			messageDiv.textContent = message
-		} else {
-			message = 'An error occurred with the AJAX request'
-			messageDiv.textContent = message
-		}
-	}
+  xhr.onload = function xhrOnLoad() {
+    if (xhr.status === 200) {
+      try {
+        const response = JSON.parse(xhr.responseText)
+        if (response.data) {
+          message = response.data.message
+          form.reset()
+          messageDiv.textContent = message
+        } else {
+          message = 'An error occurred while processing the response'
+        }
+      } catch (error) {
+        message = 'An error occurred while parsing the response'
+      }
+      messageDiv.textContent = message
+    } else {
+      message = 'An error occurred with the AJAX request'
+      messageDiv.textContent = message
+    }
+  }
 
-	xhr.onerror = () => {
-		message = 'An error occurred while making the AJAX request'
-		messageDiv.textContent = message
-	}
+  xhr.onerror = () => {
+    message = 'An error occurred while making the AJAX request'
+    messageDiv.textContent = message
+  }
 
-	xhr.send(formData)
+  xhr.send(formData)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	const forms = document.querySelectorAll('.influactive-form')
+  const forms = document.querySelectorAll('.influactive-form')
 
-	forms.forEach((form) => {
-		if (form.parentElement.parentElement.parentElement.classList.contains('influactive-modal-form-brochure')) {
-			return
-		}
+  forms.forEach((form) => {
+    if (form.parentElement.parentElement.parentElement.classList.contains('influactive-modal-form-brochure')) {
+      return
+    }
 
-		form.addEventListener('submit', (event) => {
-			event.preventDefault()
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
 
-			const messageDiv = form.querySelector('.influactive-form-message')
-			const recaptchaInput = form.querySelector('input[name="recaptcha_site_key"]')
+      const messageDiv = form.querySelector('.influactive-form-message')
+      const recaptchaInput = form.querySelector('input[name="recaptcha_site_key"]')
 
-			if (recaptchaInput && grecaptcha) {
-				const recaptchaSiteKey = recaptchaInput.value
-				grecaptcha.ready(() => {
-					grecaptcha.execute(recaptchaSiteKey, {action: 'submit'}).then((token) => {
-						submitFormGlobal(messageDiv, form, token)
-						setTimeout(() => {
-							messageDiv.textContent = ''
-						}, 5000)
-					})
-				})
-			} else {
-				submitFormGlobal(messageDiv, form, null)
-				setTimeout(() => {
-					messageDiv.textContent = ''
-				}, 5000)
-			}
-		})
-	})
+      if (recaptchaInput && grecaptcha) {
+        const recaptchaSiteKey = recaptchaInput.value
+        grecaptcha.ready(() => {
+          grecaptcha.execute(recaptchaSiteKey, { action: 'submit' }).then((token) => {
+            submitFormGlobal(messageDiv, form, token)
+            setTimeout(() => {
+              messageDiv.textContent = ''
+            }, 5000)
+          })
+        })
+      } else {
+        submitFormGlobal(messageDiv, form, null)
+        setTimeout(() => {
+          messageDiv.textContent = ''
+        }, 5000)
+      }
+    })
+  })
 })
