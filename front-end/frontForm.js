@@ -3,12 +3,13 @@ import './form.scss'
 /* global grecaptcha, ajaxObject */
 
 /**
- * @param {HTMLElement} messageDiv
+ * @param messageDivParam
  * @param {Element} form
  * @param {string|Blob} recaptchaResponse
  */
-const submitFormGlobal = (messageDiv, form, recaptchaResponse) => {
+const submitFormGlobal = (messageDivParam, form, recaptchaResponse) => {
   let message
+  const messageDiv = messageDivParam // create a local variable
   const xhr = new XMLHttpRequest()
   const formData = new FormData(form)
   formData.append('action', 'send_email')
@@ -26,7 +27,6 @@ const submitFormGlobal = (messageDiv, form, recaptchaResponse) => {
         if (response.data) {
           message = response.data.message
           form.reset()
-          messageDiv.textContent = message
         } else {
           message = 'An error occurred while processing the response'
         }
