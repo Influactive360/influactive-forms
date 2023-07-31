@@ -49,7 +49,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 	// Showing the form if it exists.
 	$form = get_post( $form_id );
 
-	if ( $form ) {
+	if ( $form && 'publish' === $form->post_status && 'influactive-forms' === $form->post_type ) {
 		update_post_meta( get_the_ID(), 'influactive_form_id', $form_id );
 
 		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
@@ -473,9 +473,9 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
 /**
  * Replaces the placeholder in a string with the label and value of a field.
  *
- * @param string $string The string containing the placeholder.
- * @param string $field_name The name of the field.
- * @param array $label_value The label and value of the field.
+ * @param string $string      The string containing the placeholder.
+ * @param string $field_name  The name of the field.
+ * @param array  $label_value The label and value of the field.
  *
  * @return string The string with the placeholder replaced.
  */
