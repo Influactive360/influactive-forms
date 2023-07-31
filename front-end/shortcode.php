@@ -72,9 +72,9 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 
 				<?php
-				$options_captcha  = get_option( 'influactive-forms-captcha-fields' ) ?? array();
-				$public_site_key  = $options_captcha['google-captcha']['public-site-key'] ?? '';
-				$secret_site_key  = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+				$options_captcha    = get_option( 'influactive-forms-captcha-fields' ) ?? array();
+				$public_site_key    = $options_captcha['google-captcha']['public-site-key'] ?? '';
+				$secret_site_key    = $options_captcha['google-captcha']['secret-site-key'] ?? '';
 
 				if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
 					?>
@@ -104,123 +104,125 @@ function influactive_form_shortcode_handler( array $atts ): string {
 					<?php
 				}
 
-				foreach ( $fields as $field ) {
-					if ( isset( $field['required'] ) && '1' === $field['required'] ) {
-						$required = 'required';
-					} else {
-						$required = '';
-					}
+				if ( is_array( $fields ) ) {
+					foreach ( $fields as $field ) {
+						if ( isset( $field['required'] ) && '1' === $field['required'] ) {
+							$required = 'required';
+						} else {
+							$required = '';
+						}
 
-					switch ( $field['type'] ) {
-						case 'text':
-							?>
+						switch ( $field['type'] ) {
+							case 'text':
+								?>
 
-							<label>
-								<?php echo esc_attr( $field['label'] ); ?>:
-								<input
-									type="text"<?php echo esc_attr( $required ); ?>
-									name="<?php echo esc_attr( $field['name'] ); ?>"
-								>
-							</label>
+								<label>
+									<?php echo esc_attr( $field['label'] ); ?>:
+									<input
+										type="text"<?php echo esc_attr( $required ); ?>
+										name="<?php echo esc_attr( $field['name'] ); ?>"
+									>
+								</label>
 
-							<?php
-							break;
-						case 'email':
-							?>
+								<?php
+								break;
+							case 'email':
+								?>
 
-							<label>
-								<?php echo esc_attr( $field['label'] ); ?>:
-								<input
-									type="email" <?php echo esc_attr( $required ); ?>
-									name="<?php echo esc_attr( $field['name'] ); ?>"
-									autocomplete="email"
-								>
-							</label>
+								<label>
+									<?php echo esc_attr( $field['label'] ); ?>:
+									<input
+										type="email" <?php echo esc_attr( $required ); ?>
+										name="<?php echo esc_attr( $field['name'] ); ?>"
+										autocomplete="email"
+									>
+								</label>
 
-							<?php
-							break;
-						case 'number':
-							?>
+								<?php
+								break;
+							case 'number':
+								?>
 
-							<label>
-								<?php echo esc_attr( $field['label'] ); ?>:
-								<input
-									type="number" <?php echo esc_attr( $required ); ?>
-									name="<?php echo esc_attr( $field['name'] ); ?>">
-							</label>
+								<label>
+									<?php echo esc_attr( $field['label'] ); ?>:
+									<input
+										type="number" <?php echo esc_attr( $required ); ?>
+										name="<?php echo esc_attr( $field['name'] ); ?>">
+								</label>
 
-							<?php
-							break;
-						case 'textarea':
-							?>
+								<?php
+								break;
+							case 'textarea':
+								?>
 
-							<label>
-								<?php echo esc_attr( $field['label'] ); ?>:
-								<textarea <?php echo esc_attr( $required ); ?>
+								<label>
+									<?php echo esc_attr( $field['label'] ); ?>:
+									<textarea <?php echo esc_attr( $required ); ?>
 									name="<?php echo esc_attr( $field['name'] ); ?>"
 									rows="10"></textarea>
-							</label>
+								</label>
 
-							<?php
-							break;
-						case 'select':
-							?>
+								<?php
+								break;
+							case 'select':
+								?>
 
-							<label>
-								<?php echo esc_attr( $field['label'] ); ?>:
-								<select <?php echo esc_attr( $required ); ?>
-									name="<?php echo esc_attr( $field['name'] ); ?>">
-
-									<?php
-									foreach ( $field['options'] as $option ) {
-										?>
-
-										<option
-											value="<?php echo esc_attr( $option['value'] ); ?>:<?php echo esc_attr( $option['label'] ); ?>">
-											<?php echo esc_attr( $option['label'] ); ?>
-										</option>
+								<label>
+									<?php echo esc_attr( $field['label'] ); ?>:
+									<select <?php echo esc_attr( $required ); ?>
+										name="<?php echo esc_attr( $field['name'] ); ?>">
 
 										<?php
-									}
-									?>
+										foreach ( $field['options'] as $option ) {
+											?>
 
-								</select>
-							</label>
+											<option
+												value="<?php echo esc_attr( $option['value'] ); ?>:<?php echo esc_attr( $option['label'] ); ?>">
+												<?php echo esc_attr( $option['label'] ); ?>
+											</option>
 
-							<?php
-							break;
-						case 'gdpr':
-							$gdpr_translate = __( 'Check our Privacy Policy', 'influactive-forms' );
-							$gdpr_text  = '<a href="' . get_privacy_policy_url() . '" target="_blank" title="Privacy Policy">' . $gdpr_translate . '</a>';
-							$pp_content = get_privacy_policy_url() ? $gdpr_text : '';
-							?>
+											<?php
+										}
+										?>
 
-							<label>
+									</select>
+								</label>
+
+								<?php
+								break;
+							case 'gdpr':
+								$gdpr_translate = __( 'Check our Privacy Policy', 'influactive-forms' );
+								$gdpr_text  = '<a href="' . get_privacy_policy_url() . '" target="_blank" title="Privacy Policy">' . $gdpr_translate . '</a>';
+								$pp_content = get_privacy_policy_url() ? $gdpr_text : '';
+								?>
+
+								<label>
+									<input
+										type="checkbox"
+										name="<?php echo esc_attr( $field['name'] ); ?>"
+										required
+									>
+									<?php echo wp_kses_post( $field['label'] ) . ' ' . wp_kses_post( $pp_content ); ?>
+								</label>
+
+								<?php
+								break;
+							case 'free_text':
+								?>
+
+								<div class="free-text">
+									<?php echo wp_kses_post( $field['label'] ); ?>
+								</div>
+
 								<input
-									type="checkbox"
+									type="hidden"
 									name="<?php echo esc_attr( $field['name'] ); ?>"
-									required
+									value="<?php echo esc_attr( $field['label'] ); ?>"
 								>
-								<?php echo wp_kses_post( $field['label'] ) . ' ' . wp_kses_post( $pp_content ); ?>
-							</label>
 
-							<?php
-							break;
-						case 'free_text':
-							?>
-
-							<div class="free-text">
-								<?php echo wp_kses_post( $field['label'] ); ?>
-							</div>
-
-							<input
-								type="hidden"
-								name="<?php echo esc_attr( $field['name'] ); ?>"
-								value="<?php echo esc_attr( $field['label'] ); ?>"
-							>
-
-							<?php
-							break;
+								<?php
+								break;
+						}
 					}
 				}
 				?>
@@ -473,7 +475,7 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
  *
  * @param string $string The string containing the placeholder.
  * @param string $field_name The name of the field.
- * @param array  $label_value The label and value of the field.
+ * @param array $label_value The label and value of the field.
  *
  * @return string The string with the placeholder replaced.
  */
