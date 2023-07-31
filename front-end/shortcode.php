@@ -243,7 +243,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
  */
 function enqueue_form_dynamic_style(): void {
 	if ( is_admin() ) {
-		return);
+		return;
 	}
 
 	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true ) ?? 0;
