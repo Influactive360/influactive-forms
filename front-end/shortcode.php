@@ -258,7 +258,7 @@ function enqueue_form_dynamic_style(): void {
 		'influactive-form-dynamic-style',
 		plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id,
 		array(),
-		'1.3.2'
+		'1.3.2.1'
 	);
 }
 
