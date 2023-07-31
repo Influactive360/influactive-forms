@@ -3,7 +3,7 @@
  * Plugin Name: Influactive Forms
  * Description: A plugin to create custom forms and display them anywhere on
  * your website.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: Influactive
  * Author URI: https://influactive.com
  * Text Domain: influactive-forms
@@ -63,7 +63,7 @@ function influactive_form_edit( string $hook ): void {
 			'influactive-tabs',
 			'influactive-form-layout',
 		),
-		'1.3.1',
+		'1.3.2',
 		true
 	);
 	wp_localize_script(
@@ -96,7 +96,7 @@ function influactive_form_edit( string $hook ): void {
 		'influactive-form-style',
 		plugin_dir_url( __FILE__ ) . 'dist/style.bundled.css',
 		array(),
-		'1.3.1'
+		'1.3.2'
 	);
 	// Form CSS and JS.
 	wp_enqueue_script(
@@ -104,14 +104,14 @@ function influactive_form_edit( string $hook ): void {
 		plugin_dir_url( __FILE__ )
 		. 'dist/backEndForm.bundled.js',
 		array(),
-		'1.3.1'
+		'1.3.2'
 	);
 	wp_enqueue_style(
 		'influactive-form',
 		plugin_dir_url( __FILE__ )
 		. 'dist/backForm.bundled.css',
 		array(),
-		'1.3.1'
+		'1.3.2'
 	);
 	// Tabs CSS and JS.
 	wp_enqueue_script(
@@ -119,7 +119,7 @@ function influactive_form_edit( string $hook ): void {
 		plugin_dir_url( __FILE__ )
 		. 'dist/backEndTab.bundled.js',
 		array(),
-		'1.3.1',
+		'1.3.2',
 		true
 	);
 	wp_enqueue_style(
@@ -127,7 +127,7 @@ function influactive_form_edit( string $hook ): void {
 		plugin_dir_url( __FILE__ )
 		. 'dist/tab.bundled.css',
 		array(),
-		'1.3.1'
+		'1.3.2'
 	);
 	// Layout CSS and JS.
 	wp_enqueue_style(
@@ -135,13 +135,13 @@ function influactive_form_edit( string $hook ): void {
 		plugin_dir_url( __FILE__ )
 		. 'dist/layout.bundled.css',
 		array(),
-		'1.3.1'
+		'1.3.2'
 	);
 	wp_enqueue_script(
 		'influactive-form-layout',
 		plugin_dir_url( __FILE__ ) . 'dist/backEndLayout.bundled.js',
 		array(),
-		'1.3.1',
+		'1.3.2',
 		true
 	);
 	wp_localize_script(
@@ -178,7 +178,7 @@ function influactive_form_shortcode_enqueue(): void {
 			'google-captcha',
 			"https://www.google.com/recaptcha/api.js?render=$public_site_key",
 			array(),
-			'1.3.1',
+			'1.3.2',
 			true
 		);
 		$script_handle = array( 'google-captcha' );
@@ -192,14 +192,14 @@ function influactive_form_shortcode_enqueue(): void {
 		plugin_dir_url( __FILE__ ) .
 		'dist/frontEnd.bundled.js',
 		$script_handle,
-		'1.3.1',
+		'1.3.2',
 		true
 	);
 	wp_enqueue_style(
 		'influactive-form',
 		plugin_dir_url( __FILE__ ) . 'dist/frontForm.bundled.css',
 		array(),
-		'1.3.1'
+		'1.3.2'
 	);
 	wp_localize_script(
 		'influactive-form',

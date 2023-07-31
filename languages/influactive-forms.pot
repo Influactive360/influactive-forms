@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Influactive Forms 1.3.1\n"
+"Project-Id-Version: Influactive Forms 1.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/influactive-forms\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-30T18:31:37+00:00\n"
+"POT-Creation-Date: 2023-07-31T10:34:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: influactive-forms\n"
@@ -197,7 +197,7 @@ msgid "Content of the email"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-email-layout.php:149
-#: functions.php:152
+#: functions.php:151
 msgid "Delete layout"
 msgstr ""
 
@@ -450,67 +450,67 @@ msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:41
 #: back-end/post-type/form/influactive-form-fields-listing.php:111
-#: functions.php:82
-#: functions.php:86
+#: functions.php:81
+#: functions.php:85
 msgid "Text"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:51
-#: functions.php:89
+#: functions.php:88
 msgid "Email"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:61
-#: functions.php:91
+#: functions.php:90
 msgid "Number"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:71
-#: functions.php:87
+#: functions.php:86
 msgid "Textarea"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:81
-#: functions.php:88
+#: functions.php:87
 msgid "Select"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:91
-#: functions.php:90
+#: functions.php:89
 msgid "GDPR"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:101
-#: functions.php:92
+#: functions.php:91
 msgid "Free text"
 msgstr ""
 
 #: back-end/post-type/form/influactive-form-fields-listing.php:148
-#: functions.php:74
+#: functions.php:73
 msgid "Add option"
 msgstr ""
 
-#: back-end/post-type/form/influactive-form-fields-listing.php:220
-#: functions.php:76
+#: back-end/post-type/form/influactive-form-fields-listing.php:218
+#: functions.php:75
 msgid "Remove the field"
 msgstr ""
 
-#: back-end/post-type/form/influactive-form-fields-listing.php:229
+#: back-end/post-type/form/influactive-form-fields-listing.php:227
 msgid "Add Field"
 msgstr ""
 
-#: back-end/post-type/form/influactive-form-fields-listing.php:251
-#: functions.php:80
+#: back-end/post-type/form/influactive-form-fields-listing.php:249
+#: functions.php:79
 msgid "Option Label"
 msgstr ""
 
-#: back-end/post-type/form/influactive-form-fields-listing.php:260
-#: functions.php:81
+#: back-end/post-type/form/influactive-form-fields-listing.php:258
+#: functions.php:80
 msgid "Option Value"
 msgstr ""
 
-#: back-end/post-type/form/influactive-form-fields-listing.php:269
-#: functions.php:75
+#: back-end/post-type/form/influactive-form-fields-listing.php:267
+#: functions.php:74
 msgid "Remove option"
 msgstr ""
 
@@ -550,61 +550,61 @@ msgstr ""
 msgid "Check our Privacy Policy"
 msgstr ""
 
-#: front-end/shortcode.php:281
+#: front-end/shortcode.php:282
 msgid "Nonce verification failed"
 msgstr ""
 
-#: front-end/shortcode.php:287
+#: front-end/shortcode.php:288
 msgid "Form ID is required"
 msgstr ""
 
 #. translators: %s is a placeholder for the field name
-#: front-end/shortcode.php:300
+#: front-end/shortcode.php:301
 msgid "The field %s is required"
 msgstr ""
 
-#: front-end/shortcode.php:337
-#: front-end/shortcode.php:362
+#: front-end/shortcode.php:338
+#: front-end/shortcode.php:363
 msgid "Failed to verify reCAPTCHA"
 msgstr ""
 
-#: front-end/shortcode.php:352
+#: front-end/shortcode.php:353
 msgid "Bot detected"
 msgstr ""
 
 #. translators: %s is a placeholder for the file URL
-#: front-end/shortcode.php:474
+#: front-end/shortcode.php:428
 msgid "<a href='%s' target='_blank' title='Download our brochure'>Download our brochure</a>"
 msgstr ""
 
-#: front-end/shortcode.php:500
+#: front-end/shortcode.php:454
 msgid "Email sent successfully"
 msgstr ""
 
-#: front-end/shortcode.php:506
+#: front-end/shortcode.php:460
 msgid "Failed to send email"
 msgstr ""
 
-#: functions.php:77
+#: functions.php:76
 msgid "Type"
 msgstr ""
 
-#: functions.php:78
+#: functions.php:77
 msgid "Label"
 msgstr ""
 
-#: functions.php:79
+#: functions.php:78
 msgid "Name"
 msgstr ""
 
-#: functions.php:83
+#: functions.php:82
 msgid "Field added!"
 msgstr ""
 
-#: functions.php:84
+#: functions.php:83
 msgid "Option added!"
 msgstr ""
 
-#: functions.php:85
+#: functions.php:84
 msgid "Option removed!"
 msgstr ""

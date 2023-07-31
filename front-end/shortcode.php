@@ -258,7 +258,7 @@ function enqueue_form_dynamic_style(): void {
 		'influactive-form-dynamic-style',
 		plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id,
 		array(),
-		'1.3.1'
+		'1.3.2'
 	);
 }
 
@@ -473,9 +473,9 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
 /**
  * Replaces the placeholder in a string with the label and value of a field.
  *
- * @param string $string      The string containing the placeholder.
- * @param string $field_name  The name of the field.
- * @param array  $label_value The label and value of the field.
+ * @param string $string The string containing the placeholder.
+ * @param string $field_name The name of the field.
+ * @param array $label_value The label and value of the field.
  *
  * @return string The string with the placeholder replaced.
  */
