@@ -165,9 +165,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
 								'textarea_rows' => 10,
 								'media_buttons' => false,
 								'tinymce'       => array(
-									'toolbar1' => 'bold,italic,underline,link,unlink,undo,
-                                    redo,formatselect,backcolor,alignleft,aligncenter,alignright,
-                                    alignjustify,bullist,numlist,outdent,indent,removeformat',
+									'toolbar1' => 'bold,italic,underline,link,unlink,undo,redo,formatselect,backcolor,alignleft,aligncenter,alignright,alignjustify,bullist,numlist,outdent,indent,removeformat',
 								),
 								'editor_class'  => 'influactive_form_fields_label wysiwyg-editor',
 							)
