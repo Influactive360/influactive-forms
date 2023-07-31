@@ -115,48 +115,58 @@ function influactive_form_save_post( int $post_id ): void {
 	if ( ! isset( $data['influactive_form_save_post'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $data['influactive_form_save_post'] ) ), 'influactive_form_save_post' ) ) {
 		return;
 	}
-
 	if ( isset( $data['influactive_form_fields'] ) && is_array( $data['influactive_form_fields'] ) ) {
-		$unslashed_fields = wp_unslash( $data['influactive_form_fields'] );
-
-		foreach ( $unslashed_fields as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$unslashed_fields[ $key ] = array_map( 'wp_kses_post', $value );
-			} else {
-				$unslashed_fields[ $key ] = wp_kses_post( $value );
-			}
-		}
-
-		$fields = $unslashed_fields;
+		$unslashed_fields = $data['influactive_form_fields'];
+		$fields           = array_map(
+			static function ( $field ) {
+				return array(
+					'type'     => sanitize_text_field( $field['type'] ),
+					'label'    => wp_kses_post( $field['label'] ),
+					'name'     => sanitize_text_field( $field['name'] ),
+					'options'  => ( isset( $field['options'] ) && is_array( $field['options'] ) ) ?
+						array_map(
+							static function ( $option ) {
+								return array_map( 'sanitize_text_field', $option );
+							},
+							$field['options']
+						) : null,
+					'required' => sanitize_text_field( $field['required'] ),
+					'order'    => sanitize_text_field( $field['order'] ),
+				);
+			},
+			$unslashed_fields );
 	}
 
 	if ( isset( $data['influactive_form_email_style'] ) && is_array( $data['influactive_form_email_style'] ) ) {
-		$unslashed_fields = wp_unslash( $data['influactive_form_email_style'] );
+		$unslashed_fields = $data['influactive_form_email_style'];
+		$form_email_style = [];
 
-		foreach ( $unslashed_fields as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$unslashed_fields[ $key ] = array_map( 'wp_kses_post', $value );
-			} else {
-				$unslashed_fields[ $key ] = wp_kses_post( $value );
+		foreach ( $unslashed_fields as $group_name => $group ) {
+			if ( ! is_array( $group ) ) {
+				continue;
+			}
+
+			foreach ( $group as $property => $value ) {
+				$form_email_style[ $group_name ][ $property ] = sanitize_text_field( $value );
 			}
 		}
-
-		$form_email_style = $unslashed_fields;
 	}
-
 	if ( isset( $data['influactive_form_email_layout'] ) && is_array( $data['influactive_form_email_layout'] ) ) {
-		$unslashed_fields = wp_unslash( $data['influactive_form_email_layout'] );
-
-		foreach ( $unslashed_fields as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$unslashed_fields[ $key ] = array_map( 'wp_kses_post', $value );
-			} else {
-				$unslashed_fields[ $key ] = wp_kses_post( $value );
+		$values = array();
+		foreach ( $data['influactive_form_email_layout'] as $index => $fields_array ) {
+			if ( is_array( $fields_array ) ) {
+				$values[ $index ] = $fields_array;
+				foreach ( $fields_array as $key => $value ) {
+					if ( isset( $data['influactive_form_email_layout'][ $index ][ $key ] ) && is_array( $data['influactive_form_email_layout'][ $index ] ) && $data['influactive_form_email_layout'][ $index ][ $key ] === $value ) {
+						$values[ $index ][ $key ] = wp_kses_post( $value );
+					}
+				}
 			}
 		}
-
+		$unslashed_fields  = $values;
 		$form_email_layout = $unslashed_fields;
 	}
+
 
 	if ( isset( $data, $fields, $form_email_style, $form_email_layout ) && 'influactive-forms' === get_post_type( $post_id ) ) {
 		$fields_type    = $fields['type'];
@@ -166,7 +176,7 @@ function influactive_form_save_post( int $post_id ): void {
 		$field_order    = $fields['order'];
 
 		foreach ( $fields_name as $i => $field_name ) {
-			$options      = influactive_sanitize_options( isset( $fields_options[ $field_order[ $i ] ] ) ? sanitize_text_field( $fields_options[ $field_order[ $i ] ] ) : array() );
+			$options      = isset( $fields_options[ $field_order[ $i ] ] ) ? array_map( 'sanitize_text_field', $fields_options[ $field_order[ $i ] ] ) : array();
 			$fields[ $i ] = influactive_create_field(
 				$fields_type[ $i ],
 				$field_name,
@@ -176,18 +186,7 @@ function influactive_form_save_post( int $post_id ): void {
 			);
 		}
 		update_post_meta( $post_id, '_influactive_form_fields', $fields );
-
 		update_post_meta( $post_id, '_influactive_form_email_style', $form_email_style );
-
-		foreach ( $form_email_layout as $layout ) {
-			if ( isset( $layout['subject'] ) && is_string( $layout['subject'] ) && is_array( $layout ) ) {
-				$layout['subject'] = sanitize_text_field( $layout['subject'] );
-			}
-			if ( isset( $layout['content'] ) && is_array( $layout ) ) {
-				$layout['content'] = wp_kses_post( $layout['content'] );
-			}
-		}
-
 		update_post_meta( $post_id, '_influactive_form_email_layout', $form_email_layout );
 	}
 }
@@ -195,36 +194,20 @@ function influactive_form_save_post( int $post_id ): void {
 add_action( 'save_post', 'influactive_form_save_post' );
 
 /**
- * Sanitize options array.
- *
- * @param array $field_options The array containing the options to sanitize.
- *
- * @return array The sanitized options array.
- */
-function influactive_sanitize_options( array $field_options ): array {
-	return array_map(
-		static function( $option ) {
-			return is_array( $option ) ? array_map( 'sanitize_text_field', $option ) : sanitize_text_field( $option );
-		},
-		$field_options
-	);
-}
-
-/**
  * Create a field for a form.
  *
- * @param string $type    The type of field.
- * @param string $name    The name of the field.
- * @param int    $order   The order of the field.
- * @param string $label   The label for the field.
- * @param array  $options The options for a select field (optional).
+ * @param string $type The type of field.
+ * @param string $name The name of the field.
+ * @param int $order The order of the field.
+ * @param string $label The label for the field.
+ * @param array $options The options for a select field (optional).
  *
  * @return array The created field.
  */
 function influactive_create_field( string $type, string $name, int $order, string $label, array $options ): array {
 	$field = array(
 		'type'  => sanitize_text_field( $type ),
-		'name'  => strtolower( sanitize_text_field( $name ) ),
+		'name'  => sanitize_text_field( strtolower( $name ) ),
 		'order' => $order,
 		'label' => $label,
 	);
@@ -240,7 +223,7 @@ function influactive_create_field( string $type, string $name, int $order, strin
  * Sanitize a label based on its type.
  *
  * @param string $label The label to sanitize.
- * @param string $type  The type of the label.
+ * @param string $type The type of the label.
  *
  * @return string The sanitized label.
  */
