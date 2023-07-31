@@ -19,7 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function influactive_form_fields_listing( WP_Post $post ): void {
 	$fields = get_post_meta( $post->ID, '_influactive_form_fields', true );
-	var_dump( $fields );
 	echo '<div id="influactive_form_fields_container">';
 
 	if ( is_array( $fields ) ) :
@@ -233,7 +232,7 @@ function influactive_form_fields_listing( WP_Post $post ): void {
  * Renders the options container HTML for a given field.
  *
  * @param array $field The field options.
- * @param int $key The field key.
+ * @param int   $key   The field key.
  *
  * @return void
  */
