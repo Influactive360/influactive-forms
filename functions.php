@@ -171,15 +171,14 @@ add_action( 'admin_enqueue_scripts', 'influactive_form_edit' );
  * Enqueues the necessary scripts and styles for the Influactive form shortcode.
  *
  * @return void
- * @throws RuntimeException If the WordPress environment is not loaded.
  */
 function influactive_form_shortcode_enqueue(): void {
 	if ( is_admin() ) {
-		throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
+		return;
 	}
 
 	if ( wp_script_is( 'google-captcha' ) || wp_script_is( 'google-recaptcha' ) ) {
-		throw new RuntimeException( 'Google Captcha script already loaded. Exiting...' );
+		return;
 	}
 
 	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
