@@ -134,12 +134,13 @@ function influactive_form_save_post( int $post_id ): void {
 					'order'    => sanitize_text_field( $field['order'] ),
 				);
 			},
-			$unslashed_fields );
+			$unslashed_fields
+		);
 	}
 
 	if ( isset( $data['influactive_form_email_style'] ) && is_array( $data['influactive_form_email_style'] ) ) {
 		$unslashed_fields = $data['influactive_form_email_style'];
-		$form_email_style = [];
+		$form_email_style = array();
 
 		foreach ( $unslashed_fields as $group_name => $group ) {
 			if ( ! is_array( $group ) ) {
@@ -166,7 +167,6 @@ function influactive_form_save_post( int $post_id ): void {
 		$unslashed_fields  = $values;
 		$form_email_layout = $unslashed_fields;
 	}
-
 
 	if ( isset( $data, $fields, $form_email_style, $form_email_layout ) && 'influactive-forms' === get_post_type( $post_id ) ) {
 		$fields_type    = $fields['type'];
