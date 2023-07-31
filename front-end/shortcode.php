@@ -240,18 +240,15 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 /**
  * Enqueues the dynamic style file for a specific form.
- *
- * @throws RuntimeException If the WordPress environment is not loaded or form
- *   ID is not found.
  */
 function enqueue_form_dynamic_style(): void {
 	if ( is_admin() ) {
-		throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
+		return);
 	}
 
 	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true ) ?? 0;
 	if ( ! $form_id ) {
-		throw new RuntimeException( 'Form ID not found. Exiting...' );
+		return;
 	}
 
 	wp_enqueue_style(
