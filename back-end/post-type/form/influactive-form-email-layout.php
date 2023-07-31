@@ -130,7 +130,7 @@ function influactive_form_email_layout( WP_Post $post ): void {
 					<label>
 						<?php echo esc_html__( 'Content of the email', 'influactive-forms' ); ?>
 						<?php
-						$content   = esc_html( $layout['content'] ) ?? esc_html__( 'New message', 'influactive-forms' );
+						$content   = $layout['content'] ?? esc_html__( 'New message', 'influactive-forms' );
 						$editor_id = 'influactive_form_email_editor_' . esc_html( $key );
 						$settings  = array(
 							'textarea_name' => 'influactive_form_email_layout[' . esc_html( $key ) . '][content]',
