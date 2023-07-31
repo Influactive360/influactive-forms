@@ -49,7 +49,6 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'influactive_f
  * @param string $hook The current admin page hook.
  *
  * @return void
- * @throws RuntimeException If the Form ID is not found.
  */
 function influactive_form_edit( string $hook ): void {
 	if ( 'post.php' !== $hook && 'post-new.php' !== $hook ) {
@@ -151,17 +150,6 @@ function influactive_form_edit( string $hook ): void {
 		array(
 			'delete_layout' => __( 'Delete layout', 'influactive-forms' ),
 		)
-	);
-
-	$form_id = get_post_meta( get_the_ID(), 'influactive_form_id', true );
-	if ( ! $form_id ) {
-		throw new RuntimeException( 'Form ID not found. Exiting...' );
-	}
-	wp_enqueue_style(
-		'influactive-form-dynamic-style',
-		plugin_dir_url( __FILE__ ) . 'front-end/dynamic-style.php?post_id=' . $form_id,
-		array(),
-		'1.3.1'
 	);
 }
 
