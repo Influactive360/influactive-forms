@@ -158,8 +158,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 								<?php echo esc_attr( $field['label'] ); ?>:
 								<textarea <?php echo esc_attr( $required ); ?>
 									name="<?php echo esc_attr( $field['name'] ); ?>"
-									rows="10">
-								</textarea>
+									rows="10"></textarea>
 							</label>
 
 							<?php
@@ -202,7 +201,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 									name="<?php echo esc_attr( $field['name'] ); ?>"
 									required
 								>
-								<?php echo esc_attr( $field['label'] ) . ' ' . esc_attr( $pp_content ); ?>
+								<?php echo wp_kses_post( $field['label'] ) . ' ' . wp_kses_post( $pp_content ); ?>
 							</label>
 
 							<?php
@@ -211,7 +210,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
 							?>
 
 							<div class="free-text">
-								<?php echo esc_attr( $field['label'] ); ?>
+								<?php echo wp_kses_post( $field['label'] ); ?>
 							</div>
 
 							<input
@@ -267,10 +266,10 @@ add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );
  * Sends an email based on the submitted form data.
  *
  * @return void
- * @throws RuntimeException If the WordPress environment is not loaded.
+ * @throws RuntimeException If the captcha is not valid.
  */
 function influactive_send_email(): void {
-	$_POST = array_map( 'sanitize_text_field', $_POST );
+	$_POST = array_map( 'wp_kses_post', $_POST );
 
 	if ( isset( $_POST['nonce'] ) ) {
 		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
@@ -371,71 +370,23 @@ function influactive_send_email(): void {
 	$layouts = $email_layout ?? array();
 	$error   = 0;
 	foreach ( $layouts as $layout ) {
-		$content      = $layout['content'] ?? '';
-		$subject      = $layout['subject'] ?? '';
-		$to           = $layout['recipient'] ?? get_bloginfo( 'admin_email' );
-		$from         = $layout['sender'] ?? get_bloginfo( 'admin_email' );
-		$allowed_html = array(
-			'br'         => array(),
-			'p'          => array(),
-			'a'          => array(
-				'href'   => array(),
-				'title'  => array(),
-				'target' => array(),
-			),
-			'h1'         => array(),
-			'h2'         => array(),
-			'h3'         => array(),
-			'h4'         => array(),
-			'h5'         => array(),
-			'h6'         => array(),
-			'strong'     => array(),
-			'em'         => array(),
-			'ul'         => array(),
-			'ol'         => array(),
-			'li'         => array(),
-			'blockquote' => array(),
-			'pre'        => array(),
-			'code'       => array(),
-			'img'        => array(
-				'src' => array(),
-				'alt' => array(),
-			),
-		);
+		$content = $layout['content'] ?? '';
+		$subject = $layout['subject'] ?? '';
+		$to      = $layout['recipient'] ?? get_bloginfo( 'admin_email' );
+		$from    = $layout['sender'] ?? get_bloginfo( 'admin_email' );
 
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST[ $field['name'] ] ) ) {
-				$name = nl2br( sanitize_text_field( wp_unslash( $_POST[ $field['name'] ] ) ) );
+				$name = wp_kses_post( nl2br( wp_unslash( $_POST[ $field['name'] ] ) ) );
 			} else {
 				$name = '';
 			}
 
-			if ( 'textarea' === $field['type'] ) {
-				$content = str_replace(
-					'{' . $field['name'] . '}',
-					wp_kses( $name, $allowed_html ),
-					$content
-				);
-				$subject = str_replace(
-					'{' . $field['name'] . '}',
-					wp_kses( $name, $allowed_html ),
-					$subject
-				);
-				$to      = str_replace(
-					'{' . $field['name'] . '}',
-					wp_kses( $name, $allowed_html ),
-					$to
-				);
-				$from    = str_replace(
-					'{' . $field['name'] . '}',
-					wp_kses( $name, $allowed_html ),
-					$from
-				);
-			} elseif ( 'select' === $field['type'] ) {
-				$content = replace_field_placeholder( $content, $field['name'], explode( ':', $name ) );
-				$subject = replace_field_placeholder( $subject, $field['name'], explode( ':', $name ) );
-				$to      = replace_field_placeholder( $to, $field['name'], explode( ':', $name ) );
-				$from    = replace_field_placeholder( $from, $field['name'], explode( ':', $name ) );
+			if ( 'select' === $field['type'] ) {
+				$content = influactive_replace_field_placeholder( $content, $field['name'], explode( ':', $name ) );
+				$subject = influactive_replace_field_placeholder( $subject, $field['name'], explode( ':', $name ) );
+				$to      = influactive_replace_field_placeholder( $to, $field['name'], explode( ':', $name ) );
+				$from    = influactive_replace_field_placeholder( $from, $field['name'], explode( ':', $name ) );
 			} elseif ( 'email' === $field['type'] ) {
 				$content = str_replace( '{' . $field['name'] . '}', sanitize_email( $name ), $content );
 				$subject = str_replace( '{' . $field['name'] . '}', sanitize_email( $name ), $subject );
@@ -444,22 +395,22 @@ function influactive_send_email(): void {
 			} else {
 				$content = str_replace(
 					'{' . $field['name'] . '}',
-					sanitize_text_field( $name ),
+					wp_kses_post( $name ),
 					$content
 				);
 				$subject = str_replace(
 					'{' . $field['name'] . '}',
-					sanitize_text_field( $name ),
+					wp_kses_post( $name ),
 					$subject
 				);
 				$to      = str_replace(
 					'{' . $field['name'] . '}',
-					sanitize_text_field( $name ),
+					wp_kses_post( $name ),
 					$to
 				);
 				$from    = str_replace(
 					'{' . $field['name'] . '}',
-					sanitize_text_field( $name ),
+					wp_kses_post( $name ),
 					$from
 				);
 			}
@@ -519,13 +470,13 @@ add_action( 'wp_ajax_nopriv_send_email', 'influactive_send_email' );
 /**
  * Replaces the placeholder in a string with the label and value of a field.
  *
- * @param string $string      The string containing the placeholder.
- * @param string $field_name  The name of the field.
- * @param array  $label_value The label and value of the field.
+ * @param string $string The string containing the placeholder.
+ * @param string $field_name The name of the field.
+ * @param array $label_value The label and value of the field.
  *
  * @return string The string with the placeholder replaced.
  */
-function replace_field_placeholder( string $string, string $field_name, array $label_value ): string {
+function influactive_replace_field_placeholder( string $string, string $field_name, array $label_value ): string {
 	if ( str_contains( $string, '{' . $field_name . ':label}' ) ) {
 		$string = str_replace( '{' . $field_name . ':label}', $label_value[1], $string );
 	}
