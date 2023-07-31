@@ -240,39 +240,36 @@ function influactive_form_fields_listing( WP_Post $post ): void {
  */
 function influactive_container_options( array $field, int $key ): void {
 	$field['options'] = isset( $field['options'] ) && is_array( $field['options'] ) ? $field['options'] : array();
-
-	if ( is_array( $field['options'] ) ) :
-		?>
-		<div class="options_container">
-			<?php foreach ( $field['options'] as $option_index => $option ) : ?>
-				<p
-					class="option-field"
-					data-index="<?php echo esc_attr( $option_index ); ?>"
-				>
-					<label>
-						<?php echo esc_html__( 'Option Label', 'influactive-forms' ); ?>
-						<input
-							type="text"
-							class="option-label"
-							name="influactive_form_fields[<?php echo (int) $key; ?>][options][<?php echo (int) $option_index; ?>][label]"
-							value="<?php echo esc_attr( $option['label'] ); ?>" required
-						>
-					</label>
-					<label>
-						<?php echo esc_html__( 'Option Value', 'influactive-forms' ); ?>
-						<input
-							type="text"
-							class="option-value"
-							name="influactive_form_fields[<?php echo (int) $key; ?>][options][<?php echo (int) $option_index; ?>][value]"
-							value="<?php echo esc_attr( $option['value'] ); ?>" required
-						>
-					</label>
-					<a href="#" class="remove_option">
-						<?php echo esc_html__( 'Remove option', 'influactive-forms' ); ?>
-					</a>
-				</p>
-			<?php endforeach; ?>
-		</div>
+	?>
+	<div class="options_container">
+		<?php foreach ( $field['options'] as $option_index => $option ) : ?>
+			<p
+				class="option-field"
+				data-index="<?php echo esc_attr( $option_index ); ?>"
+			>
+				<label>
+					<?php echo esc_html__( 'Option Label', 'influactive-forms' ); ?>
+					<input
+						type="text"
+						class="option-label"
+						name="influactive_form_fields[<?php echo (int) $key; ?>][options][<?php echo (int) $option_index; ?>][label]"
+						value="<?php echo esc_attr( $option['label'] ); ?>" required
+					>
+				</label>
+				<label>
+					<?php echo esc_html__( 'Option Value', 'influactive-forms' ); ?>
+					<input
+						type="text"
+						class="option-value"
+						name="influactive_form_fields[<?php echo (int) $key; ?>][options][<?php echo (int) $option_index; ?>][value]"
+						value="<?php echo esc_attr( $option['value'] ); ?>" required
+					>
+				</label>
+				<a href="#" class="remove_option">
+					<?php echo esc_html__( 'Remove option', 'influactive-forms' ); ?>
+				</a>
+			</p>
+		<?php endforeach; ?>
+	</div>
 	<?php
-	endif;
 }
