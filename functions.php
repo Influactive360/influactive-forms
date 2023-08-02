@@ -1,8 +1,7 @@
 <?php
 /**
  * Plugin Name: Influactive Forms
- * Description: A plugin to create custom forms and display them anywhere on
- * your website.
+ * Description: A plugin to create custom forms and display them anywhere on your website.
  * Version: 1.3.2.1
  * Author: Influactive
  * Author URI: https://influactive.com
