@@ -3,6 +3,15 @@ import './form.scss'
 
 /* global influactiveFormsTranslations, tinymce */
 
+/**
+ * Recalculates the field indexes for the form fields and their options.
+ * If the `form_fields_container` element doesn't exist, the function will return without performing any calculations.
+ * The updated field indexes will be reflected in the `name` attribute of the form field elements.
+ * The updated option indexes will be reflected in the `name` attribute of the option field elements.
+ *
+ * @function recalculateFieldIndexes
+ * @returns {undefined}
+ */
 const recalculateFieldIndexes = () => {
   const formFieldsContainer = document.getElementById('form_fields_container')
 
@@ -43,6 +52,16 @@ const recalculateFieldIndexes = () => {
   })
 }
 
+/**
+ * Creates an input element with an associated label and appends it to the specified parent element.
+ *
+ * @param {Element} parent - The parent element to append the input and label to.
+ * @param {string} labelText - The text content of the label element.
+ * @param {string} name - The name attribute of the input element.
+ * @param {string} type - The type attribute of the input element.
+ * @param {string} className - The class name to assign to the input element.
+ * @returns {void} - This function does not return a value.
+ */
 const createInputWithLabel = (parent, labelText, name, type, className) => {
   const label = document.createElement('label')
   label.textContent = labelText
@@ -55,6 +74,10 @@ const createInputWithLabel = (parent, labelText, name, type, className) => {
   parent.appendChild(label)
 }
 
+/**
+ * Creates a new field element for a form.
+ * @returns {HTMLElement} - The created field element.
+ */
 const createFieldElement = () => {
   const fieldElement = document.createElement('div')
   const id = document.getElementsByClassName('influactive_form_field').length
@@ -126,6 +149,11 @@ const createFieldElement = () => {
   return fieldElement
 }
 
+/**
+ * Creates an option element.
+ *
+ * @returns {HTMLElement} The option element.
+ */
 const createOptionElement = () => {
   const optionElement = document.createElement('p')
   optionElement.className = 'option-field'
@@ -167,7 +195,10 @@ const createOptionElement = () => {
 }
 
 /**
- * @param {Event} e
+ * Removes the option field when triggered by an event.
+ *
+ * @param {Event} e - The event that triggered the removal of the option field.
+ * @returns {void}
  */
 const removeOptionHandler = (e) => {
   e.preventDefault()
@@ -176,7 +207,10 @@ const removeOptionHandler = (e) => {
 }
 
 /**
- * @param {ElementEventMap[keyof ElementEventMap]} e
+ * Adds an option handler to a form field element.
+ *
+ * @param {Event} e - The event object.
+ * @returns {undefined}
  */
 const addOptionHandler = (e) => {
   e.preventDefault()
@@ -199,7 +233,8 @@ const addOptionHandler = (e) => {
 }
 
 /**
- * @param {Element} fieldElement
+ * Handles the change event of a field element.
+ * @param {HTMLElement} fieldElement - The field element to handle.
  */
 const fieldTypeChangeHandler = (fieldElement) => function eventFunction(event) {
   recalculateFieldIndexes()
@@ -356,6 +391,12 @@ const fieldTypeChangeHandler = (fieldElement) => function eventFunction(event) {
   }
 }
 
+/**
+ * Adds a field handler when a form field is added.
+ *
+ * @param {Event} e - The event object.
+ * @returns {void}
+ */
 const addFieldHandler = (e) => {
   e.preventDefault()
   const fieldElement = createFieldElement()
@@ -371,7 +412,10 @@ const addFieldHandler = (e) => {
 }
 
 /**
- * @param {MouseEvent} e
+ * Removes the field element when triggered by an event.
+ *
+ * @param {Event} e - The event object.
+ * @returns {void}
  */
 const removeFieldHandler = (e) => {
   e.preventDefault()
