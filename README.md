@@ -1,4 +1,4 @@
-# Forms Everywhere by Influactive
+# Forms by Influactive
 
 Create, customize, and manage forms directly from your WordPress dashboard without any public display.
 
@@ -15,7 +15,7 @@ Create, customize, and manage forms directly from your WordPress dashboard witho
 
 ## Description
 
-"Forms Everywhere by Influactive" empowers users to craft custom forms directly from the WordPress dashboard as if
+"Forms by Influactive" empowers users to craft custom forms directly from the WordPress dashboard as if
 they're creating a post. These forms are unique because they do not have a public display, giving users complete control
 over their use.
 
@@ -31,14 +31,14 @@ over their use.
 ## Installation
 
 1. Download the plugin and extract the zip file.
-2. Upload the `forms-everywhere-by-influactive` folder to the `/wp-content/plugins/` directory of your website.
+2. Upload the `influactive-forms` folder to the `/wp-content/plugins/` directory of your website.
 3. Activate the plugin through the "Plugins" menu in WordPress.
-4. Go to the "Forms Everywhere" section in your dashboard to begin designing your forms.
+4. Go to the "Forms" section in your dashboard to begin designing your forms.
 
 ## Frequently Asked Questions
 
 - **How do I create a form?**
-    - Navigate to the "Forms Everywhere" section in your dashboard and follow the intuitive steps, similar to post
+    - Navigate to the "Forms" section in your dashboard and follow the intuitive steps, similar to post
       creation.
 
 - **How do I adjust the email appearance?**

@@ -1,4 +1,4 @@
-=== Forms Everywhere by Influactive ===
+=== Forms by Influactive ===
 Contributors: agreuzard
 Tags: forms, custom forms, design forms, customizable forms, email rendering, backend forms
 Requires at least: 1.2.2
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Easily create, customize, and manage forms within your WordPress dashboard, without any public display.
 
 == Description ==
-"Forms Everywhere by Influactive" gives you the power to craft custom forms directly from your WordPress dashboard as if you're creating a post. The beauty? These forms do not have a public display, giving you complete control over their use. Features include:
+"Forms by Influactive" gives you the power to craft custom forms directly from your WordPress dashboard as if you're creating a post. The beauty? These forms do not have a public display, giving you complete control over their use. Features include:
 
 Create Like a Post: If you're familiar with creating a post in WordPress, you're already a pro at creating a form with our plugin.
 Custom Fields: Define your form fields based on your requirements.
@@ -21,13 +21,13 @@ Private: While the creation process mimics post creation, these forms do not app
 == Installation ==
 
 Download the plugin and extract the zip file.
-Upload the forms-everywhere-by-influactive folder to the /wp-content/plugins/ directory of your website.
+Upload the influactive-forms folder to the /wp-content/plugins/ directory of your website.
 Activate the plugin through the "Plugins" menu in WordPress.
-Navigate to the "Forms Everywhere" section in your dashboard to begin crafting your forms.
+Navigate to the "Forms" section in your dashboard to begin crafting your forms.
 == Frequently Asked Questions ==
 
 How do I create my first form?
-Head to the "Forms Everywhere" section in your dashboard and follow the intuitive steps, much like you would create a post.
+Head to the "Forms" section in your dashboard and follow the intuitive steps, much like you would create a post.
 
 Can I embed my form elsewhere on my site?
 While the forms do not have a public display by default, you can certainly embed them wherever you choose using our provided shortcodes.
