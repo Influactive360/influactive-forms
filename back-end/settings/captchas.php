@@ -1,9 +1,9 @@
 <?php
 /**
- * Description: This file is responsible for the settings of Influactive Forms
+ * Description: This file is responsible for the settings of Forms by Influactive
  *
  * @throws RuntimeException If the WordPress environment is not loaded.
- * @package Influactive Forms
+ * @package Forms by Influactive
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Adds a submenu page for the Influactive Forms plugin.
+ * Adds a submenu page for the Forms by Influactive plugin.
  *
  * This function uses the WordPress `add_submenu_page()` function to add a
  * submenu page. The submenu page is added under the
@@ -36,7 +36,7 @@ function influactive_form_menu(): void {
 add_action( 'admin_menu', 'influactive_form_menu' );
 
 /**
- * Renders the submenu page for the Influactive Forms plugin settings.
+ * Renders the submenu page for the Forms by Influactive plugin settings.
  *
  * This function retrieves the "influactive-forms-captcha-fields" option using
  * the `get_option()` function. It then outputs the HTML markup for the submenu
@@ -62,7 +62,7 @@ function influactive_form_settings_page(): void {
 }
 
 /**
- * Initializes the settings for the Influactive Forms plugin.
+ * Initializes the settings for the Forms by Influactive plugin.
  *
  * This function is called by the WordPress hook `admin_init`.
  * It registers the `influactive-forms-captcha-fields` setting,

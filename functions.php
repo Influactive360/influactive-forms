@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Influactive Forms
+ * Plugin Name: Forms by Influactive
  * Description: A plugin to create custom forms and display them anywhere on your website.
  * Version: 1.3.2.1
  * Author: Influactive
@@ -11,7 +11,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @throws RuntimeException If the WordPress environment is not loaded.
- * @package Influactive Forms
+ * @package Forms by Influactive
  **/
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -210,7 +210,7 @@ function influactive_form_shortcode_enqueue(): void {
 add_action( 'wp_enqueue_scripts', 'influactive_form_shortcode_enqueue' );
 
 /**
- * Loads the Influactive Forms text domain for localization.
+ * Loads the Forms by Influactive text domain for localization.
  *
  * @return void
  */

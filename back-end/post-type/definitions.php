@@ -4,7 +4,7 @@
  * post-type.
  *
  * @throws RuntimeException If the WordPress environment is not loaded.
- * @package Influactive Forms
+ * @package Forms by Influactive
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
