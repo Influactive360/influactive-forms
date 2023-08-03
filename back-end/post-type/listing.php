@@ -29,8 +29,8 @@ add_filter( 'manage_influactive-forms_posts_columns', 'influactive_form_posts_co
 /**
  * Generates a custom column value for the "influactive_form" post type.
  *
- * @param string $column The name of the column.
- * @param int $post_id The ID of the post.
+ * @param string $column  The name of the column.
+ * @param int    $post_id The ID of the post.
  *
  * @return void
  */

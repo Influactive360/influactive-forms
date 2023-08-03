@@ -196,11 +196,11 @@ add_action( 'save_post', 'influactive_form_save_post' );
 /**
  * Create a field for a form.
  *
- * @param string $type The type of field.
- * @param string $name The name of the field.
- * @param int $order The order of the field.
- * @param string $label The label for the field.
- * @param array $options The options for a select field (optional).
+ * @param string $type    The type of field.
+ * @param string $name    The name of the field.
+ * @param int    $order   The order of the field.
+ * @param string $label   The label for the field.
+ * @param array  $options The options for a select field (optional).
  *
  * @return array The created field.
  */
@@ -223,7 +223,7 @@ function influactive_create_field( string $type, string $name, int $order, strin
  * Sanitize a label based on its type.
  *
  * @param string $label The label to sanitize.
- * @param string $type The type of the label.
+ * @param string $type  The type of the label.
  *
  * @return string The sanitized label.
  */
