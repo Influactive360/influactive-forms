@@ -5,9 +5,12 @@ import './form.scss'
 
 /**
  * Recalculates the field indexes for the form fields and their options.
- * If the `form_fields_container` element doesn't exist, the function will return without performing any calculations.
- * The updated field indexes will be reflected in the `name` attribute of the form field elements.
- * The updated option indexes will be reflected in the `name` attribute of the option field elements.
+ * If the `form_fields_container` element doesn't exist,
+ * the function will return without performing any calculations.
+ * The updated field indexes will be reflected in the `name`
+ * attribute of the form field elements.
+ * The updated option indexes will be reflected in the `name` attribute
+ * of the option field elements.
  *
  * @function recalculateFieldIndexes
  * @returns {undefined}
