@@ -223,26 +223,3 @@ function load_influactive_forms_textdomain(): void {
 }
 
 add_action( 'plugins_loaded', 'load_influactive_forms_textdomain' );
-
-/**
- * Requires the WordPress core file from the given possible paths.
- *
- * @param array $possible_paths The possible paths to the WordPress core file.
- *
- * @return void
- * @throws RuntimeException If the DOCUMENT_ROOT is not set.
- */
-function require_wordpress_core( array $possible_paths ): void {
-	if ( isset( $_SERVER['DOCUMENT_ROOT'] ) ) {
-		$base_path = sanitize_text_field( wp_unslash( $_SERVER['DOCUMENT_ROOT'] ) ) ?? '';
-		foreach ( $possible_paths as $possible_path ) {
-			$full_path = $base_path . DIRECTORY_SEPARATOR . ltrim( $possible_path, '/' );
-			if ( file_exists( $full_path ) ) {
-				require_once( $full_path );
-				break;
-			}
-		}
-	} else {
-		throw new RuntimeException( 'DOCUMENT_ROOT not set. Exiting...' );
-	}
-}

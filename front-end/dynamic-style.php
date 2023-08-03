@@ -6,28 +6,26 @@
  * @package Forms by Influactive
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	require_wordpress_core(
-		array(
-			'/wp-load.php', // WordPress.
-			'/wordpress/wp-load.php', // WordPlate.
-			'/wp/wp-load.php', // Radicle.
-		)
-	);
-}
+add_action( 'init', 'influactive_form_style_frontend' );
 
-header( 'Content-type: text/css; charset: UTF-8' );
+/**
+ * Generates the CSS style for the influactive form frontend display.
+ *
+ * @return void
+ */
+function influactive_form_style_frontend(): void {
+	header( 'Content-type: text/css; charset: UTF-8' );
 
-$my_post_id  = isset( $_GET['post_id'] ) ? (int) $_GET['post_id'] : 0;
-$email_style = get_post_meta( $my_post_id, '_influactive_form_email_style', true );
-$form        = $email_style['form'];
-$label       = $email_style['label'];
-$input       = $email_style['input'];
-$submit      = $email_style['submit'];
-$free_text   = $email_style['free_text'];
+	$my_post_id  = isset( $_GET['post_id'] ) ? (int) $_GET['post_id'] : 0;
+	$email_style = get_post_meta( $my_post_id, '_influactive_form_email_style', true );
+	$form        = $email_style['form'];
+	$label       = $email_style['label'];
+	$input       = $email_style['input'];
+	$submit      = $email_style['submit'];
+	$free_text   = $email_style['free_text'];
 
-ob_start();
-?>
+	ob_start();
+	?>
 	.influactive-form-wrapper {
 	padding: <?php echo esc_html( $form['padding'] ); ?>;
 	background-color: <?php echo esc_html( $form['background_color'] ); ?>;
@@ -97,6 +95,7 @@ ob_start();
 	color: <?php echo esc_html( $free_text['color'] ); ?>;
 	}
 
-<?php
-$css = ob_get_clean();
-echo esc_html( $css );
+	<?php
+	$css = ob_get_clean();
+	echo esc_html( $css );
+}
