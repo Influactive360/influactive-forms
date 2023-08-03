@@ -120,16 +120,9 @@ function influactive_forms_settings_section_callback(): void {
 	);
 
 	printf(
-		wp_kses(
+		wp_kses_post(
 		/* translators: %s: URL of the Google captcha site key generation page */
-			__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' ),
-			array(
-				'a' => array(
-					'href'   => array(),
-					'target' => array(),
-					'title'  => array(),
-				),
-			)
+			__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' )
 		),
 		esc_attr( $recaptcha_link )
 	);
