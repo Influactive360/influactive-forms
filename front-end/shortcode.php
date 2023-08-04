@@ -243,7 +243,7 @@ function influactive_form_shortcode_handler( array $atts ): string {
  * This method checks if the current page is in the admin section and if not, it retrieves the form ID from the 'influactive_form_id' meta field of the current post.
  * If the form ID is not found or is falsy, the method returns without enqueueing the dynamic style.
  * Otherwise, it constructs the URL of the dynamic style by appending the form ID as a query parameter to the admin-ajax.php URL.
- * Finally, it enqueues the 'influactive-form-dynamic-style' stylesheet with the constructed URL and a version number of '1.5.0'.
+ * Finally, it enqueues the 'influactive-form-dynamic-style' stylesheet with the constructed URL and a version number of '1.5.1'.
  *
  * @return void
  */
@@ -263,7 +263,7 @@ function influactive_enqueue_form_dynamic_style(): void {
 		'influactive-form-dynamic-style',
 		$dynamic_style_url,
 		array(),
-		'1.5.0'
+		'1.5.1'
 	);
 }
 
