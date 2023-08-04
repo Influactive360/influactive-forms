@@ -1,8 +1,8 @@
 {
-  "name": "vendor_name/influactive-forms",
+  "name": "influactive/forms",
   "description": "A plugin to create custom forms and display them anywhere on your website.",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "GPL-2.0-or-later\n",
   "authors": [
     {
       "name": "influactive",
