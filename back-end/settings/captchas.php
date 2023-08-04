@@ -115,17 +115,17 @@ function influactive_forms_settings_section_callback(): void {
 	$recaptcha_link = sprintf(
 		'<a href="%s" target="_blank" title="%s">%s</a>',
 		esc_url( $recaptcha_url ),
-		esc_attr__( 'reCAPTCHA', 'influactive-forms' ),
+		esc_html__( 'reCAPTCHA', 'influactive-forms' ),
 		esc_html__( 'reCAPTCHA', 'influactive-forms' )
 	);
 
-	printf(
-		wp_kses_post(
-		/* translators: %s: URL of the Google captcha site key generation page */
-			__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' )
-		),
-		esc_attr( $recaptcha_link )
+	$recaptcha = sprintf(
+	/* translators: %s: URL of the Google captcha site key generation page */
+		esc_html__( 'Enter the Google Captcha site key. Here is the link to generate a key: %s', 'influactive-forms' ),
+		wp_kses_post( $recaptcha_link )
 	);
+
+	echo wp_kses_post( $recaptcha );
 }
 
 /**
