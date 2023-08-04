@@ -50,7 +50,7 @@ over their use.
 
 ## Changelog
 
-- **1.3.2.1**
+- **1.5.0**
     - Update details here...
 
 ## License
