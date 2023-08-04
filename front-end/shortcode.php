@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Registers the 'influactive_form' shortcode.
  */
-function register_influactive_form_shortcode(): void {
+function influactive_register_form_shortcode(): void {
 	add_shortcode( 'influactive_form', 'influactive_form_shortcode_handler' );
 }
 
-add_action( 'init', 'register_influactive_form_shortcode', 1 );
+add_action( 'init', 'influactive_register_form_shortcode', 1 );
 
 /**
  * Handles the influactive form shortcode.
@@ -238,9 +238,16 @@ function influactive_form_shortcode_handler( array $atts ): string {
 }
 
 /**
- * Enqueues the dynamic style file for a specific form.
+ * Enqueues the dynamic style for the 'influactive_form' shortcode.
+ *
+ * This method checks if the current page is in the admin section and if not, it retrieves the form ID from the 'influactive_form_id' meta field of the current post.
+ * If the form ID is not found or is falsy, the method returns without enqueueing the dynamic style.
+ * Otherwise, it constructs the URL of the dynamic style by appending the form ID as a query parameter to the admin-ajax.php URL.
+ * Finally, it enqueues the 'influactive-form-dynamic-style' stylesheet with the constructed URL and a version number of '1.3.2.1'.
+ *
+ * @return void
  */
-function enqueue_form_dynamic_style(): void {
+function influactive_enqueue_form_dynamic_style(): void {
 	if ( is_admin() ) {
 		return;
 	}
@@ -250,15 +257,114 @@ function enqueue_form_dynamic_style(): void {
 		return;
 	}
 
+	$dynamic_style_url = admin_url( 'admin-ajax.php' ) . '?action=influactive_dynamic_style&post_id=' . $form_id;
+
 	wp_enqueue_style(
 		'influactive-form-dynamic-style',
-		plugin_dir_url( __FILE__ ) . '/dynamic-style.php?post_id=' . $form_id,
+		$dynamic_style_url,
 		array(),
 		'1.3.2.1'
 	);
 }
 
-add_action( 'wp_enqueue_scripts', 'enqueue_form_dynamic_style' );
+add_action( 'wp_enqueue_scripts', 'influactive_enqueue_form_dynamic_style' );
+
+
+/**
+ * Sets the content type as text/css and outputs the CSS styles for the 'influactive_form' shortcode.
+ *
+ * @return void
+ */
+function influactive_form_style_frontend(): void {
+	header( 'Content-type: text/css; charset: UTF-8' );
+
+	$my_post_id  = isset( $_REQUEST['post_id'] ) ? (int) $_REQUEST['post_id'] : 0;
+	$email_style = get_post_meta( $my_post_id, '_influactive_form_email_style', true );
+	$form        = $email_style['form'];
+	$label       = $email_style['label'];
+	$input       = $email_style['input'];
+	$submit      = $email_style['submit'];
+	$free_text   = $email_style['free_text'];
+
+	ob_start();
+	?>
+	.influactive-form-wrapper {
+	padding: <?php echo esc_html( $form['padding'] ); ?>;
+	background-color: <?php echo esc_html( $form['background_color'] ); ?>;
+	border-width: <?php echo esc_html( $form['border_width'] ); ?>;
+	border-style: <?php echo esc_html( $form['border_style'] ); ?>;
+	border-color: <?php echo esc_html( $form['border_color'] ); ?>;
+	}
+
+	.influactive-form-wrapper label {
+	font-weight: <?php echo esc_html( $label['font_weight'] ); ?>;
+	font-family: <?php echo esc_html( $label['font_family'] ); ?>;
+	font-size: <?php echo esc_html( $label['font_size'] ); ?>;
+	color: <?php echo esc_html( $label['font_color'] ); ?>;
+	line-height: <?php echo esc_html( $label['line_height'] ); ?>;
+	}
+
+	.influactive-form-wrapper input[type="text"],
+	.influactive-form-wrapper input[type="email"],
+	.influactive-form-wrapper input[type="number"],
+	.influactive-form-wrapper textarea,
+	.influactive-form-wrapper select {
+	padding: <?php echo esc_html( $input['padding'] ); ?>;
+	border-width: <?php echo esc_html( $input['border_width'] ); ?>;
+	border-style: <?php echo esc_html( $input['border_style'] ); ?>;
+	border-color: <?php echo esc_html( $input['border_color'] ); ?>;
+	border-radius: <?php echo esc_html( $input['border_radius'] ); ?>;
+	background-color: <?php echo esc_html( $input['background_color'] ); ?>;
+	color: <?php echo esc_html( $input['font_color'] ); ?>;
+	font-size: <?php echo esc_html( $input['font_size'] ); ?>;
+	font-weight: <?php echo esc_html( $input['font_weight'] ); ?>;
+	font-family: <?php echo esc_html( $input['font_family'] ); ?>;
+	line-height: <?php echo esc_html( $input['line_height'] ); ?>;
+	}
+
+	.influactive-form-wrapper input[type="checkbox"] {
+	color: <?php echo esc_html( $input['font_color'] ); ?>;
+	font-size: <?php echo esc_html( $input['font_size'] ); ?>;
+	font-weight: <?php echo esc_html( $input['font_weight'] ); ?>;
+	font-family: <?php echo esc_html( $input['font_family'] ); ?>;
+	line-height: <?php echo esc_html( $input['line_height'] ); ?>;
+	}
+
+	.influactive-form-wrapper input[type="submit"] {
+	padding: <?php echo esc_html( $submit['padding'] ); ?>;
+	color: <?php echo esc_html( $submit['font_color'] ); ?>;
+	background-color: <?php echo esc_html( $submit['background_color'] ); ?>;
+	border-radius: <?php echo esc_html( $submit['border_radius'] ); ?>;
+	border-width: <?php echo esc_html( $submit['border_width'] ); ?>;
+	border-style: <?php echo esc_html( $submit['border_style'] ); ?>;
+	border-color: <?php echo esc_html( $submit['border_color'] ); ?>;
+	font-size: <?php echo esc_html( $submit['font_size'] ); ?>;
+	font-weight: <?php echo esc_html( $submit['font_weight'] ); ?>;
+	font-family: <?php echo esc_html( $submit['font_family'] ); ?>;
+	line-height: <?php echo esc_html( $submit['line_height'] ); ?>;
+	}
+
+	.influactive-form-wrapper input[type="submit"]:hover {
+	background-color: <?php echo esc_html( $submit['background_hover_color'] ); ?>;
+	color: <?php echo esc_html( $submit['font_hover_color'] ); ?>;
+	}
+
+	.influactive-form-wrapper .free-text {
+	font-size: <?php echo esc_html( $free_text['font_size'] ); ?>;
+	font-weight: <?php echo esc_html( $free_text['font_weight'] ); ?>;
+	font-family: <?php echo esc_html( $free_text['font_family'] ); ?>;
+	line-height: <?php echo esc_html( $free_text['line_height'] ); ?>;
+	color: <?php echo esc_html( $free_text['color'] ); ?>;
+	}
+
+	<?php
+	$css = ob_get_clean();
+	echo esc_html( $css );
+	exit;
+}
+
+add_action( 'wp_ajax_influactive_dynamic_style', 'influactive_form_style_frontend' );
+add_action( 'wp_ajax_nopriv_influactive_dynamic_style', 'influactive_form_style_frontend' );
 
 /**
  * Sends an email based on the submitted form data.
