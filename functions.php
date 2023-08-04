@@ -164,10 +164,6 @@ function influactive_form_shortcode_enqueue(): void {
 		return;
 	}
 
-	if ( wp_script_is( 'google-captcha' ) || wp_script_is( 'google-recaptcha' ) ) {
-		return;
-	}
-
 	$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
 	$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? null;
 	$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? null;
