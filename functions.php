@@ -210,7 +210,7 @@ add_action( 'wp_enqueue_scripts', 'influactive_form_shortcode_enqueue' );
  *
  * @return void
  */
-function load_influactive_forms_textdomain(): void {
+function influactive_load_forms_textdomain(): void {
 	load_plugin_textdomain(
 		'influactive-forms',
 		false,
@@ -218,4 +218,4 @@ function load_influactive_forms_textdomain(): void {
 	);
 }
 
-add_action( 'plugins_loaded', 'load_influactive_forms_textdomain' );
+add_action( 'plugins_loaded', 'influactive_load_forms_textdomain' );
