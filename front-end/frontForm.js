@@ -3,14 +3,15 @@ import './form.scss'
 /* global grecaptcha, ajaxObject */
 
 /**
- * Submits a form using AJAX and displays the response message in a designated message div.
- * @param {HTMLElement} messageDivParam
- * @param {HTMLFormElement} form - The form element to be submitted.
- * @param {string} recaptchaResponse - The recaptcha response token, if applicable.
+ * Submits a form using AJAX and displays the response message in a specified message div.
+ *
+ * @param {Element} messageDivParam - The message element where a response message displayed.
+ * @param {Element} form - The form element to be submitted.
+ * @param {string} recaptchaResponse - The response from the reCAPTCHA widget (optional).
  */
 const submitFormGlobal = (messageDivParam, form, recaptchaResponse) => {
   let message
-  const messageDiv = messageDivParam // create a local variable
+  const messageDiv = messageDivParam
   const xhr = new XMLHttpRequest()
   const formData = new FormData(form)
   formData.append('action', 'send_email')
