@@ -9,6 +9,11 @@
       "email": "support@influactive.com"
     }
   ],
+  "config": {
+    "platform": {
+      "php": "8.0"
+    }
+  },
   "require": {
     "ext-curl": "*",
     "php": ">=8.0"

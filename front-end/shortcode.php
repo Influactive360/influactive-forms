@@ -45,13 +45,22 @@ function influactive_form_shortcode_handler( array $atts ): string {
 		return false;
 	}
 
-	// Showing the form if it exists.
-	$form = get_post( $form_id );
+	$form = get_transient( 'influactive_form_' . $form_id );
+
+	if ( false === $form ) {
+		$form = get_post( $form_id );
+		set_transient( 'influactive_form_' . $form_id, $form, 12 * HOUR_IN_SECONDS );
+	}
 
 	if ( $form && 'publish' === $form->post_status && 'influactive-forms' === $form->post_type ) {
 		update_post_meta( get_the_ID(), 'influactive_form_id', $form_id );
 
-		$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
+		$fields = get_transient( 'influactive_form_fields_' . $form_id );
+
+		if ( false === $fields ) {
+			$fields = get_post_meta( $form_id, '_influactive_form_fields', true ) ?? array();
+			set_transient( 'influactive_form_fields_' . $form_id, $fields, 12 * HOUR_IN_SECONDS );
+		}
 		?>
 		<div class="influactive-form-wrapper">
 			<form
@@ -71,9 +80,18 @@ function influactive_form_shortcode_handler( array $atts ): string {
 
 
 				<?php
-				$options_captcha    = get_option( 'influactive-forms-captcha-fields' ) ?? array();
-				$public_site_key    = $options_captcha['google-captcha']['public-site-key'] ?? '';
-				$secret_site_key    = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+				$captcha_keys       = get_transient( 'influactive_captcha_keys' );
+
+				if ( false === $captcha_keys ) {
+					$options_captcha = get_option( 'influactive-forms-captcha-fields' ) ?? array();
+					$public_site_key = $options_captcha['google-captcha']['public-site-key'] ?? '';
+					$secret_site_key = $options_captcha['google-captcha']['secret-site-key'] ?? '';
+					$captcha_keys    = array(
+						'public' => $public_site_key,
+						'secret' => $secret_site_key
+					);
+					set_transient( 'influactive_captcha_keys', $captcha_keys, 12 * HOUR_IN_SECONDS );
+				}
 
 				if ( ! empty( $public_site_key ) && ! empty( $secret_site_key ) ) {
 					?>

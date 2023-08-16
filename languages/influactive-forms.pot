@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-03T09:45:43+00:00\n"
+"POT-Creation-Date: 2023-08-16T13:12:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: influactive-forms\n"
@@ -542,46 +542,46 @@ msgid "reCAPTCHA"
 msgstr ""
 
 #. translators: %s: URL of the Google captcha site key generation page
-#: back-end/settings/captchas.php:125
+#: back-end/settings/captchas.php:124
 msgid "Enter the Google Captcha site key. Here is the link to generate a key: %s"
 msgstr ""
 
-#: front-end/shortcode.php:193
+#: front-end/shortcode.php:211
 msgid "Check our Privacy Policy"
 msgstr ""
 
-#: front-end/shortcode.php:278
+#: front-end/shortcode.php:402
 msgid "Nonce verification failed"
 msgstr ""
 
-#: front-end/shortcode.php:284
+#: front-end/shortcode.php:408
 msgid "Form ID is required"
 msgstr ""
 
 #. translators: %s is a placeholder for the field name
-#: front-end/shortcode.php:297
+#: front-end/shortcode.php:421
 msgid "The field %s is required"
 msgstr ""
 
-#: front-end/shortcode.php:334
-#: front-end/shortcode.php:359
+#: front-end/shortcode.php:458
+#: front-end/shortcode.php:483
 msgid "Failed to verify reCAPTCHA"
 msgstr ""
 
-#: front-end/shortcode.php:349
+#: front-end/shortcode.php:473
 msgid "Bot detected"
 msgstr ""
 
 #. translators: %s is a placeholder for the file URL
-#: front-end/shortcode.php:424
+#: front-end/shortcode.php:548
 msgid "<a href='%s' target='_blank' title='Download our brochure'>Download our brochure</a>"
 msgstr ""
 
-#: front-end/shortcode.php:450
+#: front-end/shortcode.php:574
 msgid "Email sent successfully"
 msgstr ""
 
-#: front-end/shortcode.php:456
+#: front-end/shortcode.php:580
 msgid "Failed to send email"
 msgstr ""
 
