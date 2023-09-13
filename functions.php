@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	throw new RuntimeException( 'WordPress environment not loaded. Exiting...' );
 }
 
-require_once( plugin_dir_path( __FILE__ ) . 'back-end/post-type/definitions.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'back-end/post-type/edit.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'back-end/post-type/listing.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'back-end/settings/captchas.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'front-end/shortcode.php' );
+require_once plugin_dir_path( __FILE__ ) . 'back-end/post-type/definitions.php';
+require_once plugin_dir_path( __FILE__ ) . 'back-end/post-type/edit.php';
+require_once plugin_dir_path( __FILE__ ) . 'back-end/post-type/listing.php';
+require_once plugin_dir_path( __FILE__ ) . 'back-end/settings/captchas.php';
+require_once plugin_dir_path( __FILE__ ) . 'front-end/shortcode.php';
 
 /**
  * Adds a settings link to the plugin page.
@@ -103,7 +103,8 @@ function influactive_form_edit( string $hook ): void {
 		plugin_dir_url( __FILE__ )
 		. 'dist/backEndForm.bundled.js',
 		array(),
-		'1.5.1'
+		'1.5.1',
+		true
 	);
 	wp_enqueue_style(
 		'influactive-form',
