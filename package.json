@@ -29,7 +29,7 @@
   "homepage": "https://github.com/Influactive360/influactive-forms#readme",
   "dependencies": {
     "@microsoft/eslint-formatter-sarif": "^3.0.0",
-    "sass": "^1.66.1",
+    "sass": "^1.69.3",
     "sortablejs": "^1.15.0",
     "tinymce": "^6.7.0",
     "vite": "^4.4.9"
